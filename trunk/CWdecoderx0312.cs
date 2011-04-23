@@ -366,7 +366,7 @@ namespace CWExpert
                 if (Char.IsDigit(ch))
                 {
                     valid[z] = true;
-//                    if (!lid) { rx_timer = ponovi; } 
+                    if (!lid) { rx_timer = ponovi; } 
                 }
             }
             else if (sum[z] == 75) { ch = '?'; }
