@@ -421,6 +421,22 @@ namespace CWExpert
                 MainForm.MRIsRunning = pwr;
             }
         }
+
+        private void btnAudioStreamInfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PA19.PaStreamInfo info;
+                info = Audio.GetStreamInfo();
+                lblAudioStreamInputLatencyValue.Text = Math.Round((info.inputLatency * 1000), 1).ToString() + "mS";
+                lblAudioStreamOutputLatencyValuelabel.Text = Math.Round((info.outputLatency * 1000), 1).ToString() + "mS";
+                lblAudioStreamSampleRateValue.Text = info.sampleRate.ToString();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
     }
 
     #region PADeviceInfo Helper Class

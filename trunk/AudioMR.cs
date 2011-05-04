@@ -85,7 +85,7 @@ namespace CWExpert
                 int* array_ptr = (int*)input;
                 ushort* in_ptr_l = (ushort*)array_ptr[0];
 
-                /*
+                
                 ushort* in_ptr_r = (ushort*)array_ptr[1];
 
                 int* out_array_ptr = (int*)output;
@@ -105,7 +105,7 @@ namespace CWExpert
                 in_ptr_l = (ushort*)array_ptr[0];
                 in_ptr_r = (ushort*)array_ptr[1];
 
-*/
+
                 ushort[] buffer_l = new ushort[frameCount];
 //              ushort[] buffer_r = new ushort[frameCount];
 
@@ -192,11 +192,21 @@ namespace CWExpert
                 outparam.sampleFormat = PA19.paInt16 | PA19.paNonInterleaved;
                 outparam.suggestedLatency = ((float)latency_ms / 1000);
 
+                if (host_api_index == PA19.PA_HostApiTypeIdToHostApiIndex(PA19.PaHostApiTypeId.paWASAPI))
+                {
+                    PA19.PaWasapiStreamInfo stream_info = new PA19.PaWasapiStreamInfo();
+                    stream_info.hostApiType = PA19.PaHostApiTypeId.paWASAPI;
+                    stream_info.version = 1;
+                    stream_info.size = (UInt32)sizeof(PA19.PaWasapiStreamInfo);
+                    inparam.hostApiSpecificStreamInfo = &stream_info;
+                    outparam.hostApiSpecificStreamInfo = &stream_info;
+                }
+
                 int error = 0;
                 if (callback_num == 0)
-                    error = PA19.PA_OpenStream(out stream1, &inparam, &outparam, sample_rate, block_size, 0, callback, 0);
+                    error = PA19.PA_OpenStream(out stream1, &inparam, &outparam, sample_rate, block_size, 0, callback, 0, 0);
                 else
-                    error = PA19.PA_OpenStream(out stream2, &inparam, &outparam, sample_rate, block_size, 0, callback, 1);
+                    error = PA19.PA_OpenStream(out stream2, &inparam, &outparam, sample_rate, block_size, 0, callback, 0, 1);
 
                 if (error != 0)
                 {
@@ -271,6 +281,15 @@ namespace CWExpert
                 a.Add(info.name);
             }
             return a;
+        }
+
+        public unsafe static PA19.PaStreamInfo GetStreamInfo()
+        {
+            PA19.PaStreamInfo stream_info = new PA19.PaStreamInfo();
+
+            stream_info = PA19.PA_GetStreamInfo(stream1);
+
+            return stream_info;
         }
 
         #endregion

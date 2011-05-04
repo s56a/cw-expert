@@ -50,10 +50,10 @@ namespace CWExpert
         public enum PaErrorCode
         {
             paNoError = 0, paNotInitialized = -10000, paUnanticipatedHostError, paInvalidChannelCount,
-            paInvalidSampleRate, paInvalidDevice, paInvalidFlag, paSampleFormatNotSupported,
-            paBadIODeviceCombination, paInsufficientMemory, paBufferTooBig, paBufferTooSmall,
+            paInvalidSampleRate, paInvaliddevice, paInvalidFlag, paSampleFormatNotSupported,
+            paBadIOdeviceCombination, paInsufficientMemory, paBufferTooBig, paBufferTooSmall,
             paNullCallback, paBadStreamPtr, paTimedOut, paInternalError,
-            paDeviceUnavailable, paIncompatibleHostApiSpecificStreamInfo, paStreamIsStopped, paStreamIsNotStopped,
+            padeviceUnavailable, paIncompatibleHostApiSpecificStreamInfo, paStreamIsStopped, paStreamIsNotStopped,
             paInputOverflowed, paOutputUnderflowed, paHostApiNotFound, paInvalidHostApi,
             paCanNotReadFromACallbackStream, paCanNotWriteToACallbackStream, paCanNotReadFromAnOutputOnlyStream, paCanNotWriteToAnInputOnlyStream,
             paIncompatibleStreamHostApi
@@ -63,11 +63,118 @@ namespace CWExpert
         {
             paInDevelopment = 0, paDirectSound = 1, paMME = 2, paASIO = 3,
             paSoundManager = 4, paCoreAudio = 5, paOSS = 7, paALSA = 8,
-            paAL = 9, paBeOS = 10
+            paAL = 9, paBeOS = 10, paWDMKS = 11, paJACK = 12, paWASAPI = 13, paAudioScience = 14,
         }
 
         public enum PaStreamCallbackResult
         { paContinue = 0, paComplete = 1, paAbort = 2 }
+
+        /* Jack connection type */
+        public enum PaWasapiJackConnectionType
+        {
+            eJackConnTypeUnknown,
+            eJackConnType3Point5mm,
+            eJackConnTypeQuarter,
+            eJackConnTypeAtapiInternal,
+            eJackConnTypeRCA,
+            eJackConnTypeOptical,
+            eJackConnTypeOtherDigital,
+            eJackConnTypeOtherAnalog,
+            eJackConnTypeMultichannelAnalogDIN,
+            eJackConnTypeXlrProfessional,
+            eJackConnTypeRJ11Modem,
+            eJackConnTypeCombination,
+        }
+
+        /* Jack geometric location */
+        public enum PaWasapiJackGeoLocation
+        {
+            eJackGeoLocUnk = 0,
+            eJackGeoLocRear = 0x1, /* matches EPcxGeoLocation::eGeoLocRear */
+            eJackGeoLocFront,
+            eJackGeoLocLeft,
+            eJackGeoLocRight,
+            eJackGeoLocTop,
+            eJackGeoLocBottom,
+            eJackGeoLocRearPanel,
+            eJackGeoLocRiser,
+            eJackGeoLocInsideMobileLid,
+            eJackGeoLocDrivebay,
+            eJackGeoLocHDMI,
+            eJackGeoLocOutsideMobileLid,
+            eJackGeoLocATAPI,
+            eJackGeoLocReserved5,
+            eJackGeoLocReserved6,
+        }
+
+        /* Jack general location */
+        public enum PaWasapiJackGenLocation
+        {
+            eJackGenLocPrimaryBox = 0,
+            eJackGenLocInternal,
+            eJackGenLocSeparate,
+            eJackGenLocOther
+        }
+
+        /* Jack's type of port */
+        public enum PaWasapiJackPortConnection
+        {
+            eJackPortConnJack = 0,
+            eJackPortConnIntegrateddevice,
+            eJackPortConnBothIntegratedAndJack,
+            eJackPortConnUnknown
+        }
+
+        /* device role */
+        public enum PaWasapideviceRole
+        {
+            eRoleRemoteNetworkdevice = 0,
+            eRoleSpeakers,
+            eRoleLineLevel,
+            eRoleHeadphones,
+            eRoleMicrophone,
+            eRoleHeadset,
+            eRoleHandset,
+            eRoleUnknownDigitalPassthrough,
+            eRoleSPDIF,
+            eRoleHDMI,
+            eRoleUnknownFormFactor
+        }
+
+        /* Thread priority */
+        public enum PaWasapiThreadPriority
+        {
+            eThreadPriorityNone = 0,
+            eThreadPriorityAudio,            //!< Default for Shared mode.
+            eThreadPriorityCapture,
+            eThreadPriorityDistribution,
+            eThreadPriorityGames,
+            eThreadPriorityPlayback,
+            eThreadPriorityProAudio,        //!< Default for Exclusive mode.
+            eThreadPriorityWindowManager
+        }
+
+        /* Setup flags */
+        public enum PaWasapiFlags
+        {
+            /* puts WASAPI into exclusive mode */
+            paWinWasapiExclusive = 1,
+
+            /* allows to skip internal PA processing completely */
+            paWinWasapiRedirectHostProcessor = 2,
+
+            /* assigns custom channel mask */
+            paWinWasapiUseChannelMask = 4,
+
+            /* selects non-Event driven method of data read/write
+               Note: WASAPI Event driven core is capable of 2ms latency!!!, but Polling
+                     method can only provide 15-20ms latency. */
+            paWinWasapiPolling = 8,
+
+            /* forces custom thread priority setting. must be used if PaWasapiStreamInfo::threadPriority 
+               is set to custom value. */
+            paWinWasapiThreadPriority = 16
+        }
 
         #endregion
 
@@ -135,6 +242,55 @@ namespace CWExpert
             public PaTime inputLatency;
             public PaTime outputLatency;
             public double sampleRate;
+        }
+
+        /* Wasapi Jack descriptor. */
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PaWasapiJackDescription
+        {
+            public UInt32 channelMapping;
+            public UInt32 color; /* derived from macro: #define RGB(r,g,b) ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16))) */
+            public PaWasapiJackConnectionType connectionType;
+            public PaWasapiJackGeoLocation geoLocation;
+            public PaWasapiJackGenLocation genLocation;
+            public PaWasapiJackPortConnection portConnection;
+            public UInt32 isConnected;
+        }
+
+        /* Stream descriptor. */
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PaWasapiStreamInfo
+        {
+            public UInt32 size;             /**< sizeof(PaWasapiStreamInfo) */
+            public PaHostApiTypeId hostApiType;    /**< paWASAPI */
+            public UInt32 version;          /**< 1 */
+
+            public UInt32 flags;            /**< collection of PaWasapiFlags */
+
+            /* Support for WAVEFORMATEXTENSIBLE channel masks. If flags contains
+               paWinWasapiUseChannelMask this allows you to specify which speakers 
+               to address in a multichannel stream. Constants for channelMask
+               are specified in pa_win_waveformat.h. Will be used only if 
+               paWinWasapiUseChannelMask flag is specified.
+            */
+            UInt32 channelMask;
+
+            /* Delivers raw data to callback obtained from GetBuffer() methods skipping 
+               internal PortAudio processing inventory completely. userData parameter will 
+               be the same that was passed to Pa_OpenStream method. Will be used only if 
+               paWinWasapiRedirectHostProcessor flag is specified.
+            */
+            //            PaWasapiHostProcessorCallback hostProcessorOutput;
+            //            PaWasapiHostProcessorCallback hostProcessorInput;
+
+            /* Specifies thread priority explicitly. Will be used only if paWinWasapiThreadPriority flag
+               is specified.
+
+               Please note, if Input/Output streams are opened simultaniously (Full-Duplex mode)
+               you shall specify same value for threadPriority or othervise one of the values will be used
+               to setup thread priority.
+            */
+            public PaWasapiThreadPriority threadPriority;
         }
 
         #endregion
@@ -219,7 +375,7 @@ namespace CWExpert
             uint framesPerBuffer,
             PaStreamFlags streamFlags,
             PaStreamCallback streamCallback,
-            int callback_id);
+            int user_data, int callback_id);
 
         [DllImport("PA19.dll")]
         unsafe public static extern PaError PA_OpenDefaultStream(
@@ -230,7 +386,7 @@ namespace CWExpert
             double sampleRate,
             uint framesPerBuffer,
             PaStreamCallback streamCallback,
-            int callback_id);
+            int user_data, int callback_id);
 
         [DllImport("PA19.dll")]
         unsafe public static extern PaError PA_CloseStream(void* stream);
@@ -286,6 +442,25 @@ namespace CWExpert
 
         [DllImport("PA19.dll")]
         public static extern void PA_Sleep(int msec);
+
+/*        [DllImport("PA19.dll")]
+        public static extern int PAWasapi_GetDeviceRole(PadeviceIndex index);
+
+        [DllImport("PA19.dll")]
+        unsafe public static extern PaError PAWasapi_GetJackCount(PadeviceIndex index, int* count);
+
+        [DllImport("PA19.dll")]
+        unsafe public static extern PaError PAWasapi_GetJackDescription(PadeviceIndex index, int jack_index, PaWasapiJackDescription* pJackDescription);
+
+        [DllImport("PA19.dll")]
+        unsafe public static extern int PAWasapi_GetDeviceDefaultFormat(void* pFormat, UInt32 nFormatSize, PadeviceIndex ndevice);*/
+
+        [DllImport("PA19.dll")]
+        unsafe public static extern PaError PAWasapi_ThreadPriorityBoost(void** hTask, PaWasapiThreadPriority nPriorityClass);
+
+        [DllImport("PA19.dll")]
+        unsafe public static extern PaError PAWasapi_ThreadPriorityRevert(void* hTask);
+
 
         unsafe public delegate int PaStreamCallback(void* input, void* output, int frameCount,
             PaStreamCallbackTimeInfo* timeInfo, int statusFlags, void* userData);

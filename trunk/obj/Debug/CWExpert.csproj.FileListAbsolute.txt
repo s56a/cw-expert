@@ -57,3 +57,17 @@ E:\S5M\yt7pwr\CWExpertMR\CWExpert\bin\Debug\CWExpert.exe.manifest
 E:\S5M\yt7pwr\CWExpertMR\CWExpert\bin\Debug\CWExpert.application
 E:\S5M\yt7pwr\CWExpertMR\CWExpert\obj\Debug\CWExpert.exe.manifest
 E:\S5M\yt7pwr\CWExpertMR\CWExpert\obj\Debug\CWExpert.application
+E:\CW expert\bin\Debug\CWExpert.exe.config
+E:\CW expert\obj\Debug\CWExpert.exe
+E:\CW expert\obj\Debug\CWExpert.pdb
+E:\CW expert\bin\Debug\CWExpert.exe.manifest
+E:\CW expert\bin\Debug\CWExpert.application
+E:\CW expert\bin\Debug\CWExpert.exe
+E:\CW expert\bin\Debug\CWExpert.pdb
+E:\CW expert\obj\Debug\ResolveAssemblyReference.cache
+E:\CW expert\obj\Debug\CWExpert.CWExpert.resources
+E:\CW expert\obj\Debug\CWExpert.Properties.Resources.resources
+E:\CW expert\obj\Debug\CWExpert.Setup.resources
+E:\CW expert\obj\Debug\CWExpert.csproj.GenerateResource.Cache
+E:\CW expert\obj\Debug\CWExpert.exe.manifest
+E:\CW expert\obj\Debug\CWExpert.application

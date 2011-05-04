@@ -18,7 +18,7 @@
   </xs:schema>
   <Options>
     <Key>comboAudioInput</Key>
-    <Value>SoundMAX HD Audio</Value>
+    <Value>Line 3/4 (M-Audio Delta 44)</Value>
   </Options>
   <Options>
     <Key>comboAudioDriver</Key>
@@ -26,7 +26,7 @@
   </Options>
   <Options>
     <Key>udLatency</Key>
-    <Value>32</Value>
+    <Value>50</Value>
   </Options>
   <Options>
     <Key>comboAudioSampleRate</Key>
@@ -34,7 +34,7 @@
   </Options>
   <Options>
     <Key>comboAudioOutput</Key>
-    <Value>SoundMAX HD Audio</Value>
+    <Value>Speakers (High Definition Audio</Value>
   </Options>
   <Options>
     <Key>comboAudioBuffer</Key>

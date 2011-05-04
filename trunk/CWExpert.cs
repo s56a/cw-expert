@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Collections;
 using System.Threading;
+using System.Diagnostics;
 
 
 namespace CWExpert
@@ -95,7 +96,7 @@ namespace CWExpert
             Audio.MainForm = this;
             PA19.PA_Initialize();
             SetupForm = new Setup(this);
-            cwDecoder = new CWDecode(this);
+            cwDecoder = new CWDecode(this);   
         }
 
         #endregion
@@ -418,7 +419,8 @@ namespace CWExpert
                     cwDecoder.CWdecodeStop();
                     Audio.StopAudio();
                     Thread.Sleep(100);
-                    cwDecoder.AudioEvent.Close();
+                    if (cwDecoder.AudioEvent != null)
+                        cwDecoder.AudioEvent.Close();
                     cwDecoder.AudioEvent = null;
                     EnsureMRWindow();
                     if (topWindow == 0)
@@ -487,7 +489,7 @@ namespace CWExpert
         {
             try
             {
-                Callers.Items.Add(txtCall.Text+" ");
+//                Callers.Items.Add(txtCall.Text+" ");
                 EnsureMREditWindows();
 
                 if (topWindow != 0)
@@ -594,19 +596,38 @@ namespace CWExpert
 
         private void btngrab_Click(object sender, EventArgs e)
         {
-            txtCALL = Callers.SelectedItem.ToString();
+//            txtCALL = Callers.SelectedItem.ToString();
  
         }
 
         private void btnclr_Click(object sender, EventArgs e)
         {
-            string si = Callers.SelectedItem.ToString();
-            Callers.Items.Remove(si);
-        }
- 
-        public void Callers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            try
+            {
+                txtChannel2.Clear();
+                txtChannel3.Clear();
+                txtChannel4.Clear();
+                txtChannel5.Clear();
+                txtChannel6.Clear();
+                txtChannel7.Clear();
+                txtChannel8.Clear();
+                txtChannel9.Clear();
+                txtChannel10.Clear();
+                txtChannel11.Clear();
+                txtChannel12.Clear();
+                txtChannel13.Clear();
+                txtChannel14.Clear();
+                txtChannel15.Clear();
+                txtChannel16.Clear();
+                txtChannel17.Clear();
+                txtChannel18.Clear();
+                txtChannel19.Clear();
+                txtChannel20.Clear();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
     }
 }

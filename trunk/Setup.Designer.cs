@@ -45,6 +45,10 @@
             this.comboAudioSampleRate = new System.Windows.Forms.ComboBox();
             this.tbSetup = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblAudioStreamSampleRateValue = new System.Windows.Forms.Label();
+            this.lblAudioStreamOutputLatencyValuelabel = new System.Windows.Forms.Label();
+            this.lblAudioStreamInputLatencyValue = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.lblCallSign = new System.Windows.Forms.Label();
             this.txtCALL = new System.Windows.Forms.TextBox();
             this.tabPage1.SuspendLayout();
@@ -244,6 +248,10 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.lblAudioStreamSampleRateValue);
+            this.tabPage2.Controls.Add(this.lblAudioStreamOutputLatencyValuelabel);
+            this.tabPage2.Controls.Add(this.lblAudioStreamInputLatencyValue);
+            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.lblCallSign);
             this.tabPage2.Controls.Add(this.txtCALL);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -252,6 +260,43 @@
             this.tabPage2.Size = new System.Drawing.Size(347, 266);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Misc";
+            // 
+            // lblAudioStreamSampleRateValue
+            // 
+            this.lblAudioStreamSampleRateValue.AutoSize = true;
+            this.lblAudioStreamSampleRateValue.Location = new System.Drawing.Point(154, 184);
+            this.lblAudioStreamSampleRateValue.Name = "lblAudioStreamSampleRateValue";
+            this.lblAudioStreamSampleRateValue.Size = new System.Drawing.Size(35, 13);
+            this.lblAudioStreamSampleRateValue.TabIndex = 5;
+            this.lblAudioStreamSampleRateValue.Text = "label5";
+            // 
+            // lblAudioStreamOutputLatencyValuelabel
+            // 
+            this.lblAudioStreamOutputLatencyValuelabel.AutoSize = true;
+            this.lblAudioStreamOutputLatencyValuelabel.Location = new System.Drawing.Point(158, 149);
+            this.lblAudioStreamOutputLatencyValuelabel.Name = "lblAudioStreamOutputLatencyValuelabel";
+            this.lblAudioStreamOutputLatencyValuelabel.Size = new System.Drawing.Size(35, 13);
+            this.lblAudioStreamOutputLatencyValuelabel.TabIndex = 4;
+            this.lblAudioStreamOutputLatencyValuelabel.Text = "label4";
+            // 
+            // lblAudioStreamInputLatencyValue
+            // 
+            this.lblAudioStreamInputLatencyValue.AutoSize = true;
+            this.lblAudioStreamInputLatencyValue.Location = new System.Drawing.Point(158, 114);
+            this.lblAudioStreamInputLatencyValue.Name = "lblAudioStreamInputLatencyValue";
+            this.lblAudioStreamInputLatencyValue.Size = new System.Drawing.Size(35, 13);
+            this.lblAudioStreamInputLatencyValue.TabIndex = 3;
+            this.lblAudioStreamInputLatencyValue.Text = "label3";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(136, 219);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Test";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnAudioStreamInfo_Click);
             // 
             // lblCallSign
             // 
@@ -274,7 +319,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(405, 394);
+            this.ClientSize = new System.Drawing.Size(397, 388);
             this.Controls.Add(this.tbSetup);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnOK);
@@ -316,5 +361,9 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label lblCallSign;
         public System.Windows.Forms.TextBox txtCALL;
+        private System.Windows.Forms.Label lblAudioStreamSampleRateValue;
+        private System.Windows.Forms.Label lblAudioStreamOutputLatencyValuelabel;
+        private System.Windows.Forms.Label lblAudioStreamInputLatencyValue;
+        private System.Windows.Forms.Button button1;
     }
 }
