@@ -4,14 +4,14 @@
   <description asmv2:publisher="Microsoft" asmv2:product="CWExpert" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="CWExpert.exe.manifest" size="3375">
+    <dependentAssembly dependencyType="install" codebase="CWExpert.exe.manifest" size="3659">
       <assemblyIdentity name="CWExpert.exe" version="1.0.0.3" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>u1ys11mdkCya2yRw5HueHwKw0DM=</dsig:DigestValue>
+        <dsig:DigestValue>LzrCjF2wevIiZrMlxrzbx/K1jO8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

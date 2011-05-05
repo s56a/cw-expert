@@ -1,4 +1,24 @@
-﻿using System;
+﻿//=================================================================
+// Setup.cs
+//=================================================================
+// Copyright (C) 2011 S56A YT7PWR
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//=================================================================
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -436,6 +456,28 @@ namespace CWExpert
             {
                 Debug.Write(ex.ToString());
             }
+        }
+
+        private void chkAlwaysOnTop_CheckedChanged(object sender, EventArgs e)
+        {
+            MainForm.AlwaysOnTop = chkAlwaysOnTop.Checked;
+        }
+
+        private void udRefreshRate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void udDisplayLow_ValueChanged(object sender, EventArgs e)
+        {
+            DirectX.SpectrumGridMin = (int)udDisplayLow.Value;
+            DirectX.WaterfallLowThreshold = (float)udDisplayLow.Value;
+        }
+
+        private void udDisplayHigh_ValueChanged(object sender, EventArgs e)
+        {
+            DirectX.SpectrumGridMax = (int)udDisplayHigh.Value;
+            DirectX.WaterfallHighThreshold = (float)udDisplayHigh.Value;
         }
     }
 

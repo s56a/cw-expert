@@ -1,3 +1,23 @@
+//=================================================================
+// AudioMR.cs
+//=================================================================
+// Copyright (C) 2011 S56A YT7PWR
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//=================================================================
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -83,14 +103,14 @@ namespace CWExpert
             try
             {
                 int* array_ptr = (int*)input;
-                ushort* in_ptr_l = (ushort*)array_ptr[0];
+                short* in_ptr_l = (short*)array_ptr[0];
 
                 
-                ushort* in_ptr_r = (ushort*)array_ptr[1];
+                short* in_ptr_r = (short*)array_ptr[1];
 
                 int* out_array_ptr = (int*)output;
-                ushort* out_l_ptr1 = (ushort*)out_array_ptr[0];
-              ushort* out_r_ptr1 = (ushort*)out_array_ptr[1];
+                short* out_l_ptr1 = (short*)out_array_ptr[0];
+              short* out_r_ptr1 = (short*)out_array_ptr[1];
 
                 for (int i = 0; i < frameCount; i++)
                 {
@@ -102,11 +122,11 @@ namespace CWExpert
                     in_ptr_r++;
                 }
 
-                in_ptr_l = (ushort*)array_ptr[0];
-                in_ptr_r = (ushort*)array_ptr[1];
+                in_ptr_l = (short*)array_ptr[0];
+                in_ptr_r = (short*)array_ptr[1];
 
 
-                ushort[] buffer_l = new ushort[frameCount];
+                short[] buffer_l = new short[frameCount];
 //              ushort[] buffer_r = new ushort[frameCount];
 
                 for (int i = 0; i < frameCount; i++)
@@ -242,6 +262,7 @@ namespace CWExpert
             PA19.PA_CloseStream(stream1);
             PA19.PA_AbortStream(stream2);
             PA19.PA_CloseStream(stream2);
+            Debug.Write("Audio is stoped!\n");
         }
 
         public static ArrayList GetPAInputDevices(int hostIndex)

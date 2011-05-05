@@ -44,4 +44,20 @@
     <Key>txtCALL</Key>
     <Value>N1YU</Value>
   </Options>
+  <Options>
+    <Key>udDisplayHigh</Key>
+    <Value>76</Value>
+  </Options>
+  <Options>
+    <Key>udDisplayLow</Key>
+    <Value>-2</Value>
+  </Options>
+  <Options>
+    <Key>udRefreshRate</Key>
+    <Value>100</Value>
+  </Options>
+  <Options>
+    <Key>chkAlwaysOnTop</Key>
+    <Value>False</Value>
+  </Options>
 </Data>

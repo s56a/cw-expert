@@ -1,3 +1,23 @@
+//=================================================================
+// CWDecoder.cs
+//=================================================================
+// Copyright (C) 2011 S56A YT7PWR
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//=================================================================
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,13 +53,13 @@ namespace CWExpert
         public const int F2L = 128;
         public const int aver = 10;
         //        public const int thld = 128;
-        public int bwl = 2;
-        public int bwh = 20;
+        public int bwl = 1;
+        public int bwh = 62;
         public bool run_thread = false;
         public Thread CWThread;
         public AutoResetEvent AudioEvent;
         //    public ushort[] read_buffer_r;
-        public ushort[] read_buffer_l;
+        public short[] read_buffer_l;
         public bool key = false;
         public bool nr_agn = false;
         public bool call_found = false;
@@ -103,8 +123,8 @@ namespace CWExpert
             {
                 MainForm = mainForm;
                 //                timer = new HiPerfTimer();
-                read_buffer_l = new ushort[Audio.BlockSize];
-                thd_txt = new double[32];
+                read_buffer_l = new short[Audio.BlockSize];
+                thd_txt = new double[64];
                 //              read_buffer_r = new short[Audio.BlockSize];
                 AudioEvent = new AutoResetEvent(false);
                 once = true;
@@ -227,8 +247,8 @@ namespace CWExpert
         {
             bool result = false;
             once = true;
-            bwl = 2;
-            bwh = 20;
+            bwl = 1;
+            bwh = 62;
 
             if (Init())
             {
@@ -463,8 +483,8 @@ namespace CWExpert
                 rx_timer--;
                 if (rx_timer == 0)
                 {
-                    while ((temp[bwl] < thd) && (bwl < bwh)) { bwl++; }
-                    while ((temp[bwh] < thd) && (bwh > bwl)) { bwh--; }
+//                    while ((temp[bwl] < thd) && (bwl < bwh)) { bwl++; }
+//                    while ((temp[bwh] < thd) && (bwh > bwl)) { bwh--; }
                     for (n = bwl; n < bwh; n++)
                     {
                         Debug.WriteLine(n + "  " + Math.Round(temp[n]).ToString());
@@ -622,7 +642,11 @@ namespace CWExpert
                         signal[n] += Mag[z, n];
                     }
 
+                    Array.Copy(Mag, MainForm.display_buffer, 2048);
+                    MainForm.data_ready = true;
+                    MainForm.display_event.Set();
                 }
+
                 for (n = 0; n < FFTlen; n++)
                 {
                     old1[n] = (short)read_buffer_l[i + n];
@@ -872,65 +896,68 @@ namespace CWExpert
         {
             try
             {
-                switch (chanel_no)
+                if (chanel_no <= 20 && chanel_no >= 2)
                 {
-                    case 2:
-                        MainForm.txtChannel2.Text = "2  " + Math.Round(thd_txt[2], 1).ToString() + "  " + out_string;
-                        break;
-                    case 3:
-                        MainForm.txtChannel3.Text = "3  " + Math.Round(thd_txt[3], 1).ToString() + "  " + out_string;
-                        break;
-                    case 4:
-                        MainForm.txtChannel4.Text = "4  " + Math.Round(thd_txt[4],1).ToString() + "  " + out_string;
-                        break;
-                    case 5:
-                        MainForm.txtChannel5.Text = "5  " + Math.Round(thd_txt[5],1).ToString() + "  " + out_string;
-                        break;
-                    case 6:
-                        MainForm.txtChannel6.Text = "6  " + Math.Round(thd_txt[6],1).ToString() + "  " + out_string;
-                        break;
-                    case 7:
-                        MainForm.txtChannel7.Text = "7  " + Math.Round(thd_txt[7],1).ToString() + "  " + out_string;
-                        break;
-                    case 8:
-                        MainForm.txtChannel8.Text = "8  " + Math.Round(thd_txt[8],1).ToString() + "  " + out_string;
-                        break;
-                    case 9:
-                        MainForm.txtChannel9.Text = "9  " + Math.Round(thd_txt[9],1).ToString() + "  " + out_string;
-                        break;
-                    case 10:
-                        MainForm.txtChannel10.Text = "10 " + Math.Round(thd_txt[10],1).ToString() + "  " + out_string;
-                        break;
-                    case 11:
-                        MainForm.txtChannel11.Text = "11 " + Math.Round(thd_txt[11],1).ToString() + "  " + out_string;
-                        break;
-                    case 12:
-                        MainForm.txtChannel12.Text = "12 " + Math.Round(thd_txt[12],1).ToString() + "  " + out_string;
-                        break;
-                    case 13:
-                        MainForm.txtChannel13.Text = "13 " + Math.Round(thd_txt[13],1).ToString() + "  " + out_string;
-                        break;
-                    case 14:
-                        MainForm.txtChannel14.Text = "14 " + Math.Round(thd_txt[14],1).ToString() + "  " + out_string;
-                        break;
-                    case 15:
-                        MainForm.txtChannel15.Text = "15 " + Math.Round(thd_txt[15],1).ToString() + "  " + out_string;
-                        break;
-                    case 16:
-                        MainForm.txtChannel16.Text = "16 " + Math.Round(thd_txt[16],1).ToString() + "  " + out_string;
-                        break;
-                    case 17:
-                        MainForm.txtChannel17.Text = "17 " + Math.Round(thd_txt[17],1).ToString() + "  " + out_string;
-                        break;
-                    case 18:
-                        MainForm.txtChannel18.Text = "18 " + Math.Round(thd_txt[18],1).ToString() + "  " + out_string;
-                        break;
-                    case 19:
-                        MainForm.txtChannel19.Text = "19 " + Math.Round(thd_txt[19],1).ToString() + "  " + out_string;
-                        break;
-                    case 20:
-                        MainForm.txtChannel20.Text = "20 " + Math.Round(thd_txt[20], 1).ToString() + "  " + out_string;
-                        break;
+                    switch (chanel_no)
+                    {
+                        case 2:
+                            MainForm.txtChannel2.Text = "2  " + Math.Round(thd_txt[2], 1).ToString() + "  " + out_string;
+                            break;
+                        case 3:
+                            MainForm.txtChannel3.Text = "3  " + Math.Round(thd_txt[3], 1).ToString() + "  " + out_string;
+                            break;
+                        case 4:
+                            MainForm.txtChannel4.Text = "4  " + Math.Round(thd_txt[4], 1).ToString() + "  " + out_string;
+                            break;
+                        case 5:
+                            MainForm.txtChannel5.Text = "5  " + Math.Round(thd_txt[5], 1).ToString() + "  " + out_string;
+                            break;
+                        case 6:
+                            MainForm.txtChannel6.Text = "6  " + Math.Round(thd_txt[6], 1).ToString() + "  " + out_string;
+                            break;
+                        case 7:
+                            MainForm.txtChannel7.Text = "7  " + Math.Round(thd_txt[7], 1).ToString() + "  " + out_string;
+                            break;
+                        case 8:
+                            MainForm.txtChannel8.Text = "8  " + Math.Round(thd_txt[8], 1).ToString() + "  " + out_string;
+                            break;
+                        case 9:
+                            MainForm.txtChannel9.Text = "9  " + Math.Round(thd_txt[9], 1).ToString() + "  " + out_string;
+                            break;
+                        case 10:
+                            MainForm.txtChannel10.Text = "10 " + Math.Round(thd_txt[10], 1).ToString() + "  " + out_string;
+                            break;
+                        case 11:
+                            MainForm.txtChannel11.Text = "11 " + Math.Round(thd_txt[11], 1).ToString() + "  " + out_string;
+                            break;
+                        case 12:
+                            MainForm.txtChannel12.Text = "12 " + Math.Round(thd_txt[12], 1).ToString() + "  " + out_string;
+                            break;
+                        case 13:
+                            MainForm.txtChannel13.Text = "13 " + Math.Round(thd_txt[13], 1).ToString() + "  " + out_string;
+                            break;
+                        case 14:
+                            MainForm.txtChannel14.Text = "14 " + Math.Round(thd_txt[14], 1).ToString() + "  " + out_string;
+                            break;
+                        case 15:
+                            MainForm.txtChannel15.Text = "15 " + Math.Round(thd_txt[15], 1).ToString() + "  " + out_string;
+                            break;
+                        case 16:
+                            MainForm.txtChannel16.Text = "16 " + Math.Round(thd_txt[16], 1).ToString() + "  " + out_string;
+                            break;
+                        case 17:
+                            MainForm.txtChannel17.Text = "17 " + Math.Round(thd_txt[17], 1).ToString() + "  " + out_string;
+                            break;
+                        case 18:
+                            MainForm.txtChannel18.Text = "18 " + Math.Round(thd_txt[18], 1).ToString() + "  " + out_string;
+                            break;
+                        case 19:
+                            MainForm.txtChannel19.Text = "19 " + Math.Round(thd_txt[19], 1).ToString() + "  " + out_string;
+                            break;
+                        case 20:
+                            MainForm.txtChannel20.Text = "20 " + Math.Round(thd_txt[20], 1).ToString() + "  " + out_string;
+                            break;
+                    }
                 }
             }
             catch (Exception ex)

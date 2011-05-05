@@ -1,4 +1,24 @@
-﻿using System;
+﻿//=================================================================
+// CWExpert.cs
+//=================================================================
+// Copyright (C) 2011 S56A YT7PWR
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//=================================================================
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +33,25 @@ using System.Diagnostics;
 
 namespace CWExpert
 {
+    public enum ColorSheme
+    {
+        original = 0,
+        enhanced,
+        SPECTRAN,
+        BLACKWHITE,
+        off,
+    }
+
+    public enum DisplayMode
+    {
+        FIRST = -1,
+        PANADAPTER,
+        WATERFALL,
+        PANAFALL,
+        OFF,
+        LAST,
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     public struct TextEdit
     {
@@ -21,10 +60,17 @@ namespace CWExpert
         public int Width;
     }
 
-    public partial class CWExpert : Form
+    unsafe public partial class CWExpert : Form
     {
+        [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+        public static extern int SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, int wFlags);
+
+        [DllImport("msvcrt.dll", EntryPoint = "memcpy")]
+        public static extern void memcpy(void* destptr, void* srcptr, int n);
+
         #region variable definition
 
+        public bool booting = false;
         private int WM_LBUTTONDOWN = 0x0201;
         private int WM_LBUTTONUP = 0x0202;
         private int WM_KEYDOWN = 0x0100;
@@ -45,10 +91,40 @@ namespace CWExpert
         public Setup SetupForm;
         TextEdit[] edits;
         public CWDecode cwDecoder;
+        public bool pause_DisplayThread = false;
+        public double[,] display_buffer;
+        private Thread display_thread;
+        public AutoResetEvent display_event;
 
         #endregion
 
         #region properites
+
+        private int refresh_time = 20;
+        public int RefreshTime
+        {
+            set { refresh_time = value; }
+        }
+
+        private bool always_on_top = false; // yt7pwr
+        public bool AlwaysOnTop
+        {
+            get { return always_on_top; }
+            set
+            {
+                always_on_top = value;
+                if (value)
+                {
+                    SetWindowPos(this.Handle.ToInt32(),
+                        -1, this.Left, this.Top, this.Width, this.Height, 0);
+                }
+                else
+                {
+                    SetWindowPos(this.Handle.ToInt32(),
+                        -2, this.Left, this.Top, this.Width, this.Height, 0);
+                }
+            }
+        }
 
         public string txtCALL
         {
@@ -66,19 +142,19 @@ namespace CWExpert
         }
 
   
-        private bool mrIsRunning = false;
+        private bool mrIsRunning = true;
 
         public bool MRIsRunning
         {
             get { return mrIsRunning; }
             set
             {
-                if (mrIsRunning)
+/*                if (mrIsRunning)
                     btnStopMR_Click(null, null);
                 Thread.Sleep(100);
                 mrIsRunning = value;
                 if (value)
-                    btnStartMR_Click(null, null);
+                    btnStartMR_Click(null, null);*/
             }
         }
 
@@ -88,7 +164,9 @@ namespace CWExpert
 
         public CWExpert()
         {
+            booting = true;
             InitializeComponent();
+            SetStyle(ControlStyles.DoubleBuffer, true);
             msg = new MessageHelper();
             edits = new TextEdit[3];
             DB.AppDataPath = Application.StartupPath;
@@ -96,7 +174,14 @@ namespace CWExpert
             Audio.MainForm = this;
             PA19.PA_Initialize();
             SetupForm = new Setup(this);
-            cwDecoder = new CWDecode(this);   
+            DirectX.MainForm = this;
+            DirectX.PanadapterTarget = picPanadapter;
+            DirectX.WaterfallTarget = picWaterfall;
+            booting = false;
+            display_event = new AutoResetEvent(false);
+            DirectX.DirectXInit();
+            cwDecoder = new CWDecode(this);
+            display_buffer = new double[32,64];
         }
 
         #endregion
@@ -356,7 +441,8 @@ namespace CWExpert
         {
             try
             {
-                if (!mrIsRunning)
+                DirectX.DirectXInit();
+//                if (!mrIsRunning)
                 {
                     mrIsRunning = true;
                     Audio.callback_return = 0;
@@ -365,9 +451,9 @@ namespace CWExpert
 
                     Audio.Start();
 
-                    EnsureMRWindow();
+/*                    EnsureMRWindow();
                     if (topWindow == 0)
-                        return;
+                        return;*/
 
                     cwDecoder.CWdecodeStart();
 
@@ -391,13 +477,20 @@ namespace CWExpert
                             break;
                     }
 
-                    if (runButton == 0)
-                        return;
-                    else
+//                    if (runButton == 0)
+//                        return;
+//                    else
                     {
                         msg.sendWindowsMessage(runButton, WM_LBUTTONDOWN, 0, (10 << 16) + 10);
                         msg.sendWindowsMessage(runButton, WM_LBUTTONUP, 0, (10 << 16) + 10);
                         mrIsRunning = true;
+
+                        display_thread = new Thread(new ThreadStart(RunDisplay));
+                        display_thread.Name = "Display Thread";
+                        display_thread.Priority = ThreadPriority.Normal;
+                        display_thread.IsBackground = true;
+                        display_thread.Start();
+
  //                       textBox1.BackColor = Color.LightGreen;
                     }
                 }
@@ -412,7 +505,8 @@ namespace CWExpert
         {
             try
             {
-                if (mrIsRunning)
+                DirectX.DirectXRelease();
+//                if (mrIsRunning)
                 {
                     mrIsRunning = false;
                     Audio.callback_return = 2;
@@ -422,9 +516,10 @@ namespace CWExpert
                     if (cwDecoder.AudioEvent != null)
                         cwDecoder.AudioEvent.Close();
                     cwDecoder.AudioEvent = null;
-                    EnsureMRWindow();
+
+/*                    EnsureMRWindow();
                     if (topWindow == 0)
-                        return;
+                        return;*/
 
                     int runButton = 0;
                     int panel = 0;
@@ -489,7 +584,6 @@ namespace CWExpert
         {
             try
             {
-//                Callers.Items.Add(txtCall.Text+" ");
                 EnsureMREditWindows();
 
                 if (topWindow != 0)
@@ -623,6 +717,55 @@ namespace CWExpert
                 txtChannel18.Clear();
                 txtChannel19.Clear();
                 txtChannel20.Clear();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
+
+        private void picWaterfall_Paint(object sender, PaintEventArgs e)
+        {
+            DirectX.RenderWaterfall(e.Graphics, picWaterfall.Width, picWaterfall.Height);
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            DirectX.RenderDirectX();
+//            Debug.Write("Paint!");
+        }
+
+        public bool data_ready = false;
+        private void RunDisplay()
+        {
+            try
+            {
+                while (MRIsRunning)
+                {
+                    display_event.WaitOne();
+
+                    if (data_ready)
+                    {
+                        for (int i = 0; i < 64; i++)
+                        {
+                            for (int j = 0; j < 32; j++)
+                            {
+                                DirectX.new_display_data[i * 32 + j] = (float)((display_buffer[j, i]));
+                                DirectX.new_waterfall_data[i * 32 + j] = (float)((display_buffer[j, i]));
+                            }
+                        }
+
+                        data_ready = false;
+
+                    }
+
+                    DirectX.DataReady = true;
+                    DirectX.RenderDirectX();
+//                    picPanadapter.Invalidate();
+                    DirectX.WaterfallDataReady = true;
+                    picWaterfall.Invalidate();
+//                    Thread.Sleep(10);
+                }
             }
             catch (Exception ex)
             {

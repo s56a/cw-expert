@@ -42,14 +42,19 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CWExpert.exe" size="70144">
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="SlimDX" version="2.0.9.42" publicKeyToken="B1B0C32FD1FFE4F9" language="neutral" processorArchitecture="x86" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CWExpert.exe" size="107520">
       <assemblyIdentity name="CWExpert" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>fp30U4EjmdpxAvab0QbP9c+bQJ0=</dsig:DigestValue>
+        <dsig:DigestValue>JoN9xgjRywYO38sMlt5RNy2XNYE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

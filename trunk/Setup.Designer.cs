@@ -1,4 +1,24 @@
-﻿namespace CWExpert
+﻿//=================================================================
+// SetupDesigner.cs
+//=================================================================
+// Copyright (C) 2011 S56A YT7PWR
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//=================================================================
+
+namespace CWExpert
 {
     partial class Setup
     {
@@ -45,16 +65,30 @@
             this.comboAudioSampleRate = new System.Windows.Forms.ComboBox();
             this.tbSetup = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.lblAudioStreamSampleRateValue = new System.Windows.Forms.Label();
+            this.grpMisc = new System.Windows.Forms.GroupBox();
+            this.udDisplayHigh = new System.Windows.Forms.NumericUpDown();
+            this.lblDisplayHigh = new System.Windows.Forms.Label();
+            this.udDisplayLow = new System.Windows.Forms.NumericUpDown();
+            this.lblDisplayLow = new System.Windows.Forms.Label();
+            this.udRefreshRate = new System.Windows.Forms.NumericUpDown();
+            this.lblRefreshRate = new System.Windows.Forms.Label();
+            this.grpAudioTests = new System.Windows.Forms.GroupBox();
             this.lblAudioStreamOutputLatencyValuelabel = new System.Windows.Forms.Label();
-            this.lblAudioStreamInputLatencyValue = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.lblAudioStreamInputLatencyValue = new System.Windows.Forms.Label();
+            this.lblAudioStreamSampleRateValue = new System.Windows.Forms.Label();
+            this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.lblCallSign = new System.Windows.Forms.Label();
             this.txtCALL = new System.Windows.Forms.TextBox();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udLatency)).BeginInit();
             this.tbSetup.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.grpMisc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udDisplayHigh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udDisplayLow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udRefreshRate)).BeginInit();
+            this.grpAudioTests.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -95,7 +129,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(347, 266);
+            this.tabPage1.Size = new System.Drawing.Size(347, 278);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Audio";
             // 
@@ -242,61 +276,198 @@
             this.tbSetup.Location = new System.Drawing.Point(25, 12);
             this.tbSetup.Name = "tbSetup";
             this.tbSetup.SelectedIndex = 0;
-            this.tbSetup.Size = new System.Drawing.Size(355, 292);
+            this.tbSetup.Size = new System.Drawing.Size(355, 304);
             this.tbSetup.TabIndex = 10;
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.lblAudioStreamSampleRateValue);
-            this.tabPage2.Controls.Add(this.lblAudioStreamOutputLatencyValuelabel);
-            this.tabPage2.Controls.Add(this.lblAudioStreamInputLatencyValue);
-            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.grpMisc);
+            this.tabPage2.Controls.Add(this.grpAudioTests);
+            this.tabPage2.Controls.Add(this.chkAlwaysOnTop);
             this.tabPage2.Controls.Add(this.lblCallSign);
             this.tabPage2.Controls.Add(this.txtCALL);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(347, 266);
+            this.tabPage2.Size = new System.Drawing.Size(347, 278);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Misc";
             // 
-            // lblAudioStreamSampleRateValue
+            // grpMisc
             // 
-            this.lblAudioStreamSampleRateValue.AutoSize = true;
-            this.lblAudioStreamSampleRateValue.Location = new System.Drawing.Point(154, 184);
-            this.lblAudioStreamSampleRateValue.Name = "lblAudioStreamSampleRateValue";
-            this.lblAudioStreamSampleRateValue.Size = new System.Drawing.Size(35, 13);
-            this.lblAudioStreamSampleRateValue.TabIndex = 5;
-            this.lblAudioStreamSampleRateValue.Text = "label5";
+            this.grpMisc.Controls.Add(this.udDisplayHigh);
+            this.grpMisc.Controls.Add(this.lblDisplayHigh);
+            this.grpMisc.Controls.Add(this.udDisplayLow);
+            this.grpMisc.Controls.Add(this.lblDisplayLow);
+            this.grpMisc.Controls.Add(this.udRefreshRate);
+            this.grpMisc.Controls.Add(this.lblRefreshRate);
+            this.grpMisc.Location = new System.Drawing.Point(181, 138);
+            this.grpMisc.Name = "grpMisc";
+            this.grpMisc.Size = new System.Drawing.Size(151, 122);
+            this.grpMisc.TabIndex = 10;
+            this.grpMisc.TabStop = false;
+            this.grpMisc.Text = "Display settings";
+            // 
+            // udDisplayHigh
+            // 
+            this.udDisplayHigh.Location = new System.Drawing.Point(84, 27);
+            this.udDisplayHigh.Maximum = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
+            this.udDisplayHigh.Minimum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            -2147483648});
+            this.udDisplayHigh.Name = "udDisplayHigh";
+            this.udDisplayHigh.Size = new System.Drawing.Size(51, 20);
+            this.udDisplayHigh.TabIndex = 11;
+            this.udDisplayHigh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.udDisplayHigh.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.udDisplayHigh.ValueChanged += new System.EventHandler(this.udDisplayHigh_ValueChanged);
+            // 
+            // lblDisplayHigh
+            // 
+            this.lblDisplayHigh.AutoSize = true;
+            this.lblDisplayHigh.Location = new System.Drawing.Point(14, 30);
+            this.lblDisplayHigh.Name = "lblDisplayHigh";
+            this.lblDisplayHigh.Size = new System.Drawing.Size(54, 13);
+            this.lblDisplayHigh.TabIndex = 12;
+            this.lblDisplayHigh.Text = "High level";
+            // 
+            // udDisplayLow
+            // 
+            this.udDisplayLow.Location = new System.Drawing.Point(84, 59);
+            this.udDisplayLow.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.udDisplayLow.Minimum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            -2147483648});
+            this.udDisplayLow.Name = "udDisplayLow";
+            this.udDisplayLow.Size = new System.Drawing.Size(51, 20);
+            this.udDisplayLow.TabIndex = 9;
+            this.udDisplayLow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.udDisplayLow.Value = new decimal(new int[] {
+            120,
+            0,
+            0,
+            -2147483648});
+            this.udDisplayLow.ValueChanged += new System.EventHandler(this.udDisplayLow_ValueChanged);
+            // 
+            // lblDisplayLow
+            // 
+            this.lblDisplayLow.AutoSize = true;
+            this.lblDisplayLow.Location = new System.Drawing.Point(14, 62);
+            this.lblDisplayLow.Name = "lblDisplayLow";
+            this.lblDisplayLow.Size = new System.Drawing.Size(52, 13);
+            this.lblDisplayLow.TabIndex = 10;
+            this.lblDisplayLow.Text = "Low level";
+            // 
+            // udRefreshRate
+            // 
+            this.udRefreshRate.Location = new System.Drawing.Point(84, 91);
+            this.udRefreshRate.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.udRefreshRate.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.udRefreshRate.Name = "udRefreshRate";
+            this.udRefreshRate.Size = new System.Drawing.Size(51, 20);
+            this.udRefreshRate.TabIndex = 7;
+            this.udRefreshRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.udRefreshRate.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.udRefreshRate.ValueChanged += new System.EventHandler(this.udRefreshRate_ValueChanged);
+            // 
+            // lblRefreshRate
+            // 
+            this.lblRefreshRate.AutoSize = true;
+            this.lblRefreshRate.Location = new System.Drawing.Point(14, 94);
+            this.lblRefreshRate.Name = "lblRefreshRate";
+            this.lblRefreshRate.Size = new System.Drawing.Size(65, 13);
+            this.lblRefreshRate.TabIndex = 8;
+            this.lblRefreshRate.Text = "Refresh rate";
+            // 
+            // grpAudioTests
+            // 
+            this.grpAudioTests.Controls.Add(this.lblAudioStreamOutputLatencyValuelabel);
+            this.grpAudioTests.Controls.Add(this.button1);
+            this.grpAudioTests.Controls.Add(this.lblAudioStreamInputLatencyValue);
+            this.grpAudioTests.Controls.Add(this.lblAudioStreamSampleRateValue);
+            this.grpAudioTests.Location = new System.Drawing.Point(15, 138);
+            this.grpAudioTests.Name = "grpAudioTests";
+            this.grpAudioTests.Size = new System.Drawing.Size(151, 122);
+            this.grpAudioTests.TabIndex = 9;
+            this.grpAudioTests.TabStop = false;
+            this.grpAudioTests.Text = "Audio test";
             // 
             // lblAudioStreamOutputLatencyValuelabel
             // 
             this.lblAudioStreamOutputLatencyValuelabel.AutoSize = true;
-            this.lblAudioStreamOutputLatencyValuelabel.Location = new System.Drawing.Point(158, 149);
+            this.lblAudioStreamOutputLatencyValuelabel.Location = new System.Drawing.Point(60, 39);
             this.lblAudioStreamOutputLatencyValuelabel.Name = "lblAudioStreamOutputLatencyValuelabel";
             this.lblAudioStreamOutputLatencyValuelabel.Size = new System.Drawing.Size(35, 13);
             this.lblAudioStreamOutputLatencyValuelabel.TabIndex = 4;
             this.lblAudioStreamOutputLatencyValuelabel.Text = "label4";
             // 
-            // lblAudioStreamInputLatencyValue
-            // 
-            this.lblAudioStreamInputLatencyValue.AutoSize = true;
-            this.lblAudioStreamInputLatencyValue.Location = new System.Drawing.Point(158, 114);
-            this.lblAudioStreamInputLatencyValue.Name = "lblAudioStreamInputLatencyValue";
-            this.lblAudioStreamInputLatencyValue.Size = new System.Drawing.Size(35, 13);
-            this.lblAudioStreamInputLatencyValue.TabIndex = 3;
-            this.lblAudioStreamInputLatencyValue.Text = "label3";
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(136, 219);
+            this.button1.Location = new System.Drawing.Point(38, 87);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Test";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnAudioStreamInfo_Click);
+            // 
+            // lblAudioStreamInputLatencyValue
+            // 
+            this.lblAudioStreamInputLatencyValue.AutoSize = true;
+            this.lblAudioStreamInputLatencyValue.Location = new System.Drawing.Point(60, 12);
+            this.lblAudioStreamInputLatencyValue.Name = "lblAudioStreamInputLatencyValue";
+            this.lblAudioStreamInputLatencyValue.Size = new System.Drawing.Size(35, 13);
+            this.lblAudioStreamInputLatencyValue.TabIndex = 3;
+            this.lblAudioStreamInputLatencyValue.Text = "label3";
+            // 
+            // lblAudioStreamSampleRateValue
+            // 
+            this.lblAudioStreamSampleRateValue.AutoSize = true;
+            this.lblAudioStreamSampleRateValue.Location = new System.Drawing.Point(60, 61);
+            this.lblAudioStreamSampleRateValue.Name = "lblAudioStreamSampleRateValue";
+            this.lblAudioStreamSampleRateValue.Size = new System.Drawing.Size(35, 13);
+            this.lblAudioStreamSampleRateValue.TabIndex = 5;
+            this.lblAudioStreamSampleRateValue.Text = "label5";
+            // 
+            // chkAlwaysOnTop
+            // 
+            this.chkAlwaysOnTop.AutoSize = true;
+            this.chkAlwaysOnTop.Location = new System.Drawing.Point(78, 81);
+            this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
+            this.chkAlwaysOnTop.Size = new System.Drawing.Size(92, 17);
+            this.chkAlwaysOnTop.TabIndex = 6;
+            this.chkAlwaysOnTop.Text = "Always on top";
+            this.chkAlwaysOnTop.UseVisualStyleBackColor = true;
+            this.chkAlwaysOnTop.CheckedChanged += new System.EventHandler(this.chkAlwaysOnTop_CheckedChanged);
             // 
             // lblCallSign
             // 
@@ -336,6 +507,13 @@
             this.tbSetup.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.grpMisc.ResumeLayout(false);
+            this.grpMisc.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udDisplayHigh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udDisplayLow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udRefreshRate)).EndInit();
+            this.grpAudioTests.ResumeLayout(false);
+            this.grpAudioTests.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -365,5 +543,14 @@
         private System.Windows.Forms.Label lblAudioStreamOutputLatencyValuelabel;
         private System.Windows.Forms.Label lblAudioStreamInputLatencyValue;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chkAlwaysOnTop;
+        private System.Windows.Forms.Label lblRefreshRate;
+        private System.Windows.Forms.NumericUpDown udRefreshRate;
+        private System.Windows.Forms.GroupBox grpMisc;
+        private System.Windows.Forms.NumericUpDown udDisplayHigh;
+        private System.Windows.Forms.Label lblDisplayHigh;
+        private System.Windows.Forms.NumericUpDown udDisplayLow;
+        private System.Windows.Forms.Label lblDisplayLow;
+        private System.Windows.Forms.GroupBox grpAudioTests;
     }
 }

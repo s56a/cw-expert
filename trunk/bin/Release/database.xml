@@ -18,7 +18,7 @@
   </xs:schema>
   <Options>
     <Key>comboAudioInput</Key>
-    <Value>SoundMAX HD Audio</Value>
+    <Value>Line 3/4 (M-Audio Delta 44)</Value>
   </Options>
   <Options>
     <Key>comboAudioDriver</Key>
@@ -30,7 +30,7 @@
   </Options>
   <Options>
     <Key>comboAudioOutput</Key>
-    <Value>SoundMAX HD Audio</Value>
+    <Value>Speakers (High Definition Audio</Value>
   </Options>
   <Options>
     <Key>udLatency</Key>
@@ -43,5 +43,21 @@
   <Options>
     <Key>txtCALL</Key>
     <Value>S56A</Value>
+  </Options>
+  <Options>
+    <Key>chkAlwaysOnTop</Key>
+    <Value>True</Value>
+  </Options>
+  <Options>
+    <Key>udDisplayHigh</Key>
+    <Value>17</Value>
+  </Options>
+  <Options>
+    <Key>udDisplayLow</Key>
+    <Value>-2</Value>
+  </Options>
+  <Options>
+    <Key>udRefreshRate</Key>
+    <Value>100</Value>
   </Options>
 </Data>

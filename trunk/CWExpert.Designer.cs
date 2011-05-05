@@ -75,7 +75,13 @@
             this.txtChannel3 = new System.Windows.Forms.TextBox();
             this.txtChannel2 = new System.Windows.Forms.TextBox();
             this.txtChannel20 = new System.Windows.Forms.TextBox();
+            this.picWaterfall = new System.Windows.Forms.PictureBox();
+            this.picPanadapter = new System.Windows.Forms.PictureBox();
+            this.grpDisplay = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWaterfall)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPanadapter)).BeginInit();
+            this.grpDisplay.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCall
@@ -194,7 +200,7 @@
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(401, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -468,11 +474,45 @@
             this.txtChannel20.Size = new System.Drawing.Size(271, 20);
             this.txtChannel20.TabIndex = 42;
             // 
+            // picWaterfall
+            // 
+            this.picWaterfall.BackColor = System.Drawing.Color.Black;
+            this.picWaterfall.Location = new System.Drawing.Point(6, 14);
+            this.picWaterfall.Name = "picWaterfall";
+            this.picWaterfall.Size = new System.Drawing.Size(586, 240);
+            this.picWaterfall.TabIndex = 43;
+            this.picWaterfall.TabStop = false;
+            this.picWaterfall.Paint += new System.Windows.Forms.PaintEventHandler(this.picWaterfall_Paint);
+            // 
+            // picPanadapter
+            // 
+            this.picPanadapter.BackColor = System.Drawing.Color.Black;
+            this.picPanadapter.Location = new System.Drawing.Point(6, 267);
+            this.picPanadapter.Name = "picPanadapter";
+            this.picPanadapter.Size = new System.Drawing.Size(586, 240);
+            this.picPanadapter.TabIndex = 44;
+            this.picPanadapter.TabStop = false;
+            this.picPanadapter.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            // 
+            // grpDisplay
+            // 
+            this.grpDisplay.BackColor = System.Drawing.SystemColors.Control;
+            this.grpDisplay.Controls.Add(this.picPanadapter);
+            this.grpDisplay.Controls.Add(this.picWaterfall);
+            this.grpDisplay.ForeColor = System.Drawing.Color.Black;
+            this.grpDisplay.Location = new System.Drawing.Point(398, 23);
+            this.grpDisplay.Name = "grpDisplay";
+            this.grpDisplay.Size = new System.Drawing.Size(598, 520);
+            this.grpDisplay.TabIndex = 45;
+            this.grpDisplay.TabStop = false;
+            this.grpDisplay.Text = "Display";
+            // 
             // CWExpert
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 562);
+            this.ClientSize = new System.Drawing.Size(1008, 562);
+            this.Controls.Add(this.grpDisplay);
             this.Controls.Add(this.txtChannel20);
             this.Controls.Add(this.txtChannel2);
             this.Controls.Add(this.txtChannel3);
@@ -518,14 +558,17 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(420, 600);
-            this.MinimumSize = new System.Drawing.Size(320, 465);
+            this.MaximumSize = new System.Drawing.Size(1024, 600);
+            this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "CWExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "CWExpert  v1.2.7";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CWExpert_KeyUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWaterfall)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPanadapter)).EndInit();
+            this.grpDisplay.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -577,6 +620,9 @@
         public System.Windows.Forms.TextBox txtChannel3;
         public System.Windows.Forms.TextBox txtChannel2;
         public System.Windows.Forms.TextBox txtChannel20;
+        public System.Windows.Forms.PictureBox picWaterfall;
+        private System.Windows.Forms.GroupBox grpDisplay;
+        public System.Windows.Forms.PictureBox picPanadapter;
     }
 }
 
