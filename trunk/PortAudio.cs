@@ -463,17 +463,17 @@ namespace CWExpert
         [DllImport("PA19.dll")]
         public static extern void PA_Sleep(int msec);
 
-/*        [DllImport("PA19.dll")]
-        public static extern int PAWasapi_GetDeviceRole(PadeviceIndex index);
+        [DllImport("PA19.dll")]
+        public static extern int PAWasapi_GetDeviceRole(PaDeviceIndex index);
 
         [DllImport("PA19.dll")]
-        unsafe public static extern PaError PAWasapi_GetJackCount(PadeviceIndex index, int* count);
+        unsafe public static extern PaError PAWasapi_GetJackCount(PaDeviceIndex index, int* count);
 
         [DllImport("PA19.dll")]
-        unsafe public static extern PaError PAWasapi_GetJackDescription(PadeviceIndex index, int jack_index, PaWasapiJackDescription* pJackDescription);
+        unsafe public static extern PaError PAWasapi_GetJackDescription(PaDeviceIndex index, int jack_index, PaWasapiJackDescription* pJackDescription);
 
         [DllImport("PA19.dll")]
-        unsafe public static extern int PAWasapi_GetDeviceDefaultFormat(void* pFormat, UInt32 nFormatSize, PadeviceIndex ndevice);*/
+        unsafe public static extern int PAWasapi_GetDeviceDefaultFormat(void* pFormat, UInt32 nFormatSize, PaDeviceIndex ndevice);
 
         [DllImport("PA19.dll")]
         unsafe public static extern PaError PAWasapi_ThreadPriorityBoost(void** hTask, PaWasapiThreadPriority nPriorityClass);

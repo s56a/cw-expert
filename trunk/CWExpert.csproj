@@ -111,6 +111,8 @@
     </Compile>
     <Compile Include="DataBase.cs" />
     <Compile Include="Dsiplay.cs" />
+    <Compile Include="fftw_lib.cs" />
+    <Compile Include="FFTW.cs" />
     <Compile Include="HighPerformanceTimer.cs" />
     <Compile Include="MessageHelper.cs" />
     <Compile Include="PortAudio.cs" />

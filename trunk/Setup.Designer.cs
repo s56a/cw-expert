@@ -70,8 +70,8 @@ namespace CWExpert
             this.lblDisplayHigh = new System.Windows.Forms.Label();
             this.udDisplayLow = new System.Windows.Forms.NumericUpDown();
             this.lblDisplayLow = new System.Windows.Forms.Label();
-            this.udRefreshRate = new System.Windows.Forms.NumericUpDown();
-            this.lblRefreshRate = new System.Windows.Forms.Label();
+            this.udAveraging = new System.Windows.Forms.NumericUpDown();
+            this.lblAveraging = new System.Windows.Forms.Label();
             this.grpAudioTests = new System.Windows.Forms.GroupBox();
             this.lblAudioStreamOutputLatencyValuelabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -80,6 +80,7 @@ namespace CWExpert
             this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.lblCallSign = new System.Windows.Forms.Label();
             this.txtCALL = new System.Windows.Forms.TextBox();
+            this.chkRXOnly = new System.Windows.Forms.CheckBox();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udLatency)).BeginInit();
             this.tbSetup.SuspendLayout();
@@ -87,7 +88,7 @@ namespace CWExpert
             this.grpMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayHigh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udRefreshRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udAveraging)).BeginInit();
             this.grpAudioTests.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -282,6 +283,7 @@ namespace CWExpert
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.chkRXOnly);
             this.tabPage2.Controls.Add(this.grpMisc);
             this.tabPage2.Controls.Add(this.grpAudioTests);
             this.tabPage2.Controls.Add(this.chkAlwaysOnTop);
@@ -300,8 +302,8 @@ namespace CWExpert
             this.grpMisc.Controls.Add(this.lblDisplayHigh);
             this.grpMisc.Controls.Add(this.udDisplayLow);
             this.grpMisc.Controls.Add(this.lblDisplayLow);
-            this.grpMisc.Controls.Add(this.udRefreshRate);
-            this.grpMisc.Controls.Add(this.lblRefreshRate);
+            this.grpMisc.Controls.Add(this.udAveraging);
+            this.grpMisc.Controls.Add(this.lblAveraging);
             this.grpMisc.Location = new System.Drawing.Point(181, 138);
             this.grpMisc.Name = "grpMisc";
             this.grpMisc.Size = new System.Drawing.Size(151, 122);
@@ -375,38 +377,28 @@ namespace CWExpert
             this.lblDisplayLow.TabIndex = 10;
             this.lblDisplayLow.Text = "Low level";
             // 
-            // udRefreshRate
+            // udAveraging
             // 
-            this.udRefreshRate.Location = new System.Drawing.Point(84, 91);
-            this.udRefreshRate.Maximum = new decimal(new int[] {
+            this.udAveraging.Location = new System.Drawing.Point(84, 91);
+            this.udAveraging.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.udRefreshRate.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.udRefreshRate.Name = "udRefreshRate";
-            this.udRefreshRate.Size = new System.Drawing.Size(51, 20);
-            this.udRefreshRate.TabIndex = 7;
-            this.udRefreshRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.udRefreshRate.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.udRefreshRate.ValueChanged += new System.EventHandler(this.udRefreshRate_ValueChanged);
+            this.udAveraging.Name = "udAveraging";
+            this.udAveraging.Size = new System.Drawing.Size(51, 20);
+            this.udAveraging.TabIndex = 7;
+            this.udAveraging.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.udAveraging.ValueChanged += new System.EventHandler(this.udAveraging_ValueChanged);
             // 
-            // lblRefreshRate
+            // lblAveraging
             // 
-            this.lblRefreshRate.AutoSize = true;
-            this.lblRefreshRate.Location = new System.Drawing.Point(14, 94);
-            this.lblRefreshRate.Name = "lblRefreshRate";
-            this.lblRefreshRate.Size = new System.Drawing.Size(65, 13);
-            this.lblRefreshRate.TabIndex = 8;
-            this.lblRefreshRate.Text = "Refresh rate";
+            this.lblAveraging.AutoSize = true;
+            this.lblAveraging.Location = new System.Drawing.Point(14, 94);
+            this.lblAveraging.Name = "lblAveraging";
+            this.lblAveraging.Size = new System.Drawing.Size(55, 13);
+            this.lblAveraging.TabIndex = 8;
+            this.lblAveraging.Text = "Averaging";
             // 
             // grpAudioTests
             // 
@@ -486,6 +478,17 @@ namespace CWExpert
             this.txtCALL.Size = new System.Drawing.Size(100, 20);
             this.txtCALL.TabIndex = 0;
             // 
+            // chkRXOnly
+            // 
+            this.chkRXOnly.AutoSize = true;
+            this.chkRXOnly.Location = new System.Drawing.Point(78, 104);
+            this.chkRXOnly.Name = "chkRXOnly";
+            this.chkRXOnly.Size = new System.Drawing.Size(63, 17);
+            this.chkRXOnly.TabIndex = 11;
+            this.chkRXOnly.Text = "RX only";
+            this.chkRXOnly.UseVisualStyleBackColor = true;
+            this.chkRXOnly.CheckedChanged += new System.EventHandler(this.chkRXOnly_CheckedChanged);
+            // 
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -511,7 +514,7 @@ namespace CWExpert
             this.grpMisc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayHigh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udRefreshRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udAveraging)).EndInit();
             this.grpAudioTests.ResumeLayout(false);
             this.grpAudioTests.PerformLayout();
             this.ResumeLayout(false);
@@ -544,13 +547,14 @@ namespace CWExpert
         private System.Windows.Forms.Label lblAudioStreamInputLatencyValue;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox chkAlwaysOnTop;
-        private System.Windows.Forms.Label lblRefreshRate;
-        private System.Windows.Forms.NumericUpDown udRefreshRate;
+        private System.Windows.Forms.Label lblAveraging;
+        private System.Windows.Forms.NumericUpDown udAveraging;
         private System.Windows.Forms.GroupBox grpMisc;
         private System.Windows.Forms.NumericUpDown udDisplayHigh;
         private System.Windows.Forms.Label lblDisplayHigh;
         private System.Windows.Forms.NumericUpDown udDisplayLow;
         private System.Windows.Forms.Label lblDisplayLow;
         private System.Windows.Forms.GroupBox grpAudioTests;
+        public System.Windows.Forms.CheckBox chkRXOnly;
     }
 }

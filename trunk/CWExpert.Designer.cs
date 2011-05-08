@@ -41,7 +41,7 @@
             this.btnF6 = new System.Windows.Forms.Button();
             this.btnF8 = new System.Windows.Forms.Button();
             this.btnF7 = new System.Windows.Forms.Button();
-            this.btnStartMR = new System.Windows.Forms.Button();
+            this.btnStartMR = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.setupMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +52,6 @@
             this.lblCall = new System.Windows.Forms.Label();
             this.lblRST = new System.Windows.Forms.Label();
             this.lblNr = new System.Windows.Forms.Label();
-            this.btnStopMR = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtChannel4 = new System.Windows.Forms.TextBox();
             this.btngrab = new System.Windows.Forms.Button();
@@ -78,6 +77,8 @@
             this.picWaterfall = new System.Windows.Forms.PictureBox();
             this.picPanadapter = new System.Windows.Forms.PictureBox();
             this.grpDisplay = new System.Windows.Forms.GroupBox();
+            this.txtLevel = new System.Windows.Forms.TextBox();
+            this.txtFreq = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWaterfall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPanadapter)).BeginInit();
@@ -105,7 +106,7 @@
             // 
             // btnF1
             // 
-            this.btnF1.Location = new System.Drawing.Point(76, 486);
+            this.btnF1.Location = new System.Drawing.Point(43, 493);
             this.btnF1.Name = "btnF1";
             this.btnF1.Size = new System.Drawing.Size(62, 23);
             this.btnF1.TabIndex = 2;
@@ -115,7 +116,7 @@
             // 
             // btnF2
             // 
-            this.btnF2.Location = new System.Drawing.Point(138, 486);
+            this.btnF2.Location = new System.Drawing.Point(105, 493);
             this.btnF2.Name = "btnF2";
             this.btnF2.Size = new System.Drawing.Size(62, 23);
             this.btnF2.TabIndex = 3;
@@ -125,7 +126,7 @@
             // 
             // btnF3
             // 
-            this.btnF3.Location = new System.Drawing.Point(200, 486);
+            this.btnF3.Location = new System.Drawing.Point(167, 493);
             this.btnF3.Name = "btnF3";
             this.btnF3.Size = new System.Drawing.Size(62, 23);
             this.btnF3.TabIndex = 4;
@@ -135,7 +136,7 @@
             // 
             // btnF4
             // 
-            this.btnF4.Location = new System.Drawing.Point(262, 486);
+            this.btnF4.Location = new System.Drawing.Point(229, 493);
             this.btnF4.Name = "btnF4";
             this.btnF4.Size = new System.Drawing.Size(62, 23);
             this.btnF4.TabIndex = 5;
@@ -145,7 +146,7 @@
             // 
             // btnF5
             // 
-            this.btnF5.Location = new System.Drawing.Point(76, 530);
+            this.btnF5.Location = new System.Drawing.Point(43, 531);
             this.btnF5.Name = "btnF5";
             this.btnF5.Size = new System.Drawing.Size(62, 23);
             this.btnF5.TabIndex = 6;
@@ -155,7 +156,7 @@
             // 
             // btnF6
             // 
-            this.btnF6.Location = new System.Drawing.Point(138, 530);
+            this.btnF6.Location = new System.Drawing.Point(105, 531);
             this.btnF6.Name = "btnF6";
             this.btnF6.Size = new System.Drawing.Size(62, 23);
             this.btnF6.TabIndex = 7;
@@ -165,7 +166,7 @@
             // 
             // btnF8
             // 
-            this.btnF8.Location = new System.Drawing.Point(262, 530);
+            this.btnF8.Location = new System.Drawing.Point(229, 531);
             this.btnF8.Name = "btnF8";
             this.btnF8.Size = new System.Drawing.Size(62, 23);
             this.btnF8.TabIndex = 9;
@@ -175,7 +176,7 @@
             // 
             // btnF7
             // 
-            this.btnF7.Location = new System.Drawing.Point(200, 530);
+            this.btnF7.Location = new System.Drawing.Point(167, 531);
             this.btnF7.Name = "btnF7";
             this.btnF7.Size = new System.Drawing.Size(62, 23);
             this.btnF7.TabIndex = 8;
@@ -185,13 +186,15 @@
             // 
             // btnStartMR
             // 
-            this.btnStartMR.Location = new System.Drawing.Point(76, 448);
+            this.btnStartMR.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnStartMR.Location = new System.Drawing.Point(43, 454);
             this.btnStartMR.Name = "btnStartMR";
             this.btnStartMR.Size = new System.Drawing.Size(62, 23);
             this.btnStartMR.TabIndex = 10;
             this.btnStartMR.Text = "Start ";
+            this.btnStartMR.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnStartMR.UseVisualStyleBackColor = true;
-            this.btnStartMR.Click += new System.EventHandler(this.btnStartMR_Click);
+            this.btnStartMR.CheckedChanged += new System.EventHandler(this.btnStartMR_CheckedChanged);
             // 
             // menuStrip1
             // 
@@ -283,20 +286,10 @@
             this.lblNr.TabIndex = 19;
             this.lblNr.Text = "NBR";
             // 
-            // btnStopMR
-            // 
-            this.btnStopMR.Location = new System.Drawing.Point(262, 448);
-            this.btnStopMR.Name = "btnStopMR";
-            this.btnStopMR.Size = new System.Drawing.Size(62, 23);
-            this.btnStopMR.TabIndex = 20;
-            this.btnStopMR.Text = "Stop";
-            this.btnStopMR.UseVisualStyleBackColor = true;
-            this.btnStopMR.Click += new System.EventHandler(this.btnStopMR_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(159, 453);
+            this.label1.Location = new System.Drawing.Point(126, 459);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 21;
@@ -304,7 +297,7 @@
             // 
             // txtChannel4
             // 
-            this.txtChannel4.Location = new System.Drawing.Point(31, 97);
+            this.txtChannel4.Location = new System.Drawing.Point(31, 105);
             this.txtChannel4.MaxLength = 32768;
             this.txtChannel4.Name = "txtChannel4";
             this.txtChannel4.Size = new System.Drawing.Size(271, 20);
@@ -332,7 +325,7 @@
             // 
             // txtChannel5
             // 
-            this.txtChannel5.Location = new System.Drawing.Point(31, 117);
+            this.txtChannel5.Location = new System.Drawing.Point(31, 125);
             this.txtChannel5.MaxLength = 32768;
             this.txtChannel5.Name = "txtChannel5";
             this.txtChannel5.Size = new System.Drawing.Size(271, 20);
@@ -340,7 +333,7 @@
             // 
             // txtChannel6
             // 
-            this.txtChannel6.Location = new System.Drawing.Point(31, 137);
+            this.txtChannel6.Location = new System.Drawing.Point(31, 145);
             this.txtChannel6.MaxLength = 32768;
             this.txtChannel6.Name = "txtChannel6";
             this.txtChannel6.Size = new System.Drawing.Size(271, 20);
@@ -348,7 +341,7 @@
             // 
             // txtChannel7
             // 
-            this.txtChannel7.Location = new System.Drawing.Point(31, 157);
+            this.txtChannel7.Location = new System.Drawing.Point(31, 165);
             this.txtChannel7.MaxLength = 32768;
             this.txtChannel7.Name = "txtChannel7";
             this.txtChannel7.Size = new System.Drawing.Size(271, 20);
@@ -356,7 +349,7 @@
             // 
             // txtChannel11
             // 
-            this.txtChannel11.Location = new System.Drawing.Point(31, 237);
+            this.txtChannel11.Location = new System.Drawing.Point(31, 245);
             this.txtChannel11.MaxLength = 32768;
             this.txtChannel11.Name = "txtChannel11";
             this.txtChannel11.Size = new System.Drawing.Size(271, 20);
@@ -364,7 +357,7 @@
             // 
             // txtChannel10
             // 
-            this.txtChannel10.Location = new System.Drawing.Point(31, 217);
+            this.txtChannel10.Location = new System.Drawing.Point(31, 225);
             this.txtChannel10.MaxLength = 32768;
             this.txtChannel10.Name = "txtChannel10";
             this.txtChannel10.Size = new System.Drawing.Size(271, 20);
@@ -372,7 +365,7 @@
             // 
             // txtChannel9
             // 
-            this.txtChannel9.Location = new System.Drawing.Point(31, 197);
+            this.txtChannel9.Location = new System.Drawing.Point(31, 205);
             this.txtChannel9.MaxLength = 32768;
             this.txtChannel9.Name = "txtChannel9";
             this.txtChannel9.Size = new System.Drawing.Size(271, 20);
@@ -380,7 +373,7 @@
             // 
             // txtChannel8
             // 
-            this.txtChannel8.Location = new System.Drawing.Point(31, 177);
+            this.txtChannel8.Location = new System.Drawing.Point(31, 185);
             this.txtChannel8.MaxLength = 32768;
             this.txtChannel8.Name = "txtChannel8";
             this.txtChannel8.Size = new System.Drawing.Size(271, 20);
@@ -388,7 +381,7 @@
             // 
             // txtChannel15
             // 
-            this.txtChannel15.Location = new System.Drawing.Point(31, 317);
+            this.txtChannel15.Location = new System.Drawing.Point(31, 325);
             this.txtChannel15.MaxLength = 32768;
             this.txtChannel15.Name = "txtChannel15";
             this.txtChannel15.Size = new System.Drawing.Size(271, 20);
@@ -396,7 +389,7 @@
             // 
             // txtChannel14
             // 
-            this.txtChannel14.Location = new System.Drawing.Point(31, 297);
+            this.txtChannel14.Location = new System.Drawing.Point(31, 305);
             this.txtChannel14.MaxLength = 32768;
             this.txtChannel14.Name = "txtChannel14";
             this.txtChannel14.Size = new System.Drawing.Size(271, 20);
@@ -404,7 +397,7 @@
             // 
             // txtChannel13
             // 
-            this.txtChannel13.Location = new System.Drawing.Point(31, 277);
+            this.txtChannel13.Location = new System.Drawing.Point(31, 285);
             this.txtChannel13.MaxLength = 32768;
             this.txtChannel13.Name = "txtChannel13";
             this.txtChannel13.Size = new System.Drawing.Size(271, 20);
@@ -412,7 +405,7 @@
             // 
             // txtChannel12
             // 
-            this.txtChannel12.Location = new System.Drawing.Point(31, 257);
+            this.txtChannel12.Location = new System.Drawing.Point(31, 265);
             this.txtChannel12.MaxLength = 32768;
             this.txtChannel12.Name = "txtChannel12";
             this.txtChannel12.Size = new System.Drawing.Size(271, 20);
@@ -420,7 +413,7 @@
             // 
             // txtChannel19
             // 
-            this.txtChannel19.Location = new System.Drawing.Point(31, 397);
+            this.txtChannel19.Location = new System.Drawing.Point(31, 405);
             this.txtChannel19.MaxLength = 32768;
             this.txtChannel19.Name = "txtChannel19";
             this.txtChannel19.Size = new System.Drawing.Size(271, 20);
@@ -428,7 +421,7 @@
             // 
             // txtChannel18
             // 
-            this.txtChannel18.Location = new System.Drawing.Point(31, 377);
+            this.txtChannel18.Location = new System.Drawing.Point(31, 385);
             this.txtChannel18.MaxLength = 32768;
             this.txtChannel18.Name = "txtChannel18";
             this.txtChannel18.Size = new System.Drawing.Size(271, 20);
@@ -436,7 +429,7 @@
             // 
             // txtChannel17
             // 
-            this.txtChannel17.Location = new System.Drawing.Point(31, 357);
+            this.txtChannel17.Location = new System.Drawing.Point(31, 365);
             this.txtChannel17.MaxLength = 32768;
             this.txtChannel17.Name = "txtChannel17";
             this.txtChannel17.Size = new System.Drawing.Size(271, 20);
@@ -444,7 +437,7 @@
             // 
             // txtChannel16
             // 
-            this.txtChannel16.Location = new System.Drawing.Point(31, 337);
+            this.txtChannel16.Location = new System.Drawing.Point(31, 345);
             this.txtChannel16.MaxLength = 32768;
             this.txtChannel16.Name = "txtChannel16";
             this.txtChannel16.Size = new System.Drawing.Size(271, 20);
@@ -452,7 +445,7 @@
             // 
             // txtChannel3
             // 
-            this.txtChannel3.Location = new System.Drawing.Point(31, 77);
+            this.txtChannel3.Location = new System.Drawing.Point(31, 85);
             this.txtChannel3.MaxLength = 32768;
             this.txtChannel3.Name = "txtChannel3";
             this.txtChannel3.Size = new System.Drawing.Size(271, 20);
@@ -460,7 +453,7 @@
             // 
             // txtChannel2
             // 
-            this.txtChannel2.Location = new System.Drawing.Point(31, 57);
+            this.txtChannel2.Location = new System.Drawing.Point(31, 65);
             this.txtChannel2.MaxLength = 32768;
             this.txtChannel2.Name = "txtChannel2";
             this.txtChannel2.Size = new System.Drawing.Size(271, 20);
@@ -468,7 +461,7 @@
             // 
             // txtChannel20
             // 
-            this.txtChannel20.Location = new System.Drawing.Point(31, 417);
+            this.txtChannel20.Location = new System.Drawing.Point(31, 425);
             this.txtChannel20.MaxLength = 32768;
             this.txtChannel20.Name = "txtChannel20";
             this.txtChannel20.Size = new System.Drawing.Size(271, 20);
@@ -477,9 +470,9 @@
             // picWaterfall
             // 
             this.picWaterfall.BackColor = System.Drawing.Color.Black;
-            this.picWaterfall.Location = new System.Drawing.Point(6, 14);
+            this.picWaterfall.Location = new System.Drawing.Point(18, 25);
             this.picWaterfall.Name = "picWaterfall";
-            this.picWaterfall.Size = new System.Drawing.Size(586, 240);
+            this.picWaterfall.Size = new System.Drawing.Size(576, 240);
             this.picWaterfall.TabIndex = 43;
             this.picWaterfall.TabStop = false;
             this.picWaterfall.Paint += new System.Windows.Forms.PaintEventHandler(this.picWaterfall_Paint);
@@ -487,25 +480,49 @@
             // picPanadapter
             // 
             this.picPanadapter.BackColor = System.Drawing.Color.Black;
-            this.picPanadapter.Location = new System.Drawing.Point(6, 267);
+            this.picPanadapter.Location = new System.Drawing.Point(18, 265);
             this.picPanadapter.Name = "picPanadapter";
-            this.picPanadapter.Size = new System.Drawing.Size(586, 240);
+            this.picPanadapter.Size = new System.Drawing.Size(576, 245);
             this.picPanadapter.TabIndex = 44;
             this.picPanadapter.TabStop = false;
+            this.picPanadapter.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picPanadapter_MouseMove);
+            this.picPanadapter.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picPanadapter_MouseDown);
             this.picPanadapter.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // grpDisplay
             // 
-            this.grpDisplay.BackColor = System.Drawing.SystemColors.Control;
+            this.grpDisplay.BackColor = System.Drawing.Color.Black;
+            this.grpDisplay.Controls.Add(this.txtLevel);
+            this.grpDisplay.Controls.Add(this.txtFreq);
             this.grpDisplay.Controls.Add(this.picPanadapter);
             this.grpDisplay.Controls.Add(this.picWaterfall);
-            this.grpDisplay.ForeColor = System.Drawing.Color.Black;
-            this.grpDisplay.Location = new System.Drawing.Point(398, 23);
+            this.grpDisplay.ForeColor = System.Drawing.Color.White;
+            this.grpDisplay.Location = new System.Drawing.Point(384, 12);
             this.grpDisplay.Name = "grpDisplay";
-            this.grpDisplay.Size = new System.Drawing.Size(598, 520);
+            this.grpDisplay.Size = new System.Drawing.Size(612, 541);
             this.grpDisplay.TabIndex = 45;
             this.grpDisplay.TabStop = false;
             this.grpDisplay.Text = "Display";
+            // 
+            // txtLevel
+            // 
+            this.txtLevel.BackColor = System.Drawing.Color.Black;
+            this.txtLevel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtLevel.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.txtLevel.Location = new System.Drawing.Point(309, 513);
+            this.txtLevel.Name = "txtLevel";
+            this.txtLevel.Size = new System.Drawing.Size(100, 13);
+            this.txtLevel.TabIndex = 46;
+            // 
+            // txtFreq
+            // 
+            this.txtFreq.BackColor = System.Drawing.Color.Black;
+            this.txtFreq.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFreq.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.txtFreq.Location = new System.Drawing.Point(203, 513);
+            this.txtFreq.Name = "txtFreq";
+            this.txtFreq.Size = new System.Drawing.Size(100, 13);
+            this.txtFreq.TabIndex = 45;
             // 
             // CWExpert
             // 
@@ -535,7 +552,6 @@
             this.Controls.Add(this.btngrab);
             this.Controls.Add(this.txtChannel4);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnStopMR);
             this.Controls.Add(this.lblNr);
             this.Controls.Add(this.lblRST);
             this.Controls.Add(this.lblCall);
@@ -562,13 +578,14 @@
             this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "CWExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "CWExpert  v1.2.7";
+            this.Text = "CWExpert  v1.2.8";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CWExpert_KeyUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWaterfall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPanadapter)).EndInit();
             this.grpDisplay.ResumeLayout(false);
+            this.grpDisplay.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -586,7 +603,7 @@
         private System.Windows.Forms.Button btnF6;
         private System.Windows.Forms.Button btnF8;
         private System.Windows.Forms.Button btnF7;
-        private System.Windows.Forms.Button btnStartMR;
+        private System.Windows.Forms.CheckBox btnStartMR;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem setupMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
@@ -597,7 +614,6 @@
         private System.Windows.Forms.Label lblCall;
         private System.Windows.Forms.Label lblRST;
         private System.Windows.Forms.Label lblNr;
-        private System.Windows.Forms.Button btnStopMR;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btngrab;
         private System.Windows.Forms.Button btnclr;
@@ -623,6 +639,8 @@
         public System.Windows.Forms.PictureBox picWaterfall;
         private System.Windows.Forms.GroupBox grpDisplay;
         public System.Windows.Forms.PictureBox picPanadapter;
+        private System.Windows.Forms.TextBox txtFreq;
+        private System.Windows.Forms.TextBox txtLevel;
     }
 }
 

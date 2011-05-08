@@ -33,6 +33,8 @@ using System.Diagnostics;
 
 namespace CWExpert
 {
+    #region enum
+
     public enum ColorSheme
     {
         original = 0,
@@ -52,6 +54,10 @@ namespace CWExpert
         LAST,
     }
 
+    #endregion
+
+    #region structures
+
     [StructLayout(LayoutKind.Sequential)]
     public struct TextEdit
     {
@@ -60,13 +66,19 @@ namespace CWExpert
         public int Width;
     }
 
+    #endregion
+
     unsafe public partial class CWExpert : Form
     {
+        #region DLL imports
+
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         public static extern int SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, int wFlags);
 
         [DllImport("msvcrt.dll", EntryPoint = "memcpy")]
         public static extern void memcpy(void* destptr, void* srcptr, int n);
+
+        #endregion
 
         #region variable definition
 
@@ -93,6 +105,7 @@ namespace CWExpert
         public CWDecode cwDecoder;
         public bool pause_DisplayThread = false;
         public double[,] display_buffer;
+//        public float[] display_buffer;
         private Thread display_thread;
         public AutoResetEvent display_event;
 
@@ -142,19 +155,19 @@ namespace CWExpert
         }
 
   
-        private bool mrIsRunning = true;
+        private bool mrIsRunning = false;
 
         public bool MRIsRunning
         {
             get { return mrIsRunning; }
             set
             {
-/*                if (mrIsRunning)
-                    btnStopMR_Click(null, null);
+                if (mrIsRunning)
+                    btnStartMR.Checked = false;
                 Thread.Sleep(100);
                 mrIsRunning = value;
                 if (value)
-                    btnStartMR_Click(null, null);*/
+                    btnStartMR.Checked = false;
             }
         }
 
@@ -179,9 +192,11 @@ namespace CWExpert
             DirectX.WaterfallTarget = picWaterfall;
             booting = false;
             display_event = new AutoResetEvent(false);
-            DirectX.DirectXInit();
-            cwDecoder = new CWDecode(this);
+            DirectX.WaterfallInit();
             display_buffer = new double[32,64];
+//            display_buffer = new float[2048];
+            Application.EnableVisualStyles();
+            AlwaysOnTop = always_on_top;
         }
 
         #endregion
@@ -437,117 +452,125 @@ namespace CWExpert
 
         #region MorseRunner keys
 
-        private void btnStartMR_Click(object sender, EventArgs e)
+        private void btnStartMR_CheckedChanged(object sender, EventArgs e)
         {
             try
             {
-                DirectX.DirectXInit();
-//                if (!mrIsRunning)
+                txtChannelClear();
+
+                if (btnStartMR.Checked)
                 {
-                    mrIsRunning = true;
-                    Audio.callback_return = 0;
-                    if (cwDecoder.AudioEvent == null)
-                        cwDecoder.AudioEvent = new AutoResetEvent(false);
-
-                    Audio.Start();
-
-/*                    EnsureMRWindow();
-                    if (topWindow == 0)
-                        return;*/
-
-                    cwDecoder.CWdecodeStart();
-
-                    int runButton = 0;
-                    int panel = 0;
-                    int subPanel = 0;
-
-                    while (true)
+                    if (!mrIsRunning)
                     {
-                        panel = msg.getWindowIdEx(topWindow, panel, "TPanel", null);
-                        if (panel == 0)
-                            break;
-                        // Test if it has panel with subpanel with empty caption
-                        subPanel = msg.getWindowIdEx(panel, 0, "TPanel", "");
-                        if (subPanel == 0)
-                            break;
-
-                        // Test if that sub-panel has toolbar
-                        runButton = msg.getWindowIdEx(subPanel, 0, "TToolBar", null);
-                        if (runButton == 0)
-                            break;
-                    }
-
-//                    if (runButton == 0)
-//                        return;
-//                    else
-                    {
-                        msg.sendWindowsMessage(runButton, WM_LBUTTONDOWN, 0, (10 << 16) + 10);
-                        msg.sendWindowsMessage(runButton, WM_LBUTTONUP, 0, (10 << 16) + 10);
+                        cwDecoder = new CWDecode(this);
+                        cwDecoder.rx_only = SetupForm.chkRXOnly.Checked;
+                        DirectX.DirectXInit();
                         mrIsRunning = true;
+                        Audio.callback_return = 0;
+                        if (cwDecoder.AudioEvent == null)
+                            cwDecoder.AudioEvent = new AutoResetEvent(false);
 
-                        display_thread = new Thread(new ThreadStart(RunDisplay));
-                        display_thread.Name = "Display Thread";
-                        display_thread.Priority = ThreadPriority.Normal;
-                        display_thread.IsBackground = true;
-                        display_thread.Start();
+                        Audio.Start();
 
- //                       textBox1.BackColor = Color.LightGreen;
+                        EnsureMRWindow();
+
+                        if (topWindow == 0)
+                        {
+                            btnStartMR.Checked = false;
+                            return;
+                        }
+
+                        cwDecoder.CWdecodeStart();
+
+                        int runButton = 0;
+                        int panel = 0;
+                        int subPanel = 0;
+
+                        while (true)
+                        {
+                            panel = msg.getWindowIdEx(topWindow, panel, "TPanel", null);
+                            if (panel == 0)
+                                break;
+                            // Test if it has panel with subpanel with empty caption
+                            subPanel = msg.getWindowIdEx(panel, 0, "TPanel", "");
+                            if (subPanel == 0)
+                                break;
+
+                            // Test if that sub-panel has toolbar
+                            runButton = msg.getWindowIdEx(subPanel, 0, "TToolBar", null);
+                            if (runButton == 0)
+                                break;
+                        }
+
+                        if (runButton == 0)
+                        {
+                            btnStartMR.Checked = false;
+                            return;
+                        }
+                        else
+                        {
+                            msg.sendWindowsMessage(runButton, WM_LBUTTONDOWN, 0, (10 << 16) + 10);
+                            msg.sendWindowsMessage(runButton, WM_LBUTTONUP, 0, (10 << 16) + 10);
+                            mrIsRunning = true;
+                            btnStartMR.Text = "Stop";
+
+                            display_thread = new Thread(new ThreadStart(RunDisplay));
+                            display_thread.Name = "Display Thread";
+                            display_thread.Priority = ThreadPriority.Normal;
+                            display_thread.IsBackground = true;
+                            display_thread.Start();
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Morse Runner not running?\n" + ex.ToString());
-            }
-        }
-
-        private void btnStopMR_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DirectX.DirectXRelease();
-//                if (mrIsRunning)
+                else
                 {
-                    mrIsRunning = false;
-                    Audio.callback_return = 2;
-                    cwDecoder.CWdecodeStop();
-                    Audio.StopAudio();
-                    Thread.Sleep(100);
-                    if (cwDecoder.AudioEvent != null)
-                        cwDecoder.AudioEvent.Close();
-                    cwDecoder.AudioEvent = null;
-
-/*                    EnsureMRWindow();
-                    if (topWindow == 0)
-                        return;*/
-
-                    int runButton = 0;
-                    int panel = 0;
-                    int subPanel = 0;
-
-                    while (true)
+                    if (mrIsRunning)
                     {
-                        panel = msg.getWindowIdEx(topWindow, panel, "TPanel", null);
-                        if (panel == 0)
-                            break;
-                        // Test if it has panel with subpanel with empty caption
-                        subPanel = msg.getWindowIdEx(panel, 0, "TPanel", "");
-                        if (subPanel == 0)
-                            break;
-
-                        // Test if that sub-panel has toolbar
-                        runButton = msg.getWindowIdEx(subPanel, 0, "TToolBar", null);
-                        if (runButton == 0)
-                            break;
-                    }
-
-                    if (runButton == 0)
-                        return;
-                    else
-                    {
-                        msg.sendWindowsMessage(runButton, WM_LBUTTONDOWN, 0, (10 << 16) + 10);
-                        msg.sendWindowsMessage(runButton, WM_LBUTTONUP, 0, (10 << 16) + 10);
                         mrIsRunning = false;
+                        Audio.callback_return = 2;
+                        cwDecoder.CWdecodeStop();
+                        Audio.StopAudio();
+                        Thread.Sleep(100);
+                        if (cwDecoder.AudioEvent != null)
+                            cwDecoder.AudioEvent.Close();
+                        cwDecoder.AudioEvent = null;
+
+                        EnsureMRWindow();
+                        if (topWindow == 0)
+                            return;
+
+                        int runButton = 0;
+                        int panel = 0;
+                        int subPanel = 0;
+
+                        while (true)
+                        {
+                            panel = msg.getWindowIdEx(topWindow, panel, "TPanel", null);
+                            if (panel == 0)
+                                break;
+                            // Test if it has panel with subpanel with empty caption
+                            subPanel = msg.getWindowIdEx(panel, 0, "TPanel", "");
+                            if (subPanel == 0)
+                                break;
+
+                            // Test if that sub-panel has toolbar
+                            runButton = msg.getWindowIdEx(subPanel, 0, "TToolBar", null);
+                            if (runButton == 0)
+                                break;
+                        }
+
+                        if (runButton == 0)
+                            return;
+                        else
+                        {
+                            msg.sendWindowsMessage(runButton, WM_LBUTTONDOWN, 0, (10 << 16) + 10);
+                            msg.sendWindowsMessage(runButton, WM_LBUTTONUP, 0, (10 << 16) + 10);
+                            mrIsRunning = false;
+                            btnStartMR.Text = "Start";
+                        }
+
+                        cwDecoder = null;
+                        DirectX.DirectXRelease();
                     }
                 }
             }
@@ -694,7 +717,7 @@ namespace CWExpert
  
         }
 
-        private void btnclr_Click(object sender, EventArgs e)
+        private void txtChannelClear()
         {
             try
             {
@@ -724,6 +747,20 @@ namespace CWExpert
             }
         }
 
+        private void btnclr_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                txtChannelClear();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
+
+        #region Display functions
+
         private void picWaterfall_Paint(object sender, PaintEventArgs e)
         {
             DirectX.RenderWaterfall(e.Graphics, picWaterfall.Width, picWaterfall.Height);
@@ -732,7 +769,6 @@ namespace CWExpert
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             DirectX.RenderDirectX();
-//            Debug.Write("Paint!");
         }
 
         public bool data_ready = false;
@@ -740,20 +776,22 @@ namespace CWExpert
         {
             try
             {
+                Thread.Sleep(100);
+
                 while (MRIsRunning)
                 {
                     display_event.WaitOne();
 
                     if (data_ready)
                     {
-                        for (int i = 0; i < 64; i++)
+/*                        for (int i = 0; i < 64; i++)
                         {
                             for (int j = 0; j < 32; j++)
                             {
-                                DirectX.new_display_data[i * 32 + j] = (float)((display_buffer[j, i]));
-                                DirectX.new_waterfall_data[i * 32 + j] = (float)((display_buffer[j, i]));
+                                DirectX.new_display_data[i * 32 + j] = (float)(Math.Max((Math.Min(30 * (Math.Log(display_buffer[j, i])), 200)), -200));
+                                DirectX.new_waterfall_data[i * 32 + j] = (float)(Math.Max((Math.Min(30 * (Math.Log(display_buffer[j, i])), 200)), -200));
                             }
-                        }
+                        }*/
 
                         data_ready = false;
 
@@ -761,10 +799,110 @@ namespace CWExpert
 
                     DirectX.DataReady = true;
                     DirectX.RenderDirectX();
-//                    picPanadapter.Invalidate();
                     DirectX.WaterfallDataReady = true;
                     picWaterfall.Invalidate();
-//                    Thread.Sleep(10);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
+
+        private void picPanadapter_MouseMove(object sender, MouseEventArgs e)
+        {
+            DirectX.DisplayCursorX = e.X;
+            float x = PixelToHz(e.X);
+            txtFreq.Text = Math.Round(x, 0).ToString() + "Hz";
+        }
+
+        private float PixelToHz(float x)
+        {
+            int low, high;
+
+            low = DirectX.RXDisplayLow;
+            high = DirectX.RXDisplayHigh;
+
+            int width = high - low;
+            return (float)(low + (double)x / (double)picPanadapter.Width * (double)width);
+        }
+
+        private void picPanadapter_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && !DirectX.ShowVertCursor)
+                DirectX.ShowVertCursor = true;
+            else if (e.Button == MouseButtons.Right)
+                DirectX.ShowVertCursor = false;
+        }
+
+        #endregion
+
+        public void WriteOutputText(int chanel_no, double thd_txt, string out_string)
+        {
+            try
+            {
+                if (chanel_no <= 20 && chanel_no >= 2)
+                {
+                    switch (chanel_no)
+                    {
+                        case 2:
+                            txtChannel2.Text = "2  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 3:
+                            txtChannel3.Text = "3  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 4:
+                            txtChannel4.Text = "4  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 5:
+                            txtChannel5.Text = "5  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 6:
+                            txtChannel6.Text = "6  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 7:
+                            txtChannel7.Text = "7  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 8:
+                            txtChannel8.Text = "8  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 9:
+                            txtChannel9.Text = "9  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 10:
+                            txtChannel10.Text = "10 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 11:
+                            txtChannel11.Text = "11 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 12:
+                            txtChannel12.Text = "12 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 13:
+                            txtChannel13.Text = "13 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 14:
+                            txtChannel14.Text = "14 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 15:
+                            txtChannel15.Text = "15 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 16:
+                            txtChannel16.Text = "16 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 17:
+                            txtChannel17.Text = "17 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 18:
+                            txtChannel18.Text = "18 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 19:
+                            txtChannel19.Text = "19 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                        case 20:
+                            txtChannel20.Text = "20 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            break;
+                    }
                 }
             }
             catch (Exception ex)

@@ -40,6 +40,8 @@ namespace CWExpert
             MainForm = main_form;
             InitAudio();
             GetOptions();
+            DirectX.WaterfallHighThreshold = (int)udDisplayHigh.Value;
+            DirectX.WaterfallLowThreshold = (int)udDisplayLow.Value;
         }
 
         private void InitAudio()
@@ -463,9 +465,12 @@ namespace CWExpert
             MainForm.AlwaysOnTop = chkAlwaysOnTop.Checked;
         }
 
-        private void udRefreshRate_ValueChanged(object sender, EventArgs e)
+        private void udAveraging_ValueChanged(object sender, EventArgs e)
         {
-
+            double buffer_time = (double)Audio.BlockSize / (double)Audio.SampleRate;
+			int buffersToAvg = (int)((float)udAveraging.Value * 0.001 / buffer_time);
+			buffersToAvg = Math.Max(2, buffersToAvg);
+            DirectX.DisplayAvgBlocks = buffersToAvg;
         }
 
         private void udDisplayLow_ValueChanged(object sender, EventArgs e)
@@ -478,6 +483,12 @@ namespace CWExpert
         {
             DirectX.SpectrumGridMax = (int)udDisplayHigh.Value;
             DirectX.WaterfallHighThreshold = (float)udDisplayHigh.Value;
+        }
+
+        private void chkRXOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!MainForm.booting && MainForm.cwDecoder != null)
+                MainForm.cwDecoder.rx_only = chkRXOnly.Checked;
         }
     }
 

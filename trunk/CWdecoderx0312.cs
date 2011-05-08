@@ -27,6 +27,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using fftwlib;
 
 
 namespace CWExpert
@@ -36,10 +37,11 @@ namespace CWExpert
         #region variable
 
         delegate void CrossThreadCallback(string command, string data);
+        delegate void CrossThreadSetText(string command, int channel_no, double thd_txt, string out_txt);
 
         public bool lid = false;
         //        public int stanje = 0;
-        public bool rx_only = true;
+        public bool rx_only = false;
         public bool once = true;
         public int rcvd = 0;
         public int moni = 12;
@@ -59,7 +61,8 @@ namespace CWExpert
         public Thread CWThread;
         public AutoResetEvent AudioEvent;
         //    public ushort[] read_buffer_r;
-        public short[] read_buffer_l;
+        public float[] audio_buffer;
+        public float[] fft_buffer;
         public bool key = false;
         public bool nr_agn = false;
         public bool call_found = false;
@@ -102,10 +105,11 @@ namespace CWExpert
         public int rx_timer = 50;
         public int dotmin = 0;
         public byte[] bitrev = new byte[F2L];
-        public short[] old1 = new short[FFTlen];
+        public double[] old1 = new double[FFTlen];
         public bool[] keyes = new bool[FFTlen];
         public bool[] valid = new bool[FFTlen];
         public int nofs = 0;
+        private FFTW fftw;
 
         //        System.IO.StreamReader file = new System.IO.StreamReader("C:\\kc998.wav");
 
@@ -122,12 +126,13 @@ namespace CWExpert
             try
             {
                 MainForm = mainForm;
-                //                timer = new HiPerfTimer();
-                read_buffer_l = new short[Audio.BlockSize];
-                thd_txt = new double[64];
-                //              read_buffer_r = new short[Audio.BlockSize];
+                audio_buffer = new float[Audio.BlockSize * 2];
+                fft_buffer = new float[Audio.BlockSize * 2];
+                thd_txt = new double[FFTlen];
                 AudioEvent = new AutoResetEvent(false);
                 once = true;
+                fftw = new FFTW();
+                fftw.InitFFTW(Audio.BlockSize, Audio.BlockSize);
             }
             catch (Exception ex)
             {
@@ -143,6 +148,23 @@ namespace CWExpert
 
 
         #region crossthread
+
+        private void SetText(string action, int channel, double thd_txt, string text)
+        {
+            try
+            {
+                    switch (action)
+                    {
+                        case "Set text":
+                            MainForm.WriteOutputText(channel, thd_txt, text);
+                            break;
+                    }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
 
         private void CrossThreadCommand(string action, string data)
         {
@@ -219,7 +241,23 @@ namespace CWExpert
                 while (run_thread)
                 {
                     AudioEvent.WaitOne();
-                    FFT_Spectrum();
+                    Marshal.Copy(audio_buffer, 0, fftw.spec_in, Audio.BlockSize);
+
+                    if (fftw.ComputeSpectrum())
+                    {
+                        Array.Copy(fftw.spec_fout, 0, DirectX.new_display_data, 0, Audio.BlockSize);
+                        Array.Copy(fftw.spec_fout, 0, DirectX.new_waterfall_data, 0, Audio.BlockSize);
+                        MainForm.data_ready = true;
+                        MainForm.display_event.Set();
+                    }
+
+                    Marshal.Copy(audio_buffer, 0, fftw.pin, Audio.BlockSize * 2);
+                    if (fftw.ComputeFFT())
+                    {
+                        Array.Copy(fftw.fout, 0, fft_buffer, 0, Audio.BlockSize * 2);
+                        FFT_Spectrum();
+                    }
+
                     if (once) { Channel(); }
                     else if (transmit) { TRtiming(); }
                     else
@@ -230,16 +268,19 @@ namespace CWExpert
                             Analyse();
                             Responder();
                         }
-
                     }
                 }
 
+                fftw.FreeFFTW();
+                fftw = null;
             }
 
             catch (Exception ex)
             {
                 Debug.Write(ex.ToString());
                 run_thread = false;
+                fftw.FreeFFTW();
+                fftw = null;
             }
         }
 
@@ -247,8 +288,8 @@ namespace CWExpert
         {
             bool result = false;
             once = true;
-            bwl = 1;
-            bwh = 62;
+            bwl = 2;
+            bwh = 20;
 
             if (Init())
             {
@@ -464,6 +505,7 @@ namespace CWExpert
                 if (tx_timer == 1)
                 {
                     thd = 0;
+
                     for (n = bwl; n < bwh; n++)
                     {
                         if (temp[n] > thd)
@@ -472,6 +514,7 @@ namespace CWExpert
                             moni = n;
                         }
                     }
+
                     Debug.WriteLine("  " + moni.ToString() + "  ");
                     once = false;
                     ctr = 0;
@@ -483,13 +526,11 @@ namespace CWExpert
                 rx_timer--;
                 if (rx_timer == 0)
                 {
-//                    while ((temp[bwl] < thd) && (bwl < bwh)) { bwl++; }
-//                    while ((temp[bwh] < thd) && (bwh > bwl)) { bwh--; }
                     for (n = bwl; n < bwh; n++)
                     {
                         Debug.WriteLine(n + "  " + Math.Round(temp[n]).ToString());
-                        Noise[n] = 3 * temp[n];
-                        temp[n] = 0;
+                        Noise[n] = Mag[0, n]; // 3 * temp[n];
+//                        temp[n] = 0;
                     }
                     Debug.WriteLine(Math.Round(thd).ToString() + " " + Math.Round(max).ToString());
                     cqcqcq();
@@ -502,7 +543,7 @@ namespace CWExpert
             int t0 = ctr;
             for (int z = bwl; z < bwh; z++)
             {
-                thd = Math.Sqrt(Noise[z] * signal[z] / nofs);
+                thd = Math.Sqrt((Noise[z] * signal[z] / nofs));
                 thd_txt[z] = thd;
                 ctr = t0;
                 for (int n = 0; n < nofs; n++)
@@ -599,7 +640,7 @@ namespace CWExpert
             {
                 int z = 0;
                 int n = 0;
-                int i = 0;
+                int i = 0,j = 0, k = 0;
                 bool oldy = true;
 
                 for (n = bwl - 1; n < bwh + 1; n++)
@@ -618,7 +659,7 @@ namespace CWExpert
                             ImagF[n] = 0;
                             ImagF[FFTlen + n] = 0;
                             RealF[n] = wd[n] * old1[n];
-                            RealF[FFTlen + n] = wd[FFTlen + n] * (short)read_buffer_l[n];
+                            RealF[FFTlen + n] = wd[FFTlen + n] * (double)audio_buffer[n];
                         }
                     }
                     else
@@ -626,13 +667,13 @@ namespace CWExpert
                         for (n = 0; n < F2L; n++)
                         {
                             ImagF[n] = 0;
-                            RealF[n] = wd[n] * (short)read_buffer_l[i + n];
+                            RealF[n] = wd[n] * (double)audio_buffer[i + n];
                         }
                         z++;
                         i += FFTlen;
                     }
 
-                    CallFFT();
+//                    CallFFT();
 
                     for (n = bwl - 1; n < bwh + 1; n++)
                     {
@@ -641,21 +682,17 @@ namespace CWExpert
                         if (Mag[z, n] > maxim[n]) { maxim[n] = Mag[z, n]; }
                         signal[n] += Mag[z, n];
                     }
-
-                    Array.Copy(Mag, MainForm.display_buffer, 2048);
-                    MainForm.data_ready = true;
-                    MainForm.display_event.Set();
                 }
 
                 for (n = 0; n < FFTlen; n++)
                 {
-                    old1[n] = (short)read_buffer_l[i + n];
+                    old1[n] = (double)audio_buffer[i + n];
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Debug.Write(ex.ToString());
             }
         }
 
@@ -852,13 +889,12 @@ namespace CWExpert
                             output[z] = " ";
                             valid[z] = false;
                             string[] words = text.Split(' ');
-                            WriteOutputText(z, text);
+                            MainForm.Invoke(new CrossThreadSetText(SetText), "Set text", z, thd_txt[z], text);
                             foreach (string mystr1 in words)
                             {
                                 if (mystr1.Contains("CQ")) { lid = true; }
                                 if (mystr1.Length >= 3)
                                 {
-//                                    WriteOutputText(z, mystr1);
                                     Debug.WriteLine(ctr.ToString() + "  " + z.ToString() + "  " + mystr1);
 
                                     if (mystr1.StartsWith("DE") || mystr1.StartsWith("TU")) { mystr = mystr1.Substring(2, mystr1.Length - 2); }
@@ -891,81 +927,6 @@ namespace CWExpert
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        private void WriteOutputText(int chanel_no, string out_string)
-        {
-            try
-            {
-                if (chanel_no <= 20 && chanel_no >= 2)
-                {
-                    switch (chanel_no)
-                    {
-                        case 2:
-                            MainForm.txtChannel2.Text = "2  " + Math.Round(thd_txt[2], 1).ToString() + "  " + out_string;
-                            break;
-                        case 3:
-                            MainForm.txtChannel3.Text = "3  " + Math.Round(thd_txt[3], 1).ToString() + "  " + out_string;
-                            break;
-                        case 4:
-                            MainForm.txtChannel4.Text = "4  " + Math.Round(thd_txt[4], 1).ToString() + "  " + out_string;
-                            break;
-                        case 5:
-                            MainForm.txtChannel5.Text = "5  " + Math.Round(thd_txt[5], 1).ToString() + "  " + out_string;
-                            break;
-                        case 6:
-                            MainForm.txtChannel6.Text = "6  " + Math.Round(thd_txt[6], 1).ToString() + "  " + out_string;
-                            break;
-                        case 7:
-                            MainForm.txtChannel7.Text = "7  " + Math.Round(thd_txt[7], 1).ToString() + "  " + out_string;
-                            break;
-                        case 8:
-                            MainForm.txtChannel8.Text = "8  " + Math.Round(thd_txt[8], 1).ToString() + "  " + out_string;
-                            break;
-                        case 9:
-                            MainForm.txtChannel9.Text = "9  " + Math.Round(thd_txt[9], 1).ToString() + "  " + out_string;
-                            break;
-                        case 10:
-                            MainForm.txtChannel10.Text = "10 " + Math.Round(thd_txt[10], 1).ToString() + "  " + out_string;
-                            break;
-                        case 11:
-                            MainForm.txtChannel11.Text = "11 " + Math.Round(thd_txt[11], 1).ToString() + "  " + out_string;
-                            break;
-                        case 12:
-                            MainForm.txtChannel12.Text = "12 " + Math.Round(thd_txt[12], 1).ToString() + "  " + out_string;
-                            break;
-                        case 13:
-                            MainForm.txtChannel13.Text = "13 " + Math.Round(thd_txt[13], 1).ToString() + "  " + out_string;
-                            break;
-                        case 14:
-                            MainForm.txtChannel14.Text = "14 " + Math.Round(thd_txt[14], 1).ToString() + "  " + out_string;
-                            break;
-                        case 15:
-                            MainForm.txtChannel15.Text = "15 " + Math.Round(thd_txt[15], 1).ToString() + "  " + out_string;
-                            break;
-                        case 16:
-                            MainForm.txtChannel16.Text = "16 " + Math.Round(thd_txt[16], 1).ToString() + "  " + out_string;
-                            break;
-                        case 17:
-                            MainForm.txtChannel17.Text = "17 " + Math.Round(thd_txt[17], 1).ToString() + "  " + out_string;
-                            break;
-                        case 18:
-                            MainForm.txtChannel18.Text = "18 " + Math.Round(thd_txt[18], 1).ToString() + "  " + out_string;
-                            break;
-                        case 19:
-                            MainForm.txtChannel19.Text = "19 " + Math.Round(thd_txt[19], 1).ToString() + "  " + out_string;
-                            break;
-                        case 20:
-                            MainForm.txtChannel20.Text = "20 " + Math.Round(thd_txt[20], 1).ToString() + "  " + out_string;
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.Write(ex.ToString());
-            }
-        }
-
 
         public int f2len()
         {

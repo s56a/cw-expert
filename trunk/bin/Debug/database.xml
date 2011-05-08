@@ -42,11 +42,11 @@
   </Options>
   <Options>
     <Key>txtCALL</Key>
-    <Value>N1YU</Value>
+    <Value>S56A</Value>
   </Options>
   <Options>
     <Key>udDisplayHigh</Key>
-    <Value>76</Value>
+    <Value>37</Value>
   </Options>
   <Options>
     <Key>udDisplayLow</Key>
@@ -58,6 +58,14 @@
   </Options>
   <Options>
     <Key>chkAlwaysOnTop</Key>
+    <Value>True</Value>
+  </Options>
+  <Options>
+    <Key>udAveraging</Key>
+    <Value>100</Value>
+  </Options>
+  <Options>
+    <Key>chkRXOnly</Key>
     <Value>False</Value>
   </Options>
 </Data>

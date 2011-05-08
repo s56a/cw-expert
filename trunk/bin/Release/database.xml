@@ -25,14 +25,6 @@
     <Value>MME</Value>
   </Options>
   <Options>
-    <Key>comboAudioBuffer</Key>
-    <Value>2048</Value>
-  </Options>
-  <Options>
-    <Key>comboAudioOutput</Key>
-    <Value>Speakers (High Definition Audio</Value>
-  </Options>
-  <Options>
     <Key>udLatency</Key>
     <Value>50</Value>
   </Options>
@@ -41,16 +33,20 @@
     <Value>8000</Value>
   </Options>
   <Options>
-    <Key>txtCALL</Key>
-    <Value>S56A</Value>
+    <Key>comboAudioOutput</Key>
+    <Value>Speakers (High Definition Audio</Value>
   </Options>
   <Options>
-    <Key>chkAlwaysOnTop</Key>
-    <Value>True</Value>
+    <Key>comboAudioBuffer</Key>
+    <Value>2048</Value>
+  </Options>
+  <Options>
+    <Key>txtCALL</Key>
+    <Value>YT7PWR</Value>
   </Options>
   <Options>
     <Key>udDisplayHigh</Key>
-    <Value>17</Value>
+    <Value>35</Value>
   </Options>
   <Options>
     <Key>udDisplayLow</Key>
@@ -59,5 +55,17 @@
   <Options>
     <Key>udRefreshRate</Key>
     <Value>100</Value>
+  </Options>
+  <Options>
+    <Key>chkAlwaysOnTop</Key>
+    <Value>True</Value>
+  </Options>
+  <Options>
+    <Key>udAveraging</Key>
+    <Value>200</Value>
+  </Options>
+  <Options>
+    <Key>chkRXOnly</Key>
+    <Value>False</Value>
   </Options>
 </Data>

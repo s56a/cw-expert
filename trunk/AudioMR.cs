@@ -103,62 +103,42 @@ namespace CWExpert
             try
             {
                 int* array_ptr = (int*)input;
-                short* in_ptr_l = (short*)array_ptr[0];
-
-                
-                short* in_ptr_r = (short*)array_ptr[1];
-
-                int* out_array_ptr = (int*)output;
-                short* out_l_ptr1 = (short*)out_array_ptr[0];
-              short* out_r_ptr1 = (short*)out_array_ptr[1];
+                float* in_l_ptr1 = (float*)array_ptr[0];
+                float* in_r_ptr1 = (float*)array_ptr[1];
+                array_ptr = (int*)output;
+                float* out_l_ptr1 = (float*)array_ptr[1];
+                float* out_r_ptr1 = (float*)array_ptr[0];
 
                 for (int i = 0; i < frameCount; i++)
                 {
-                    out_l_ptr1[0] = in_ptr_l[0];
-                    out_r_ptr1[0] = in_ptr_r[0];
-                    out_r_ptr1++;
+                    out_l_ptr1[0] = in_l_ptr1[0];
+                    out_r_ptr1[0] = in_r_ptr1[0];
                     out_l_ptr1++;
-                    in_ptr_l++;
-                    in_ptr_r++;
+                    out_r_ptr1++;
+                    in_l_ptr1++;
+                    in_r_ptr1++;
                 }
 
-                in_ptr_l = (short*)array_ptr[0];
-                in_ptr_r = (short*)array_ptr[1];
+                array_ptr = (int*)input;
+                in_l_ptr1 = (float*)array_ptr[0];
+                in_r_ptr1 = (float*)array_ptr[1];
 
-
-                short[] buffer_l = new short[frameCount];
-//              ushort[] buffer_r = new ushort[frameCount];
+                float[] buffer = new float[frameCount * 2];
 
                 for (int i = 0; i < frameCount; i++)
                 {
-                    buffer_l[i] = in_ptr_l[0];
-                    in_ptr_l++;
-//                  buffer_r[i] = in_ptr_r[0];
-//                  in_ptr_r++;
+                    buffer[i] = in_l_ptr1[0];
+                    buffer[frameCount + i] = 0.0f;
+                    in_l_ptr1++;
+                    in_r_ptr1++;
                 }
 
-                if (MainForm.cwDecoder.read_buffer_l != null &&
-                    MainForm.cwDecoder.read_buffer_l.Length == frameCount)
-             
+                if (MainForm.cwDecoder.audio_buffer != null &&
+                    MainForm.cwDecoder.audio_buffer.Length == frameCount * 2)
                 {
 
-                    Array.Copy(buffer_l, MainForm.cwDecoder.read_buffer_l, frameCount);
+                    Array.Copy(buffer, MainForm.cwDecoder.audio_buffer, frameCount * 2);
                 }
-/*
-                if (MainForm.cwDecoder.read_buffer_r != null &&
-                    MainForm.cwDecoder.read_buffer_r.Length == frameCount)
-                {
-
-                    Array.Copy(buffer_r, MainForm.cwDecoder.read_buffer_r, frameCount);
-                }
-                
-
-                                {
-                                    fixed (void* rptr = &buffer_l[0])
-                                    fixed (void* wptr = &MainForm.cwDecoder.read_buffer_l[0])
-                                        memcpy(wptr, rptr, frameCount * 2);
-                                }
-*/              
 
                 MainForm.cwDecoder.AudioEvent.Set();
 
@@ -202,14 +182,14 @@ namespace CWExpert
                 inparam.device = in_dev;
                 inparam.channelCount = num_channels;
 
-                inparam.sampleFormat = PA19.paInt16 | PA19.paNonInterleaved;
+                inparam.sampleFormat = PA19.paFloat32 | PA19.paNonInterleaved;
 
                 inparam.suggestedLatency = ((float)latency_ms / 1000);
 
                 outparam.device = out_dev;
                 outparam.channelCount = num_channels;
 
-                outparam.sampleFormat = PA19.paInt16 | PA19.paNonInterleaved;
+                outparam.sampleFormat = PA19.paFloat32 | PA19.paNonInterleaved;
                 outparam.suggestedLatency = ((float)latency_ms / 1000);
 
                 if (host_api_index == PA19.PA_HostApiTypeIdToHostApiIndex(PA19.PaHostApiTypeId.paWASAPI))

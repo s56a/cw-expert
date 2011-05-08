@@ -83,7 +83,6 @@ namespace CWExpert
         public static float[] current_display_data;				// Buffer used to store the current data for the display
         public static float[] current_waterfall_data;		    // Buffer used to store the current data for the scope
         public static float[] waterfall_display_data;            // Buffer for waterfall
-
         public static float[] average_buffer;					// Averaged display data buffer for Panadapter
         public static float[] average_waterfall_buffer;  		// Averaged display data buffer for Waterfall
         public static float[] peak_buffer;						// Peak hold display data buffer
@@ -94,6 +93,13 @@ namespace CWExpert
 
         #region Properties
 
+        private static bool show_cursor = false;
+        public static bool ShowVertCursor
+        {
+            get { return show_cursor; }
+            set { show_cursor = value; }
+        }
+
         private static DisplayMode current_display_mode = DisplayMode.PANAFALL;
         public static DisplayMode CurrentDisplayMode // changes yt7pwr
         {
@@ -102,7 +108,6 @@ namespace CWExpert
             {
                 current_display_mode = value;
                 if (average_on) ResetDisplayAverage();
-                if (peak_on) ResetDisplayPeak();
             }
         }
 
@@ -367,27 +372,14 @@ namespace CWExpert
             }
         }
 
-        public static bool DisplayNotchFilter = false;
-        private static int rx_display_notch_low_cut = -4000;        // yt7pwr
-        public static int RXDisplayNotchLowCut
-        {
-            set { rx_display_notch_low_cut = value; }
-        }
-
-        private static int rx_display_notch_high_cut = 4000;        // yt7pwr
-        public static int RXDisplayNotchHighCut
-        {
-            set { rx_display_notch_high_cut = value; }
-        }
-
-        private static int rx_display_low = 100;
+        private static int rx_display_low = 0;
         public static int RXDisplayLow
         {
             get { return rx_display_low; }
             set { rx_display_low = value; }
         }
 
-        private static int rx_display_high = 4000;
+        private static int rx_display_high = 2048;
         public static int RXDisplayHigh
         {
             get { return rx_display_high; }
@@ -489,18 +481,6 @@ namespace CWExpert
             }
         }
 
-        private static bool peak_on;							// True if the Peak button is pressed
-        public static bool PeakOn
-        {
-            get { return peak_on; }
-            set
-            {
-                peak_on = value;
-                if (!peak_on) ResetDisplayPeak();
-            }
-        }
-
-        public static bool scope_data_ready = false;
         private static bool data_ready = false;			// True when there is new display data ready from the DSP
         public static bool DataReady
         {
@@ -597,7 +577,7 @@ namespace CWExpert
             }
         }
 
-        private static Color grid_color = Color.FromArgb(100, Color.Blue);
+        private static Color grid_color = Color.FromArgb(75, Color.Blue);
         public static Color GridColor
         {
             get { return grid_color; }
@@ -674,21 +654,21 @@ namespace CWExpert
             set { waterfall_mid_color = value; }
         }
 
-        private static Color waterfall_high_color = Color.Yellow;
+        private static Color waterfall_high_color = Color.Pink;
         public static Color WaterfallHighColor
         {
             get { return waterfall_high_color; }
             set { waterfall_high_color = value; }
         }
 
-        private static float waterfall_high_threshold = -80.0F;
+        private static float waterfall_high_threshold = 200.0F;
         public static float WaterfallHighThreshold
         {
             get { return waterfall_high_threshold; }
             set { waterfall_high_threshold = value; }
         }
 
-        private static float waterfall_low_threshold = -110.0F;
+        private static float waterfall_low_threshold = -200.0F;
         public static float WaterfallLowThreshold
         {
             get { return waterfall_low_threshold; }
@@ -710,24 +690,6 @@ namespace CWExpert
 
         #region Misc routine
 
-        private static void UpdateDisplayPeak()
-        {
-            if (peak_buffer[0] == CLEAR_FLAG)
-            {
-                for (int i = 0; i < BUFFER_SIZE; i++)
-                    peak_buffer[i] = current_display_data[i];
-            }
-            else
-            {
-                for (int i = 0; i < BUFFER_SIZE; i++)
-                {
-                    if (current_display_data[i] > peak_buffer[i])
-                        peak_buffer[i] = current_display_data[i];
-                    current_display_data[i] = peak_buffer[i];
-                }
-            }
-        }
-
         public static void ResetDisplayAverage()
         {
             if (average_buffer != null)
@@ -735,11 +697,6 @@ namespace CWExpert
                 average_buffer[0] = CLEAR_FLAG;	// set reset flag
                 average_waterfall_buffer[0] = CLEAR_FLAG;
             }
-        }
-
-        public static void ResetDisplayPeak()
-        {
-            peak_buffer[0] = CLEAR_FLAG; // set reset flag
         }
 
         #endregion
@@ -758,29 +715,43 @@ namespace CWExpert
         private static AutoResetEvent Panadapter_Event;
         private static AutoResetEvent Waterfall_Event;
         private static DXRectangle VFOArect;
-        private static DXRectangle VFOBrect;
         private static VertexBuffer VerLine_vb = null;
         private static VertexBuffer HorLine_vb = null;
         private static VertexBuffer VerLines_vb = null;
         private static VertexBuffer HorLines_vb = null;
         private static VertexBuffer PanLine_vb = null;
-        private static VertexBuffer ScopeLine_vb = null;
         private static VertexBuffer PanLine_vb_fill = null;
         private static Vertex[] PanLine_verts = null;
-        private static Vertex[] ScopeLine_verts = null;
         private static Vertex[] PanLine_verts_fill = null;
-        private static Vertex[] Phase_verts = null;
         private static VertexBuffer Phase_vb = null;      
         private static float[] waterfallX_data = null;
         private static float[] panadapterX_data = null;
         private static float[] panadapterX_scope_data = null;
         private static Bitmap waterfall_bmp = null;
         private static Device waterfall_dx_device = null;
-        private static Point[] points = null;
 
         #endregion
 
         #region Routines
+
+        public static void WaterfallInit()
+        {
+            average_waterfall_buffer = new float[BUFFER_SIZE];	// initialize averaging buffer array
+            average_waterfall_buffer[0] = CLEAR_FLAG;		// set the clear flag
+            new_waterfall_data = new float[BUFFER_SIZE];
+            current_waterfall_data = new float[BUFFER_SIZE];
+            waterfall_display_data = new float[BUFFER_SIZE];
+
+            for (int i = 0; i < BUFFER_SIZE; i++)
+            {
+                new_waterfall_data[i] = -200.0f;
+                current_waterfall_data[i] = -200.0f;
+                waterfall_display_data[i] = -200.0f;
+            }
+
+            waterfall_bmp = new Bitmap(waterfall_target.Width, waterfall_target.Height,
+                System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+        }
 
         public static bool DirectXInit()
         {
@@ -814,7 +785,7 @@ namespace CWExpert
                                 break;
                         }
 
-                        panadapterX_data = new float[panadapter_W];
+                        panadapterX_data = new float[panadapter_target.Width];
                         refresh_panadapter_grid = true;
 
                         average_buffer = new float[BUFFER_SIZE];	// initialize averaging buffer array
@@ -834,11 +805,11 @@ namespace CWExpert
 
                         for (int i = 0; i < BUFFER_SIZE; i++)
                         {
-                            new_display_data[i] = -200.0f;
-                            new_waterfall_data[i] = -200.0f;
-                            current_display_data[i] = -200.0f;
-                            current_waterfall_data[i] = -200.0f;
-                            waterfall_display_data[i] = -200.0f;
+                            new_display_data[i] = 0.0f;
+                            new_waterfall_data[i] = 0.0f;
+                            current_display_data[i] = 0.0f;
+                            current_waterfall_data[i] = 0.0f;
+                            waterfall_display_data[i] = 0.0f;
                         }
 
                         PresentParameters presentParms = new PresentParameters();
@@ -1064,7 +1035,7 @@ namespace CWExpert
             }
         }
 
-        public static void Render_VFOA()  // yt7pwr
+        public static void Render_Filter()  // yt7pwr
         {
             int low = rx_display_low;					// initialize variables
             int high = rx_display_high;
@@ -1075,11 +1046,9 @@ namespace CWExpert
             int freq_step_size = 50;
             int filter_left = 0;
             int filter_right = 0;
-            int notch_low = 0;
-            int notch_high = 0;
 
-                filter_low = 200;
-                filter_high = 4000;
+            filter_low = 0;
+            filter_high = 2048;
 
             // Calculate horizontal step size
             int width = high - low;
@@ -1117,32 +1086,6 @@ namespace CWExpert
                             VFOArect.x4 = filter_left;
                             VFOArect.y4 = panadapter_H;
                             RenderRectangle(device, VFOArect, main_rx_filter_color);
-
-                            if (DisplayNotchFilter)
-                            {
-                                // get filter screen coordinates
-                                if (filter_high < 0 && filter_low < 0)
-                                {
-                                    filter_left = (int)((float)(-notch_high - low + vfoa_hz + rit_hz - losc_hz) / (high - low) * panadapter_W);
-                                    filter_right = (int)((float)(-notch_low - low + vfoa_hz + rit_hz - losc_hz) / (high - low) * panadapter_W);
-                                }
-                                else
-                                {
-                                    filter_left = (int)((float)(notch_low - low + vfoa_hz + rit_hz - losc_hz) / (high - low) * panadapter_W);
-                                    filter_right = (int)((float)(notch_high - low + vfoa_hz + rit_hz - losc_hz) / (high - low) * panadapter_W);
-                                }
-
-                                VFOArect.x1 = filter_right;
-                                VFOArect.y1 = (int)(pan_font.Size);
-                                VFOArect.x2 = filter_right;
-                                VFOArect.y2 = panadapter_H;
-                                VFOArect.x3 = filter_left;
-                                VFOArect.y3 = (int)(pan_font.Size);
-                                VFOArect.x4 = filter_left;
-                                VFOArect.y4 = panadapter_H;
-                                RenderRectangle(device, VFOArect, Color.FromArgb(main_rx_filter_color.A / 2, main_rx_filter_color.R / 2,
-                                    main_rx_filter_color.G / 2, main_rx_filter_color.B / 2));
-                            }
             }
         }
 
@@ -1190,7 +1133,7 @@ namespace CWExpert
             var vb = new VertexBuffer(dev, 2 * 20, Usage.WriteOnly, VertexFormat.None, Pool.Default);
 
             vb.Lock(0, 0, LockFlags.None).WriteRange(new[] {
-                new Vertex() { Color = color.ToArgb(), Position = new Vector4((float)x, (float)(pan_font.Size), 0.0f, 0.0f) },
+                new Vertex() { Color = color.ToArgb(), Position = new Vector4((float)x, (float)(pan_font.Size + 5), 0.0f, 0.0f) },
                 new Vertex() { Color = color.ToArgb(), Position = new Vector4((float)x, (float)y, 0.0f, 0.0f) }
                  });
             vb.Unlock();
@@ -1215,22 +1158,6 @@ namespace CWExpert
             dev.DrawPrimitives(PrimitiveType.LineList, 0, 1);
 
             vb.Dispose();
-        }
-
-        private static void RenderScopeLine(Device dev, int count)        // yt7pwr
-        {
-            for (int i = 0; i < count; i++)
-            {
-                ScopeLine_verts[i] = new Vertex();
-                ScopeLine_verts[i].Color = data_line_color.ToArgb();
-                ScopeLine_verts[i].Position = new Vector4(i, panadapterX_scope_data[i], 0.0f, 0.0f);
-            }
-
-            ScopeLine_vb.Lock(0, 0, LockFlags.None).WriteRange(ScopeLine_verts, 0, count);
-            ScopeLine_vb.Unlock();
-
-            dev.SetStreamSource(0, ScopeLine_vb, 0, 20);
-            dev.DrawPrimitives(PrimitiveType.LineStrip, 0, count - 1);
         }
 
         private static void RenderPanadapterLine(Device dev)        // yt7pwr
@@ -1273,7 +1200,7 @@ namespace CWExpert
             dev.DrawPrimitives(PrimitiveType.LineStrip, 0, panadapter_W - 1);
         }
 
-        private static int h_steps = 0;
+        private static int h_steps = 30;
         private static VerticalString[] vertical_label;
         private static int vgrid;
         private static HorizontalString[] horizontal_label;
@@ -1282,33 +1209,11 @@ namespace CWExpert
             int low = rx_display_low;					// initialize variables
             int high = rx_display_high;
             int mid_w = W / 2;
-            int[] step_list = { 10, 20, 25, 50 };
-            int step_power = 1;
-            int step_index = 0;
-            int freq_step_size = 50;
             int y_range = spectrum_grid_max - spectrum_grid_min;
             int center_line_x = W / 2;
 
-            // Calculate horizontal step size
-            int width = high - low;
-            while (width / freq_step_size > 10)
-            {
-                freq_step_size = step_list[step_index] * (int)Math.Pow(10.0, step_power);
-                step_index = (step_index + 1) % 4;
-                if (step_index == 0) step_power++;
-            }
-
-            // calculate vertical step size
-            h_steps = 8;
-
-            double vfo;
-                vfo = losc_hz; //  +rit_hz;
-
-            long vfo_round = ((long)(vfo / freq_step_size)) * freq_step_size;
-            long vfo_delta = (long)(vfo - vfo_round);
-
             if (VerLines_vb == null)
-                VerLines_vb = new VertexBuffer(device, 65 * 2 * 20, Usage.WriteOnly, VertexFormat.None, Pool.Default);
+                VerLines_vb = new VertexBuffer(device, 48 * 2 * 20, Usage.WriteOnly, VertexFormat.None, Pool.Default);
             if (HorLines_vb == null)
                 HorLines_vb = new VertexBuffer(device, h_steps * 2 * 20, Usage.WriteOnly, VertexFormat.None, Pool.Default);
             if (vertical_label == null)
@@ -1335,17 +1240,17 @@ namespace CWExpert
             {
                 vgrid += panadapter_W / 12;
                 actual_fgrid += panadapter_W / 12;
-                vertical_label[i].label = (i * 325).ToString();
-                vertical_label[i].pos_x = vgrid;
+                vertical_label[i].label = (i * 170).ToString();
+                vertical_label[i].pos_x = vgrid - 15;
                 vertical_label[i].pos_y = 0;
                 vertical_label[i].color = grid_text_color;
             }
 
             vgrid = 0;
             // Draw vertical lines
-            for (int i = 1; i <= 65; i++)
+            for (int i = 1; i <= 48; i++)
             {
-                vgrid += panadapter_W / 65;
+                vgrid += panadapter_W / 48;
 
                 VerLines_vb.Lock(i * 40, 40, LockFlags.None).WriteRange(new[] {
                         new Vertex() { Color = grid_color.ToArgb(), Position = new Vector4((float)vgrid, (float)pan_font.Height, 0.0f, 0.0f) },
@@ -1362,6 +1267,7 @@ namespace CWExpert
                 int xOffset = 0;
                 int num = spectrum_grid_max - i * spectrum_grid_step;
                 int y = (int)((double)(spectrum_grid_max - num) * H / y_range); // +(int)pan_font.Size;
+
                 if (show_horizontal_grid)
                 {
                     HorLines_vb.Lock(i * 40, 40, LockFlags.None).WriteRange(new[] {
@@ -1376,11 +1282,12 @@ namespace CWExpert
                 // Draw horizontal line labels
                 num = spectrum_grid_max - i * spectrum_grid_step;
                 horizontal_label[i].label = num.ToString();
-                if (horizontal_label[i].label.Length == 3) xOffset = 5;
-                //int offset = (int)(label.Length*4.1);
+                if (horizontal_label[i].label.Length == 2) xOffset = 10;
+                else if (horizontal_label[i].label.Length == 1) xOffset = 20;
+                else xOffset = 5;
 
                 int x = 0;
-                x = xOffset + 3;
+                x = xOffset;
                 y -= 8;
                 if (y + 9 < H)
                 {
@@ -1431,22 +1338,16 @@ namespace CWExpert
 
                 if (average_on)
                     UpdateDirectXDisplayWaterfallAverage();
-                if (peak_on)
-                    UpdateDisplayPeak();
 
                 timer_waterfall.Stop();
                 if (timer_waterfall.DurationMsec > waterfall_update_period)
                 {
                     timer_waterfall.Start();
-                    num_samples = (high - low);
-
-                    start_sample_index = 0; // (BUFFER_SIZE >> 1) + (int)((low * BUFFER_SIZE) / Audio.SampleRate);
-                    num_samples = 2048; // (int)((high - low) * BUFFER_SIZE / Audio.SampleRate);
-                    start_sample_index = (start_sample_index + 2048) % 2048;
-                    if ((num_samples - start_sample_index) > (BUFFER_SIZE + 1))
-                        num_samples = BUFFER_SIZE - start_sample_index;
-
+                    start_sample_index = 0;
+                    num_samples = 2048;
+                    start_sample_index = 0;
                     slope = (float)num_samples / (float)W;
+
                     for (i = 0; i < W; i++)
                     {
                         float max = float.MinValue;
@@ -1865,7 +1766,8 @@ namespace CWExpert
                             break;
                     }
 
-//                    RenderVerticalLine(device, display_cursor_x, panadapter_H, grid_text_color);
+                    if (display_cursor_x > 0 && show_cursor)
+                        RenderVerticalLine(device, display_cursor_x, panadapter_H, grid_text_color);
 
                     //End the scene
                     device.EndScene();
@@ -1918,18 +1820,10 @@ namespace CWExpert
                     }
                 }
 
-                if (peak_on)
-                    UpdateDisplayPeak();
-
-                num_samples = (High - Low);
-
-                start_sample_index = 0; // (BUFFER_SIZE >> 1) + (int)((Low * BUFFER_SIZE) / sample_rate);
-                num_samples = 2048; // (int)((High - Low) * BUFFER_SIZE / sample_rate);
-                if (start_sample_index < 0) start_sample_index += 2048;
-                if ((num_samples - start_sample_index) > (BUFFER_SIZE + 1))
-                    num_samples = BUFFER_SIZE - start_sample_index;
-
+                start_sample_index = 0;
+                num_samples = 2048;
                 slope = (float)num_samples / (float)panadapter_W;
+
                 for (int i = 0; i < panadapter_W; i++)
                 {
                     float max = float.MinValue;
@@ -1948,7 +1842,7 @@ namespace CWExpert
                     }
 
                     max += display_cal_offset;
-                    if (!mox) max += preamp_offset;
+                    max += preamp_offset;
 
                     if (max > max_y)
                     {
@@ -1959,8 +1853,7 @@ namespace CWExpert
                     panadapterX_data[i] = (int)(Math.Floor((spectrum_grid_max - max) * panadapter_H / yRange));
                 }
 
-                panadapterX_data[0] = panadapterX_data[panadapter_W - 1];
-                panadapterX_data[panadapter_W - 1] = panadapterX_data[panadapter_W - 2];
+//                panadapterX_data[0] = panadapterX_data[panadapter_W - 1] = (float)panadapter_H;
             }
             catch (Exception ex)
             {
