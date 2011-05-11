@@ -54,7 +54,7 @@ namespace CWExpert
             set { host = value; }
         }
 
-        public static int block_size = 1024;
+        private static int block_size = 1024;
         public static int BlockSize
         {
             get { return block_size; }
@@ -128,6 +128,7 @@ namespace CWExpert
                 for (int i = 0; i < frameCount; i++)
                 {
                     buffer[i] = in_l_ptr1[0];
+//                    buffer[i+frameCount] = 10 * in_r_ptr1[0];
                     buffer[frameCount + i] = 0.0f;
                     in_l_ptr1++;
                     in_r_ptr1++;

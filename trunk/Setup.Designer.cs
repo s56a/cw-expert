@@ -65,6 +65,7 @@ namespace CWExpert
             this.comboAudioSampleRate = new System.Windows.Forms.ComboBox();
             this.tbSetup = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chkRXOnly = new System.Windows.Forms.CheckBox();
             this.grpMisc = new System.Windows.Forms.GroupBox();
             this.udDisplayHigh = new System.Windows.Forms.NumericUpDown();
             this.lblDisplayHigh = new System.Windows.Forms.Label();
@@ -80,7 +81,10 @@ namespace CWExpert
             this.chkAlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.lblCallSign = new System.Windows.Forms.Label();
             this.txtCALL = new System.Windows.Forms.TextBox();
-            this.chkRXOnly = new System.Windows.Forms.CheckBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.grpDisplayDriver = new System.Windows.Forms.GroupBox();
+            this.radDisplayGDI = new System.Windows.Forms.RadioButton();
+            this.radDisplayDirectX = new System.Windows.Forms.RadioButton();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udLatency)).BeginInit();
             this.tbSetup.SuspendLayout();
@@ -90,6 +94,8 @@ namespace CWExpert
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayLow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udAveraging)).BeginInit();
             this.grpAudioTests.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.grpDisplayDriver.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
@@ -274,6 +280,7 @@ namespace CWExpert
             // 
             this.tbSetup.Controls.Add(this.tabPage1);
             this.tbSetup.Controls.Add(this.tabPage2);
+            this.tbSetup.Controls.Add(this.tabPage3);
             this.tbSetup.Location = new System.Drawing.Point(25, 12);
             this.tbSetup.Name = "tbSetup";
             this.tbSetup.SelectedIndex = 0;
@@ -284,7 +291,6 @@ namespace CWExpert
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage2.Controls.Add(this.chkRXOnly);
-            this.tabPage2.Controls.Add(this.grpMisc);
             this.tabPage2.Controls.Add(this.grpAudioTests);
             this.tabPage2.Controls.Add(this.chkAlwaysOnTop);
             this.tabPage2.Controls.Add(this.lblCallSign);
@@ -296,6 +302,17 @@ namespace CWExpert
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Misc";
             // 
+            // chkRXOnly
+            // 
+            this.chkRXOnly.AutoSize = true;
+            this.chkRXOnly.Location = new System.Drawing.Point(127, 104);
+            this.chkRXOnly.Name = "chkRXOnly";
+            this.chkRXOnly.Size = new System.Drawing.Size(63, 17);
+            this.chkRXOnly.TabIndex = 11;
+            this.chkRXOnly.Text = "RX only";
+            this.chkRXOnly.UseVisualStyleBackColor = true;
+            this.chkRXOnly.CheckedChanged += new System.EventHandler(this.chkRXOnly_CheckedChanged);
+            // 
             // grpMisc
             // 
             this.grpMisc.Controls.Add(this.udDisplayHigh);
@@ -304,7 +321,7 @@ namespace CWExpert
             this.grpMisc.Controls.Add(this.lblDisplayLow);
             this.grpMisc.Controls.Add(this.udAveraging);
             this.grpMisc.Controls.Add(this.lblAveraging);
-            this.grpMisc.Location = new System.Drawing.Point(181, 138);
+            this.grpMisc.Location = new System.Drawing.Point(98, 138);
             this.grpMisc.Name = "grpMisc";
             this.grpMisc.Size = new System.Drawing.Size(151, 122);
             this.grpMisc.TabIndex = 10;
@@ -406,7 +423,7 @@ namespace CWExpert
             this.grpAudioTests.Controls.Add(this.button1);
             this.grpAudioTests.Controls.Add(this.lblAudioStreamInputLatencyValue);
             this.grpAudioTests.Controls.Add(this.lblAudioStreamSampleRateValue);
-            this.grpAudioTests.Location = new System.Drawing.Point(15, 138);
+            this.grpAudioTests.Location = new System.Drawing.Point(98, 138);
             this.grpAudioTests.Name = "grpAudioTests";
             this.grpAudioTests.Size = new System.Drawing.Size(151, 122);
             this.grpAudioTests.TabIndex = 9;
@@ -453,7 +470,7 @@ namespace CWExpert
             // chkAlwaysOnTop
             // 
             this.chkAlwaysOnTop.AutoSize = true;
-            this.chkAlwaysOnTop.Location = new System.Drawing.Point(78, 81);
+            this.chkAlwaysOnTop.Location = new System.Drawing.Point(127, 81);
             this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
             this.chkAlwaysOnTop.Size = new System.Drawing.Size(92, 17);
             this.chkAlwaysOnTop.TabIndex = 6;
@@ -478,16 +495,53 @@ namespace CWExpert
             this.txtCALL.Size = new System.Drawing.Size(100, 20);
             this.txtCALL.TabIndex = 0;
             // 
-            // chkRXOnly
+            // tabPage3
             // 
-            this.chkRXOnly.AutoSize = true;
-            this.chkRXOnly.Location = new System.Drawing.Point(78, 104);
-            this.chkRXOnly.Name = "chkRXOnly";
-            this.chkRXOnly.Size = new System.Drawing.Size(63, 17);
-            this.chkRXOnly.TabIndex = 11;
-            this.chkRXOnly.Text = "RX only";
-            this.chkRXOnly.UseVisualStyleBackColor = true;
-            this.chkRXOnly.CheckedChanged += new System.EventHandler(this.chkRXOnly_CheckedChanged);
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.grpDisplayDriver);
+            this.tabPage3.Controls.Add(this.grpMisc);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(347, 278);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Display";
+            // 
+            // grpDisplayDriver
+            // 
+            this.grpDisplayDriver.Controls.Add(this.radDisplayDirectX);
+            this.grpDisplayDriver.Controls.Add(this.radDisplayGDI);
+            this.grpDisplayDriver.Location = new System.Drawing.Point(73, 21);
+            this.grpDisplayDriver.Name = "grpDisplayDriver";
+            this.grpDisplayDriver.Size = new System.Drawing.Size(200, 100);
+            this.grpDisplayDriver.TabIndex = 11;
+            this.grpDisplayDriver.TabStop = false;
+            this.grpDisplayDriver.Text = "Driver";
+            // 
+            // radDisplayGDI
+            // 
+            this.radDisplayGDI.AutoSize = true;
+            this.radDisplayGDI.Checked = true;
+            this.radDisplayGDI.Location = new System.Drawing.Point(58, 23);
+            this.radDisplayGDI.Name = "radDisplayGDI";
+            this.radDisplayGDI.Size = new System.Drawing.Size(50, 17);
+            this.radDisplayGDI.TabIndex = 0;
+            this.radDisplayGDI.TabStop = true;
+            this.radDisplayGDI.Text = "GDI+";
+            this.radDisplayGDI.UseVisualStyleBackColor = true;
+            this.radDisplayGDI.CheckedChanged += new System.EventHandler(this.radDisplayGDI_CheckedChanged);
+            // 
+            // radDisplayDirectX
+            // 
+            this.radDisplayDirectX.AutoSize = true;
+            this.radDisplayDirectX.Location = new System.Drawing.Point(58, 61);
+            this.radDisplayDirectX.Name = "radDisplayDirectX";
+            this.radDisplayDirectX.Size = new System.Drawing.Size(60, 17);
+            this.radDisplayDirectX.TabIndex = 1;
+            this.radDisplayDirectX.TabStop = true;
+            this.radDisplayDirectX.Text = "DirectX";
+            this.radDisplayDirectX.UseVisualStyleBackColor = true;
+            this.radDisplayDirectX.CheckedChanged += new System.EventHandler(this.radDisplayDirectX_CheckedChanged);
             // 
             // Setup
             // 
@@ -517,6 +571,9 @@ namespace CWExpert
             ((System.ComponentModel.ISupportInitialize)(this.udAveraging)).EndInit();
             this.grpAudioTests.ResumeLayout(false);
             this.grpAudioTests.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.grpDisplayDriver.ResumeLayout(false);
+            this.grpDisplayDriver.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -556,5 +613,9 @@ namespace CWExpert
         private System.Windows.Forms.Label lblDisplayLow;
         private System.Windows.Forms.GroupBox grpAudioTests;
         public System.Windows.Forms.CheckBox chkRXOnly;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox grpDisplayDriver;
+        private System.Windows.Forms.RadioButton radDisplayDirectX;
+        private System.Windows.Forms.RadioButton radDisplayGDI;
     }
 }

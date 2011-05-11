@@ -475,11 +475,14 @@
             this.picWaterfall.Size = new System.Drawing.Size(576, 240);
             this.picWaterfall.TabIndex = 43;
             this.picWaterfall.TabStop = false;
+            this.picWaterfall.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picWaterfall_MouseMove);
+            this.picWaterfall.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picWaterfall_MouseDown);
             this.picWaterfall.Paint += new System.Windows.Forms.PaintEventHandler(this.picWaterfall_Paint);
             // 
             // picPanadapter
             // 
             this.picPanadapter.BackColor = System.Drawing.Color.Black;
+            this.picPanadapter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picPanadapter.Location = new System.Drawing.Point(18, 265);
             this.picPanadapter.Name = "picPanadapter";
             this.picPanadapter.Size = new System.Drawing.Size(576, 245);

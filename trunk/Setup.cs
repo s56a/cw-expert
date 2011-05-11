@@ -42,6 +42,8 @@ namespace CWExpert
             GetOptions();
             DirectX.WaterfallHighThreshold = (int)udDisplayHigh.Value;
             DirectX.WaterfallLowThreshold = (int)udDisplayLow.Value;
+            Display_GDI.WaterfallHighThreshold = (int)udDisplayHigh.Value;
+            Display_GDI.WaterfallLowThreshold = (int)udDisplayLow.Value;
         }
 
         private void InitAudio()
@@ -471,18 +473,23 @@ namespace CWExpert
 			int buffersToAvg = (int)((float)udAveraging.Value * 0.001 / buffer_time);
 			buffersToAvg = Math.Max(2, buffersToAvg);
             DirectX.DisplayAvgBlocks = buffersToAvg;
+            Display_GDI.DisplayAvgBlocks = buffersToAvg;
         }
 
         private void udDisplayLow_ValueChanged(object sender, EventArgs e)
         {
             DirectX.SpectrumGridMin = (int)udDisplayLow.Value;
             DirectX.WaterfallLowThreshold = (float)udDisplayLow.Value;
+            Display_GDI.SpectrumGridMin = (int)udDisplayLow.Value;
+            Display_GDI.WaterfallLowThreshold = (float)udDisplayLow.Value;
         }
 
         private void udDisplayHigh_ValueChanged(object sender, EventArgs e)
         {
             DirectX.SpectrumGridMax = (int)udDisplayHigh.Value;
             DirectX.WaterfallHighThreshold = (float)udDisplayHigh.Value;
+            Display_GDI.SpectrumGridMax = (int)udDisplayHigh.Value;
+            Display_GDI.WaterfallHighThreshold = (float)udDisplayHigh.Value;
         }
 
         private void chkRXOnly_CheckedChanged(object sender, EventArgs e)
@@ -490,6 +497,22 @@ namespace CWExpert
             if (!MainForm.booting && MainForm.cwDecoder != null)
                 MainForm.cwDecoder.rx_only = chkRXOnly.Checked;
         }
+
+        #region Display Driver
+
+        private void radDisplayGDI_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radDisplayGDI.Checked)
+                MainForm.VideoDriver = DisplayDriver.GDI;
+        }
+
+        private void radDisplayDirectX_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radDisplayDirectX.Checked)
+                MainForm.VideoDriver = DisplayDriver.DIRECTX;
+        }
+
+        #endregion
     }
 
     #region PADeviceInfo Helper Class

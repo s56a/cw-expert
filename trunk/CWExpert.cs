@@ -29,11 +29,20 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
 
 
 namespace CWExpert
 {
     #region enum
+
+    public enum DisplayDriver
+    {
+        FIRST = -1,
+        GDI,
+        DIRECTX,
+        LAST,
+    }
 
     public enum ColorSheme
     {
@@ -81,7 +90,6 @@ namespace CWExpert
         #endregion
 
         #region variable definition
-
         public bool booting = false;
         private int WM_LBUTTONDOWN = 0x0201;
         private int WM_LBUTTONUP = 0x0202;
@@ -112,6 +120,50 @@ namespace CWExpert
         #endregion
 
         #region properites
+
+        private DisplayDriver video_driver = DisplayDriver.GDI;
+        public DisplayDriver VideoDriver
+        {
+            get { return video_driver; }
+            set
+            {
+                if (!booting)
+                {
+                    bool mrRuning = btnStartMR.Checked;
+
+                    if (mrRuning)
+                        btnStartMR.Checked = false;
+
+                    Thread.Sleep(100);
+
+                    if (value != video_driver)
+                    {
+                        if (value == DisplayDriver.GDI)
+                        {
+                            DirectX.DirectXRelease();
+                            Thread.Sleep(100);
+                            Display_GDI.Target = picPanadapter;
+                            Display_GDI.Init();
+                            if (File.Exists(".\\picDisplay.png"))
+                                picPanadapter.BackgroundImage = Image.FromFile(".\\picDisplay.png");
+                        }
+                        else
+                        {
+                            Display_GDI.Close();
+                            Thread.Sleep(100);
+                            DirectX.MainForm = this;
+                            DirectX.PanadapterTarget = picPanadapter;
+                            DirectX.WaterfallTarget = picWaterfall;
+                            DirectX.DirectXInit();
+                        }
+                    }
+
+                    btnStartMR.Checked = mrRuning;
+                }
+
+                video_driver = value;
+            }
+        }
 
         private int refresh_time = 20;
         public int RefreshTime
@@ -162,12 +214,13 @@ namespace CWExpert
             get { return mrIsRunning; }
             set
             {
-                if (mrIsRunning)
+                if (!value)
                     btnStartMR.Checked = false;
+                else
+                    btnStartMR.Checked = true;
+
                 Thread.Sleep(100);
                 mrIsRunning = value;
-                if (value)
-                    btnStartMR.Checked = false;
             }
         }
 
@@ -187,14 +240,28 @@ namespace CWExpert
             Audio.MainForm = this;
             PA19.PA_Initialize();
             SetupForm = new Setup(this);
-            DirectX.MainForm = this;
-            DirectX.PanadapterTarget = picPanadapter;
-            DirectX.WaterfallTarget = picWaterfall;
             booting = false;
             display_event = new AutoResetEvent(false);
-            DirectX.WaterfallInit();
+            cwDecoder = new CWDecode(this);
+            cwDecoder.rx_only = SetupForm.chkRXOnly.Checked;
+
+            if (VideoDriver == DisplayDriver.DIRECTX)
+            {
+                DirectX.MainForm = this;
+                DirectX.PanadapterTarget = picPanadapter;
+                DirectX.WaterfallTarget = picWaterfall;
+                DirectX.WaterfallInit();
+                DirectX.DirectXInit();
+            }
+            else
+            {
+                Display_GDI.Target = picPanadapter;
+                Display_GDI.Init();
+                if (File.Exists(".\\picDisplay.png"))
+                    picPanadapter.BackgroundImage = Image.FromFile(".\\picDisplay.png");
+            }
+
             display_buffer = new double[32,64];
-//            display_buffer = new float[2048];
             Application.EnableVisualStyles();
             AlwaysOnTop = always_on_top;
         }
@@ -456,15 +523,12 @@ namespace CWExpert
         {
             try
             {
-                txtChannelClear();
-
                 if (btnStartMR.Checked)
                 {
+                    txtChannelClear();
+
                     if (!mrIsRunning)
                     {
-                        cwDecoder = new CWDecode(this);
-                        cwDecoder.rx_only = SetupForm.chkRXOnly.Checked;
-                        DirectX.DirectXInit();
                         mrIsRunning = true;
                         Audio.callback_return = 0;
                         if (cwDecoder.AudioEvent == null)
@@ -528,9 +592,11 @@ namespace CWExpert
                     {
                         mrIsRunning = false;
                         Audio.callback_return = 2;
+                        Thread.Sleep(100);
                         cwDecoder.CWdecodeStop();
                         Audio.StopAudio();
                         Thread.Sleep(100);
+
                         if (cwDecoder.AudioEvent != null)
                             cwDecoder.AudioEvent.Close();
                         cwDecoder.AudioEvent = null;
@@ -568,9 +634,6 @@ namespace CWExpert
                             mrIsRunning = false;
                             btnStartMR.Text = "Start";
                         }
-
-                        cwDecoder = null;
-                        DirectX.DirectXRelease();
                     }
                 }
             }
@@ -763,12 +826,40 @@ namespace CWExpert
 
         private void picWaterfall_Paint(object sender, PaintEventArgs e)
         {
-            DirectX.RenderWaterfall(e.Graphics, picWaterfall.Width, picWaterfall.Height);
+            if (VideoDriver == DisplayDriver.DIRECTX)
+                DirectX.RenderWaterfall(e.Graphics, picWaterfall.Width, picWaterfall.Height);
+            else
+            {
+                if (!Display_GDI.RenderWaterfall(ref e))
+                {
+                    if (Display_GDI.IsInitialized)
+                    {
+                        Display_GDI.Close();
+                        Thread.Sleep(100);
+                        if (!Display_GDI.Init())
+                            btnStartMR.Checked = false;
+                    }
+                }
+            }
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            DirectX.RenderDirectX();
+            if (VideoDriver == DisplayDriver.DIRECTX)
+                DirectX.RenderWaterfall(e.Graphics, picWaterfall.Width, picWaterfall.Height);
+            else
+            {
+                if (!Display_GDI.RenderPanadapter(ref e))
+                {
+                    if (Display_GDI.IsInitialized)
+                    {
+                        Display_GDI.Close();
+                        Thread.Sleep(100);
+                        if (!Display_GDI.Init())
+                            btnStartMR.Checked = false;
+                    }
+                }
+            }
         }
 
         public bool data_ready = false;
@@ -782,25 +873,31 @@ namespace CWExpert
                 {
                     display_event.WaitOne();
 
-                    if (data_ready)
+                    if (VideoDriver == DisplayDriver.DIRECTX)
                     {
-/*                        for (int i = 0; i < 64; i++)
+                        DirectX.DataReady = true;
+
+                        if (!DirectX.RenderDirectX())
                         {
-                            for (int j = 0; j < 32; j++)
-                            {
-                                DirectX.new_display_data[i * 32 + j] = (float)(Math.Max((Math.Min(30 * (Math.Log(display_buffer[j, i])), 200)), -200));
-                                DirectX.new_waterfall_data[i * 32 + j] = (float)(Math.Max((Math.Min(30 * (Math.Log(display_buffer[j, i])), 200)), -200));
-                            }
-                        }*/
+                            DirectX.DirectXRelease();
+                            Thread.Sleep(100);
+                            if (!DirectX.DirectXInit())
+                                btnStartMR.Checked = false;
+                        }
 
-                        data_ready = false;
-
+                        DirectX.WaterfallDataReady = true;
+                        picWaterfall.Invalidate();
                     }
-
-                    DirectX.DataReady = true;
-                    DirectX.RenderDirectX();
-                    DirectX.WaterfallDataReady = true;
-                    picWaterfall.Invalidate();
+                    else
+                    {
+                        if (Display_GDI.IsInitialized)
+                        {
+                            Display_GDI.DataReady = true;
+                            picPanadapter.Invalidate();
+                            picWaterfall.Invalidate();
+                            Display_GDI.WaterfallDataReady = true;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -811,6 +908,7 @@ namespace CWExpert
 
         private void picPanadapter_MouseMove(object sender, MouseEventArgs e)
         {
+            Display_GDI.DisplayCursorX = e.X;
             DirectX.DisplayCursorX = e.X;
             float x = PixelToHz(e.X);
             txtFreq.Text = Math.Round(x, 0).ToString() + "Hz";
@@ -829,10 +927,20 @@ namespace CWExpert
 
         private void picPanadapter_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && !DirectX.ShowVertCursor)
-                DirectX.ShowVertCursor = true;
-            else if (e.Button == MouseButtons.Right)
-                DirectX.ShowVertCursor = false;
+            if (VideoDriver == DisplayDriver.DIRECTX)
+            {
+                if (e.Button == MouseButtons.Right && !DirectX.ShowVertCursor)
+                    DirectX.ShowVertCursor = true;
+                else if (e.Button == MouseButtons.Right)
+                    DirectX.ShowVertCursor = false;
+            }
+            else
+            {
+                if (e.Button == MouseButtons.Right && !Display_GDI.ShowVertCursor)
+                    Display_GDI.ShowVertCursor = true;
+                else if (e.Button == MouseButtons.Right)
+                    Display_GDI.ShowVertCursor = false;
+            }
         }
 
         #endregion
@@ -846,61 +954,61 @@ namespace CWExpert
                     switch (chanel_no)
                     {
                         case 2:
-                            txtChannel2.Text = "2  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel2.Text = "2  " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 3:
-                            txtChannel3.Text = "3  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel3.Text = "3  " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 4:
-                            txtChannel4.Text = "4  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel4.Text = "4  " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 5:
-                            txtChannel5.Text = "5  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel5.Text = "5  " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 6:
-                            txtChannel6.Text = "6  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel6.Text = "6  " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 7:
-                            txtChannel7.Text = "7  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel7.Text = "7  " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 8:
-                            txtChannel8.Text = "8  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel8.Text = "8  " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 9:
-                            txtChannel9.Text = "9  " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel9.Text = "9  " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 10:
-                            txtChannel10.Text = "10 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel10.Text = "10 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 11:
-                            txtChannel11.Text = "11 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel11.Text = "11 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 12:
-                            txtChannel12.Text = "12 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel12.Text = "12 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 13:
-                            txtChannel13.Text = "13 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel13.Text = "13 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 14:
-                            txtChannel14.Text = "14 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel14.Text = "14 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 15:
-                            txtChannel15.Text = "15 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel15.Text = "15 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 16:
-                            txtChannel16.Text = "16 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel16.Text = "16 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 17:
-                            txtChannel17.Text = "17 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel17.Text = "17 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 18:
-                            txtChannel18.Text = "18 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel18.Text = "18 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 19:
-                            txtChannel19.Text = "19 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel19.Text = "19 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                         case 20:
-                            txtChannel20.Text = "20 " + Math.Round(thd_txt, 1).ToString() + "  " + out_string;
+                            txtChannel20.Text = "20 " + Math.Round(thd_txt, 5).ToString() + "  " + out_string;
                             break;
                     }
                 }
@@ -909,6 +1017,16 @@ namespace CWExpert
             {
                 Debug.Write(ex.ToString());
             }
+        }
+
+        private void picWaterfall_MouseMove(object sender, MouseEventArgs e)
+        {
+            picPanadapter_MouseMove(sender, e);
+        }
+
+        private void picWaterfall_MouseDown(object sender, MouseEventArgs e)
+        {
+            picPanadapter_MouseDown(sender, e);
         }
     }
 }

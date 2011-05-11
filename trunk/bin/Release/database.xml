@@ -46,11 +46,11 @@
   </Options>
   <Options>
     <Key>udDisplayHigh</Key>
-    <Value>35</Value>
+    <Value>72</Value>
   </Options>
   <Options>
     <Key>udDisplayLow</Key>
-    <Value>-2</Value>
+    <Value>-4</Value>
   </Options>
   <Options>
     <Key>udRefreshRate</Key>

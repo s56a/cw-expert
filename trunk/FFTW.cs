@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using fftwlib;
 using System.Diagnostics;
+using System.IO;
 
 namespace CWExpert
 {
@@ -10,7 +10,7 @@ namespace CWExpert
         #region variables
 
         //pointer to main form
-        private int fft_len = 64;
+        private int fft_len = 128;
         private int spectrum_len = 2048;
 
         //pointers to unmanaged arrays
@@ -22,19 +22,35 @@ namespace CWExpert
         public float[] spec_fin, spec_fout;
 
         //handles to managed arrays, keeps them pinned in memory
-//        public GCHandle hin, hout;
+        //        public GCHandle hin, hout;
 
         //pointers to the FFTW plan objects
-        IntPtr fplan1, fplan2, fplan3;
+        IntPtr fplan1;
+        IntPtr fplan2;
 
         #endregion
 
         // Initializes FFTW and all arrays
         // n: Logical size of the transform
-        public void InitFFTW(int n, int spectrum)
+        unsafe public void InitFFTW(int n, int spectrum)
         {
+            byte[] wisdom = new byte[8192];
+            int t;
+
+            fixed (byte* wisdom_string = &(wisdom[0]))
+            {
+/*                if (File.Exists(".\\wisdom"))
+                {
+                    FileStream file = File.Open(".\\wisdom", FileMode.Open, FileAccess.Read);
+                    file.Read(wisdom, 0, (int)file.Length);
+                    for (int i = 0; i < file.Length; i++)
+                        wisdom_string[i] = wisdom[i];
+                    t = fftwf.fftw_import(wisdom_string);
+                }*/
+            }
+
             fft_len = n;
-//            spectrum_len = spectrum;
+            spectrum_len = spectrum;
 
             //create two unmanaged arrays, properly aligned
             pin = fftwf.malloc(n * 8);
@@ -50,16 +66,16 @@ namespace CWExpert
             spec_fout = new float[spectrum_len * 2];
 
             //get handles and pin arrays so the GC doesn't move them
-//            hin = GCHandle.Alloc(fin, GCHandleType.Pinned);
-//            hout = GCHandle.Alloc(fout, GCHandleType.Pinned);
+            //            hin = GCHandle.Alloc(fin, GCHandleType.Pinned);
+            //            hout = GCHandle.Alloc(fout, GCHandleType.Pinned);
 
             //create a few test transforms
             fplan1 = fftwf.dft_1d(n, pin, pout, fftw_direction.Forward, fftw_flags.Patient);
             fplan2 = fftwf.dft_1d(spectrum, spec_in, spec_out, fftw_direction.Forward, fftw_flags.Patient);
-/*            fplan2 = fftwf.dft_1d(n, hin.AddrOfPinnedObject(), hout.AddrOfPinnedObject(),
-                fftw_direction.Forward, fftw_flags.Estimate);
-            fplan3 = fftwf.dft_1d(n, hout.AddrOfPinnedObject(), pin,
-                fftw_direction.Backward, fftw_flags.Measure);*/
+            /*            fplan2 = fftwf.dft_1d(n, hin.AddrOfPinnedObject(), hout.AddrOfPinnedObject(),
+                            fftw_direction.Forward, fftw_flags.Estimate);
+                        fplan3 = fftwf.dft_1d(n, hout.AddrOfPinnedObject(), pin,
+                            fftw_direction.Backward, fftw_flags.Measure);*/
         }
 
         public bool ComputeFFT()
@@ -67,7 +83,7 @@ namespace CWExpert
             try
             {
                 fftwf.execute(fplan1);
-                Marshal.Copy(pout, fout, 0, fft_len);
+                Marshal.Copy(pout, fout, 0, fft_len * 2);
                 return true;
             }
             catch (Exception ex)
@@ -81,8 +97,8 @@ namespace CWExpert
         {
             try
             {
-                fftwf.execute(fplan1);
-                Marshal.Copy(pout, spec_fout, 0, spectrum_len);
+                fftwf.execute(fplan2);
+                Marshal.Copy(spec_out, spec_fout, 0, spectrum_len * 2);
                 return true;
             }
             catch (Exception ex)
@@ -95,18 +111,21 @@ namespace CWExpert
         // Releases all memory used by FFTW/C#
         public void FreeFFTW()
         {
-            //it is essential that you call these after finishing
-            //may want to put the initializers in the constructor
-            //and these in the destructor
-            fftwf.free(pin);
-            fftwf.free(pout);
-            fftwf.free(spec_in);
-            fftwf.free(spec_out);
-            fftwf.destroy_plan(fplan1);
-            fftwf.destroy_plan(fplan2);
-//            fftwf.destroy_plan(fplan3);
-//            hin.Free();
-//            hout.Free();
+            try
+            {
+                fftwf.fftw_forget();
+                fftwf.free(pin);
+                fftwf.free(pout);
+                fftwf.free(spec_in);
+                fftwf.free(spec_out);
+                fftwf.destroy_plan(fplan1);
+                fftwf.destroy_plan(fplan2);
+                fftwf.cleanup();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
     }
 }

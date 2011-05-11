@@ -42,15 +42,15 @@
   </Options>
   <Options>
     <Key>txtCALL</Key>
-    <Value>S56A</Value>
+    <Value>YT7PWR</Value>
   </Options>
   <Options>
     <Key>udDisplayHigh</Key>
-    <Value>37</Value>
+    <Value>31</Value>
   </Options>
   <Options>
     <Key>udDisplayLow</Key>
-    <Value>-2</Value>
+    <Value>-3</Value>
   </Options>
   <Options>
     <Key>udRefreshRate</Key>
@@ -66,6 +66,14 @@
   </Options>
   <Options>
     <Key>chkRXOnly</Key>
+    <Value>False</Value>
+  </Options>
+  <Options>
+    <Key>radDisplayDirectX</Key>
+    <Value>True</Value>
+  </Options>
+  <Options>
+    <Key>radDisplayGDI</Key>
     <Value>False</Value>
   </Options>
 </Data>

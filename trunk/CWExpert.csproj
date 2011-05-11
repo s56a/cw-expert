@@ -95,14 +95,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioMR.cs" />
-    <Compile Include="CWdecoderx0312.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="CWdecoderx_double.cs" />
     <Compile Include="CWExpert.cs">
       <SubType>Form</SubType>
     </Compile>

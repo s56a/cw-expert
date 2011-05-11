@@ -1,7 +1,13 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿/*
+ *   this FFTW C# interface file is from http://www.sdss.jhu.edu/~tamas/bytes/fftwcsharp.html
+ *   changes yt7pwr
+*/
 
-namespace fftwlib
+using System;
+using System.Runtime.InteropServices;
+using System.IO;
+
+namespace CWExpert
 {
     // Various Flags used by FFTW
     #region Enums
@@ -101,8 +107,14 @@ namespace fftwlib
     /// <summary>
     /// Contains the Basic Interface FFTW functions for single-precision (float) operations
     /// </summary>
-    public class fftwf
+    unsafe public class fftwf
     {
+        [DllImport("libfftw3f-3.dll", EntryPoint = "fftwf_import_wisdom_from_string")]
+        public static extern int fftw_import(byte *wisdom_string);
+
+        [DllImport("libfftw3f-3.dll", EntryPoint = "fftwf_forget_wisdom")]
+        public static extern void fftw_forget();
+
         /// <summary>
         /// Allocates FFTW-optimized unmanaged memory
         /// </summary>
