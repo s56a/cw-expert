@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="yes"?>
+<Data>
+  <xs:schema id="Data" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="Data" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Options">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Key" type="xs:string" minOccurs="0" />
+                <xs:element name="Value" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Options>
+    <Key>comboAudioInput</Key>
+    <Value>Line 3/4 (M-Audio Delta 44)</Value>
+  </Options>
+  <Options>
+    <Key>comboAudioDriver</Key>
+    <Value>MME</Value>
+  </Options>
+  <Options>
+    <Key>udLatency</Key>
+    <Value>50</Value>
+  </Options>
+  <Options>
+    <Key>comboAudioSampleRate</Key>
+    <Value>8000</Value>
+  </Options>
+  <Options>
+    <Key>comboAudioOutput</Key>
+    <Value>Speakers (High Definition Audio</Value>
+  </Options>
+  <Options>
+    <Key>comboAudioBuffer</Key>
+    <Value>2048</Value>
+  </Options>
+  <Options>
+    <Key>txtCALL</Key>
+    <Value>YT7PWR</Value>
+  </Options>
+  <Options>
+    <Key>udDisplayHigh</Key>
+    <Value>72</Value>
+  </Options>
+  <Options>
+    <Key>udDisplayLow</Key>
+    <Value>-4</Value>
+  </Options>
+  <Options>
+    <Key>udRefreshRate</Key>
+    <Value>100</Value>
+  </Options>
+  <Options>
+    <Key>chkAlwaysOnTop</Key>
+    <Value>True</Value>
+  </Options>
+  <Options>
+    <Key>udAveraging</Key>
+    <Value>200</Value>
+  </Options>
+  <Options>
+    <Key>chkRXOnly</Key>
+    <Value>False</Value>
+  </Options>
+</Data>
