@@ -1,0 +1,6562 @@
+<?xml version="1.0" standalone="yes"?>
+<Data>
+  <xs:schema id="Data" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="Data" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="LOG">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="No" type="xs:int" minOccurs="0" />
+                <xs:element name="Date" type="xs:string" minOccurs="0" />
+                <xs:element name="Time" type="xs:string" minOccurs="0" />
+                <xs:element name="CALL" type="xs:string" minOccurs="0" />
+                <xs:element name="RST" type="xs:string" minOccurs="0" />
+                <xs:element name="SNT" type="xs:string" minOccurs="0" />
+                <xs:element name="MyNR" type="xs:int" minOccurs="0" />
+                <xs:element name="NR" type="xs:int" minOccurs="0" />
+                <xs:element name="Zone" type="xs:string" minOccurs="0" />
+                <xs:element name="Freq" type="xs:string" minOccurs="0" />
+                <xs:element name="Band" type="xs:string" minOccurs="0" />
+                <xs:element name="Mode" type="xs:string" minOccurs="0" />
+                <xs:element name="LOC" type="xs:string" minOccurs="0" />
+                <xs:element name="QTH" type="xs:string" minOccurs="0" />
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Info" type="xs:string" minOccurs="0" />
+                <xs:element name="Version" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <LOG>
+    <No>1</No>
+    <Date>06/04/2012</Date>
+    <Time>13:02:56</Time>
+    <CALL>RX0AE</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>1</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>2</No>
+    <Date>06/04/2012</Date>
+    <Time>13:03:35</Time>
+    <CALL>UN1L</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>2</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>3</No>
+    <Date>06/04/2012</Date>
+    <Time>22:52:01</Time>
+    <CALL>TF3IG/8 </CALL>
+    <RST />
+    <MyNR>3</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>4</No>
+    <Date>07/04/2012</Date>
+    <Time>13:38:28</Time>
+    <CALL>4Z1IG</CALL>
+    <RST>599</RST>
+    <MyNR>4</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>5</No>
+    <Date>07/04/2012</Date>
+    <Time>13:45:08</Time>
+    <CALL>EA7AZA</CALL>
+    <RST>599</RST>
+    <MyNR>5</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>6</No>
+    <Date>07/04/2012</Date>
+    <Time>13:45:36</Time>
+    <CALL>4Z1IG</CALL>
+    <RST>599</RST>
+    <MyNR>6</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>7</No>
+    <Date>07/04/2012</Date>
+    <Time>13:45:55</Time>
+    <CALL>4Z1IG</CALL>
+    <RST>599</RST>
+    <MyNR>7</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>8</No>
+    <Date>07/04/2012</Date>
+    <Time>13:55:07</Time>
+    <CALL>RW3QM</CALL>
+    <RST>599</RST>
+    <MyNR>8</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>9</No>
+    <Date>07/04/2012</Date>
+    <Time>13:55:58</Time>
+    <CALL>SU9VB</CALL>
+    <RST>599</RST>
+    <MyNR>9</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>10</No>
+    <Date>07/04/2012</Date>
+    <Time>13:56:20</Time>
+    <CALL>RL3AW</CALL>
+    <RST>599</RST>
+    <MyNR>10</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>11</No>
+    <Date>07/04/2012</Date>
+    <Time>13:56:41</Time>
+    <CALL>SU9VB</CALL>
+    <RST>599</RST>
+    <MyNR>11</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>12</No>
+    <Date>07/04/2012</Date>
+    <Time>13:58:57</Time>
+    <CALL>JA4XGC</CALL>
+    <RST>599</RST>
+    <MyNR>12</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>13</No>
+    <Date>07/04/2012</Date>
+    <Time>14:09:27</Time>
+    <CALL>UP7PL</CALL>
+    <RST>599</RST>
+    <MyNR>13</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>14</No>
+    <Date>07/04/2012</Date>
+    <Time>14:09:52</Time>
+    <CALL>SP2QCW</CALL>
+    <RST>599</RST>
+    <MyNR>14</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>15</No>
+    <Date>07/04/2012</Date>
+    <Time>14:11:17</Time>
+    <CALL>IZ4DZD</CALL>
+    <RST>599</RST>
+    <MyNR>15</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>16</No>
+    <Date>07/04/2012</Date>
+    <Time>14:11:56</Time>
+    <CALL>DL5OBY</CALL>
+    <RST>599</RST>
+    <MyNR>16</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>17</No>
+    <Date>07/04/2012</Date>
+    <Time>14:12:45</Time>
+    <CALL>UX3VPK</CALL>
+    <RST>599</RST>
+    <MyNR>17</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>18</No>
+    <Date>07/04/2012</Date>
+    <Time>14:16:01</Time>
+    <CALL>DL2SWN</CALL>
+    <RST>599</RST>
+    <MyNR>18</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>19</No>
+    <Date>07/04/2012</Date>
+    <Time>14:16:16</Time>
+    <CALL>DL2SWN</CALL>
+    <RST>599</RST>
+    <MyNR>19</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>20</No>
+    <Date>07/04/2012</Date>
+    <Time>14:16:20</Time>
+    <CALL>DL2SWN</CALL>
+    <RST>599</RST>
+    <MyNR>20</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>21</No>
+    <Date>07/04/2012</Date>
+    <Time>14:16:21</Time>
+    <CALL>DL2SWN</CALL>
+    <RST>599</RST>
+    <MyNR>21</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>22</No>
+    <Date>07/04/2012</Date>
+    <Time>14:16:23</Time>
+    <CALL>DL2SWN</CALL>
+    <RST>599</RST>
+    <MyNR>22</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>23</No>
+    <Date>07/04/2012</Date>
+    <Time>14:17:30</Time>
+    <CALL>EA1EAU</CALL>
+    <RST>599</RST>
+    <MyNR>23</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>24</No>
+    <Date>07/04/2012</Date>
+    <Time>14:17:52</Time>
+    <CALL>S5AGTU</CALL>
+    <RST>599</RST>
+    <MyNR>24</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>25</No>
+    <Date>07/04/2012</Date>
+    <Time>14:18:31</Time>
+    <CALL>EA2OK</CALL>
+    <RST>599</RST>
+    <MyNR>25</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>26</No>
+    <Date>07/04/2012</Date>
+    <Time>14:18:37</Time>
+    <CALL>EA2OK</CALL>
+    <RST>599</RST>
+    <MyNR>26</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>27</No>
+    <Date>07/04/2012</Date>
+    <Time>14:18:43</Time>
+    <CALL>EA2OK</CALL>
+    <RST>599</RST>
+    <MyNR>27</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>28</No>
+    <Date>07/04/2012</Date>
+    <Time>14:19:11</Time>
+    <CALL>S57SU</CALL>
+    <RST>599</RST>
+    <MyNR>28</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>29</No>
+    <Date>07/04/2012</Date>
+    <Time>14:19:51</Time>
+    <CALL>DL3VZL</CALL>
+    <RST>599</RST>
+    <MyNR>29</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>30</No>
+    <Date>07/04/2012</Date>
+    <Time>14:20:09</Time>
+    <CALL>SU9VB</CALL>
+    <RST>599</RST>
+    <MyNR>30</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>31</No>
+    <Date>07/04/2012</Date>
+    <Time>14:25:39</Time>
+    <CALL>DL3KOG</CALL>
+    <RST>599</RST>
+    <MyNR>31</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>32</No>
+    <Date>07/04/2012</Date>
+    <Time>14:26:07</Time>
+    <CALL>RA4LK</CALL>
+    <RST>599</RST>
+    <MyNR>32</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>33</No>
+    <Date>07/04/2012</Date>
+    <Time>14:26:57</Time>
+    <CALL>RX0AE</CALL>
+    <RST>599</RST>
+    <MyNR>33</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>34</No>
+    <Date>07/04/2012</Date>
+    <Time>14:27:07</Time>
+    <CALL>RX0AE</CALL>
+    <RST>599</RST>
+    <MyNR>34</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>35</No>
+    <Date>07/04/2012</Date>
+    <Time>14:28:24</Time>
+    <CALL>K5VRX</CALL>
+    <RST>599</RST>
+    <MyNR>35</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>36</No>
+    <Date>07/04/2012</Date>
+    <Time>14:29:33</Time>
+    <CALL>IK2HKN</CALL>
+    <RST>599</RST>
+    <MyNR>36</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>37</No>
+    <Date>07/04/2012</Date>
+    <Time>14:30:34</Time>
+    <CALL>OH8US</CALL>
+    <RST>599</RST>
+    <MyNR>37</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>38</No>
+    <Date>07/04/2012</Date>
+    <Time>14:30:52</Time>
+    <CALL>IW0GWT</CALL>
+    <RST>599</RST>
+    <MyNR>38</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>39</No>
+    <Date>07/04/2012</Date>
+    <Time>14:33:02</Time>
+    <CALL>PD2J</CALL>
+    <RST>599</RST>
+    <MyNR>39</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>40</No>
+    <Date>07/04/2012</Date>
+    <Time>14:34:19</Time>
+    <CALL>R3BB</CALL>
+    <RST>599</RST>
+    <MyNR>40</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>41</No>
+    <Date>07/04/2012</Date>
+    <Time>14:34:44</Time>
+    <CALL>F1DOX</CALL>
+    <RST>599</RST>
+    <MyNR>41</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name>CHARLES</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>42</No>
+    <Date>07/04/2012</Date>
+    <Time>14:48:57</Time>
+    <CALL>G5LP</CALL>
+    <RST>599</RST>
+    <MyNR>42</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>43</No>
+    <Date>07/04/2012</Date>
+    <Time>14:51:15</Time>
+    <CALL>EH3MGY</CALL>
+    <RST>599</RST>
+    <MyNR>43</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>44</No>
+    <Date>07/04/2012</Date>
+    <Time>14:51:53</Time>
+    <CALL>RU9HM</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>44</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>45</No>
+    <Date>07/04/2012</Date>
+    <Time>14:52:08</Time>
+    <CALL>UN7JX</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>45</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>46</No>
+    <Date>07/04/2012</Date>
+    <Time>14:52:38</Time>
+    <CALL>EA1DFP</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>46</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>47</No>
+    <Date>07/04/2012</Date>
+    <Time>14:54:36</Time>
+    <CALL>UA9OGF</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>47</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>48</No>
+    <Date>07/04/2012</Date>
+    <Time>14:55:00</Time>
+    <CALL>EH3MGY</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>48</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>49</No>
+    <Date>07/04/2012</Date>
+    <Time>14:55:17</Time>
+    <CALL>EH3MGY</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>49</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>50</No>
+    <Date>07/04/2012</Date>
+    <Time>14:55:22</Time>
+    <CALL>EH3MGY</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>50</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>51</No>
+    <Date>07/04/2012</Date>
+    <Time>14:55:40</Time>
+    <CALL>EH3MGY</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>51</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>52</No>
+    <Date>07/04/2012</Date>
+    <Time>14:58:34</Time>
+    <CALL>DL8MFA</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>52</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>53</No>
+    <Date>07/04/2012</Date>
+    <Time>14:59:58</Time>
+    <CALL>UR5ZEL</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>53</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>54</No>
+    <Date>07/04/2012</Date>
+    <Time>15:00:35</Time>
+    <CALL>RA9LT</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>54</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>55</No>
+    <Date>07/04/2012</Date>
+    <Time>15:01:08</Time>
+    <CALL>DL7AUV</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>55</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>56</No>
+    <Date>07/04/2012</Date>
+    <Time>15:01:21</Time>
+    <CALL>RV3AMV</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>56</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>57</No>
+    <Date>07/04/2012</Date>
+    <Time>15:03:25</Time>
+    <CALL>R3QW</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>57</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>58</No>
+    <Date>07/04/2012</Date>
+    <Time>15:03:57</Time>
+    <CALL>SP7CXV</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>58</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>59</No>
+    <Date>07/04/2012</Date>
+    <Time>15:04:27</Time>
+    <CALL>IW2EDM</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>59</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>60</No>
+    <Date>07/04/2012</Date>
+    <Time>16:00:49</Time>
+    <CALL>TF3IG/8 </CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>60</MyNR>
+    <NR>0</NR>
+    <Mode>RTTY</Mode>
+  </LOG>
+  <LOG>
+    <No>61</No>
+    <Date>07/04/2012</Date>
+    <Time>16:20:25</Time>
+    <CALL>RV3AMV</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>61</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>62</No>
+    <Date>07/04/2012</Date>
+    <Time>16:21:11</Time>
+    <CALL>UA3EKK</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>62</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>63</No>
+    <Date>07/04/2012</Date>
+    <Time>16:22:16</Time>
+    <CALL>4Z4DX</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>63</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>64</No>
+    <Date>07/04/2012</Date>
+    <Time>16:54:16</Time>
+    <CALL>EK5KE</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>64</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>65</No>
+    <Date>07/04/2012</Date>
+    <Time>17:01:19</Time>
+    <CALL>G3ZLW</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>65</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>66</No>
+    <Date>07/04/2012</Date>
+    <Time>17:02:24</Time>
+    <CALL>BV7FO</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>66</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>67</No>
+    <Date>07/04/2012</Date>
+    <Time>17:03:07</Time>
+    <CALL>YC6EO</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>67</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>68</No>
+    <Date>07/04/2012</Date>
+    <Time>17:03:17</Time>
+    <CALL>RA9LT</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>68</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>69</No>
+    <Date>07/04/2012</Date>
+    <Time>17:07:42</Time>
+    <CALL>FZ5AV</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>69</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>70</No>
+    <Date>07/04/2012</Date>
+    <Time>17:08:54</Time>
+    <CALL>UY7MM</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>70</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>71</No>
+    <Date>07/04/2012</Date>
+    <Time>17:09:40</Time>
+    <CALL>EY7AD</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>71</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>72</No>
+    <Date>07/04/2012</Date>
+    <Time>17:10:36</Time>
+    <CALL>EK5KE</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>72</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC>LN20FD</LOC>
+    <QTH>YEREVAN</QTH>
+    <Name>HENRY</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>73</No>
+    <Date>07/04/2012</Date>
+    <Time>17:12:35</Time>
+    <CALL>RW3QM</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>73</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>74</No>
+    <Date>07/04/2012</Date>
+    <Time>17:24:24</Time>
+    <CALL>YC6EO</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>74</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC>NJ84BD</LOC>
+    <QTH>MEULABOH</QTH>
+    <Name>IWAN</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>75</No>
+    <Date>07/04/2012</Date>
+    <Time>18:24:38</Time>
+    <CALL>EA1AKS</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>75</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>76</No>
+    <Date>07/04/2012</Date>
+    <Time>18:25:08</Time>
+    <CALL>5C5W</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>76</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>77</No>
+    <Date>07/04/2012</Date>
+    <Time>18:26:26</Time>
+    <CALL>EA1KY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>77</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>78</No>
+    <Date>07/04/2012</Date>
+    <Time>18:27:25</Time>
+    <CALL>uR9CB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>78</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>79</No>
+    <Date>07/04/2012</Date>
+    <Time>18:27:54</Time>
+    <CALL>D2QMN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>79</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>80</No>
+    <Date>07/04/2012</Date>
+    <Time>18:28:37</Time>
+    <CALL>D2QMN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>80</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>81</No>
+    <Date>07/04/2012</Date>
+    <Time>18:29:09</Time>
+    <CALL>SM7CIL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>81</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>82</No>
+    <Date>07/04/2012</Date>
+    <Time>19:07:17</Time>
+    <CALL>UN4PGX</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>82</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>83</No>
+    <Date>07/04/2012</Date>
+    <Time>19:07:40</Time>
+    <CALL>EC7AMY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>83</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>84</No>
+    <Date>07/04/2012</Date>
+    <Time>19:08:03</Time>
+    <CALL>EA7CWA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>84</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>85</No>
+    <Date>07/04/2012</Date>
+    <Time>19:10:27</Time>
+    <CALL>ZS6WB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>85</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>86</No>
+    <Date>07/04/2012</Date>
+    <Time>19:12:52</Time>
+    <CALL>GM0FGI</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>86</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>87</No>
+    <Date>07/04/2012</Date>
+    <Time>19:15:09</Time>
+    <CALL>UN4PG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>87</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>EA RTTY contest</Info>
+  </LOG>
+  <LOG>
+    <No>88</No>
+    <Date>07/04/2012</Date>
+    <Time>19:16:29</Time>
+    <CALL>EA8CNB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>88</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>89</No>
+    <Date>07/04/2012</Date>
+    <Time>19:19:01</Time>
+    <CALL>PY2UTU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>89</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>90</No>
+    <Date>07/04/2012</Date>
+    <Time>19:21:08</Time>
+    <CALL>EB5RR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>90</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>91</No>
+    <Date>07/04/2012</Date>
+    <Time>19:21:41</Time>
+    <CALL>RG9A</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>91</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>92</No>
+    <Date>07/04/2012</Date>
+    <Time>19:25:28</Time>
+    <CALL>LA3LJA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>92</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>93</No>
+    <Date>07/04/2012</Date>
+    <Time>19:26:11</Time>
+    <CALL>PD0DK</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>93</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>94</No>
+    <Date>07/04/2012</Date>
+    <Time>19:26:41</Time>
+    <CALL>VE2FK</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>94</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>95</No>
+    <Date>07/04/2012</Date>
+    <Time>19:27:32</Time>
+    <CALL>EA3EZD</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>95</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>96</No>
+    <Date>07/04/2012</Date>
+    <Time>19:28:18</Time>
+    <CALL>JA7BME</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>96</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>97</No>
+    <Date>07/04/2012</Date>
+    <Time>19:28:28</Time>
+    <CALL>EA5GSW</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>97</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>98</No>
+    <Date>07/04/2012</Date>
+    <Time>19:28:54</Time>
+    <CALL>R3BB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>98</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>99</No>
+    <Date>07/04/2012</Date>
+    <Time>19:29:21</Time>
+    <CALL>RA9AU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>99</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>100</No>
+    <Date>07/04/2012</Date>
+    <Time>19:29:47</Time>
+    <CALL>ED2Y</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>100</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>101</No>
+    <Date>07/04/2012</Date>
+    <Time>19:30:32</Time>
+    <CALL>5C5W</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>101</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>102</No>
+    <Date>07/04/2012</Date>
+    <Time>19:31:02</Time>
+    <CALL>SM6GKT</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>102</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>103</No>
+    <Date>07/04/2012</Date>
+    <Time>19:31:57</Time>
+    <CALL>EA3FHP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>103</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>104</No>
+    <Date>07/04/2012</Date>
+    <Time>19:32:28</Time>
+    <CALL>EF5T</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>104</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>105</No>
+    <Date>07/04/2012</Date>
+    <Time>19:33:54</Time>
+    <CALL>EA3EJJ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>105</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>106</No>
+    <Date>07/04/2012</Date>
+    <Time>19:34:23</Time>
+    <CALL>EA1KY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>106</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>107</No>
+    <Date>07/04/2012</Date>
+    <Time>19:34:30</Time>
+    <CALL>YT3H</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>107</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>108</No>
+    <Date>07/04/2012</Date>
+    <Time>19:34:40</Time>
+    <CALL>EA5ET</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>108</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>109</No>
+    <Date>07/04/2012</Date>
+    <Time>19:35:18</Time>
+    <CALL>JA6GCE</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>109</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>110</No>
+    <Date>07/04/2012</Date>
+    <Time>19:35:44</Time>
+    <CALL>EB1BCG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>110</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>111</No>
+    <Date>07/04/2012</Date>
+    <Time>19:36:43</Time>
+    <CALL>JI3MJK</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>111</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>112</No>
+    <Date>07/04/2012</Date>
+    <Time>19:37:33</Time>
+    <CALL>EF5Y</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>112</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>113</No>
+    <Date>07/04/2012</Date>
+    <Time>19:38:56</Time>
+    <CALL>DL1EAL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>113</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>114</No>
+    <Date>07/04/2012</Date>
+    <Time>19:39:10</Time>
+    <CALL>EB2AM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>114</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>115</No>
+    <Date>07/04/2012</Date>
+    <Time>19:39:44</Time>
+    <CALL>UA3NFI</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>115</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>116</No>
+    <Date>07/04/2012</Date>
+    <Time>19:40:16</Time>
+    <CALL>S53MM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>116</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>117</No>
+    <Date>07/04/2012</Date>
+    <Time>19:41:14</Time>
+    <CALL>IK8UND</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>117</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>118</No>
+    <Date>07/04/2012</Date>
+    <Time>19:41:37</Time>
+    <CALL>EA1WX</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>118</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>119</No>
+    <Date>07/04/2012</Date>
+    <Time>19:42:19</Time>
+    <CALL>N1KWF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>119</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>120</No>
+    <Date>07/04/2012</Date>
+    <Time>19:44:24</Time>
+    <CALL>ED2V</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>120</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>121</No>
+    <Date>07/04/2012</Date>
+    <Time>19:45:15</Time>
+    <CALL>EA3FLS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>121</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>122</No>
+    <Date>07/04/2012</Date>
+    <Time>19:46:35</Time>
+    <CALL>OH8A</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>122</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>123</No>
+    <Date>07/04/2012</Date>
+    <Time>19:46:51</Time>
+    <CALL>EA4GDW</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>123</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>124</No>
+    <Date>07/04/2012</Date>
+    <Time>19:48:47</Time>
+    <CALL>IK7RVY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>124</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>125</No>
+    <Date>07/04/2012</Date>
+    <Time>19:49:07</Time>
+    <CALL>UP6P</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>125</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>126</No>
+    <Date>07/04/2012</Date>
+    <Time>19:51:33</Time>
+    <CALL>IT9AJP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>126</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>127</No>
+    <Date>07/04/2012</Date>
+    <Time>19:51:51</Time>
+    <CALL>UN5C</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>127</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>128</No>
+    <Date>07/04/2012</Date>
+    <Time>19:52:00</Time>
+    <CALL>IT9SMU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>128</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>129</No>
+    <Date>07/04/2012</Date>
+    <Time>19:52:12</Time>
+    <CALL>EA5DKU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>129</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>130</No>
+    <Date>07/04/2012</Date>
+    <Time>19:56:24</Time>
+    <CALL>PD3BVI</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>130</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>131</No>
+    <Date>07/04/2012</Date>
+    <Time>19:57:27</Time>
+    <CALL>UA9XL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>131</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>132</No>
+    <Date>07/04/2012</Date>
+    <Time>19:57:49</Time>
+    <CALL>EA7HLU/EA1</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>132</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>133</No>
+    <Date>07/04/2012</Date>
+    <Time>19:59:41</Time>
+    <CALL>RN3C</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>133</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>134</No>
+    <Date>07/04/2012</Date>
+    <Time>20:00:11</Time>
+    <CALL>YO5OO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>134</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>135</No>
+    <Date>07/04/2012</Date>
+    <Time>20:00:28</Time>
+    <CALL>EA7CU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>135</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>136</No>
+    <Date>07/04/2012</Date>
+    <Time>20:01:04</Time>
+    <CALL>YT2AAA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>136</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>137</No>
+    <Date>07/04/2012</Date>
+    <Time>20:01:34</Time>
+    <CALL>R3PW</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>137</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>138</No>
+    <Date>07/04/2012</Date>
+    <Time>20:01:43</Time>
+    <CALL>DG0KS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>138</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>139</No>
+    <Date>07/04/2012</Date>
+    <Time>20:02:01</Time>
+    <CALL>IK4QJF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>139</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>140</No>
+    <Date>07/04/2012</Date>
+    <Time>20:02:32</Time>
+    <CALL>RA9JB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>140</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>141</No>
+    <Date>07/04/2012</Date>
+    <Time>20:02:54</Time>
+    <CALL>PA2WO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>141</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>142</No>
+    <Date>07/04/2012</Date>
+    <Time>20:03:47</Time>
+    <CALL>EU4CQ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>142</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>143</No>
+    <Date>07/04/2012</Date>
+    <Time>20:03:50</Time>
+    <CALL>SM5EPO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>143</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>144</No>
+    <Date>07/04/2012</Date>
+    <Time>20:04:28</Time>
+    <CALL>ON4ALY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>144</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>145</No>
+    <Date>07/04/2012</Date>
+    <Time>20:04:49</Time>
+    <CALL>IV3IXN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>145</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>146</No>
+    <Date>07/04/2012</Date>
+    <Time>20:05:34</Time>
+    <CALL>9A206JOY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>146</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>147</No>
+    <Date>07/04/2012</Date>
+    <Time>20:06:37</Time>
+    <CALL>SM5IMO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>147</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>148</No>
+    <Date>07/04/2012</Date>
+    <Time>20:06:59</Time>
+    <CALL>HA6NL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>148</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>149</No>
+    <Date>07/04/2012</Date>
+    <Time>20:09:13</Time>
+    <CALL>SP9W</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>149</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>CW</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>150</No>
+    <Date>07/04/2012</Date>
+    <Time>20:10:07</Time>
+    <CALL>SO6I</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>150</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>CW</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>151</No>
+    <Date>07/04/2012</Date>
+    <Time>20:11:30</Time>
+    <CALL>4Z5TK</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>151</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>CW</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>152</No>
+    <Date>07/04/2012</Date>
+    <Time>20:12:02</Time>
+    <CALL>RV4AB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>152</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>CW</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>153</No>
+    <Date>08/04/2012</Date>
+    <Time>11:09:33</Time>
+    <CALL>PD0ME</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>153</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>154</No>
+    <Date>08/04/2012</Date>
+    <Time>11:29:52</Time>
+    <MyNR>154</MyNR>
+    <Mode>RTTY</Mode>
+  </LOG>
+  <LOG>
+    <No>155</No>
+    <Date>08/04/2012</Date>
+    <Time>11:36:27</Time>
+    <CALL>EA3EZD</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>155</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>156</No>
+    <Date>08/04/2012</Date>
+    <Time>11:36:55</Time>
+    <CALL>RT3P</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>156</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>157</No>
+    <Date>08/04/2012</Date>
+    <Time>11:37:10</Time>
+    <CALL>LY1R</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>157</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>158</No>
+    <Date>08/04/2012</Date>
+    <Time>11:37:21</Time>
+    <CALL>EB1BCG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>158</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>159</No>
+    <Date>08/04/2012</Date>
+    <Time>11:37:32</Time>
+    <CALL>RW4NN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>159</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>160</No>
+    <Date>08/04/2012</Date>
+    <Time>11:38:13</Time>
+    <CALL>RA9RR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>160</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>161</No>
+    <Date>08/04/2012</Date>
+    <Time>11:39:02</Time>
+    <CALL>EA9LZ/7</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>161</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>162</No>
+    <Date>08/04/2012</Date>
+    <Time>11:39:47</Time>
+    <CALL>HA6NL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>162</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>163</No>
+    <Date>08/04/2012</Date>
+    <Time>11:40:34</Time>
+    <CALL>UN4PG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>163</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>164</No>
+    <Date>08/04/2012</Date>
+    <Time>11:41:32</Time>
+    <CALL>EC7ABV</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>164</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>165</No>
+    <Date>08/04/2012</Date>
+    <Time>11:42:20</Time>
+    <CALL>RA9JB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>165</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>166</No>
+    <Date>08/04/2012</Date>
+    <Time>11:45:11</Time>
+    <CALL>5C5W</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>166</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>167</No>
+    <Date>08/04/2012</Date>
+    <Time>11:46:14</Time>
+    <CALL>UP6P</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>167</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>168</No>
+    <Date>08/04/2012</Date>
+    <Time>11:49:09</Time>
+    <CALL>JA6GCE</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>168</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>169</No>
+    <Date>08/04/2012</Date>
+    <Time>11:49:30</Time>
+    <CALL>R0QA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>169</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>172</No>
+    <Date>08/04/2012</Date>
+    <Time>13:15:28</Time>
+    <CALL>EA1OS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>172</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>173</No>
+    <Date>08/04/2012</Date>
+    <Time>13:19:28</Time>
+    <CALL>R4LK</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>173</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>174</No>
+    <Date>08/04/2012</Date>
+    <Time>13:20:31</Time>
+    <CALL>RW4NN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>174</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>175</No>
+    <Date>08/04/2012</Date>
+    <Time>13:20:45</Time>
+    <CALL>UA9AFS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>175</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>176</No>
+    <Date>08/04/2012</Date>
+    <Time>13:23:03</Time>
+    <CALL>UA9MEJ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>176</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>177</No>
+    <Date>08/04/2012</Date>
+    <Time>13:24:27</Time>
+    <CALL>UP6P</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>177</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>178</No>
+    <Date>08/04/2012</Date>
+    <Time>13:26:32</Time>
+    <CALL>UT2EF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>178</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>179</No>
+    <Date>08/04/2012</Date>
+    <Time>13:28:28</Time>
+    <CALL>US6CQ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>179</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>180</No>
+    <Date>08/04/2012</Date>
+    <Time>13:28:50</Time>
+    <CALL>SM6FUD</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>180</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>181</No>
+    <Date>08/04/2012</Date>
+    <Time>13:29:10</Time>
+    <CALL>RV9CP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>181</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>182</No>
+    <Date>08/04/2012</Date>
+    <Time>13:30:51</Time>
+    <CALL>PD0ROC</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>182</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>183</No>
+    <Date>08/04/2012</Date>
+    <Time>13:32:10</Time>
+    <CALL>LY2FN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>183</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>184</No>
+    <Date>08/04/2012</Date>
+    <Time>13:37:21</Time>
+    <CALL>OV1A</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>184</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>185</No>
+    <Date>08/04/2012</Date>
+    <Time>13:37:36</Time>
+    <CALL>EA3NP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>185</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>186</No>
+    <Date>08/04/2012</Date>
+    <Time>13:40:04</Time>
+    <CALL>US5LO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>186</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>187</No>
+    <Date>08/04/2012</Date>
+    <Time>13:49:45</Time>
+    <CALL>RA4FDY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>187</MyNR>
+    <NR>0</NR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>188</No>
+    <Date>08/04/2012</Date>
+    <Time>13:50:18</Time>
+    <CALL>UT6IS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>188</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>189</No>
+    <Date>08/04/2012</Date>
+    <Time>13:51:11</Time>
+    <CALL>R8XFLB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>189</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>190</No>
+    <Date>08/04/2012</Date>
+    <Time>13:52:00</Time>
+    <CALL>PA3HGF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>190</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>191</No>
+    <Date>08/04/2012</Date>
+    <Time>13:52:10</Time>
+    <CALL>US5LO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>191</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>192</No>
+    <Date>08/04/2012</Date>
+    <Time>13:57:58</Time>
+    <CALL>DG0KS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>192</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>193</No>
+    <Date>08/04/2012</Date>
+    <Time>13:58:07</Time>
+    <CALL>UA3PT</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>193</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>194</No>
+    <Date>08/04/2012</Date>
+    <Time>14:02:04</Time>
+    <CALL>UT2G</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>194</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>195</No>
+    <Date>08/04/2012</Date>
+    <Time>14:03:12</Time>
+    <CALL>UT5UKY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>195</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>196</No>
+    <Date>08/04/2012</Date>
+    <Time>14:03:44</Time>
+    <CALL>UW8I</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>196</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>197</No>
+    <Date>08/04/2012</Date>
+    <Time>14:04:05</Time>
+    <CALL>PD3EM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>197</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>198</No>
+    <Date>08/04/2012</Date>
+    <Time>14:04:48</Time>
+    <CALL>DL5KUR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>198</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>199</No>
+    <Date>08/04/2012</Date>
+    <Time>14:06:37</Time>
+    <CALL>OK1HEH</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>199</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>200</No>
+    <Date>08/04/2012</Date>
+    <Time>14:06:51</Time>
+    <CALL>YL2NN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>200</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>201</No>
+    <Date>08/04/2012</Date>
+    <Time>14:10:29</Time>
+    <CALL>UR4CU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>201</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>202</No>
+    <Date>08/04/2012</Date>
+    <Time>14:10:40</Time>
+    <CALL>UA9AL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>202</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>203</No>
+    <Date>08/04/2012</Date>
+    <Time>14:36:45</Time>
+    <CALL>UA4HBM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>203</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>204</No>
+    <Date>08/04/2012</Date>
+    <Time>14:45:55</Time>
+    <CALL>EC1KR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>204</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>205</No>
+    <Date>08/04/2012</Date>
+    <Time>14:56:22</Time>
+    <CALL>KU5B</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>205</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>206</No>
+    <Date>08/04/2012</Date>
+    <Time>15:00:24</Time>
+    <CALL>AE1T</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>206</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>207</No>
+    <Date>08/04/2012</Date>
+    <Time>15:06:54</Time>
+    <CALL>UY5TE</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>207</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>208</No>
+    <Date>08/04/2012</Date>
+    <Time>15:07:46</Time>
+    <CALL>GM3WOJ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>208</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>209</No>
+    <Date>08/04/2012</Date>
+    <Time>15:09:17</Time>
+    <CALL>AB4SF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>209</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>210</No>
+    <Date>08/04/2012</Date>
+    <Time>15:13:30</Time>
+    <CALL>EA4JJ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>210</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>211</No>
+    <Date>08/04/2012</Date>
+    <Time>15:16:22</Time>
+    <CALL>W2YC</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>211</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>212</No>
+    <Date>08/04/2012</Date>
+    <Time>15:17:28</Time>
+    <CALL>R8XF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>212</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>213</No>
+    <Date>08/04/2012</Date>
+    <Time>15:18:12</Time>
+    <CALL>EA4GB</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>213</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>214</No>
+    <Date>08/04/2012</Date>
+    <Time>15:21:54</Time>
+    <CALL>OG8T</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>214</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>215</No>
+    <Date>08/04/2012</Date>
+    <Time>15:33:15</Time>
+    <CALL>UW4I</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>215</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>216</No>
+    <Date>08/04/2012</Date>
+    <Time>15:42:25</Time>
+    <CALL>RU4PH</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>216</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>217</No>
+    <Date>08/04/2012</Date>
+    <Time>15:47:55</Time>
+    <CALL>EA7ZY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>217</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>218</No>
+    <Date>08/04/2012</Date>
+    <Time>15:48:07</Time>
+    <CALL>RA4HL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>218</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>219</No>
+    <Date>08/04/2012</Date>
+    <Time>15:50:14</Time>
+    <CALL>AI9T</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>219</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>220</No>
+    <Date>08/04/2012</Date>
+    <Time>15:54:33</Time>
+    <CALL>N2BJ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>220</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>221</No>
+    <Date>08/04/2012</Date>
+    <Time>15:57:02</Time>
+    <CALL>TR8CA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>221</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>222</No>
+    <Date>08/04/2012</Date>
+    <Time>16:25:37</Time>
+    <CALL>N2NF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>222</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>223</No>
+    <Date>08/04/2012</Date>
+    <Time>16:42:37</Time>
+    <CALL>W1TO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>223</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>224</No>
+    <Date>08/04/2012</Date>
+    <Time>16:44:53</Time>
+    <CALL>CO2CW</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>224</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>225</No>
+    <Date>08/04/2012</Date>
+    <Time>16:47:44</Time>
+    <CALL>EA8OM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>225</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>226</No>
+    <Date>08/04/2012</Date>
+    <Time>16:52:33</Time>
+    <CALL>VE9DX</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>226</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>227</No>
+    <Date>08/04/2012</Date>
+    <Time>16:53:19</Time>
+    <CALL>W6RLL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>227</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>228</No>
+    <Date>08/04/2012</Date>
+    <Time>16:54:43</Time>
+    <CALL>VU2NKS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>228</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>229</No>
+    <Date>08/04/2012</Date>
+    <Time>17:08:33</Time>
+    <CALL>EA7CP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>229</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>230</No>
+    <Date>08/04/2012</Date>
+    <Time>18:29:47</Time>
+    <CALL>GM1BSG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>230</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>231</No>
+    <Date>08/04/2012</Date>
+    <Time>18:30:43</Time>
+    <CALL>R3OR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>231</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>232</No>
+    <Date>08/04/2012</Date>
+    <Time>18:38:49</Time>
+    <CALL>F5LNV</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>232</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>233</No>
+    <Date>08/04/2012</Date>
+    <Time>18:41:01</Time>
+    <CALL>GM1BSG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>233</MyNR>
+    <Zone />
+    <Mode>BPSK125</Mode>
+    <LOC>IO86BC</LOC>
+    <QTH>Stirling,Scotland</QTH>
+    <Name>John</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>234</No>
+    <Date>08/04/2012</Date>
+    <Time>18:42:55</Time>
+    <CALL>RD3FC</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>234</MyNR>
+    <Zone />
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH>Orecdovo-Zuevo</QTH>
+    <Name>Valery</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>235</No>
+    <Date>08/04/2012</Date>
+    <Time>19:13:01</Time>
+    <CALL>UR5AKG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>235</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>KO70JX</LOC>
+    <QTH>Sumy</QTH>
+    <Name>Viktor</Name>
+    <Info>EPC # 15244
+</Info>
+  </LOG>
+  <LOG>
+    <No>236</No>
+    <Date>08/04/2012</Date>
+    <Time>19:13:45</Time>
+    <CALL>EA5HSF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>236</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>IM97KX</LOC>
+    <QTH>Murcia</QTH>
+    <Name>Francisco</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>237</No>
+    <Date>08/04/2012</Date>
+    <Time>19:19:06</Time>
+    <CALL>F4GWY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>237</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name>Serge</Name>
+    <Info>Interface : RIGblaster plus</Info>
+  </LOG>
+  <LOG>
+    <No>238</No>
+    <Date>08/04/2012</Date>
+    <Time>19:25:53</Time>
+    <CALL>RA4FEQ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>238</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>LO13HL</LOC>
+    <QTH>zemetchino</QTH>
+    <Name />
+    <Info>Info www.qrz. ru</Info>
+  </LOG>
+  <LOG>
+    <No>239</No>
+    <Date>08/04/2012</Date>
+    <Time>19:29:10</Time>
+    <CALL>EA7DLD</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>239</MyNR>
+    <Zone />
+    <Mode>BPSK125</Mode>
+    <LOC>IM77MR</LOC>
+    <QTH>Cordoba</QTH>
+    <Name>Enrique</Name>
+    <Info>Info   : http://www.ea7urc.org/</Info>
+  </LOG>
+  <LOG>
+    <No>240</No>
+    <Date>08/04/2012</Date>
+    <Time>19:38:30</Time>
+    <CALL>UX1LA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>240</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>KN88DV</LOC>
+    <QTH>Lozova</QTH>
+    <Name>Valery</Name>
+    <Info>URDA HA-3A, UR-11, 
+
+MEMBER EPS# 07776, DMC# 05230,</Info>
+  </LOG>
+  <LOG>
+    <No>170</No>
+    <Date>08/04/2012</Date>
+    <Time>19:44:21</Time>
+    <MyNR>170</MyNR>
+    <Mode>BPSK125</Mode>
+  </LOG>
+  <LOG>
+    <No>171</No>
+    <Date>08/04/2012</Date>
+    <Time>19:44:33</Time>
+    <MyNR>171</MyNR>
+    <Mode>BPSK125</Mode>
+  </LOG>
+  <LOG>
+    <No>241</No>
+    <Date>09/04/2012</Date>
+    <Time>9:17:30</Time>
+    <CALL>F5OZK</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>241</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>242</No>
+    <Date>09/04/2012</Date>
+    <Time>9:17:44</Time>
+    <CALL>ON4UN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>242</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>243</No>
+    <Date>09/04/2012</Date>
+    <Time>9:18:25</Time>
+    <CALL>EA1DR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>243</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>244</No>
+    <Date>09/04/2012</Date>
+    <Time>9:19:21</Time>
+    <CALL>DC8TS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>244</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>245</No>
+    <Date>09/04/2012</Date>
+    <Time>9:19:59</Time>
+    <CALL>DK9WI</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>245</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>246</No>
+    <Date>09/04/2012</Date>
+    <Time>9:20:16</Time>
+    <CALL>F6GUG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>246</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>247</No>
+    <Date>09/04/2012</Date>
+    <Time>9:20:37</Time>
+    <CALL>UA3DPM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>247</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>248</No>
+    <Date>09/04/2012</Date>
+    <Time>9:21:37</Time>
+    <CALL>DK1RV</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>248</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>249</No>
+    <Date>09/04/2012</Date>
+    <Time>9:21:55</Time>
+    <CALL>F5II</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>249</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>250</No>
+    <Date>09/04/2012</Date>
+    <Time>9:23:53</Time>
+    <CALL>DK6XR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>250</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>251</No>
+    <Date>09/04/2012</Date>
+    <Time>9:25:49</Time>
+    <CALL>OZ4PC</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>251</MyNR>
+    <Zone />
+    <Mode>BPSK63</Mode>
+    <LOC>JO55XK</LOC>
+    <QTH>Gørslev</QTH>
+    <Name>Mogens</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>252</No>
+    <Date>09/04/2012</Date>
+    <Time>9:27:14</Time>
+    <CALL>OZ1GC</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>252</MyNR>
+    <Zone />
+    <Mode>BPSK63</Mode>
+    <LOC>JO55WH</LOC>
+    <QTH>Haslev</QTH>
+    <Name>Mogens</Name>
+    <Info>Model 1957..lices sin 2001</Info>
+  </LOG>
+  <LOG>
+    <No>253</No>
+    <Date>09/04/2012</Date>
+    <Time>10:12:02</Time>
+    <CALL>UY5YK</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>253</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>KN86JS</LOC>
+    <QTH>BERDYANSK</QTH>
+    <Name>SEMEN</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>254</No>
+    <Date>09/04/2012</Date>
+    <Time>10:16:41</Time>
+    <CALL>R3MD</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>254</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name>Nick</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>255</No>
+    <Date>09/04/2012</Date>
+    <Time>10:22:12</Time>
+    <CALL>UA9XF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>255</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>LP51JP</LOC>
+    <QTH>Syktyvkar</QTH>
+    <Name>Leo</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>256</No>
+    <Date>09/04/2012</Date>
+    <Time>10:33:17</Time>
+    <CALL>RW9JG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>256</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>P81BA</LOC>
+    <QTH>MEGION</QTH>
+    <Name>Victor</Name>
+    <Info>EPC # 16256</Info>
+  </LOG>
+  <LOG>
+    <No>257</No>
+    <Date>09/04/2012</Date>
+    <Time>12:09:59</Time>
+    <CALL>CT1BNW</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>257</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>IN51QE</LOC>
+    <QTH>Porto</QTH>
+    <Name>Cupido</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>258</No>
+    <Date>09/04/2012</Date>
+    <Time>17:43:35</Time>
+    <CALL>RU6UR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>258</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>259</No>
+    <Date>09/04/2012</Date>
+    <Time>17:50:08</Time>
+    <CALL>UA1ZAP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>259</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>260</No>
+    <Date>09/04/2012</Date>
+    <Time>17:51:23</Time>
+    <CALL>HZ1PS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>260</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC>KL91NP</LOC>
+    <QTH>JEDDAH</QTH>
+    <Name>PETER</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>261</No>
+    <Date>09/04/2012</Date>
+    <Time>17:57:06</Time>
+    <CALL>N9AW</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>261</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH>WISCONSIN</QTH>
+    <Name>JERRY</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>262</No>
+    <Date>09/04/2012</Date>
+    <Time>18:10:00</Time>
+    <CALL>UA1ORK</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>262</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>263</No>
+    <Date>09/04/2012</Date>
+    <Time>18:23:24</Time>
+    <CALL>A71BU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>263</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name>JUMA</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>264</No>
+    <Date>09/04/2012</Date>
+    <Time>19:16:55</Time>
+    <CALL>N7MQ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>264</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>265</No>
+    <Date>09/04/2012</Date>
+    <Time>19:17:25</Time>
+    <CALL>W8GG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>265</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>266</No>
+    <Date>09/04/2012</Date>
+    <Time>19:33:22</Time>
+    <CALL>RV6HF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>266</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC>LN24HT</LOC>
+    <QTH>LEVOKUMSKOE</QTH>
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>267</No>
+    <Date>09/04/2012</Date>
+    <Time>19:38:39</Time>
+    <CALL>F4GFP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>267</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>268</No>
+    <Date>09/04/2012</Date>
+    <Time>19:52:04</Time>
+    <CALL>EA8/RW3DO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>268</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC>IL18SL</LOC>
+    <QTH>TENERIFE</QTH>
+    <Name>ALEX</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>269</No>
+    <Date>09/04/2012</Date>
+    <Time>20:01:56</Time>
+    <CALL>VE7SNC</CALL>
+    <RST>51</RST>
+    <MyNR>269</MyNR>
+    <Mode>SSB</Mode>
+  </LOG>
+  <LOG>
+    <No>270</No>
+    <Date>10/04/2012</Date>
+    <Time>9:30:59</Time>
+    <CALL>EC8AXS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>270</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC>IL38FW</LOC>
+    <QTH>LANZAROTE ISLAND..IOTA AF004</QTH>
+    <Name>ALFONSO</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>271</No>
+    <Date>10/04/2012</Date>
+    <Time>9:41:27</Time>
+    <CALL>F4GLP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>271</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name>LAURENT</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>272</No>
+    <Date>10/04/2012</Date>
+    <Time>9:53:57</Time>
+    <CALL>UA4HEZ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>272</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC>LO53NN</LOC>
+    <QTH>SUKHODOL, 100KM OT SAMARY</QTH>
+    <Name>SERGEY</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>273</No>
+    <Date>10/04/2012</Date>
+    <Time>9:55:07</Time>
+    <CALL>EW6DM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>273</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH>POLOTSK  POTOTEK, NORTH OFBELARUS</QTH>
+    <Name>MIKE</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>274</No>
+    <Date>10/04/2012</Date>
+    <Time>10:14:22</Time>
+    <CALL>LA1VNA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>274</MyNR>
+    <Zone />
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>275</No>
+    <Date>10/04/2012</Date>
+    <Time>10:27:45</Time>
+    <CALL>UN7DA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>275</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name>LEV</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>276</No>
+    <Date>10/04/2012</Date>
+    <Time>10:36:16</Time>
+    <CALL>ZY2014WC</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>276</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH>BRAZIL</QTH>
+    <Name />
+    <Info>FOOTBAL WC 2014</Info>
+  </LOG>
+  <LOG>
+    <No>277</No>
+    <Date>10/04/2012</Date>
+    <Time>11:28:20</Time>
+    <CALL>UA4NR</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>277</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+  </LOG>
+  <LOG>
+    <No>278</No>
+    <Date>10/04/2012</Date>
+    <Time>11:32:01</Time>
+    <CALL>RZ4HU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>278</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>279</No>
+    <Date>10/04/2012</Date>
+    <Time>11:38:46</Time>
+    <CALL>RA0CGY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>279</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>280</No>
+    <Date>10/04/2012</Date>
+    <Time>11:43:13</Time>
+    <CALL>UA9XLE</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>280</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>281</No>
+    <Date>10/04/2012</Date>
+    <Time>11:47:45</Time>
+    <CALL>4K6OF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>281</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>LN40VI</LOC>
+    <QTH>BAKU</QTH>
+    <Name>IGOR</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>282</No>
+    <Date>10/04/2012</Date>
+    <Time>12:18:47</Time>
+    <CALL>BH1HWF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>282</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>283</No>
+    <Date>10/04/2012</Date>
+    <Time>19:03:00</Time>
+    <CALL>KC4SAW</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>283</MyNR>
+    <Zone />
+    <Mode>BPSK31</Mode>
+    <LOC>EM86TG</LOC>
+    <QTH>Johnson City, Tennesse</QTH>
+    <Name>JOHN</Name>
+    <Info>EPC # 890</Info>
+  </LOG>
+  <LOG>
+    <No>284</No>
+    <Date>10/04/2012</Date>
+    <Time>20:33:55</Time>
+    <CALL>EA7JAL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>284</MyNR>
+    <Zone />
+    <Mode>BPSK63</Mode>
+    <LOC>IM76FS</LOC>
+    <QTH> PRADO DEL REY</QTH>
+    <Name>JUAN ANTONIO</Name>
+    <Info>http://www.qrz.com/db/ea7jal</Info>
+  </LOG>
+  <LOG>
+    <No>285</No>
+    <Date>10/04/2012</Date>
+    <Time>20:42:49</Time>
+    <CALL>LU4ECN</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>285</MyNR>
+    <Zone />
+    <Mode>BPSK63</Mode>
+    <LOC>GF12FB</LOC>
+    <QTH />
+    <Name>LUIS</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>286</No>
+    <Date>10/04/2012</Date>
+    <Time>21:34:35</Time>
+    <CALL>PP5TG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>286</MyNR>
+    <Zone />
+    <Mode>BPSK63</Mode>
+    <LOC>GG53KC</LOC>
+    <QTH />
+    <Name>WALFREDO BABEL</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>287</No>
+    <Date>11/04/2012</Date>
+    <Time>10:33:08</Time>
+    <CALL>RA0JBL</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>287</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>PO33NJ</LOC>
+    <QTH>Zeya</QTH>
+    <Name>Sergey</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>288</No>
+    <Date>11/04/2012</Date>
+    <Time>10:34:27</Time>
+    <CALL>UA4NF</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>288</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>LO68CS</LOC>
+    <QTH>OMUTNINSK nr. KIROV</QTH>
+    <Name>YURI</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>289</No>
+    <Date>11/04/2012</Date>
+    <Time>10:46:34</Time>
+    <CALL>UA4HHA</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>289</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>LO43XC</LOC>
+    <QTH>Novokubish</QTH>
+    <Name>Vladimir</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>290</No>
+    <Date>11/04/2012</Date>
+    <Time>10:50:31</Time>
+    <CALL>9K2YM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>290</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH>Kuwait City</QTH>
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>291</No>
+    <Date>11/04/2012</Date>
+    <Time>12:10:20</Time>
+    <CALL>RX9FG</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>291</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>292</No>
+    <Date>11/04/2012</Date>
+    <Time>12:12:25</Time>
+    <CALL>ZY2014WC</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>292</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>293</No>
+    <Date>11/04/2012</Date>
+    <Time>13:07:48</Time>
+    <CALL>GM7GAX</CALL>
+    <RST>51</RST>
+    <SNT />
+    <MyNR>293</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>294</No>
+    <Date>11/04/2012</Date>
+    <Time>13:16:23</Time>
+    <CALL>EH3MGY</CALL>
+    <RST>51</RST>
+    <SNT />
+    <MyNR>294</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>100 years of Titanic</Info>
+  </LOG>
+  <LOG>
+    <No>295</No>
+    <Date>11/04/2012</Date>
+    <Time>18:47:21</Time>
+    <CALL>EA5GMM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>295</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>IM97</LOC>
+    <QTH>CARTAGENA</QTH>
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>296</No>
+    <Date>11/04/2012</Date>
+    <Time>18:56:05</Time>
+    <CALL>PY2RDZ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>296</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>GG66PR</LOC>
+    <QTH>Fco Morato</QTH>
+    <Name>Dilson</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>297</No>
+    <Date>11/04/2012</Date>
+    <Time>18:58:56</Time>
+    <CALL>EA7ACU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>297</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH>CORDOBA</QTH>
+    <Name>GABRIEL</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>298</No>
+    <Date>11/04/2012</Date>
+    <Time>19:05:40</Time>
+    <CALL>CT2FPY</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>298</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>299</No>
+    <Date>11/04/2012</Date>
+    <Time>19:07:59</Time>
+    <CALL>EA5ALJ</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>299</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>IM99TL</LOC>
+    <QTH>VALENCIA</QTH>
+    <Name>CARLOS</Name>
+    <Info>YAESU FT-897D 30W        
+</Info>
+  </LOG>
+  <LOG>
+    <No>300</No>
+    <Date>11/04/2012</Date>
+    <Time>19:08:50</Time>
+    <CALL>GU0SUP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>300</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>301</No>
+    <Date>11/04/2012</Date>
+    <Time>19:14:46</Time>
+    <CALL>KP4MP</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>301</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH>PUERTO RICO</QTH>
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>302</No>
+    <Date>12/04/2012</Date>
+    <Time>10:17:13</Time>
+    <CALL>JA8WKE</CALL>
+    <RST>51</RST>
+    <SNT />
+    <MyNR>302</MyNR>
+    <Zone />
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH>SAPPORO</QTH>
+    <Name>YASU</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>303</No>
+    <Date>12/04/2012</Date>
+    <Time>10:34:26</Time>
+    <CALL>EA8/RW3DO</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>303</MyNR>
+    <Zone />
+    <Freq>21082.5</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC> IL18SL</LOC>
+    <QTH>TENERIFRID</QTH>
+    <Name>ALEX</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>304</No>
+    <Date>12/04/2012</Date>
+    <Time>12:23:37</Time>
+    <CALL>ZY2014WC</CALL>
+    <RST>52</RST>
+    <SNT />
+    <MyNR>304</MyNR>
+    <Zone />
+    <Freq>21071.8</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH>BRASIL</QTH>
+    <Name />
+    <Info>2014 Fifa Wourld Cup</Info>
+  </LOG>
+  <LOG>
+    <No>305</No>
+    <Date>12/04/2012</Date>
+    <Time>12:50:26</Time>
+    <CALL>GM0SDV</CALL>
+    <RST>599</RST>
+    <SNT />
+    <MyNR>305</MyNR>
+    <Zone />
+    <Freq>21072.0</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>IO75WS</LOC>
+    <QTH>Hamilton</QTH>
+    <Name>Victor</Name>
+    <Info>Experimental Magnetic  Loop  EPC#225   </Info>
+  </LOG>
+  <LOG>
+    <No>306</No>
+    <Date>12/04/2012</Date>
+    <Time>14:12:25</Time>
+    <CALL>SU9VB</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>306</MyNR>
+    <Zone />
+    <Freq>21081.0</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ UP</Info>
+  </LOG>
+  <LOG>
+    <No>307</No>
+    <Date>12/04/2012</Date>
+    <Time>14:29:05</Time>
+    <CALL>RT8X</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>307</MyNR>
+    <Zone />
+    <Freq>21071.7</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>LP51JS</LOC>
+    <QTH>Ezhva</QTH>
+    <Name>Michael</Name>
+    <Info>EPC : 13679</Info>
+  </LOG>
+  <LOG>
+    <No>308</No>
+    <Date>12/04/2012</Date>
+    <Time>14:51:20</Time>
+    <CALL>OY9R</CALL>
+    <RST>599</RST>
+    <SNT>599</SNT>
+    <MyNR>308</MyNR>
+    <Zone />
+    <Freq>21070.9</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>IP61OX</LOC>
+    <QTH>Argir</QTH>
+    <Name>Otto</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>309</No>
+    <Date>12/04/2012</Date>
+    <Time>16:32:01</Time>
+    <CALL>YB6EN</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>309</MyNR>
+    <Zone />
+    <Freq>21088.2</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>NJ84BD</LOC>
+    <QTH>MEULABOH-ACEH</QTH>
+    <Name>RIZAL</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>310</No>
+    <Date>13/04/2012</Date>
+    <Time>8:30:38</Time>
+    <CALL>RV9JR</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>310</MyNR>
+    <Zone />
+    <Freq>21071.9</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>MP82RD</LOC>
+    <QTH>Raduzhny</QTH>
+    <Name>Aleksey</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>311</No>
+    <Date>13/04/2012</Date>
+    <Time>9:13:45</Time>
+    <CALL>UA9MHK</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>311</MyNR>
+    <Zone />
+    <Freq>21072.0</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>MO65OA</LOC>
+    <QTH>Omsk</QTH>
+    <Name>Dmitry</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>312</No>
+    <Date>13/04/2012</Date>
+    <Time>10:57:00</Time>
+    <CALL>RX9JX</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>312</MyNR>
+    <Zone />
+    <Freq>21071.2</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>MP61RF</LOC>
+    <QTH>Surgut</QTH>
+    <Name>Igor</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>313</No>
+    <Date>13/04/2012</Date>
+    <Time>11:07:59</Time>
+    <CALL>A61E</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>313</MyNR>
+    <Zone />
+    <Freq>21084.5</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>314</No>
+    <Date>13/04/2012</Date>
+    <Time>11:37:41</Time>
+    <CALL>UA9JGS</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>314</MyNR>
+    <Zone />
+    <Freq>21071.8</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>315</No>
+    <Date>14/04/2012</Date>
+    <Time>12:50:41</Time>
+    <CALL>EH3MGY</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.7</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>Titanic call</Info>
+  </LOG>
+  <LOG>
+    <No>316</No>
+    <Date>14/04/2012</Date>
+    <Time>14:05:05</Time>
+    <CALL>M3TBV/P</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>316</MyNR>
+    <Zone />
+    <Freq>14086.0</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>317</No>
+    <Date>14/04/2012</Date>
+    <Time>14:25:29</Time>
+    <CALL>OH3OJ/P</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>317</MyNR>
+    <Zone />
+    <Freq>14083.6</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>318</No>
+    <Date>14/04/2012</Date>
+    <Time>14:30:20</Time>
+    <CALL>A45WH</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>318</MyNR>
+    <Zone />
+    <Freq>18106.0</Freq>
+    <Band>17M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>319</No>
+    <Date>14/04/2012</Date>
+    <Time>14:51:09</Time>
+    <CALL>SM2MGQ</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>319</MyNR>
+    <Zone />
+    <Freq>18101.6</Freq>
+    <Band>17M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>320</No>
+    <Date>14/04/2012</Date>
+    <Time>14:57:57</Time>
+    <CALL>SU9VB</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <MyNR>320</MyNR>
+    <Zone />
+    <Freq>21081.0</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>321</No>
+    <Date>14/04/2012</Date>
+    <Time>16:59:56</Time>
+    <CALL>G4XEX</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.8</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>322</No>
+    <Date>14/04/2012</Date>
+    <Time>17:00:47</Time>
+    <CALL>UR3IW</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>323</No>
+    <Date>14/04/2012</Date>
+    <Time>20:30:11</Time>
+    <CALL>N4QWF</CALL>
+    <RST />
+    <SNT>51</SNT>
+    <Zone />
+    <Freq>14072.1</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>FM07IL</LOC>
+    <QTH>Lynchburg Va</QTH>
+    <Name>John</Name>
+    <Info>FT847 50W, HRD780</Info>
+  </LOG>
+  <LOG>
+    <No>324</No>
+    <Date>14/04/2012</Date>
+    <Time>20:38:46</Time>
+    <CALL>VO1BE</CALL>
+    <RST />
+    <SNT>51</SNT>
+    <Zone />
+    <Freq>14086.0</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>GN37OM</LOC>
+    <QTH>NEWFOUNDLAND</QTH>
+    <Name>JOHN</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>325</No>
+    <Date>14/04/2012</Date>
+    <Time>20:50:31</Time>
+    <CALL>PP6PP</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14095.0</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ DX</Info>
+  </LOG>
+  <LOG>
+    <No>326</No>
+    <Date>14/04/2012</Date>
+    <Time>21:14:28</Time>
+    <CALL>VE2ADL</CALL>
+    <RST />
+    <SNT />
+    <Zone />
+    <Freq>14072.1</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>FN46IU</LOC>
+    <QTH>QUEBEC CITY</QTH>
+    <Name>BERT</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>327</No>
+    <Date>15/04/2012</Date>
+    <Time>9:03:09</Time>
+    <CALL>US4IPC</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.0</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>KN88SO</LOC>
+    <QTH>UKRAINE</QTH>
+    <Name>ALEX</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>328</No>
+    <Date>15/04/2012</Date>
+    <Time>9:21:51</Time>
+    <CALL>RW3OJ</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14073.2</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>KO90SE</LOC>
+    <QTH>ROSSOH</QTH>
+    <Name>VIKTOR</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>329</No>
+    <Date>15/04/2012</Date>
+    <Time>9:53:42</Time>
+    <CALL>UV5ETX</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.7</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>KN68QA</LOC>
+    <QTH>KRIVOY ROG,UKRAINE</QTH>
+    <Name>VASILIY</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>330</No>
+    <Date>15/04/2012</Date>
+    <Time>10:03:29</Time>
+    <CALL>RA1APV</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.9</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>331</No>
+    <Date>15/04/2012</Date>
+    <Time>10:58:05</Time>
+    <CALL>F4BVO</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14083.0</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>332</No>
+    <Date>15/04/2012</Date>
+    <Time>10:59:26</Time>
+    <CALL>GB4MGY</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14082.5</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>333</No>
+    <Date>15/04/2012</Date>
+    <Time>11:37:16</Time>
+    <CALL>UN7DE</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21072.8</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>NO00DK</LOC>
+    <QTH>Semey, Kazahstan</QTH>
+    <Name>Anatoly</Name>
+    <Info>EPC # 17032.  HW H</Info>
+  </LOG>
+  <LOG>
+    <No>334</No>
+    <Date>15/04/2012</Date>
+    <Time>11:51:03</Time>
+    <CALL>EA7IHU</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21072.6</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>335</No>
+    <Date>15/04/2012</Date>
+    <Time>11:52:32</Time>
+    <CALL>EJ0PL</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21070.7</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>336</No>
+    <Date>15/04/2012</Date>
+    <Time>11:56:12</Time>
+    <CALL>YL3BF</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>18100.7</Freq>
+    <Band>17M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>337</No>
+    <Date>15/04/2012</Date>
+    <Time>12:25:18</Time>
+    <CALL>UA9AVP</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21071.2</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>LO93LI</LOC>
+    <QTH>Magnitogorsk</QTH>
+    <Name>Alexandrm</Name>
+    <Info>
+RDA CB-09 CB-09</Info>
+  </LOG>
+  <LOG>
+    <No>338</No>
+    <Date>15/04/2012</Date>
+    <Time>13:24:46</Time>
+    <CALL>UA9TK</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21072.1</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>339</No>
+    <Date>15/04/2012</Date>
+    <Time>13:45:15</Time>
+    <CALL>PZ5RA</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>18101.7</Freq>
+    <Band>17M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>340</No>
+    <Date>15/04/2012</Date>
+    <Time>13:49:31</Time>
+    <CALL>EA3HCE</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>18101.5</Freq>
+    <Band>17M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>341</No>
+    <Date>15/04/2012</Date>
+    <Time>14:02:06</Time>
+    <CALL>CO6LE</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21081.1</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>342</No>
+    <Date>16/04/2012</Date>
+    <Time>9:04:34</Time>
+    <CALL>DK0TW</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14073.2</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>343</No>
+    <Date>16/04/2012</Date>
+    <Time>9:29:23</Time>
+    <CALL>F1AIS</CALL>
+    <RST />
+    <SNT>51</SNT>
+    <Zone />
+    <Freq>14071.8</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>344</No>
+    <Date>16/04/2012</Date>
+    <Time>9:42:28</Time>
+    <CALL>RV3LE</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.8</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>345</No>
+    <Date>16/04/2012</Date>
+    <Time>19:36:55</Time>
+    <CALL>F5UOE</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.8</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH>ALBI SUD FRANCE
+</QTH>
+    <Name>DANIEL</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>346</No>
+    <Date>16/04/2012</Date>
+    <Time>20:08:48</Time>
+    <CALL>9A6NRD</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>7036.0</Freq>
+    <Band>40M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name>Dubravko</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>347</No>
+    <Date>17/04/2012</Date>
+    <Time>14:48:37</Time>
+    <CALL>US5IMX</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.6</Freq>
+    <Band>20M</Band>
+    <Mode>QPSK63</Mode>
+    <LOC />
+    <QTH />
+    <Name>Anatoly</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>348</No>
+    <Date>17/04/2012</Date>
+    <Time>14:50:45</Time>
+    <CALL>SK0CC</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.6</Freq>
+    <Band>20M</Band>
+    <Mode>QPSK63</Mode>
+    <LOC>JO99BF</LOC>
+    <QTH>Farsta/Stockholm; Farsta/Stockholm</QTH>
+    <Name>Telia Sonera Club Station; Telia Sonera Club Station</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>349</No>
+    <Date>17/04/2012</Date>
+    <Time>14:54:05</Time>
+    <CALL>ON4LJA/QRP</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.1</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC>JO10QO</LOC>
+    <QTH>KAIN</QTH>
+    <Name>John</Name>
+    <Info>EPC # 2735</Info>
+  </LOG>
+  <LOG>
+    <No>350</No>
+    <Date>17/04/2012</Date>
+    <Time>16:17:42</Time>
+    <CALL>TF3IG/2</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14079.4</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>HP94EJ</LOC>
+    <QTH>HALFJORDUR</QTH>
+    <Name>INGI</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>351</No>
+    <Date>18/04/2012</Date>
+    <Time>18:23:42</Time>
+    <CALL>2E0VDS</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.0</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>352</No>
+    <Date>18/04/2012</Date>
+    <Time>18:23:55</Time>
+    <CALL>EA7HH</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.0</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>353</No>
+    <Date>18/04/2012</Date>
+    <Time>18:36:34</Time>
+    <CALL>GW5PH</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>354</No>
+    <Date>19/04/2012</Date>
+    <Time>7:04:47</Time>
+    <CALL>VK3BM</CALL>
+    <RST />
+    <SNT>51</SNT>
+    <Zone />
+    <Freq>14071.0</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>355</No>
+    <Date>19/04/2012</Date>
+    <Time>14:49:11</Time>
+    <CALL>UA3EGX</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.6</Freq>
+    <Band>20M</Band>
+    <Mode>PSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>356</No>
+    <Date>15/04/2012</Date>
+    <Time>20:15:52</Time>
+    <CALL>LA3LTA</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.2</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>JP32FK</LOC>
+    <QTH>Aalesund</QTH>
+    <Name>Bjoernar</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>357</No>
+    <Date>15/04/2012</Date>
+    <Time>20:23:19</Time>
+    <CALL>KA3DCO</CALL>
+    <RST />
+    <SNT>51</SNT>
+    <Zone />
+    <Freq>14072.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>358</No>
+    <Date>15/04/2012</Date>
+    <Time>20:23:49</Time>
+    <CALL>CU5AQ</CALL>
+    <RST />
+    <SNT>51</SNT>
+    <Zone />
+    <Freq>14072.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name>Abilio</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>359</No>
+    <Date>16/04/2012</Date>
+    <Time>12:27:44</Time>
+    <CALL>DK0TW</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14073.4</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>360</No>
+    <Date>16/04/2012</Date>
+    <Time>14:09:27</Time>
+    <CALL>UX7MX</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.4</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>361</No>
+    <Date>16/04/2012</Date>
+    <Time>15:20:21</Time>
+    <CALL>RD3FC</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14073.2</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC>KO95LT</LOC>
+    <QTH>Orchovo-Zuevo</QTH>
+    <Name>Igpr</Name>
+    <Info>EPC#11652</Info>
+  </LOG>
+  <LOG>
+    <No>362</No>
+    <Date>19/04/2012</Date>
+    <Time>19:16:29</Time>
+    <CALL>OH5EAB</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14084.7</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>KP41EB</LOC>
+    <QTH>LAPPEENRANTA</QTH>
+    <Name>HEIMO</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>363</No>
+    <Date>19/04/2012</Date>
+    <Time>19:30:09</Time>
+    <CALL>EA6/I1RSA</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14085.4</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>364</No>
+    <Date>19/04/2012</Date>
+    <Time>19:42:39</Time>
+    <CALL>ZY2014WC</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14081.9</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>365</No>
+    <Date>19/04/2012</Date>
+    <Time>20:03:00</Time>
+    <CALL>2M0YIO</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14084.5</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ JA SHORT</Info>
+  </LOG>
+  <LOG>
+    <No>366</No>
+    <Date>19/04/2012</Date>
+    <Time>20:07:19</Time>
+    <CALL>EB5DZC</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14081.9</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>Kenwood TS 140 PWR 30W</Info>
+  </LOG>
+  <LOG>
+    <No>367</No>
+    <Date>19/04/2012</Date>
+    <Time>20:13:15</Time>
+    <CALL>EA3UV</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.4</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>368</No>
+    <Date>19/04/2012</Date>
+    <Time>20:15:20</Time>
+    <CALL>A45XR</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14089.0</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>369</No>
+    <Date>20/04/2012</Date>
+    <Time>8:26:15</Time>
+    <CALL>A65EE</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21085.4</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH>DUBAI</QTH>
+    <Name>ADIL</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>370</No>
+    <Date>20/04/2012</Date>
+    <Time>13:18:53</Time>
+    <CALL>UA4FPW/QRP</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14081.0</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ 5 WATTS</Info>
+  </LOG>
+  <LOG>
+    <No>371</No>
+    <Date>20/04/2012</Date>
+    <Time>14:47:10</Time>
+    <CALL>9H4CM</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14082.4</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>JM76</LOC>
+    <QTH>VICTORIA CAPITAL OF GOZO ISLAND NEAR MALTA</QTH>
+    <Name>CHARLIE</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>372</No>
+    <Date>22/04/2012</Date>
+    <Time>11:18:00</Time>
+    <CALL>ON4EO</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.4</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>373</No>
+    <Date>22/04/2012</Date>
+    <Time>11:36:03</Time>
+    <CALL>IK0CHU</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14084.9</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>374</No>
+    <Date>22/04/2012</Date>
+    <Time>14:06:56</Time>
+    <CALL>TM95BA</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14081.9</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>375</No>
+    <Date>22/04/2012</Date>
+    <Time>15:22:22</Time>
+    <CALL>VU2NKS</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21086.9</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>376</No>
+    <Date>22/04/2012</Date>
+    <Time>15:39:11</Time>
+    <CALL>TF3FIN</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14087.6</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>HP94BD</LOC>
+    <QTH>REYKJAVIK</QTH>
+    <Name>SVAN</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>377</No>
+    <Date>22/04/2012</Date>
+    <Time>17:09:07</Time>
+    <CALL>4K6OF</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14073.1</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>378</No>
+    <Date>22/04/2012</Date>
+    <Time>17:18:10</Time>
+    <CALL>US5LPO</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14073.3</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>379</No>
+    <Date>23/04/2012</Date>
+    <Time>20:31:26</Time>
+    <CALL>EA9BC</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>IM85MC</LOC>
+    <QTH>MELILLA</QTH>
+    <Name>Alessandro</Name>
+    <Info>North Africa</Info>
+  </LOG>
+  <LOG>
+    <No>380</No>
+    <Date>24/04/2012</Date>
+    <Time>8:15:09</Time>
+    <CALL>UD3T</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14073.2</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>LO15GL</LOC>
+    <QTH>Kuletaki</QTH>
+    <Name>Sergey</Name>
+    <Info> Born1953</Info>
+  </LOG>
+  <LOG>
+    <No>381</No>
+    <Date>25/04/2012</Date>
+    <Time>8:33:10</Time>
+    <CALL>GM4ZET</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.0</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>IO86HG</LOC>
+    <QTH>Glenfarg,Scotland</QTH>
+    <Name>Bill</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>382</No>
+    <Date>25/04/2012</Date>
+    <Time>8:40:22</Time>
+    <CALL>EA7IQQ</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>383</No>
+    <Date>26/04/2012</Date>
+    <Time>15:49:30</Time>
+    <CALL>EA5/G4WSL</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21070.6</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>IM97HP</LOC>
+    <QTH>Mazarronf</QTH>
+    <Name>Roy</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>384</No>
+    <Date>27/04/2012</Date>
+    <Time>9:40:46</Time>
+    <CALL>EC8CQ</CALL>
+    <RST />
+    <SNT>51</SNT>
+    <Zone />
+    <Freq>21083.4</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>IL28GA</LOC>
+    <QTH>CANARIA</QTH>
+    <Name>PEDRO</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>385</No>
+    <Date>27/04/2012</Date>
+    <Time>15:22:43</Time>
+    <CALL>CT4KG</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21071.4</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>IN51PF</LOC>
+    <QTH>PERAFITA</QTH>
+    <Name>GILDO</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>386</No>
+    <Date>27/04/2012</Date>
+    <Time>15:32:10</Time>
+    <CALL>ZS6GE</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21072.6</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>KG44DE</LOC>
+    <QTH>Pretoria</QTH>
+    <Name>Frank</Name>
+    <Info>Yaesu FT1000, Optibeam OB11-5</Info>
+  </LOG>
+  <LOG>
+    <No>387</No>
+    <Date>27/04/2012</Date>
+    <Time>15:41:58</Time>
+    <CALL>UA9CJM</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21072.4</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>MO90DS</LOC>
+    <QTH>Krasnoturinsk,Nord Ural</QTH>
+    <Name>Viktor</Name>
+  </LOG>
+  <LOG>
+    <No>388</No>
+    <Date>27/04/2012</Date>
+    <Time>17:55:19</Time>
+    <CALL>EK97H</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21072.2</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH>Yerevan, Armenia</QTH>
+    <Name>Henry</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>389</No>
+    <Date>27/04/2012</Date>
+    <Time>18:04:26</Time>
+    <CALL>YD1CPG</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21071.3</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH>Banungr,Indonesia</QTH>
+    <Name>Ivan</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>390</No>
+    <Date>27/04/2012</Date>
+    <Time>18:23:49</Time>
+    <CALL>4S7BRG</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21071.3</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>NJ06AF</LOC>
+    <QTH>AMBALANGODA</QTH>
+    <Name>MARTIN</Name>
+    <Info>IOTA# AS-003</Info>
+  </LOG>
+  <LOG>
+    <No>391</No>
+    <Date>27/04/2012</Date>
+    <Time>18:55:12</Time>
+    <CALL>PY2SRL</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21073.8</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC />
+    <QTH />
+    <Name>PAULO</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>392</No>
+    <Date>27/04/2012</Date>
+    <Time>19:54:45</Time>
+    <CALL>R6DD</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14082.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>KN96VG</LOC>
+    <QTH>Krasnodar</QTH>
+    <Name>Vladimir</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>393</No>
+    <Date>28/04/2012</Date>
+    <Time>18:56:10</Time>
+    <CALL>RA3XEV</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.9</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC>KP50DL</LOC>
+    <QTH />
+    <Name>Serge</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>394</No>
+    <Date>28/04/2012</Date>
+    <Time>19:13:52</Time>
+    <CALL>F5JGA</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.7</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>JN05FD</LOC>
+    <QTH>St Germain du Salembre</QTH>
+    <Name>Charles</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>395</No>
+    <Date>28/04/2012</Date>
+    <Time>19:35:26</Time>
+    <CALL>EA5HAB</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14110.7</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>396</No>
+    <Date>28/04/2012</Date>
+    <Time>19:50:13</Time>
+    <CALL>EA8CYQ</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21091.9</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ TEST</Info>
+  </LOG>
+  <LOG>
+    <No>397</No>
+    <Date>28/04/2012</Date>
+    <Time>19:51:53</Time>
+    <CALL>RY9C</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14100.4</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ TEST</Info>
+  </LOG>
+  <LOG>
+    <No>398</No>
+    <Date>29/04/2012</Date>
+    <Time>14:30:43</Time>
+    <CALL>VY2RU</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>21082.5</Freq>
+    <Band>15M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>FN86FK</LOC>
+    <QTH>PRINCE EDWARD ISLAND  CANADA</QTH>
+    <Name>KEN</Name>
+    <Info>IOTA NA-025</Info>
+  </LOG>
+  <LOG>
+    <No>399</No>
+    <Date>29/04/2012</Date>
+    <Time>15:54:01</Time>
+    <CALL>WA4DT</CALL>
+    <RST />
+    <SNT>51</SNT>
+    <Zone />
+    <Freq>21070.2</Freq>
+    <Band>15M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>EM94</LOC>
+    <QTH>Rose Hill, SC</QTH>
+    <Name>Dirk</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>400</No>
+    <Date>29/04/2012</Date>
+    <Time>18:10:51</Time>
+    <CALL>G0GFQ</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14083.6</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ BARTG 75</Info>
+  </LOG>
+  <LOG>
+    <No>401</No>
+    <Date>30/04/2012</Date>
+    <Time>11:56:47</Time>
+    <CALL>RU3WR</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.8</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>402</No>
+    <Date>30/04/2012</Date>
+    <Time>13:57:57</Time>
+    <CALL>C31KC</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14086.8</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>403</No>
+    <Date>30/04/2012</Date>
+    <Time>19:39:51</Time>
+    <CALL>JA2JDY</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.7</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH>Sgity near Nagoya</QTH>
+    <Name>Kiyo</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>404</No>
+    <Date>30/04/2012</Date>
+    <Time>19:41:47</Time>
+    <CALL>RK3AVO</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14073.2</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>KO85VO</LOC>
+    <QTH>Moscow</QTH>
+    <Name>Oleg</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>405</No>
+    <Date>30/04/2012</Date>
+    <Time>20:08:16</Time>
+    <CALL>1B1AB</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.9</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>KM65QH</LOC>
+    <QTH>Northern Cyprus</QTH>
+    <Name>Soyer</Name>
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>406</No>
+    <Date>01/05/2012</Date>
+    <Time>18:36:44</Time>
+    <CALL>YL2IU</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.2</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>KO26CX</LOC>
+    <QTH>Riga</QTH>
+    <Name />
+    <Info />
+  </LOG>
+  <LOG>
+    <No>407</No>
+    <Date>01/05/2012</Date>
+    <Time>18:38:34</Time>
+    <CALL>DK2OM</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.2</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>408</No>
+    <Date>02/05/2012</Date>
+    <Time>8:16:22</Time>
+    <CALL>F5JQF</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14083.1</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name>YVES</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>409</No>
+    <Date>02/05/2012</Date>
+    <Time>9:57:15</Time>
+    <CALL>DC6MY</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14082.0</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>JN58JO</LOC>
+    <QTH>NORDENDORF</QTH>
+    <Name>BERNHARD</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>410</No>
+    <Date>04/05/2012</Date>
+    <Time>20:20:59</Time>
+    <CALL>GM4XAW</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14072.5</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK63</Mode>
+    <LOC>IO74SU</LOC>
+    <QTH>Wigtown</QTH>
+    <Name>Peter</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>411</No>
+    <Date>04/05/2012</Date>
+    <Time>20:28:21</Time>
+    <CALL>JA1UTZ</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14086.6</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>QM50AS</LOC>
+    <QTH>CHIBA, near Tokiyo</QTH>
+    <Name>NABE</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>412</No>
+    <Date>08/05/2012</Date>
+    <Time>9:54:39</Time>
+    <CALL>RP67TF</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14083.5</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH />
+    <Name />
+    <Info>CQ</Info>
+  </LOG>
+  <LOG>
+    <No>413</No>
+    <Date>08/05/2012</Date>
+    <Time>13:38:54</Time>
+    <CALL>RP67M</CALL>
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14057.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK125</Mode>
+    <LOC />
+    <QTH> Dimitrovgrad</QTH>
+    <Name>Konstantin</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>414</No>
+    <Date>09/05/2012</Date>
+    <Time>8:39:08</Time>
+    <CALL>RA3NO</CALL>
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14071.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>IN80HM</LOC>
+    <QTH>KOSTROMA</QTH>
+    <Name>VICTOR</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>415</No>
+    <Date>16/05/2012</Date>
+    <Time>9:02:19</Time>
+    <CALL>IZ5RVG</CALL>
+    <RST />
+    <SNT>599</SNT>
+    <Zone />
+    <Freq>14070.6</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC>JN53VG</LOC>
+    <QTH> FOIANO</QTH>
+    <Name>Marco</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>416</No>
+    <Date>17/05/2012</Date>
+    <Time>17:55:29</Time>
+    <CALL>EA4ADM</CALL>
+    <RST>599</RST>
+    <SNT />
+    <Zone />
+    <Freq>14072.7</Freq>
+    <Band>20M</Band>
+    <Mode>BPSK31</Mode>
+    <LOC />
+    <QTH>Orechovo</QTH>
+    <Name>Jesus Manuel</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>417</No>
+    <Date>17/05/2012</Date>
+    <Time>18:45:14</Time>
+    <CALL>SV8BUS</CALL>
+    <RST>599</RST>
+    <SNT />
+    <Zone />
+    <Freq>14082.6</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC>KM08IT</LOC>
+    <QTH> LEFKADA</QTH>
+    <Name>KOSTAS</Name>
+    <Info />
+  </LOG>
+  <LOG>
+    <No>418</No>
+    <Date>17/05/2012</Date>
+    <Time>18:45:56</Time>
+    <CALL>IT9RZU</CALL>
+    <RST>599</RST>
+    <SNT />
+    <Zone />
+    <Freq>14082.6</Freq>
+    <Band>20M</Band>
+    <Mode>RTTY</Mode>
+    <LOC />
+    <QTH>MISILMERI</QTH>
+    <Name>GIUSEPPE</Name>
+    <Info />
+  </LOG>
+</Data>
