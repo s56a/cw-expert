@@ -1245,7 +1245,7 @@ namespace CWExpert
                 #region Scope
 
                 if ((MainForm.DisplayMode == DisplayMode.PANASCOPE || MainForm.DisplayMode == DisplayMode.PANASCOPE_INV ||
-                    MainForm.MonitorMode == DisplayMode.SCOPE) && !pause_scope)
+                    MainForm.MonitorMode == DisplayMode.SCOPE) && !pause_scope && buffer_ptr_A == 0)
                 {
                     Mode new_mode = MainForm.OpModeVFOA;
 
@@ -1257,13 +1257,13 @@ namespace CWExpert
                         case Mode.RTTY:
                             if (channel == 5)
                             {
-                                DoScopeSpace(CH1_buffer, buflen);
-                                DoScopeMark(CH2_buffer, buflen);
+                                DoScopeSpace(CH1_buffer, 2048);
+                                DoScopeMark(CH2_buffer, 2048);
                             }
                             else if (channel == 6)
                             {
-                                DoScopeSpace(CH3_buffer, buflen);
-                                DoScopeMark(CH4_buffer, buflen);
+                                DoScopeSpace(CH3_buffer, 2048);
+                                DoScopeMark(CH4_buffer, 2048);
                             }
                             break;
 
@@ -1271,11 +1271,11 @@ namespace CWExpert
                             {
                                 if (channel == 5)
                                 {
-                                    DoScope(CH1_buffer, buflen);
+                                    DoScope(CH1_buffer, 2048);
                                 }
                                 else if (channel == 6)
                                 {
-                                    DoScope(CH2_buffer, buflen);
+                                    DoScope(CH2_buffer, 2048);
                                 }
                             }
                             break;
