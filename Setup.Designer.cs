@@ -1063,7 +1063,7 @@ namespace CWExpert
             this.udDisplayRefresh.TabIndex = 22;
             this.udDisplayRefresh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.udDisplayRefresh.Value = new decimal(new int[] {
-            50,
+            100,
             0,
             0,
             0});
@@ -1226,10 +1226,10 @@ namespace CWExpert
             this.udDisplayHigh.TabIndex = 11;
             this.udDisplayHigh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.udDisplayHigh.Value = new decimal(new int[] {
-            100,
+            50,
             0,
             0,
-            0});
+            -2147483648});
             this.udDisplayHigh.ValueChanged += new System.EventHandler(this.udDisplayHigh_ValueChanged);
             // 
             // lblDisplayHigh
@@ -1264,7 +1264,7 @@ namespace CWExpert
             this.udDisplayLow.TabIndex = 9;
             this.udDisplayLow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.udDisplayLow.Value = new decimal(new int[] {
-            200,
+            150,
             0,
             0,
             -2147483648});

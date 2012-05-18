@@ -616,7 +616,7 @@ namespace CWExpert
             }
         }
 
-        private static int spectrum_grid_max = 200;
+        private static int spectrum_grid_max = -50;
         public static int SpectrumGridMax
         {
             get { return spectrum_grid_max; }
@@ -627,7 +627,7 @@ namespace CWExpert
             }
         }
 
-        private static int spectrum_grid_min = -200;
+        private static int spectrum_grid_min = -150;
         public static int SpectrumGridMin
         {
             get { return spectrum_grid_min; }
