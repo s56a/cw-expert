@@ -1427,7 +1427,7 @@ namespace CWExpert
             }
         }
 
-        private int refresh_time = 50;
+        private int refresh_time = 100;
         public int RefreshTime
         {
             set { refresh_time = value; }
@@ -3093,6 +3093,11 @@ namespace CWExpert
                                             txtLogQTH.Text.Trim() == "="))
                                         {
                                             txtLogQTH.Clear();
+                                        }
+                                        else if (detect_qth && (txtLogQTH.Text.Trim() == "nr" || txtLogQTH.Text.Trim() == "NR" ||
+                                            txtLogQTH.Text.Trim() == "near" || txtLogQTH.Text.Trim() == "Near") || txtLogQTH.Text.Trim() == "NEAR")
+                                        {
+                                            txtLogQTH.AppendText(" ");
                                         }
                                         else if (detect_qth && (txtLogQTH.Text == "" || txtLogQTH.Text == " "))
                                         {
@@ -7484,8 +7489,8 @@ namespace CWExpert
 
                 float new_mult = 0.0f;
                 float old_mult = 0.0f;
-                new_mult = DX.display_avg_mult_new;
-                old_mult = DX.display_avg_mult_old;
+                new_mult = Display_GDI.display_avg_mult_new;
+                old_mult = Display_GDI.display_avg_mult_old;
 
                 for (int i = 0; i < 4096; i++)
                     average_buffer[i] = picMonitor_buffer[i] =
