@@ -61,6 +61,7 @@
             // 
             // btnOK
             // 
+            this.btnOK.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnOK.Location = new System.Drawing.Point(95, 359);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(72, 23);
@@ -71,6 +72,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnCancel.Location = new System.Drawing.Point(215, 359);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(72, 23);

@@ -200,6 +200,7 @@
             // 
             // btnOK
             // 
+            this.btnOK.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnOK.Location = new System.Drawing.Point(197, 503);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);

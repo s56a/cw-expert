@@ -287,6 +287,7 @@ namespace CWExpert
             this.NRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ch1_infoTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnTune = new System.Windows.Forms.Button();
+            this.grpMRChannels = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWaterfall)).BeginInit();
             this.picWaterfallcontextMenu.SuspendLayout();
@@ -317,6 +318,7 @@ namespace CWExpert
             this.grpChannels.SuspendLayout();
             this.ch2_contextQSO.SuspendLayout();
             this.ch1_contextQSO.SuspendLayout();
+            this.grpMRChannels.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCall
@@ -432,7 +434,7 @@ namespace CWExpert
             // btnStartMR
             // 
             this.btnStartMR.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnStartMR.BackColor = System.Drawing.Color.Transparent;
+            this.btnStartMR.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnStartMR.ForeColor = System.Drawing.Color.Black;
             this.btnStartMR.Location = new System.Drawing.Point(9, 33);
             this.btnStartMR.Name = "btnStartMR";
@@ -660,7 +662,7 @@ namespace CWExpert
             // 
             // txtChannel4
             // 
-            this.txtChannel4.Location = new System.Drawing.Point(33, 105);
+            this.txtChannel4.Location = new System.Drawing.Point(24, 91);
             this.txtChannel4.MaxLength = 32768;
             this.txtChannel4.Name = "txtChannel4";
             this.txtChannel4.Size = new System.Drawing.Size(251, 20);
@@ -690,7 +692,7 @@ namespace CWExpert
             // 
             // txtChannel5
             // 
-            this.txtChannel5.Location = new System.Drawing.Point(33, 125);
+            this.txtChannel5.Location = new System.Drawing.Point(24, 111);
             this.txtChannel5.MaxLength = 32768;
             this.txtChannel5.Name = "txtChannel5";
             this.txtChannel5.Size = new System.Drawing.Size(251, 20);
@@ -698,7 +700,7 @@ namespace CWExpert
             // 
             // txtChannel6
             // 
-            this.txtChannel6.Location = new System.Drawing.Point(33, 145);
+            this.txtChannel6.Location = new System.Drawing.Point(24, 131);
             this.txtChannel6.MaxLength = 32768;
             this.txtChannel6.Name = "txtChannel6";
             this.txtChannel6.Size = new System.Drawing.Size(251, 20);
@@ -706,7 +708,7 @@ namespace CWExpert
             // 
             // txtChannel7
             // 
-            this.txtChannel7.Location = new System.Drawing.Point(33, 165);
+            this.txtChannel7.Location = new System.Drawing.Point(24, 151);
             this.txtChannel7.MaxLength = 32768;
             this.txtChannel7.Name = "txtChannel7";
             this.txtChannel7.Size = new System.Drawing.Size(251, 20);
@@ -714,7 +716,7 @@ namespace CWExpert
             // 
             // txtChannel11
             // 
-            this.txtChannel11.Location = new System.Drawing.Point(33, 245);
+            this.txtChannel11.Location = new System.Drawing.Point(24, 231);
             this.txtChannel11.MaxLength = 32768;
             this.txtChannel11.Name = "txtChannel11";
             this.txtChannel11.Size = new System.Drawing.Size(251, 20);
@@ -722,7 +724,7 @@ namespace CWExpert
             // 
             // txtChannel10
             // 
-            this.txtChannel10.Location = new System.Drawing.Point(33, 225);
+            this.txtChannel10.Location = new System.Drawing.Point(24, 211);
             this.txtChannel10.MaxLength = 32768;
             this.txtChannel10.Name = "txtChannel10";
             this.txtChannel10.Size = new System.Drawing.Size(251, 20);
@@ -730,7 +732,7 @@ namespace CWExpert
             // 
             // txtChannel9
             // 
-            this.txtChannel9.Location = new System.Drawing.Point(33, 205);
+            this.txtChannel9.Location = new System.Drawing.Point(24, 191);
             this.txtChannel9.MaxLength = 32768;
             this.txtChannel9.Name = "txtChannel9";
             this.txtChannel9.Size = new System.Drawing.Size(251, 20);
@@ -738,7 +740,7 @@ namespace CWExpert
             // 
             // txtChannel8
             // 
-            this.txtChannel8.Location = new System.Drawing.Point(33, 185);
+            this.txtChannel8.Location = new System.Drawing.Point(24, 171);
             this.txtChannel8.MaxLength = 32768;
             this.txtChannel8.Name = "txtChannel8";
             this.txtChannel8.Size = new System.Drawing.Size(251, 20);
@@ -746,7 +748,7 @@ namespace CWExpert
             // 
             // txtChannel15
             // 
-            this.txtChannel15.Location = new System.Drawing.Point(33, 325);
+            this.txtChannel15.Location = new System.Drawing.Point(24, 311);
             this.txtChannel15.MaxLength = 32768;
             this.txtChannel15.Name = "txtChannel15";
             this.txtChannel15.Size = new System.Drawing.Size(251, 20);
@@ -754,7 +756,7 @@ namespace CWExpert
             // 
             // txtChannel14
             // 
-            this.txtChannel14.Location = new System.Drawing.Point(33, 305);
+            this.txtChannel14.Location = new System.Drawing.Point(24, 291);
             this.txtChannel14.MaxLength = 32768;
             this.txtChannel14.Name = "txtChannel14";
             this.txtChannel14.Size = new System.Drawing.Size(251, 20);
@@ -762,7 +764,7 @@ namespace CWExpert
             // 
             // txtChannel13
             // 
-            this.txtChannel13.Location = new System.Drawing.Point(33, 285);
+            this.txtChannel13.Location = new System.Drawing.Point(24, 271);
             this.txtChannel13.MaxLength = 32768;
             this.txtChannel13.Name = "txtChannel13";
             this.txtChannel13.Size = new System.Drawing.Size(251, 20);
@@ -770,7 +772,7 @@ namespace CWExpert
             // 
             // txtChannel12
             // 
-            this.txtChannel12.Location = new System.Drawing.Point(33, 265);
+            this.txtChannel12.Location = new System.Drawing.Point(24, 251);
             this.txtChannel12.MaxLength = 32768;
             this.txtChannel12.Name = "txtChannel12";
             this.txtChannel12.Size = new System.Drawing.Size(251, 20);
@@ -778,7 +780,7 @@ namespace CWExpert
             // 
             // txtChannel19
             // 
-            this.txtChannel19.Location = new System.Drawing.Point(33, 405);
+            this.txtChannel19.Location = new System.Drawing.Point(24, 391);
             this.txtChannel19.MaxLength = 32768;
             this.txtChannel19.Name = "txtChannel19";
             this.txtChannel19.Size = new System.Drawing.Size(251, 20);
@@ -786,7 +788,7 @@ namespace CWExpert
             // 
             // txtChannel18
             // 
-            this.txtChannel18.Location = new System.Drawing.Point(33, 385);
+            this.txtChannel18.Location = new System.Drawing.Point(24, 371);
             this.txtChannel18.MaxLength = 32768;
             this.txtChannel18.Name = "txtChannel18";
             this.txtChannel18.Size = new System.Drawing.Size(251, 20);
@@ -794,7 +796,7 @@ namespace CWExpert
             // 
             // txtChannel17
             // 
-            this.txtChannel17.Location = new System.Drawing.Point(33, 365);
+            this.txtChannel17.Location = new System.Drawing.Point(24, 351);
             this.txtChannel17.MaxLength = 32768;
             this.txtChannel17.Name = "txtChannel17";
             this.txtChannel17.Size = new System.Drawing.Size(251, 20);
@@ -802,7 +804,7 @@ namespace CWExpert
             // 
             // txtChannel16
             // 
-            this.txtChannel16.Location = new System.Drawing.Point(33, 345);
+            this.txtChannel16.Location = new System.Drawing.Point(24, 331);
             this.txtChannel16.MaxLength = 32768;
             this.txtChannel16.Name = "txtChannel16";
             this.txtChannel16.Size = new System.Drawing.Size(251, 20);
@@ -810,7 +812,7 @@ namespace CWExpert
             // 
             // txtChannel3
             // 
-            this.txtChannel3.Location = new System.Drawing.Point(33, 85);
+            this.txtChannel3.Location = new System.Drawing.Point(24, 71);
             this.txtChannel3.MaxLength = 32768;
             this.txtChannel3.Name = "txtChannel3";
             this.txtChannel3.Size = new System.Drawing.Size(251, 20);
@@ -818,7 +820,7 @@ namespace CWExpert
             // 
             // txtChannel2
             // 
-            this.txtChannel2.Location = new System.Drawing.Point(33, 65);
+            this.txtChannel2.Location = new System.Drawing.Point(24, 51);
             this.txtChannel2.MaxLength = 32768;
             this.txtChannel2.Name = "txtChannel2";
             this.txtChannel2.Size = new System.Drawing.Size(251, 20);
@@ -826,7 +828,7 @@ namespace CWExpert
             // 
             // txtChannel20
             // 
-            this.txtChannel20.Location = new System.Drawing.Point(33, 425);
+            this.txtChannel20.Location = new System.Drawing.Point(24, 411);
             this.txtChannel20.MaxLength = 32768;
             this.txtChannel20.Name = "txtChannel20";
             this.txtChannel20.Size = new System.Drawing.Size(251, 20);
@@ -1284,7 +1286,7 @@ namespace CWExpert
             this.btnLogDelete.Size = new System.Drawing.Size(20, 23);
             this.btnLogDelete.TabIndex = 97;
             this.btnLogDelete.Text = "-";
-            this.btnLogDelete.UseVisualStyleBackColor = false;
+            this.btnLogDelete.UseVisualStyleBackColor = true;
             this.btnLogDelete.Click += new System.EventHandler(this.btnLogDelete_Click);
             // 
             // btnLogPrev
@@ -1297,7 +1299,7 @@ namespace CWExpert
             this.btnLogPrev.Size = new System.Drawing.Size(20, 23);
             this.btnLogPrev.TabIndex = 96;
             this.btnLogPrev.Text = "<";
-            this.btnLogPrev.UseVisualStyleBackColor = false;
+            this.btnLogPrev.UseVisualStyleBackColor = true;
             this.btnLogPrev.Click += new System.EventHandler(this.btnLogPrev_Click);
             // 
             // btnLogFirst
@@ -1310,7 +1312,7 @@ namespace CWExpert
             this.btnLogFirst.Size = new System.Drawing.Size(20, 23);
             this.btnLogFirst.TabIndex = 95;
             this.btnLogFirst.Text = "<<";
-            this.btnLogFirst.UseVisualStyleBackColor = false;
+            this.btnLogFirst.UseVisualStyleBackColor = true;
             this.btnLogFirst.Click += new System.EventHandler(this.btnLogFirst_Click);
             // 
             // btnLogLast
@@ -1323,7 +1325,7 @@ namespace CWExpert
             this.btnLogLast.Size = new System.Drawing.Size(20, 23);
             this.btnLogLast.TabIndex = 94;
             this.btnLogLast.Text = ">>";
-            this.btnLogLast.UseVisualStyleBackColor = false;
+            this.btnLogLast.UseVisualStyleBackColor = true;
             this.btnLogLast.Click += new System.EventHandler(this.btnLogLast_Click);
             // 
             // btnLogNext
@@ -1336,7 +1338,7 @@ namespace CWExpert
             this.btnLogNext.Size = new System.Drawing.Size(20, 23);
             this.btnLogNext.TabIndex = 93;
             this.btnLogNext.Text = ">";
-            this.btnLogNext.UseVisualStyleBackColor = false;
+            this.btnLogNext.UseVisualStyleBackColor = true;
             this.btnLogNext.Click += new System.EventHandler(this.btnLogNext_Click);
             // 
             // txtLogSearch
@@ -1472,6 +1474,7 @@ namespace CWExpert
             // 
             this.chkAFC.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkAFC.AutoSize = true;
+            this.chkAFC.BackColor = System.Drawing.Color.WhiteSmoke;
             this.chkAFC.ForeColor = System.Drawing.Color.Black;
             this.chkAFC.Location = new System.Drawing.Point(241, 202);
             this.chkAFC.Name = "chkAFC";
@@ -1486,6 +1489,7 @@ namespace CWExpert
             // chkSQL
             // 
             this.chkSQL.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkSQL.BackColor = System.Drawing.Color.WhiteSmoke;
             this.chkSQL.ForeColor = System.Drawing.Color.Black;
             this.chkSQL.Location = new System.Drawing.Point(262, 203);
             this.chkSQL.Name = "chkSQL";
@@ -1676,7 +1680,7 @@ namespace CWExpert
             this.btnLOG6.Size = new System.Drawing.Size(66, 23);
             this.btnLOG6.TabIndex = 16;
             this.btnLOG6.Text = "End QSO";
-            this.btnLOG6.UseVisualStyleBackColor = false;
+            this.btnLOG6.UseVisualStyleBackColor = true;
             this.btnLOG6.Click += new System.EventHandler(this.LOGbtn6_Click);
             // 
             // btnLOG5
@@ -1689,7 +1693,7 @@ namespace CWExpert
             this.btnLOG5.Size = new System.Drawing.Size(66, 23);
             this.btnLOG5.TabIndex = 15;
             this.btnLOG5.Text = "Stn info";
-            this.btnLOG5.UseVisualStyleBackColor = false;
+            this.btnLOG5.UseVisualStyleBackColor = true;
             this.btnLOG5.Click += new System.EventHandler(this.LOGbtn5_Click);
             // 
             // btnLOG4
@@ -1702,7 +1706,7 @@ namespace CWExpert
             this.btnLOG4.Size = new System.Drawing.Size(66, 23);
             this.btnLOG4.TabIndex = 14;
             this.btnLOG4.Text = "Info";
-            this.btnLOG4.UseVisualStyleBackColor = false;
+            this.btnLOG4.UseVisualStyleBackColor = true;
             this.btnLOG4.Click += new System.EventHandler(this.LOGbtn4_Click);
             // 
             // btnLOG3
@@ -1715,7 +1719,7 @@ namespace CWExpert
             this.btnLOG3.Size = new System.Drawing.Size(66, 23);
             this.btnLOG3.TabIndex = 13;
             this.btnLOG3.Text = "Answer";
-            this.btnLOG3.UseVisualStyleBackColor = false;
+            this.btnLOG3.UseVisualStyleBackColor = true;
             this.btnLOG3.Click += new System.EventHandler(this.LOGbtn3_Click);
             // 
             // btnLOG2
@@ -1728,7 +1732,7 @@ namespace CWExpert
             this.btnLOG2.Size = new System.Drawing.Size(66, 23);
             this.btnLOG2.TabIndex = 12;
             this.btnLOG2.Text = "QRZ?";
-            this.btnLOG2.UseVisualStyleBackColor = false;
+            this.btnLOG2.UseVisualStyleBackColor = true;
             this.btnLOG2.Click += new System.EventHandler(this.LOGbtn2_Click);
             // 
             // btnLOG1
@@ -1741,7 +1745,7 @@ namespace CWExpert
             this.btnLOG1.Size = new System.Drawing.Size(66, 23);
             this.btnLOG1.TabIndex = 11;
             this.btnLOG1.Text = "CQ";
-            this.btnLOG1.UseVisualStyleBackColor = false;
+            this.btnLOG1.UseVisualStyleBackColor = true;
             this.btnLOG1.Click += new System.EventHandler(this.LOGbtn1_Click);
             // 
             // btnLogClear
@@ -1754,7 +1758,7 @@ namespace CWExpert
             this.btnLogClear.Size = new System.Drawing.Size(40, 23);
             this.btnLogClear.TabIndex = 18;
             this.btnLogClear.Text = "Clear";
-            this.btnLogClear.UseVisualStyleBackColor = false;
+            this.btnLogClear.UseVisualStyleBackColor = true;
             this.btnLogClear.Click += new System.EventHandler(this.btnLogClear_Click);
             // 
             // btnLogSearch
@@ -1767,7 +1771,7 @@ namespace CWExpert
             this.btnLogSearch.Size = new System.Drawing.Size(40, 23);
             this.btnLogSearch.TabIndex = 19;
             this.btnLogSearch.Text = "Search";
-            this.btnLogSearch.UseVisualStyleBackColor = false;
+            this.btnLogSearch.UseVisualStyleBackColor = true;
             this.btnLogSearch.Click += new System.EventHandler(this.btnLogSearch_Click);
             // 
             // btnLOGSave
@@ -1780,7 +1784,7 @@ namespace CWExpert
             this.btnLOGSave.Size = new System.Drawing.Size(40, 23);
             this.btnLOGSave.TabIndex = 17;
             this.btnLOGSave.Text = "Save";
-            this.btnLOGSave.UseVisualStyleBackColor = false;
+            this.btnLOGSave.UseVisualStyleBackColor = true;
             this.btnLOGSave.Click += new System.EventHandler(this.btnLogSave_Click);
             // 
             // lblLogRST
@@ -1846,7 +1850,7 @@ namespace CWExpert
             this.btnLOG.Size = new System.Drawing.Size(37, 19);
             this.btnLOG.TabIndex = 59;
             this.btnLOG.Text = "LOG";
-            this.btnLOG.UseVisualStyleBackColor = false;
+            this.btnLOG.UseVisualStyleBackColor = true;
             this.btnLOG.Click += new System.EventHandler(this.btnLOG_Click);
             // 
             // btnAudioMute
@@ -1888,7 +1892,7 @@ namespace CWExpert
             // btnNB
             // 
             this.btnNB.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnNB.BackColor = System.Drawing.Color.Transparent;
+            this.btnNB.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnNB.ForeColor = System.Drawing.Color.Black;
             this.btnNB.Location = new System.Drawing.Point(40, 194);
             this.btnNB.Name = "btnNB";
@@ -1977,7 +1981,7 @@ namespace CWExpert
             // chkSplit
             // 
             this.chkSplit.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkSplit.BackColor = System.Drawing.Color.Transparent;
+            this.chkSplit.BackColor = System.Drawing.Color.WhiteSmoke;
             this.chkSplit.ForeColor = System.Drawing.Color.Black;
             this.chkSplit.Location = new System.Drawing.Point(40, 220);
             this.chkSplit.Name = "chkSplit";
@@ -2069,8 +2073,8 @@ namespace CWExpert
             // radBand160
             // 
             this.radBand160.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand160.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand160.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand160.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand160.ForeColor = System.Drawing.Color.Black;
             this.radBand160.Location = new System.Drawing.Point(3, 19);
             this.radBand160.Name = "radBand160";
             this.radBand160.Size = new System.Drawing.Size(33, 20);
@@ -2083,8 +2087,8 @@ namespace CWExpert
             // radBand6
             // 
             this.radBand6.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand6.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand6.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand6.ForeColor = System.Drawing.Color.Black;
             this.radBand6.Location = new System.Drawing.Point(36, 125);
             this.radBand6.Name = "radBand6";
             this.radBand6.Size = new System.Drawing.Size(33, 20);
@@ -2097,8 +2101,8 @@ namespace CWExpert
             // radBand80
             // 
             this.radBand80.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand80.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand80.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand80.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand80.ForeColor = System.Drawing.Color.Black;
             this.radBand80.Location = new System.Drawing.Point(36, 19);
             this.radBand80.Name = "radBand80";
             this.radBand80.Size = new System.Drawing.Size(33, 20);
@@ -2111,8 +2115,8 @@ namespace CWExpert
             // radBand40
             // 
             this.radBand40.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand40.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand40.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand40.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand40.ForeColor = System.Drawing.Color.Black;
             this.radBand40.Location = new System.Drawing.Point(3, 44);
             this.radBand40.Name = "radBand40";
             this.radBand40.Size = new System.Drawing.Size(33, 20);
@@ -2125,8 +2129,8 @@ namespace CWExpert
             // radBand10
             // 
             this.radBand10.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand10.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand10.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand10.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand10.ForeColor = System.Drawing.Color.Black;
             this.radBand10.Location = new System.Drawing.Point(3, 125);
             this.radBand10.Name = "radBand10";
             this.radBand10.Size = new System.Drawing.Size(33, 20);
@@ -2139,8 +2143,8 @@ namespace CWExpert
             // radBand30
             // 
             this.radBand30.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand30.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand30.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand30.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand30.ForeColor = System.Drawing.Color.Black;
             this.radBand30.Location = new System.Drawing.Point(36, 44);
             this.radBand30.Name = "radBand30";
             this.radBand30.Size = new System.Drawing.Size(33, 20);
@@ -2153,8 +2157,8 @@ namespace CWExpert
             // radBand20
             // 
             this.radBand20.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand20.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand20.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand20.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand20.ForeColor = System.Drawing.Color.Black;
             this.radBand20.Location = new System.Drawing.Point(3, 70);
             this.radBand20.Name = "radBand20";
             this.radBand20.Size = new System.Drawing.Size(33, 20);
@@ -2167,8 +2171,8 @@ namespace CWExpert
             // radBand12
             // 
             this.radBand12.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand12.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand12.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand12.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand12.ForeColor = System.Drawing.Color.Black;
             this.radBand12.Location = new System.Drawing.Point(36, 98);
             this.radBand12.Name = "radBand12";
             this.radBand12.Size = new System.Drawing.Size(33, 20);
@@ -2181,8 +2185,8 @@ namespace CWExpert
             // radBand17
             // 
             this.radBand17.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand17.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand17.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand17.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand17.ForeColor = System.Drawing.Color.Black;
             this.radBand17.Location = new System.Drawing.Point(36, 70);
             this.radBand17.Name = "radBand17";
             this.radBand17.Size = new System.Drawing.Size(33, 20);
@@ -2195,8 +2199,8 @@ namespace CWExpert
             // radBand15
             // 
             this.radBand15.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radBand15.BackColor = System.Drawing.SystemColors.Control;
-            this.radBand15.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radBand15.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radBand15.ForeColor = System.Drawing.Color.Black;
             this.radBand15.Location = new System.Drawing.Point(3, 98);
             this.radBand15.Name = "radBand15";
             this.radBand15.Size = new System.Drawing.Size(33, 20);
@@ -2225,8 +2229,8 @@ namespace CWExpert
             // radFilterVar
             // 
             this.radFilterVar.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radFilterVar.BackColor = System.Drawing.SystemColors.Control;
-            this.radFilterVar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radFilterVar.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radFilterVar.ForeColor = System.Drawing.Color.Black;
             this.radFilterVar.Location = new System.Drawing.Point(36, 75);
             this.radFilterVar.Name = "radFilterVar";
             this.radFilterVar.Size = new System.Drawing.Size(33, 20);
@@ -2239,8 +2243,8 @@ namespace CWExpert
             // radFilter500
             // 
             this.radFilter500.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radFilter500.BackColor = System.Drawing.SystemColors.Control;
-            this.radFilter500.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radFilter500.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radFilter500.ForeColor = System.Drawing.Color.Black;
             this.radFilter500.Location = new System.Drawing.Point(36, 20);
             this.radFilter500.Name = "radFilter500";
             this.radFilter500.Size = new System.Drawing.Size(33, 20);
@@ -2253,8 +2257,8 @@ namespace CWExpert
             // radFilter50
             // 
             this.radFilter50.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radFilter50.BackColor = System.Drawing.SystemColors.Control;
-            this.radFilter50.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radFilter50.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radFilter50.ForeColor = System.Drawing.Color.Black;
             this.radFilter50.Location = new System.Drawing.Point(4, 75);
             this.radFilter50.Name = "radFilter50";
             this.radFilter50.Size = new System.Drawing.Size(33, 20);
@@ -2267,8 +2271,8 @@ namespace CWExpert
             // radFilter100
             // 
             this.radFilter100.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radFilter100.BackColor = System.Drawing.SystemColors.Control;
-            this.radFilter100.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radFilter100.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radFilter100.ForeColor = System.Drawing.Color.Black;
             this.radFilter100.Location = new System.Drawing.Point(36, 47);
             this.radFilter100.Name = "radFilter100";
             this.radFilter100.Size = new System.Drawing.Size(33, 20);
@@ -2281,8 +2285,8 @@ namespace CWExpert
             // radFilter250
             // 
             this.radFilter250.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radFilter250.BackColor = System.Drawing.SystemColors.Control;
-            this.radFilter250.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radFilter250.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radFilter250.ForeColor = System.Drawing.Color.Black;
             this.radFilter250.Location = new System.Drawing.Point(4, 47);
             this.radFilter250.Name = "radFilter250";
             this.radFilter250.Size = new System.Drawing.Size(33, 20);
@@ -2295,8 +2299,8 @@ namespace CWExpert
             // radFilter1K
             // 
             this.radFilter1K.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radFilter1K.BackColor = System.Drawing.SystemColors.Control;
-            this.radFilter1K.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radFilter1K.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.radFilter1K.ForeColor = System.Drawing.Color.Black;
             this.radFilter1K.Location = new System.Drawing.Point(4, 20);
             this.radFilter1K.Name = "radFilter1K";
             this.radFilter1K.Size = new System.Drawing.Size(33, 20);
@@ -2321,7 +2325,7 @@ namespace CWExpert
             // btnATT
             // 
             this.btnATT.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnATT.BackColor = System.Drawing.Color.Transparent;
+            this.btnATT.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnATT.ForeColor = System.Drawing.Color.Black;
             this.btnATT.Location = new System.Drawing.Point(6, 194);
             this.btnATT.Name = "btnATT";
@@ -2359,7 +2363,7 @@ namespace CWExpert
             // btnAF
             // 
             this.btnAF.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnAF.BackColor = System.Drawing.Color.Transparent;
+            this.btnAF.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnAF.ForeColor = System.Drawing.Color.Black;
             this.btnAF.Location = new System.Drawing.Point(6, 168);
             this.btnAF.Name = "btnAF";
@@ -2381,7 +2385,7 @@ namespace CWExpert
             // btnRF
             // 
             this.btnRF.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnRF.BackColor = System.Drawing.Color.Transparent;
+            this.btnRF.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnRF.ForeColor = System.Drawing.Color.Black;
             this.btnRF.Location = new System.Drawing.Point(40, 168);
             this.btnRF.Name = "btnRF";
@@ -2410,7 +2414,7 @@ namespace CWExpert
             // btnMute
             // 
             this.btnMute.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnMute.BackColor = System.Drawing.Color.Transparent;
+            this.btnMute.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnMute.ForeColor = System.Drawing.Color.Black;
             this.btnMute.Location = new System.Drawing.Point(6, 220);
             this.btnMute.Name = "btnMute";
@@ -2471,6 +2475,7 @@ namespace CWExpert
             // SMeter
             // 
             this.SMeter.BackColor = System.Drawing.Color.White;
+            this.SMeter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.SMeter.BaseArcColor = System.Drawing.Color.LightGray;
             this.SMeter.BaseArcRadius = 0;
             this.SMeter.BaseArcStart = 231;
@@ -2651,7 +2656,7 @@ namespace CWExpert
             // chk2
             // 
             this.chk2.AutoSize = true;
-            this.chk2.Location = new System.Drawing.Point(8, 68);
+            this.chk2.Location = new System.Drawing.Point(7, 54);
             this.chk2.Name = "chk2";
             this.chk2.Size = new System.Drawing.Size(14, 13);
             this.chk2.TabIndex = 57;
@@ -2661,7 +2666,7 @@ namespace CWExpert
             // chk3
             // 
             this.chk3.AutoSize = true;
-            this.chk3.Location = new System.Drawing.Point(8, 88);
+            this.chk3.Location = new System.Drawing.Point(7, 74);
             this.chk3.Name = "chk3";
             this.chk3.Size = new System.Drawing.Size(14, 13);
             this.chk3.TabIndex = 59;
@@ -2671,7 +2676,7 @@ namespace CWExpert
             // chk4
             // 
             this.chk4.AutoSize = true;
-            this.chk4.Location = new System.Drawing.Point(8, 108);
+            this.chk4.Location = new System.Drawing.Point(7, 94);
             this.chk4.Name = "chk4";
             this.chk4.Size = new System.Drawing.Size(14, 13);
             this.chk4.TabIndex = 58;
@@ -2682,7 +2687,7 @@ namespace CWExpert
             // 
             this.chk5.AutoSize = true;
             this.chk5.Checked = true;
-            this.chk5.Location = new System.Drawing.Point(8, 128);
+            this.chk5.Location = new System.Drawing.Point(7, 114);
             this.chk5.Name = "chk5";
             this.chk5.Size = new System.Drawing.Size(14, 13);
             this.chk5.TabIndex = 61;
@@ -2693,7 +2698,7 @@ namespace CWExpert
             // chk6
             // 
             this.chk6.AutoSize = true;
-            this.chk6.Location = new System.Drawing.Point(8, 148);
+            this.chk6.Location = new System.Drawing.Point(7, 134);
             this.chk6.Name = "chk6";
             this.chk6.Size = new System.Drawing.Size(14, 13);
             this.chk6.TabIndex = 60;
@@ -2703,7 +2708,7 @@ namespace CWExpert
             // chk7
             // 
             this.chk7.AutoSize = true;
-            this.chk7.Location = new System.Drawing.Point(8, 168);
+            this.chk7.Location = new System.Drawing.Point(7, 154);
             this.chk7.Name = "chk7";
             this.chk7.Size = new System.Drawing.Size(14, 13);
             this.chk7.TabIndex = 63;
@@ -2713,7 +2718,7 @@ namespace CWExpert
             // chk8
             // 
             this.chk8.AutoSize = true;
-            this.chk8.Location = new System.Drawing.Point(8, 188);
+            this.chk8.Location = new System.Drawing.Point(7, 174);
             this.chk8.Name = "chk8";
             this.chk8.Size = new System.Drawing.Size(14, 13);
             this.chk8.TabIndex = 62;
@@ -2723,7 +2728,7 @@ namespace CWExpert
             // chk9
             // 
             this.chk9.AutoSize = true;
-            this.chk9.Location = new System.Drawing.Point(8, 208);
+            this.chk9.Location = new System.Drawing.Point(7, 194);
             this.chk9.Name = "chk9";
             this.chk9.Size = new System.Drawing.Size(14, 13);
             this.chk9.TabIndex = 71;
@@ -2733,7 +2738,7 @@ namespace CWExpert
             // chk10
             // 
             this.chk10.AutoSize = true;
-            this.chk10.Location = new System.Drawing.Point(8, 228);
+            this.chk10.Location = new System.Drawing.Point(7, 214);
             this.chk10.Name = "chk10";
             this.chk10.Size = new System.Drawing.Size(14, 13);
             this.chk10.TabIndex = 70;
@@ -2743,7 +2748,7 @@ namespace CWExpert
             // chk11
             // 
             this.chk11.AutoSize = true;
-            this.chk11.Location = new System.Drawing.Point(8, 248);
+            this.chk11.Location = new System.Drawing.Point(7, 234);
             this.chk11.Name = "chk11";
             this.chk11.Size = new System.Drawing.Size(14, 13);
             this.chk11.TabIndex = 69;
@@ -2753,7 +2758,7 @@ namespace CWExpert
             // chk12
             // 
             this.chk12.AutoSize = true;
-            this.chk12.Location = new System.Drawing.Point(8, 267);
+            this.chk12.Location = new System.Drawing.Point(7, 253);
             this.chk12.Name = "chk12";
             this.chk12.Size = new System.Drawing.Size(14, 13);
             this.chk12.TabIndex = 68;
@@ -2763,7 +2768,7 @@ namespace CWExpert
             // chk13
             // 
             this.chk13.AutoSize = true;
-            this.chk13.Location = new System.Drawing.Point(8, 288);
+            this.chk13.Location = new System.Drawing.Point(7, 274);
             this.chk13.Name = "chk13";
             this.chk13.Size = new System.Drawing.Size(14, 13);
             this.chk13.TabIndex = 67;
@@ -2773,7 +2778,7 @@ namespace CWExpert
             // chk14
             // 
             this.chk14.AutoSize = true;
-            this.chk14.Location = new System.Drawing.Point(8, 308);
+            this.chk14.Location = new System.Drawing.Point(7, 294);
             this.chk14.Name = "chk14";
             this.chk14.Size = new System.Drawing.Size(14, 13);
             this.chk14.TabIndex = 66;
@@ -2783,7 +2788,7 @@ namespace CWExpert
             // chk15
             // 
             this.chk15.AutoSize = true;
-            this.chk15.Location = new System.Drawing.Point(8, 328);
+            this.chk15.Location = new System.Drawing.Point(7, 314);
             this.chk15.Name = "chk15";
             this.chk15.Size = new System.Drawing.Size(14, 13);
             this.chk15.TabIndex = 65;
@@ -2793,7 +2798,7 @@ namespace CWExpert
             // chk16
             // 
             this.chk16.AutoSize = true;
-            this.chk16.Location = new System.Drawing.Point(8, 348);
+            this.chk16.Location = new System.Drawing.Point(7, 334);
             this.chk16.Name = "chk16";
             this.chk16.Size = new System.Drawing.Size(14, 13);
             this.chk16.TabIndex = 64;
@@ -2803,7 +2808,7 @@ namespace CWExpert
             // chk17
             // 
             this.chk17.AutoSize = true;
-            this.chk17.Location = new System.Drawing.Point(8, 368);
+            this.chk17.Location = new System.Drawing.Point(7, 354);
             this.chk17.Name = "chk17";
             this.chk17.Size = new System.Drawing.Size(14, 13);
             this.chk17.TabIndex = 73;
@@ -2813,7 +2818,7 @@ namespace CWExpert
             // chk18
             // 
             this.chk18.AutoSize = true;
-            this.chk18.Location = new System.Drawing.Point(8, 388);
+            this.chk18.Location = new System.Drawing.Point(7, 374);
             this.chk18.Name = "chk18";
             this.chk18.Size = new System.Drawing.Size(14, 13);
             this.chk18.TabIndex = 72;
@@ -2823,7 +2828,7 @@ namespace CWExpert
             // chk19
             // 
             this.chk19.AutoSize = true;
-            this.chk19.Location = new System.Drawing.Point(8, 408);
+            this.chk19.Location = new System.Drawing.Point(7, 394);
             this.chk19.Name = "chk19";
             this.chk19.Size = new System.Drawing.Size(14, 13);
             this.chk19.TabIndex = 75;
@@ -2833,7 +2838,7 @@ namespace CWExpert
             // chk20
             // 
             this.chk20.AutoSize = true;
-            this.chk20.Location = new System.Drawing.Point(8, 428);
+            this.chk20.Location = new System.Drawing.Point(7, 414);
             this.chk20.Name = "chk20";
             this.chk20.Size = new System.Drawing.Size(14, 13);
             this.chk20.TabIndex = 74;
@@ -2842,7 +2847,7 @@ namespace CWExpert
             // 
             // btnTX
             // 
-            this.btnTX.BackColor = System.Drawing.Color.Transparent;
+            this.btnTX.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnTX.ForeColor = System.Drawing.Color.Black;
             this.btnTX.Location = new System.Drawing.Point(59, 33);
             this.btnTX.Name = "btnTX";
@@ -2881,7 +2886,7 @@ namespace CWExpert
             this.btnRX2On.TabIndex = 27;
             this.btnRX2On.Text = "RX2";
             this.btnRX2On.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnRX2On.UseVisualStyleBackColor = false;
+            this.btnRX2On.UseVisualStyleBackColor = true;
             this.btnRX2On.CheckedChanged += new System.EventHandler(this.btnRX2On_CheckedChanged);
             // 
             // btnClearCH2
@@ -2893,7 +2898,7 @@ namespace CWExpert
             this.btnClearCH2.Size = new System.Drawing.Size(44, 20);
             this.btnClearCH2.TabIndex = 28;
             this.btnClearCH2.Text = "Clear";
-            this.btnClearCH2.UseVisualStyleBackColor = false;
+            this.btnClearCH2.UseVisualStyleBackColor = true;
             this.btnClearCH2.Click += new System.EventHandler(this.btnClearCh2_Click);
             // 
             // btnClearCH1
@@ -2905,7 +2910,7 @@ namespace CWExpert
             this.btnClearCH1.Size = new System.Drawing.Size(44, 20);
             this.btnClearCH1.TabIndex = 26;
             this.btnClearCH1.Text = "Clear";
-            this.btnClearCH1.UseVisualStyleBackColor = false;
+            this.btnClearCH1.UseVisualStyleBackColor = true;
             this.btnClearCH1.Click += new System.EventHandler(this.btnClearCH1_Click);
             // 
             // btnCH2
@@ -2917,7 +2922,7 @@ namespace CWExpert
             this.btnCH2.Size = new System.Drawing.Size(23, 20);
             this.btnCH2.TabIndex = 29;
             this.btnCH2.Text = "2";
-            this.btnCH2.UseVisualStyleBackColor = false;
+            this.btnCH2.UseVisualStyleBackColor = true;
             this.btnCH2.Click += new System.EventHandler(this.btnCH2_Click);
             // 
             // btnCH1
@@ -2929,7 +2934,7 @@ namespace CWExpert
             this.btnCH1.Size = new System.Drawing.Size(23, 20);
             this.btnCH1.TabIndex = 25;
             this.btnCH1.Text = "1";
-            this.btnCH1.UseVisualStyleBackColor = false;
+            this.btnCH1.UseVisualStyleBackColor = true;
             this.btnCH1.Click += new System.EventHandler(this.btnCH1_Click);
             // 
             // rtbCH2
@@ -3117,7 +3122,7 @@ namespace CWExpert
             // 
             // btnTune
             // 
-            this.btnTune.BackColor = System.Drawing.SystemColors.Control;
+            this.btnTune.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnTune.ForeColor = System.Drawing.Color.Black;
             this.btnTune.Location = new System.Drawing.Point(92, 33);
             this.btnTune.Name = "btnTune";
@@ -3127,6 +3132,55 @@ namespace CWExpert
             this.btnTune.UseVisualStyleBackColor = true;
             this.btnTune.Click += new System.EventHandler(this.btnTune_Click);
             // 
+            // grpMRChannels
+            // 
+            this.grpMRChannels.Controls.Add(this.txtChannel8);
+            this.grpMRChannels.Controls.Add(this.txtChannel4);
+            this.grpMRChannels.Controls.Add(this.txtChannel5);
+            this.grpMRChannels.Controls.Add(this.txtChannel6);
+            this.grpMRChannels.Controls.Add(this.txtChannel7);
+            this.grpMRChannels.Controls.Add(this.txtChannel9);
+            this.grpMRChannels.Controls.Add(this.txtChannel10);
+            this.grpMRChannels.Controls.Add(this.txtChannel11);
+            this.grpMRChannels.Controls.Add(this.chk19);
+            this.grpMRChannels.Controls.Add(this.txtChannel12);
+            this.grpMRChannels.Controls.Add(this.chk20);
+            this.grpMRChannels.Controls.Add(this.txtChannel13);
+            this.grpMRChannels.Controls.Add(this.chk17);
+            this.grpMRChannels.Controls.Add(this.txtChannel14);
+            this.grpMRChannels.Controls.Add(this.chk18);
+            this.grpMRChannels.Controls.Add(this.txtChannel15);
+            this.grpMRChannels.Controls.Add(this.chk9);
+            this.grpMRChannels.Controls.Add(this.txtChannel16);
+            this.grpMRChannels.Controls.Add(this.chk10);
+            this.grpMRChannels.Controls.Add(this.txtChannel17);
+            this.grpMRChannels.Controls.Add(this.chk11);
+            this.grpMRChannels.Controls.Add(this.txtChannel18);
+            this.grpMRChannels.Controls.Add(this.chk12);
+            this.grpMRChannels.Controls.Add(this.txtChannel19);
+            this.grpMRChannels.Controls.Add(this.chk13);
+            this.grpMRChannels.Controls.Add(this.txtChannel3);
+            this.grpMRChannels.Controls.Add(this.chk14);
+            this.grpMRChannels.Controls.Add(this.txtChannel2);
+            this.grpMRChannels.Controls.Add(this.chk15);
+            this.grpMRChannels.Controls.Add(this.txtChannel20);
+            this.grpMRChannels.Controls.Add(this.chk16);
+            this.grpMRChannels.Controls.Add(this.chk2);
+            this.grpMRChannels.Controls.Add(this.chk7);
+            this.grpMRChannels.Controls.Add(this.chk4);
+            this.grpMRChannels.Controls.Add(this.chk8);
+            this.grpMRChannels.Controls.Add(this.chk3);
+            this.grpMRChannels.Controls.Add(this.chk5);
+            this.grpMRChannels.Controls.Add(this.chk6);
+            this.grpMRChannels.ForeColor = System.Drawing.Color.White;
+            this.grpMRChannels.Location = new System.Drawing.Point(5, 70);
+            this.grpMRChannels.Name = "grpMRChannels";
+            this.grpMRChannels.Size = new System.Drawing.Size(279, 482);
+            this.grpMRChannels.TabIndex = 78;
+            this.grpMRChannels.TabStop = false;
+            this.grpMRChannels.Text = "MR";
+            this.grpMRChannels.Visible = false;
+            // 
             // CWExpert
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3135,61 +3189,24 @@ namespace CWExpert
             this.ClientSize = new System.Drawing.Size(1008, 562);
             this.Controls.Add(this.btnTune);
             this.Controls.Add(this.btnTX);
-            this.Controls.Add(this.chk19);
-            this.Controls.Add(this.chk20);
-            this.Controls.Add(this.chk17);
-            this.Controls.Add(this.chk18);
-            this.Controls.Add(this.chk9);
-            this.Controls.Add(this.grpChannels);
-            this.Controls.Add(this.chk10);
-            this.Controls.Add(this.chk11);
-            this.Controls.Add(this.chk12);
-            this.Controls.Add(this.chk13);
-            this.Controls.Add(this.chk14);
-            this.Controls.Add(this.chk15);
-            this.Controls.Add(this.chk16);
-            this.Controls.Add(this.chk7);
-            this.Controls.Add(this.chk8);
-            this.Controls.Add(this.chk5);
-            this.Controls.Add(this.chk6);
-            this.Controls.Add(this.chk3);
-            this.Controls.Add(this.chk4);
-            this.Controls.Add(this.chk2);
             this.Controls.Add(this.grpGenesisRadio);
             this.Controls.Add(this.grpSMeter);
             this.Controls.Add(this.grpDisplay);
-            this.Controls.Add(this.txtChannel20);
-            this.Controls.Add(this.txtChannel2);
-            this.Controls.Add(this.txtChannel3);
-            this.Controls.Add(this.txtChannel19);
-            this.Controls.Add(this.txtChannel18);
-            this.Controls.Add(this.txtChannel17);
-            this.Controls.Add(this.txtChannel16);
-            this.Controls.Add(this.txtChannel15);
-            this.Controls.Add(this.txtChannel14);
-            this.Controls.Add(this.txtChannel13);
-            this.Controls.Add(this.txtChannel12);
-            this.Controls.Add(this.txtChannel11);
-            this.Controls.Add(this.txtChannel10);
-            this.Controls.Add(this.txtChannel9);
-            this.Controls.Add(this.txtChannel8);
-            this.Controls.Add(this.txtChannel7);
-            this.Controls.Add(this.txtChannel6);
-            this.Controls.Add(this.txtChannel5);
-            this.Controls.Add(this.txtChannel4);
             this.Controls.Add(this.lblCall);
             this.Controls.Add(this.btnStartMR);
             this.Controls.Add(this.txtCall);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.grpMorseRunner);
             this.Controls.Add(this.grpMorseRunner2);
+            this.Controls.Add(this.grpChannels);
+            this.Controls.Add(this.grpMRChannels);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = new System.Drawing.Size(1920, 600);
             this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "CWExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "CWExpert  S56A - YT7PWR v2.0.0";
+            this.Text = "CWExpert  S56A - YT7PWR v2.0.1";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainFormMouseWheel);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.CWExpert_Closing);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CWExpert_KeyUp);
@@ -3230,6 +3247,8 @@ namespace CWExpert
             this.grpChannels.ResumeLayout(false);
             this.ch2_contextQSO.ResumeLayout(false);
             this.ch1_contextQSO.ResumeLayout(false);
+            this.grpMRChannels.ResumeLayout(false);
+            this.grpMRChannels.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3489,6 +3508,7 @@ namespace CWExpert
         private System.Windows.Forms.ToolStripMenuItem reflPWRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sWRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripTextBox1;
+        private System.Windows.Forms.GroupBox grpMRChannels;
     }
 }
 

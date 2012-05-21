@@ -202,7 +202,7 @@ namespace CWExpert
             this.chkG11B1715_CH1 = new System.Windows.Forms.CheckBox();
             this.chkG11B2017_CH1 = new System.Windows.Forms.CheckBox();
             this.chkG11B3020_CH1 = new System.Windows.Forms.CheckBox();
-            this.chkG11B40_CH1 = new System.Windows.Forms.CheckBox();
+            this.chkG11B6040_CH1 = new System.Windows.Forms.CheckBox();
             this.chkG11B80_CH1 = new System.Windows.Forms.CheckBox();
             this.chkG11B151210_CH2 = new System.Windows.Forms.CheckBox();
             this.chkG11B1210_CH2 = new System.Windows.Forms.CheckBox();
@@ -210,7 +210,7 @@ namespace CWExpert
             this.chkG11B1715_CH2 = new System.Windows.Forms.CheckBox();
             this.chkG11B2017_CH2 = new System.Windows.Forms.CheckBox();
             this.chkG11B3020_CH2 = new System.Windows.Forms.CheckBox();
-            this.chkG11B40_CH2 = new System.Windows.Forms.CheckBox();
+            this.chkG11B6040_CH2 = new System.Windows.Forms.CheckBox();
             this.chkG11B80_CH2 = new System.Windows.Forms.CheckBox();
             this.chkG11B160_CH2 = new System.Windows.Forms.CheckBox();
             this.label32 = new System.Windows.Forms.Label();
@@ -404,6 +404,9 @@ namespace CWExpert
             this.label41 = new System.Windows.Forms.Label();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
             this.label42 = new System.Windows.Forms.Label();
+            this.chkG11B4030_CH1 = new System.Windows.Forms.CheckBox();
+            this.chkG11B4030_CH2 = new System.Windows.Forms.CheckBox();
+            this.label53 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udMonitorFrequncy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udAudioOutputVoltage)).BeginInit();
@@ -2604,6 +2607,9 @@ namespace CWExpert
             // 
             // grpG11BandFilters
             // 
+            this.grpG11BandFilters.Controls.Add(this.chkG11B4030_CH1);
+            this.grpG11BandFilters.Controls.Add(this.chkG11B4030_CH2);
+            this.grpG11BandFilters.Controls.Add(this.label53);
             this.grpG11BandFilters.Controls.Add(this.chkG11B6_CH1);
             this.grpG11BandFilters.Controls.Add(this.chkG11B6_CH2);
             this.grpG11BandFilters.Controls.Add(this.label31);
@@ -2613,7 +2619,7 @@ namespace CWExpert
             this.grpG11BandFilters.Controls.Add(this.chkG11B1715_CH1);
             this.grpG11BandFilters.Controls.Add(this.chkG11B2017_CH1);
             this.grpG11BandFilters.Controls.Add(this.chkG11B3020_CH1);
-            this.grpG11BandFilters.Controls.Add(this.chkG11B40_CH1);
+            this.grpG11BandFilters.Controls.Add(this.chkG11B6040_CH1);
             this.grpG11BandFilters.Controls.Add(this.chkG11B80_CH1);
             this.grpG11BandFilters.Controls.Add(this.chkG11B151210_CH2);
             this.grpG11BandFilters.Controls.Add(this.chkG11B1210_CH2);
@@ -2621,7 +2627,7 @@ namespace CWExpert
             this.grpG11BandFilters.Controls.Add(this.chkG11B1715_CH2);
             this.grpG11BandFilters.Controls.Add(this.chkG11B2017_CH2);
             this.grpG11BandFilters.Controls.Add(this.chkG11B3020_CH2);
-            this.grpG11BandFilters.Controls.Add(this.chkG11B40_CH2);
+            this.grpG11BandFilters.Controls.Add(this.chkG11B6040_CH2);
             this.grpG11BandFilters.Controls.Add(this.chkG11B80_CH2);
             this.grpG11BandFilters.Controls.Add(this.chkG11B160_CH2);
             this.grpG11BandFilters.Controls.Add(this.label32);
@@ -2731,20 +2737,20 @@ namespace CWExpert
             this.chkG11B3020_CH1.UseVisualStyleBackColor = true;
             this.chkG11B3020_CH1.CheckedChanged += new System.EventHandler(this.chkG11B3020_CH1_CheckedChanged);
             // 
-            // chkG11B40_CH1
+            // chkG11B6040_CH1
             // 
-            this.chkG11B40_CH1.AutoSize = true;
-            this.chkG11B40_CH1.Location = new System.Drawing.Point(119, 81);
-            this.chkG11B40_CH1.Name = "chkG11B40_CH1";
-            this.chkG11B40_CH1.Size = new System.Drawing.Size(15, 14);
-            this.chkG11B40_CH1.TabIndex = 23;
-            this.chkG11B40_CH1.UseVisualStyleBackColor = true;
-            this.chkG11B40_CH1.CheckedChanged += new System.EventHandler(this.chkG11B40_CH1_CheckedChanged);
+            this.chkG11B6040_CH1.AutoSize = true;
+            this.chkG11B6040_CH1.Location = new System.Drawing.Point(119, 63);
+            this.chkG11B6040_CH1.Name = "chkG11B6040_CH1";
+            this.chkG11B6040_CH1.Size = new System.Drawing.Size(15, 14);
+            this.chkG11B6040_CH1.TabIndex = 23;
+            this.chkG11B6040_CH1.UseVisualStyleBackColor = true;
+            this.chkG11B6040_CH1.CheckedChanged += new System.EventHandler(this.chkG11B6040_CH1_CheckedChanged);
             // 
             // chkG11B80_CH1
             // 
             this.chkG11B80_CH1.AutoSize = true;
-            this.chkG11B80_CH1.Location = new System.Drawing.Point(119, 65);
+            this.chkG11B80_CH1.Location = new System.Drawing.Point(119, 47);
             this.chkG11B80_CH1.Name = "chkG11B80_CH1";
             this.chkG11B80_CH1.Size = new System.Drawing.Size(15, 14);
             this.chkG11B80_CH1.TabIndex = 22;
@@ -2811,20 +2817,20 @@ namespace CWExpert
             this.chkG11B3020_CH2.UseVisualStyleBackColor = true;
             this.chkG11B3020_CH2.CheckedChanged += new System.EventHandler(this.chkG11B3020_CH2_CheckedChanged);
             // 
-            // chkG11B40_CH2
+            // chkG11B6040_CH2
             // 
-            this.chkG11B40_CH2.AutoSize = true;
-            this.chkG11B40_CH2.Location = new System.Drawing.Point(178, 81);
-            this.chkG11B40_CH2.Name = "chkG11B40_CH2";
-            this.chkG11B40_CH2.Size = new System.Drawing.Size(15, 14);
-            this.chkG11B40_CH2.TabIndex = 13;
-            this.chkG11B40_CH2.UseVisualStyleBackColor = true;
-            this.chkG11B40_CH2.CheckedChanged += new System.EventHandler(this.chkG11B40_CH2_CheckedChanged);
+            this.chkG11B6040_CH2.AutoSize = true;
+            this.chkG11B6040_CH2.Location = new System.Drawing.Point(178, 63);
+            this.chkG11B6040_CH2.Name = "chkG11B6040_CH2";
+            this.chkG11B6040_CH2.Size = new System.Drawing.Size(15, 14);
+            this.chkG11B6040_CH2.TabIndex = 13;
+            this.chkG11B6040_CH2.UseVisualStyleBackColor = true;
+            this.chkG11B6040_CH2.CheckedChanged += new System.EventHandler(this.chkG11B6040_CH2_CheckedChanged);
             // 
             // chkG11B80_CH2
             // 
             this.chkG11B80_CH2.AutoSize = true;
-            this.chkG11B80_CH2.Location = new System.Drawing.Point(178, 65);
+            this.chkG11B80_CH2.Location = new System.Drawing.Point(178, 47);
             this.chkG11B80_CH2.Name = "chkG11B80_CH2";
             this.chkG11B80_CH2.Size = new System.Drawing.Size(15, 14);
             this.chkG11B80_CH2.TabIndex = 12;
@@ -2834,7 +2840,7 @@ namespace CWExpert
             // chkG11B160_CH2
             // 
             this.chkG11B160_CH2.AutoSize = true;
-            this.chkG11B160_CH2.Location = new System.Drawing.Point(178, 49);
+            this.chkG11B160_CH2.Location = new System.Drawing.Point(178, 31);
             this.chkG11B160_CH2.Name = "chkG11B160_CH2";
             this.chkG11B160_CH2.Size = new System.Drawing.Size(15, 14);
             this.chkG11B160_CH2.TabIndex = 11;
@@ -2898,16 +2904,16 @@ namespace CWExpert
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(24, 81);
+            this.label26.Location = new System.Drawing.Point(24, 63);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(27, 13);
+            this.label26.Size = new System.Drawing.Size(42, 13);
             this.label26.TabIndex = 4;
-            this.label26.Text = "40m";
+            this.label26.Text = "60-40m";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(24, 65);
+            this.label24.Location = new System.Drawing.Point(24, 47);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(27, 13);
             this.label24.TabIndex = 3;
@@ -2916,7 +2922,7 @@ namespace CWExpert
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(24, 49);
+            this.label23.Location = new System.Drawing.Point(24, 31);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(33, 13);
             this.label23.TabIndex = 2;
@@ -2925,7 +2931,7 @@ namespace CWExpert
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(175, 29);
+            this.label22.Location = new System.Drawing.Point(175, 11);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(26, 13);
             this.label22.TabIndex = 1;
@@ -2934,7 +2940,7 @@ namespace CWExpert
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(116, 29);
+            this.label1.Location = new System.Drawing.Point(116, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 0;
@@ -5108,6 +5114,35 @@ namespace CWExpert
             this.label42.TabIndex = 8;
             this.label42.Text = "Averaging";
             // 
+            // chkG11B4030_CH1
+            // 
+            this.chkG11B4030_CH1.AutoSize = true;
+            this.chkG11B4030_CH1.Location = new System.Drawing.Point(119, 80);
+            this.chkG11B4030_CH1.Name = "chkG11B4030_CH1";
+            this.chkG11B4030_CH1.Size = new System.Drawing.Size(15, 14);
+            this.chkG11B4030_CH1.TabIndex = 36;
+            this.chkG11B4030_CH1.UseVisualStyleBackColor = true;
+            this.chkG11B4030_CH1.CheckedChanged += new System.EventHandler(this.chkG11B4030_CH1_CheckedChanged);
+            // 
+            // chkG11B4030_CH2
+            // 
+            this.chkG11B4030_CH2.AutoSize = true;
+            this.chkG11B4030_CH2.Location = new System.Drawing.Point(178, 80);
+            this.chkG11B4030_CH2.Name = "chkG11B4030_CH2";
+            this.chkG11B4030_CH2.Size = new System.Drawing.Size(15, 14);
+            this.chkG11B4030_CH2.TabIndex = 35;
+            this.chkG11B4030_CH2.UseVisualStyleBackColor = true;
+            this.chkG11B4030_CH2.CheckedChanged += new System.EventHandler(this.chkG11B4030_CH2_CheckedChanged);
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(24, 80);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(42, 13);
+            this.label53.TabIndex = 34;
+            this.label53.Text = "40-30m";
+            // 
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5503,7 +5538,7 @@ namespace CWExpert
         private System.Windows.Forms.GroupBox grpG11BandFilters;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox chkG11B40_CH2;
+        private System.Windows.Forms.CheckBox chkG11B6040_CH2;
         private System.Windows.Forms.CheckBox chkG11B80_CH2;
         private System.Windows.Forms.CheckBox chkG11B160_CH2;
         private System.Windows.Forms.Label label32;
@@ -5521,7 +5556,7 @@ namespace CWExpert
         private System.Windows.Forms.CheckBox chkG11B1715_CH1;
         private System.Windows.Forms.CheckBox chkG11B2017_CH1;
         private System.Windows.Forms.CheckBox chkG11B3020_CH1;
-        private System.Windows.Forms.CheckBox chkG11B40_CH1;
+        private System.Windows.Forms.CheckBox chkG11B6040_CH1;
         private System.Windows.Forms.CheckBox chkG11B80_CH1;
         private System.Windows.Forms.CheckBox chkG11B151210_CH2;
         private System.Windows.Forms.CheckBox chkG11B1210_CH2;
@@ -5603,5 +5638,8 @@ namespace CWExpert
         public System.Windows.Forms.TextBox txtStnZone;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.ComboBox comboCWAGC;
+        private System.Windows.Forms.CheckBox chkG11B4030_CH1;
+        private System.Windows.Forms.CheckBox chkG11B4030_CH2;
+        private System.Windows.Forms.Label label53;
     }
 }

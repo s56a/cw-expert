@@ -678,7 +678,7 @@ namespace CWExpert
 
                 if (!tune)
                 {
-                    btnTune.BackColor = SystemColors.Control;
+                    btnTune.BackColor = Color.WhiteSmoke;
 
                     switch (new_mode)
                     {
@@ -823,7 +823,7 @@ namespace CWExpert
                     genesis.Set_frequency((long)(losc * 1e6), true);
                     Thread.Sleep(1);
                     G59_set_keyer();
-                    btnTX.BackColor = Color.Transparent;
+                    btnTX.BackColor = Color.WhiteSmoke;
                     //TUNE = false;
 
                     if (new_mode == Mode.CW)
@@ -1556,7 +1556,7 @@ namespace CWExpert
             tbAFGain_Scroll(this, EventArgs.Empty);
             genesis = new G59(this.Handle);
             btnCH1.BackColor = Color.LimeGreen;
-            btnCH2.BackColor = SystemColors.Control;
+            btnCH2.BackColor = Color.WhiteSmoke;
 
             if (Audio.SDRmode)
             {
@@ -2210,7 +2210,7 @@ namespace CWExpert
                 }
                 else
                 {
-                    btnStartMR.BackColor = SystemColors.Control;
+                    btnStartMR.BackColor = Color.WhiteSmoke;
                     if (Audio.SDRmode)
                     {
                         MOX = false;
@@ -3051,7 +3051,8 @@ namespace CWExpert
                                         }
                                         else if (detect_call)
                                         {
-                                            if (text.StartsWith("CQ") || text.Contains("DX"))
+                                            if (text.StartsWith("CQ") || text.Contains("DX") ||
+                                                text == "TEST")
                                                 txtLogCall.Clear();
                                             else if (text.Length < 3 || !text.Contains("pse"))
                                                 txtLogCall.Clear();
@@ -3932,7 +3933,7 @@ namespace CWExpert
             else
             {
                 genesis.WriteToDevice(6, 0);
-                btnAF.BackColor = SystemColors.Control;
+                btnAF.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -3946,7 +3947,7 @@ namespace CWExpert
             else
             {
                 genesis.WriteToDevice(12, 0);
-                btnRF.BackColor = SystemColors.Control;
+                btnRF.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -3960,7 +3961,7 @@ namespace CWExpert
             else
             {
                 genesis.WriteToDevice(17, 0);
-                btnATT.BackColor = SystemColors.Control;
+                btnATT.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -3977,7 +3978,7 @@ namespace CWExpert
                 }
                 else
                 {
-                    btnNB.BackColor = SystemColors.Control;
+                    btnNB.BackColor = Color.WhiteSmoke;
                 }
             }
             catch (Exception ex)
@@ -3998,7 +3999,7 @@ namespace CWExpert
                 else
                 {
                     Audio.Volume = tbAFGain.Value;
-                    btnMute.BackColor = SystemColors.Control;
+                    btnMute.BackColor = Color.WhiteSmoke;
                 }
             }
         }
@@ -4052,7 +4053,7 @@ namespace CWExpert
             if (chkSplit.Checked)
                 chkSplit.BackColor = Color.LimeGreen;
             else
-                chkSplit.BackColor = SystemColors.Control;
+                chkSplit.BackColor = Color.WhiteSmoke;
 
             tx_split = chkSplit.Checked;
             InitLOG();
@@ -4503,7 +4504,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand160.BackColor = SystemColors.Control;
+                radBand160.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4540,7 +4541,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand80.BackColor = SystemColors.Control;
+                radBand80.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4577,7 +4578,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand40.BackColor = SystemColors.Control;
+                radBand40.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4585,7 +4586,7 @@ namespace CWExpert
         {
             if (radBand30.Checked)
             {
-                radBand40.BackColor = Color.LimeGreen;
+                radBand30.BackColor = Color.LimeGreen;
                 CurrentBand = Band.B30M;
 
                 if (current_model == Model.GENESIS_G59USB)
@@ -4614,7 +4615,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand30.BackColor = SystemColors.Control;
+                radBand30.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4652,7 +4653,7 @@ namespace CWExpert
                         DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                             tbZoom.Value, tbPan.Value);
 
-                radBand20.BackColor = SystemColors.Control;
+                radBand20.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4689,7 +4690,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand17.BackColor = SystemColors.Control;
+                radBand17.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4726,7 +4727,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand15.BackColor = SystemColors.Control;
+                radBand15.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4763,7 +4764,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand12.BackColor = SystemColors.Control;
+                radBand12.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4800,7 +4801,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand10.BackColor = SystemColors.Control;
+                radBand10.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -4837,7 +4838,7 @@ namespace CWExpert
                     DB.SaveBandStack(current_band.ToString(), vfoa, vfob, losc, filter_width_vfoA, filter_width_vfoB,
                         tbZoom.Value, tbPan.Value);
 
-                radBand6.BackColor = SystemColors.Control;
+                radBand6.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -5049,7 +5050,7 @@ namespace CWExpert
                 radFilter1K.BackColor = Color.LimeGreen;
             }
             else
-                radFilter1K.BackColor = SystemColors.Control;
+                radFilter1K.BackColor = Color.WhiteSmoke;
         }
 
         private void radFilter500_CheckedChanged(object sender, EventArgs e)
@@ -5062,7 +5063,7 @@ namespace CWExpert
                 radFilter500.BackColor = Color.LimeGreen;
             }
             else
-                radFilter500.BackColor = SystemColors.Control;
+                radFilter500.BackColor = Color.WhiteSmoke;
         }
 
         private void radFilter100_CheckedChanged(object sender, EventArgs e)
@@ -5075,7 +5076,7 @@ namespace CWExpert
                 radFilter100.BackColor = Color.LimeGreen;
             }
             else
-                radFilter100.BackColor = SystemColors.Control;
+                radFilter100.BackColor = Color.WhiteSmoke;
         }
 
         private void radFilter250_CheckedChanged(object sender, EventArgs e)
@@ -5088,7 +5089,7 @@ namespace CWExpert
                 radFilter250.BackColor = Color.LimeGreen;
             }
             else
-                radFilter250.BackColor = SystemColors.Control;
+                radFilter250.BackColor = Color.WhiteSmoke;
         }
 
         private void radFilter50_CheckedChanged(object sender, EventArgs e)
@@ -5101,7 +5102,7 @@ namespace CWExpert
                 radFilter50.BackColor = Color.LimeGreen;
             }
             else
-                radFilter50.BackColor = SystemColors.Control;
+                radFilter50.BackColor = Color.WhiteSmoke;
         }
 
         private void radFilterVar_CheckedChanged(object sender, EventArgs e)
@@ -5112,7 +5113,7 @@ namespace CWExpert
                 radFilterVar.BackColor = Color.LimeGreen;
             }
             else
-                radFilterVar.BackColor = SystemColors.Control;
+                radFilterVar.BackColor = Color.WhiteSmoke;
         }
 
         #endregion
@@ -5841,7 +5842,7 @@ namespace CWExpert
                             {
                                 cwEncoder.Stop();
                                 tune = false;
-                                btnTune.BackColor = SystemColors.Control;
+                                btnTune.BackColor = Color.WhiteSmoke;
                             }
                         }
                         break;
@@ -5860,7 +5861,7 @@ namespace CWExpert
                             {
                                 rtty.Stop();
                                 tune = false;
-                                btnTune.BackColor = SystemColors.Control;
+                                btnTune.BackColor = Color.WhiteSmoke;
                             }
                         }
                         break;
@@ -5886,7 +5887,7 @@ namespace CWExpert
                             {
                                 psk.Stop();
                                 tune = false;
-                                btnTune.BackColor = SystemColors.Control;
+                                btnTune.BackColor = Color.WhiteSmoke;
                             }
                         }
                         break;
@@ -6234,22 +6235,22 @@ namespace CWExpert
         {
             Audio.channel = 5;
             btnCH1.BackColor = Color.LimeGreen;
-            btnCH2.BackColor = SystemColors.Control;
+            btnCH2.BackColor = Color.WhiteSmoke;
         }
 
         private void btnCH2_Click(object sender, EventArgs e)
         {
-            if (btnRX2On.BackColor == Color.LimeGreen && btnCH2.BackColor == SystemColors.Control)
+            if (btnRX2On.BackColor == Color.LimeGreen && btnCH2.BackColor == Color.WhiteSmoke)
             {
                 Audio.channel = 6;
                 btnCH2.BackColor = Color.LimeGreen;
-                btnCH1.BackColor = SystemColors.Control;
+                btnCH1.BackColor = Color.WhiteSmoke;
             }
             else if (btnRX2On.BackColor == Color.LimeGreen && btnCH2.BackColor == Color.LimeGreen)
             {
                 Audio.channel = 5;
                 btnCH1.BackColor = Color.LimeGreen;
-                btnCH2.BackColor = SystemColors.Control;
+                btnCH2.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -6271,7 +6272,7 @@ namespace CWExpert
         {
             if (btnRX2On.Checked)
             {
-                btnRX2On.BackColor = SystemColors.Control;
+                btnRX2On.BackColor = Color.WhiteSmoke;
                 Audio.RX2 = true;
                 Display_GDI.RX2Enabled = true;
 #if(DirectX)
@@ -6387,10 +6388,10 @@ namespace CWExpert
 #if(DirectX)
                 DX.RX2Enabled = false;
 #endif
-                btnRX2On.BackColor = SystemColors.Control;
+                btnRX2On.BackColor = Color.WhiteSmoke;
                 Audio.channel = 5;
                 btnCH1.BackColor = Color.LimeGreen;
-                btnCH2.BackColor = SystemColors.Control;
+                btnCH2.BackColor = Color.WhiteSmoke;
 
                 switch (op_mode_vfoA)
                 {
@@ -9574,7 +9575,7 @@ namespace CWExpert
             }
             else
             {
-                chkSQL.BackColor = SystemColors.Control;
+                chkSQL.BackColor = Color.WhiteSmoke;
 
                 if (rtty != null)
                     rtty.SqlOn = false;
@@ -9616,7 +9617,7 @@ namespace CWExpert
                 }
                 else
                 {
-                    chkAFC.BackColor = SystemColors.Control;
+                    chkAFC.BackColor = Color.WhiteSmoke;
                     psk.AFC = false;
                 }
             }

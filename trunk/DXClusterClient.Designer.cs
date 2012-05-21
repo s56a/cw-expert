@@ -66,6 +66,7 @@ namespace CWExpert
             // 
             // btnConnect
             // 
+            this.btnConnect.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnConnect.Location = new System.Drawing.Point(24, 404);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(55, 23);
@@ -76,6 +77,7 @@ namespace CWExpert
             // 
             // btnBye
             // 
+            this.btnBye.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnBye.Location = new System.Drawing.Point(85, 404);
             this.btnBye.Name = "btnBye";
             this.btnBye.Size = new System.Drawing.Size(55, 23);
@@ -86,6 +88,7 @@ namespace CWExpert
             // 
             // btnNoDX
             // 
+            this.btnNoDX.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnNoDX.Location = new System.Drawing.Point(146, 404);
             this.btnNoDX.Name = "btnNoDX";
             this.btnNoDX.Size = new System.Drawing.Size(55, 23);
@@ -111,6 +114,7 @@ namespace CWExpert
             // 
             // btnShowDX
             // 
+            this.btnShowDX.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnShowDX.Location = new System.Drawing.Point(207, 404);
             this.btnShowDX.Name = "btnShowDX";
             this.btnShowDX.Size = new System.Drawing.Size(60, 23);
@@ -121,6 +125,7 @@ namespace CWExpert
             // 
             // btnNoVHF
             // 
+            this.btnNoVHF.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnNoVHF.Location = new System.Drawing.Point(273, 404);
             this.btnNoVHF.Name = "btnNoVHF";
             this.btnNoVHF.Size = new System.Drawing.Size(55, 23);
@@ -136,10 +141,10 @@ namespace CWExpert
             this.comboDXCluster.Name = "comboDXCluster";
             this.comboDXCluster.Size = new System.Drawing.Size(167, 21);
             this.comboDXCluster.TabIndex = 6;
-            this.comboDXCluster.SelectedIndexChanged += new System.EventHandler(this.comboDXCluster_SelectedIndexChanged);
             // 
             // btnSettings
             // 
+            this.btnSettings.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnSettings.Location = new System.Drawing.Point(456, 404);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(55, 23);
@@ -150,6 +155,7 @@ namespace CWExpert
             // 
             // btnClearTxt
             // 
+            this.btnClearTxt.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnClearTxt.Location = new System.Drawing.Point(395, 404);
             this.btnClearTxt.Name = "btnClearTxt";
             this.btnClearTxt.Size = new System.Drawing.Size(55, 23);
@@ -180,6 +186,7 @@ namespace CWExpert
             // 
             // btnVHFandUP
             // 
+            this.btnVHFandUP.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnVHFandUP.Location = new System.Drawing.Point(334, 404);
             this.btnVHFandUP.Name = "btnVHFandUP";
             this.btnVHFandUP.Size = new System.Drawing.Size(55, 23);

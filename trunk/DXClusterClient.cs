@@ -64,12 +64,6 @@ namespace CWExpert
 
         #region button events
 
-        private void comboDXCluster_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if (client.ClusterClient != null && client.ClusterClient.Connected)
-                //client.SendMessage(1, "BYE");
-        }
-
         private void btnConnect_Click(object sender, EventArgs e)
         {
             if (telnet_client.ClusterClient == null)
