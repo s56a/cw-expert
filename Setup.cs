@@ -1729,7 +1729,7 @@ namespace CWExpert
         {
             if (chkG11B80_CH1.Checked)
             {
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B3020_CH1.Checked = false;
                 chkG11B2017_CH1.Checked = false;
                 chkG11B1715_CH1.Checked = false;
@@ -1738,6 +1738,7 @@ namespace CWExpert
                 chkG11B151210_CH1.Checked = false;
                 chkG11B80_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -1748,9 +1749,9 @@ namespace CWExpert
             }
         }
 
-        private void chkG11B40_CH1_CheckedChanged(object sender, EventArgs e)
+        private void chkG11B6040_CH1_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkG11B40_CH1.Checked)
+            if (chkG11B6040_CH1.Checked)
             {
                 chkG11B80_CH1.Checked = false;
                 chkG11B3020_CH1.Checked = false;
@@ -1759,8 +1760,9 @@ namespace CWExpert
                 chkG11B201715_CH1.Checked = false;
                 chkG11B1210_CH1.Checked = false;
                 chkG11B151210_CH1.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -1771,12 +1773,37 @@ namespace CWExpert
             }
         }
 
+        private void chkG11B4030_CH1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkG11B4030_CH1.Checked)
+            {
+                chkG11B80_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
+                chkG11B2017_CH1.Checked = false;
+                chkG11B1715_CH1.Checked = false;
+                chkG11B201715_CH1.Checked = false;
+                chkG11B1210_CH1.Checked = false;
+                chkG11B151210_CH1.Checked = false;
+                chkG11B3020_CH1.Checked = false;
+                chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH2.Checked = false;
+
+                for (int i = 1; i < 20; i++)
+                {
+                    MainForm.G11BandFiltersCH1[i] = false;
+                }
+
+                MainForm.G11BandFiltersCH1[(int)Band.B40M] = true;
+                MainForm.G11BandFiltersCH1[(int)Band.B30M] = true;
+            }
+        }
+
         private void chkG11B3020_CH1_CheckedChanged(object sender, EventArgs e)
         {
             if (chkG11B3020_CH1.Checked)
             {
                 chkG11B80_CH1.Checked = false;
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B2017_CH1.Checked = false;
                 chkG11B1715_CH1.Checked = false;
                 chkG11B201715_CH1.Checked = false;
@@ -1784,14 +1811,15 @@ namespace CWExpert
                 chkG11B151210_CH1.Checked = false;
                 chkG11B3020_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
                     MainForm.G11BandFiltersCH1[i] = false;
                 }
 
-                MainForm.G11BandFiltersCH1[(int)Band.B30M] = chkG11B3020_CH1.Checked;
-                MainForm.G11BandFiltersCH1[(int)Band.B20M] = chkG11B3020_CH1.Checked;
+                MainForm.G11BandFiltersCH1[(int)Band.B30M] = true;
+                MainForm.G11BandFiltersCH1[(int)Band.B20M] = true;
             }
         }
 
@@ -1801,21 +1829,22 @@ namespace CWExpert
             {
                 chkG11B80_CH1.Checked = false;
                 chkG11B3020_CH1.Checked = false;
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B1715_CH1.Checked = false;
                 chkG11B201715_CH1.Checked = false;
                 chkG11B1210_CH1.Checked = false;
                 chkG11B151210_CH1.Checked = false;
                 chkG11B2017_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
                     MainForm.G11BandFiltersCH1[i] = false;
                 }
 
-                MainForm.G11BandFiltersCH1[(int)Band.B20M] = chkG11B2017_CH1.Checked;
-                MainForm.G11BandFiltersCH1[(int)Band.B17M] = chkG11B2017_CH1.Checked;
+                MainForm.G11BandFiltersCH1[(int)Band.B20M] = true;
+                MainForm.G11BandFiltersCH1[(int)Band.B17M] = true;
             }
         }
 
@@ -1825,21 +1854,22 @@ namespace CWExpert
             {
                 chkG11B80_CH1.Checked = false;
                 chkG11B3020_CH1.Checked = false;
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B2017_CH1.Checked = false;
                 chkG11B201715_CH1.Checked = false;
                 chkG11B1210_CH1.Checked = false;
                 chkG11B151210_CH1.Checked = false;
                 chkG11B1715_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
                     MainForm.G11BandFiltersCH1[i] = false;
                 }
 
-                MainForm.G11BandFiltersCH1[(int)Band.B15M] = chkG11B1715_CH1.Checked;
-                MainForm.G11BandFiltersCH1[(int)Band.B17M] = chkG11B1715_CH1.Checked;
+                MainForm.G11BandFiltersCH1[(int)Band.B15M] = true;
+                MainForm.G11BandFiltersCH1[(int)Band.B17M] = true;
             }
         }
 
@@ -1849,13 +1879,14 @@ namespace CWExpert
             {
                 chkG11B80_CH1.Checked = false;
                 chkG11B3020_CH1.Checked = false;
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B1715_CH1.Checked = false;
                 chkG11B2017_CH1.Checked = false;
                 chkG11B1210_CH1.Checked = false;
                 chkG11B151210_CH1.Checked = false;
                 chkG11B201715_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -1874,13 +1905,14 @@ namespace CWExpert
             {
                 chkG11B80_CH1.Checked = false;
                 chkG11B3020_CH1.Checked = false;
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B1715_CH1.Checked = false;
                 chkG11B201715_CH1.Checked = false;
                 chkG11B2017_CH1.Checked = false;
                 chkG11B151210_CH1.Checked = false;
                 chkG11B1210_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -1898,22 +1930,23 @@ namespace CWExpert
             {
                 chkG11B80_CH1.Checked = false;
                 chkG11B3020_CH1.Checked = false;
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B1715_CH1.Checked = false;
                 chkG11B2017_CH1.Checked = false;
                 chkG11B1210_CH1.Checked = false;
                 chkG11B201715_CH1.Checked = false;
                 chkG11B151210_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
                     MainForm.G11BandFiltersCH1[i] = false;
                 }
+
                 MainForm.G11BandFiltersCH1[(int)Band.B15M] = true;
                 MainForm.G11BandFiltersCH1[(int)Band.B12M] = true;
                 MainForm.G11BandFiltersCH1[(int)Band.B10M] = true;
-
             }
         }
 
@@ -1923,13 +1956,14 @@ namespace CWExpert
             {
                 chkG11B80_CH1.Checked = false;
                 chkG11B3020_CH1.Checked = false;
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B1715_CH1.Checked = false;
                 chkG11B2017_CH1.Checked = false;
                 chkG11B1210_CH1.Checked = false;
                 chkG11B201715_CH1.Checked = false;
-                chkG11B151210_CH2.Checked = false;
+                chkG11B151210_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH1.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -1946,13 +1980,14 @@ namespace CWExpert
             {
                 chkG11B80_CH2.Checked = false;
                 chkG11B3020_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B2017_CH2.Checked = false;
                 chkG11B1715_CH2.Checked = false;
                 chkG11B201715_CH2.Checked = false;
                 chkG11B1210_CH2.Checked = false;
                 chkG11B151210_CH2.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -1969,7 +2004,7 @@ namespace CWExpert
             {
                 chkG11B160_CH2.Checked = false;
                 chkG11B3020_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B2017_CH2.Checked = false;
                 chkG11B1715_CH2.Checked = false;
                 chkG11B201715_CH2.Checked = false;
@@ -1977,6 +2012,7 @@ namespace CWExpert
                 chkG11B151210_CH2.Checked = false;
                 chkG11B80_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -1987,9 +2023,9 @@ namespace CWExpert
             }
         }
 
-        private void chkG11B40_CH2_CheckedChanged(object sender, EventArgs e)
+        private void chkG11B6040_CH2_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkG11B40_CH2.Checked)
+            if (chkG11B6040_CH2.Checked)
             {
                 chkG11B160_CH2.Checked = false;
                 chkG11B80_CH2.Checked = false;
@@ -1999,8 +2035,9 @@ namespace CWExpert
                 chkG11B201715_CH2.Checked = false;
                 chkG11B1210_CH2.Checked = false;
                 chkG11B151210_CH2.Checked = false;
-                chkG11B40_CH1.Checked = false;
+                chkG11B6040_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -2011,13 +2048,39 @@ namespace CWExpert
             }
         }
 
+        private void chkG11B4030_CH2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkG11B4030_CH2.Checked)
+            {
+                chkG11B80_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
+                chkG11B2017_CH2.Checked = false;
+                chkG11B1715_CH2.Checked = false;
+                chkG11B201715_CH2.Checked = false;
+                chkG11B1210_CH2.Checked = false;
+                chkG11B151210_CH2.Checked = false;
+                chkG11B3020_CH2.Checked = false;
+                chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH1.Checked = false;
+                chkG11B160_CH2.Checked = false;
+
+                for (int i = 1; i < 20; i++)
+                {
+                    MainForm.G11BandFiltersCH2[i] = false;
+                }
+
+                MainForm.G11BandFiltersCH2[(int)Band.B40M] = true;
+                MainForm.G11BandFiltersCH2[(int)Band.B30M] = true;
+            }
+        }
+
         private void chkG11B3020_CH2_CheckedChanged(object sender, EventArgs e)
         {
             if (chkG11B3020_CH2.Checked)
             {
                 chkG11B160_CH2.Checked = false;
                 chkG11B80_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B2017_CH2.Checked = false;
                 chkG11B1715_CH2.Checked = false;
                 chkG11B201715_CH2.Checked = false;
@@ -2025,6 +2088,7 @@ namespace CWExpert
                 chkG11B151210_CH2.Checked = false;
                 chkG11B3020_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -2043,13 +2107,14 @@ namespace CWExpert
                 chkG11B160_CH2.Checked = false;
                 chkG11B80_CH2.Checked = false;
                 chkG11B3020_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B1715_CH2.Checked = false;
                 chkG11B201715_CH2.Checked = false;
                 chkG11B1210_CH2.Checked = false;
                 chkG11B151210_CH2.Checked = false;
                 chkG11B2017_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -2069,12 +2134,13 @@ namespace CWExpert
                 chkG11B80_CH2.Checked = false;
                 chkG11B3020_CH2.Checked = false;
                 chkG11B2017_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B201715_CH2.Checked = false;
                 chkG11B1210_CH2.Checked = false;
                 chkG11B151210_CH2.Checked = false;
                 chkG11B1715_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -2095,11 +2161,12 @@ namespace CWExpert
                 chkG11B3020_CH2.Checked = false;
                 chkG11B2017_CH2.Checked = false;
                 chkG11B1715_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B1210_CH2.Checked = false;
                 chkG11B151210_CH2.Checked = false;
                 chkG11B201715_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -2121,11 +2188,12 @@ namespace CWExpert
                 chkG11B3020_CH2.Checked = false;
                 chkG11B2017_CH2.Checked = false;
                 chkG11B1715_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B201715_CH2.Checked = false;
                 chkG11B151210_CH2.Checked = false;
                 chkG11B1210_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -2146,11 +2214,12 @@ namespace CWExpert
                 chkG11B3020_CH2.Checked = false;
                 chkG11B2017_CH2.Checked = false;
                 chkG11B1715_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B1210_CH2.Checked = false;
                 chkG11B201715_CH2.Checked = false;
                 chkG11B151210_CH1.Checked = false;
                 chkG11B6_CH2.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {
@@ -2167,15 +2236,17 @@ namespace CWExpert
         {
             if (chkG11B6_CH2.Checked)
             {
+                chkG11B160_CH2.Checked = false;
                 chkG11B80_CH2.Checked = false;
                 chkG11B3020_CH2.Checked = false;
-                chkG11B40_CH2.Checked = false;
-                chkG11B1715_CH2.Checked = false;
                 chkG11B2017_CH2.Checked = false;
+                chkG11B1715_CH2.Checked = false;
+                chkG11B6040_CH2.Checked = false;
                 chkG11B1210_CH2.Checked = false;
                 chkG11B201715_CH2.Checked = false;
                 chkG11B151210_CH2.Checked = false;
                 chkG11B6_CH1.Checked = false;
+                chkG11B4030_CH2.Checked = false;
 
                 for (int i = 1; i < 20; i++)
                 {

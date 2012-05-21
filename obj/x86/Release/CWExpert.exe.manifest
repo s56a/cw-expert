@@ -57,14 +57,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CWExpert.exe" size="582144">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CWExpert.exe" size="584704">
       <assemblyIdentity name="CWExpert" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ZmnovicXUjoZMnZL4sqV2s4r5b8=</dsig:DigestValue>
+        <dsig:DigestValue>4OlRpIsqQI1ntNsUMbLYuhEwJ48=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

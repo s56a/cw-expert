@@ -3,6 +3,9 @@
 //=================================================================
 // Copyright (C) 2011,2012 S56A YT7PWR
 //
+// This file is part of CWExpert.Adapted from code contained in fldigi
+// source code distribution.
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2

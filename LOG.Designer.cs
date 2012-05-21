@@ -42,6 +42,10 @@
             this.btnLogOpen = new System.Windows.Forms.Button();
             this.txtSearchCount = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.GroupBox();
+            this.txtQPSK250 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtPSK250 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.txtSSB = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtQPSK125 = new System.Windows.Forms.TextBox();
@@ -73,13 +77,9 @@
             this.btnLOGAddRow = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.NewLOGFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.txtPSK250 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtQPSK250 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridQSOLog)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.grpLOG.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridQSOLog)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,42 +114,46 @@
             // 
             // btnLogImport
             // 
+            this.btnLogImport.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLogImport.Location = new System.Drawing.Point(418, 59);
             this.btnLogImport.Name = "btnLogImport";
             this.btnLogImport.Size = new System.Drawing.Size(65, 23);
             this.btnLogImport.TabIndex = 1;
             this.btnLogImport.Text = "Import LOG";
-            this.btnLogImport.UseVisualStyleBackColor = true;
+            this.btnLogImport.UseVisualStyleBackColor = false;
             this.btnLogImport.Click += new System.EventHandler(this.btnLogImport_Click);
             // 
             // btnLogExport
             // 
+            this.btnLogExport.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLogExport.Location = new System.Drawing.Point(484, 59);
             this.btnLogExport.Name = "btnLogExport";
             this.btnLogExport.Size = new System.Drawing.Size(65, 23);
             this.btnLogExport.TabIndex = 2;
             this.btnLogExport.Text = "Export LOG";
-            this.btnLogExport.UseVisualStyleBackColor = true;
+            this.btnLogExport.UseVisualStyleBackColor = false;
             this.btnLogExport.Click += new System.EventHandler(this.btnLogExport_Click);
             // 
             // btnLOGEraseRow
             // 
+            this.btnLOGEraseRow.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGEraseRow.Location = new System.Drawing.Point(110, 59);
             this.btnLOGEraseRow.Name = "btnLOGEraseRow";
             this.btnLOGEraseRow.Size = new System.Drawing.Size(27, 23);
             this.btnLOGEraseRow.TabIndex = 3;
             this.btnLOGEraseRow.Text = "-";
-            this.btnLOGEraseRow.UseVisualStyleBackColor = true;
+            this.btnLOGEraseRow.UseVisualStyleBackColor = false;
             this.btnLOGEraseRow.Click += new System.EventHandler(this.btnLOGEraseRow_Click);
             // 
             // btnLogSearch
             // 
+            this.btnLogSearch.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLogSearch.Location = new System.Drawing.Point(231, 22);
             this.btnLogSearch.Name = "btnLogSearch";
             this.btnLogSearch.Size = new System.Drawing.Size(75, 23);
             this.btnLogSearch.TabIndex = 4;
             this.btnLogSearch.Text = "Search";
-            this.btnLogSearch.UseVisualStyleBackColor = true;
+            this.btnLogSearch.UseVisualStyleBackColor = false;
             this.btnLogSearch.Click += new System.EventHandler(this.btnLogSearch_Click);
             // 
             // txtCALL
@@ -171,7 +175,7 @@
             this.lblLogSearch.Text = "CALL";
             // 
             // grpLOG
-            //
+            // 
             this.grpLOG.Controls.Add(this.btnLogOpen);
             this.grpLOG.Controls.Add(this.txtSearchCount);
             this.grpLOG.Controls.Add(this.panel1);
@@ -201,12 +205,13 @@
             // 
             // btnLogOpen
             // 
+            this.btnLogOpen.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLogOpen.Location = new System.Drawing.Point(286, 59);
             this.btnLogOpen.Name = "btnLogOpen";
             this.btnLogOpen.Size = new System.Drawing.Size(65, 23);
             this.btnLogOpen.TabIndex = 19;
             this.btnLogOpen.Text = "Open";
-            this.btnLogOpen.UseVisualStyleBackColor = true;
+            this.btnLogOpen.UseVisualStyleBackColor = false;
             this.btnLogOpen.Click += new System.EventHandler(this.btnLogOpen_Click);
             // 
             // txtSearchCount
@@ -248,6 +253,42 @@
             this.panel1.Size = new System.Drawing.Size(410, 88);
             this.panel1.TabIndex = 20;
             this.panel1.TabStop = false;
+            // 
+            // txtQPSK250
+            // 
+            this.txtQPSK250.Location = new System.Drawing.Point(357, 38);
+            this.txtQPSK250.MaxLength = 16;
+            this.txtQPSK250.Name = "txtQPSK250";
+            this.txtQPSK250.Size = new System.Drawing.Size(40, 20);
+            this.txtQPSK250.TabIndex = 40;
+            this.txtQPSK250.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(304, 41);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(54, 13);
+            this.label11.TabIndex = 41;
+            this.label11.Text = "QPSK250";
+            // 
+            // txtPSK250
+            // 
+            this.txtPSK250.Location = new System.Drawing.Point(251, 12);
+            this.txtPSK250.MaxLength = 16;
+            this.txtPSK250.Name = "txtPSK250";
+            this.txtPSK250.Size = new System.Drawing.Size(40, 20);
+            this.txtPSK250.TabIndex = 38;
+            this.txtPSK250.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(199, 15);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(46, 13);
+            this.label10.TabIndex = 39;
+            this.label10.Text = "PSK250";
             // 
             // txtSSB
             // 
@@ -413,112 +454,123 @@
             // 
             // btnSearchFirst
             // 
+            this.btnSearchFirst.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnSearchFirst.Location = new System.Drawing.Point(316, 22);
             this.btnSearchFirst.Name = "btnSearchFirst";
             this.btnSearchFirst.Size = new System.Drawing.Size(27, 23);
             this.btnSearchFirst.TabIndex = 17;
             this.btnSearchFirst.Text = "<<";
-            this.btnSearchFirst.UseVisualStyleBackColor = true;
+            this.btnSearchFirst.UseVisualStyleBackColor = false;
             this.btnSearchFirst.Click += new System.EventHandler(this.btnSearchFirst_Click);
             // 
             // btnSearchLast
             // 
+            this.btnSearchLast.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnSearchLast.Location = new System.Drawing.Point(467, 22);
             this.btnSearchLast.Name = "btnSearchLast";
             this.btnSearchLast.Size = new System.Drawing.Size(27, 23);
             this.btnSearchLast.TabIndex = 16;
             this.btnSearchLast.Text = ">>";
-            this.btnSearchLast.UseVisualStyleBackColor = true;
+            this.btnSearchLast.UseVisualStyleBackColor = false;
             this.btnSearchLast.Click += new System.EventHandler(this.btnSearchLast_Click);
             // 
             // btnLOGLast
             // 
+            this.btnLOGLast.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGLast.Location = new System.Drawing.Point(176, 59);
             this.btnLOGLast.Name = "btnLOGLast";
             this.btnLOGLast.Size = new System.Drawing.Size(27, 23);
             this.btnLOGLast.TabIndex = 15;
             this.btnLOGLast.Text = ">>";
-            this.btnLOGLast.UseVisualStyleBackColor = true;
+            this.btnLOGLast.UseVisualStyleBackColor = false;
             this.btnLOGLast.Click += new System.EventHandler(this.btnLOGLast_Click);
             // 
             // btnLOGFirst
             // 
+            this.btnLOGFirst.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGFirst.Location = new System.Drawing.Point(11, 59);
             this.btnLOGFirst.Name = "btnLOGFirst";
             this.btnLOGFirst.Size = new System.Drawing.Size(27, 23);
             this.btnLOGFirst.TabIndex = 14;
             this.btnLOGFirst.Text = "<<";
-            this.btnLOGFirst.UseVisualStyleBackColor = true;
+            this.btnLOGFirst.UseVisualStyleBackColor = false;
             this.btnLOGFirst.Click += new System.EventHandler(this.btnLOGFirst_Click);
             // 
             // btnLOGPrev
             // 
+            this.btnLOGPrev.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGPrev.Location = new System.Drawing.Point(44, 59);
             this.btnLOGPrev.Name = "btnLOGPrev";
             this.btnLOGPrev.Size = new System.Drawing.Size(27, 23);
             this.btnLOGPrev.TabIndex = 13;
             this.btnLOGPrev.Text = "<";
-            this.btnLOGPrev.UseVisualStyleBackColor = true;
+            this.btnLOGPrev.UseVisualStyleBackColor = false;
             this.btnLOGPrev.Click += new System.EventHandler(this.btnLOGPrev_Click);
             // 
             // btnLOGNext
             // 
+            this.btnLOGNext.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGNext.Location = new System.Drawing.Point(143, 59);
             this.btnLOGNext.Name = "btnLOGNext";
             this.btnLOGNext.Size = new System.Drawing.Size(27, 23);
             this.btnLOGNext.TabIndex = 12;
             this.btnLOGNext.Text = ">";
-            this.btnLOGNext.UseVisualStyleBackColor = true;
+            this.btnLOGNext.UseVisualStyleBackColor = false;
             this.btnLOGNext.Click += new System.EventHandler(this.btnLOGNext_Click);
             // 
             // btnLOGNew
             // 
+            this.btnLOGNew.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGNew.Location = new System.Drawing.Point(352, 59);
             this.btnLOGNew.Name = "btnLOGNew";
             this.btnLOGNew.Size = new System.Drawing.Size(65, 23);
             this.btnLOGNew.TabIndex = 11;
             this.btnLOGNew.Text = "New LOG";
-            this.btnLOGNew.UseVisualStyleBackColor = true;
+            this.btnLOGNew.UseVisualStyleBackColor = false;
             this.btnLOGNew.Click += new System.EventHandler(this.btnLOGNew_Click);
             // 
             // btnSearchNext
             // 
+            this.btnSearchNext.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnSearchNext.Location = new System.Drawing.Point(430, 22);
             this.btnSearchNext.Name = "btnSearchNext";
             this.btnSearchNext.Size = new System.Drawing.Size(27, 23);
             this.btnSearchNext.TabIndex = 10;
             this.btnSearchNext.Text = ">";
-            this.btnSearchNext.UseVisualStyleBackColor = true;
+            this.btnSearchNext.UseVisualStyleBackColor = false;
             this.btnSearchNext.Click += new System.EventHandler(this.btnSearchNext_Click);
             // 
             // btnSearchPrev
             // 
+            this.btnSearchPrev.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnSearchPrev.Location = new System.Drawing.Point(353, 22);
             this.btnSearchPrev.Name = "btnSearchPrev";
             this.btnSearchPrev.Size = new System.Drawing.Size(27, 23);
             this.btnSearchPrev.TabIndex = 9;
             this.btnSearchPrev.Text = "<";
-            this.btnSearchPrev.UseVisualStyleBackColor = true;
+            this.btnSearchPrev.UseVisualStyleBackColor = false;
             this.btnSearchPrev.Click += new System.EventHandler(this.btnSearchPrev_Click);
             // 
             // btnLOGSave
             // 
+            this.btnLOGSave.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGSave.Location = new System.Drawing.Point(220, 59);
             this.btnLOGSave.Name = "btnLOGSave";
             this.btnLOGSave.Size = new System.Drawing.Size(65, 23);
             this.btnLOGSave.TabIndex = 8;
             this.btnLOGSave.Text = "Save";
-            this.btnLOGSave.UseVisualStyleBackColor = true;
+            this.btnLOGSave.UseVisualStyleBackColor = false;
             this.btnLOGSave.Click += new System.EventHandler(this.btnLOGSave_Click);
             // 
             // btnLOGAddRow
             // 
+            this.btnLOGAddRow.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGAddRow.Location = new System.Drawing.Point(77, 59);
             this.btnLOGAddRow.Name = "btnLOGAddRow";
             this.btnLOGAddRow.Size = new System.Drawing.Size(27, 23);
             this.btnLOGAddRow.TabIndex = 7;
             this.btnLOGAddRow.Text = "+";
-            this.btnLOGAddRow.UseVisualStyleBackColor = true;
+            this.btnLOGAddRow.UseVisualStyleBackColor = false;
             this.btnLOGAddRow.Click += new System.EventHandler(this.btnLOGAddRow_Click);
             // 
             // openFileDialog1
@@ -531,48 +583,12 @@
             this.NewLOGFileDialog.Filter = "\"LOG file|*.xml|All files|*.*\"";
             this.NewLOGFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.NewLOGFileDialog_FileOk);
             // 
-            // txtPSK250
-            // 
-            this.txtPSK250.Location = new System.Drawing.Point(251, 12);
-            this.txtPSK250.MaxLength = 16;
-            this.txtPSK250.Name = "txtPSK250";
-            this.txtPSK250.Size = new System.Drawing.Size(40, 20);
-            this.txtPSK250.TabIndex = 38;
-            this.txtPSK250.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(199, 15);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(46, 13);
-            this.label10.TabIndex = 39;
-            this.label10.Text = "PSK250";
-            // 
-            // txtQPSK250
-            // 
-            this.txtQPSK250.Location = new System.Drawing.Point(357, 38);
-            this.txtQPSK250.MaxLength = 16;
-            this.txtQPSK250.Name = "txtQPSK250";
-            this.txtQPSK250.Size = new System.Drawing.Size(40, 20);
-            this.txtQPSK250.TabIndex = 40;
-            this.txtQPSK250.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(304, 41);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 13);
-            this.label11.TabIndex = 41;
-            this.label11.Text = "QPSK250";
-            // 
             // LOG
             // 
-            this.Controls.Add(this.dataGridQSOLog);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 534);
+            this.Controls.Add(this.dataGridQSOLog);
             this.Controls.Add(this.grpLOG);
             this.DoubleBuffered = true;
             this.MinimizeBox = false;
@@ -584,6 +600,7 @@
             this.Load += new System.EventHandler(this.LOG_Load);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.LOG_Closing);
             this.Resize += new System.EventHandler(this.LOG_Resize);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridQSOLog)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.grpLOG.ResumeLayout(false);
             this.grpLOG.PerformLayout();

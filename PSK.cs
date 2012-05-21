@@ -3,6 +3,9 @@
 //=================================================================
 // Copyright (C) 2011,2012 S56A YT7PWR
 //
+// This file is part of CWExpert.Adapted from code contained in fldigi
+// source code distribution.
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
@@ -1286,10 +1289,10 @@ namespace CWExpert
 	"101101011011"		/* 255 - ˙	*/
 };
 
-        /*
-         * The same in a format more suitable for decoding.
-         */
-        uint[] varicodetab2 = 
+   /*
+   * The same in a format more suitable for decoding.
+   */
+    uint[] varicodetab2 = 
     {
 	0x2AB, 0x2DB, 0x2ED, 0x377, 0x2EB, 0x35F, 0x2EF, 0x2FD, 
 	0x2FF, 0x0EF, 0x01D, 0x36F, 0x2DD, 0x01F, 0x375, 0x3AB, 
@@ -1745,7 +1748,7 @@ namespace CWExpert
                 }
 
                 dcd = Math.Round(MainForm.PSKPitch - trx.modem[index].rx_frequency, 3).ToString("f3");
-                dcd = dcd.PadRight(6, '0');
+                dcd = dcd.PadRight(3, '0');
                 MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", 100 + index, dcd);
 
                 return 0;

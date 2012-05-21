@@ -59,32 +59,35 @@
             // 
             // btnLOGSaveAs
             // 
+            this.btnLOGSaveAs.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGSaveAs.Location = new System.Drawing.Point(160, 440);
             this.btnLOGSaveAs.Name = "btnLOGSaveAs";
             this.btnLOGSaveAs.Size = new System.Drawing.Size(75, 23);
             this.btnLOGSaveAs.TabIndex = 1;
             this.btnLOGSaveAs.Text = "Save As";
-            this.btnLOGSaveAs.UseVisualStyleBackColor = true;
+            this.btnLOGSaveAs.UseVisualStyleBackColor = false;
             this.btnLOGSaveAs.Click += new System.EventHandler(this.btnLOGSaveAs_Click);
             // 
             // btnLOGExport
             // 
+            this.btnLOGExport.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGExport.Location = new System.Drawing.Point(364, 33);
             this.btnLOGExport.Name = "btnLOGExport";
             this.btnLOGExport.Size = new System.Drawing.Size(75, 23);
             this.btnLOGExport.TabIndex = 2;
             this.btnLOGExport.Text = "Export";
-            this.btnLOGExport.UseVisualStyleBackColor = true;
+            this.btnLOGExport.UseVisualStyleBackColor = false;
             this.btnLOGExport.Click += new System.EventHandler(this.btnLOGExport_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnCancel.Location = new System.Drawing.Point(350, 440);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // comboLOGformat
@@ -126,12 +129,13 @@
             // 
             // btnPreviewClear
             // 
+            this.btnPreviewClear.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnPreviewClear.Location = new System.Drawing.Point(255, 440);
             this.btnPreviewClear.Name = "btnPreviewClear";
             this.btnPreviewClear.Size = new System.Drawing.Size(75, 23);
             this.btnPreviewClear.TabIndex = 7;
             this.btnPreviewClear.Text = "Clear";
-            this.btnPreviewClear.UseVisualStyleBackColor = true;
+            this.btnPreviewClear.UseVisualStyleBackColor = false;
             this.btnPreviewClear.Click += new System.EventHandler(this.btnPreviewClear_Click);
             // 
             // udFirst

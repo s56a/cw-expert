@@ -106,7 +106,9 @@ namespace CWExpert
             // 
             // btnSave
             // 
+            this.btnSave.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSave.ForeColor = System.Drawing.Color.Black;
             this.btnSave.Location = new System.Drawing.Point(273, 219);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
@@ -117,6 +119,8 @@ namespace CWExpert
             // 
             // btnClear
             // 
+            this.btnClear.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnClear.ForeColor = System.Drawing.Color.Black;
             this.btnClear.Location = new System.Drawing.Point(93, 219);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
@@ -127,6 +131,8 @@ namespace CWExpert
             // 
             // btnSend
             // 
+            this.btnSend.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnSend.ForeColor = System.Drawing.Color.Black;
             this.btnSend.Location = new System.Drawing.Point(183, 219);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
@@ -137,6 +143,8 @@ namespace CWExpert
             // 
             // btn1
             // 
+            this.btn1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn1.ForeColor = System.Drawing.Color.Black;
             this.btn1.Location = new System.Drawing.Point(10, 16);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(70, 23);
@@ -147,6 +155,8 @@ namespace CWExpert
             // 
             // btn2
             // 
+            this.btn2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn2.ForeColor = System.Drawing.Color.Black;
             this.btn2.Location = new System.Drawing.Point(10, 45);
             this.btn2.Name = "btn2";
             this.btn2.Size = new System.Drawing.Size(70, 23);
@@ -157,6 +167,8 @@ namespace CWExpert
             // 
             // btn4
             // 
+            this.btn4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn4.ForeColor = System.Drawing.Color.Black;
             this.btn4.Location = new System.Drawing.Point(10, 103);
             this.btn4.Name = "btn4";
             this.btn4.Size = new System.Drawing.Size(70, 23);
@@ -167,6 +179,8 @@ namespace CWExpert
             // 
             // btn3
             // 
+            this.btn3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn3.ForeColor = System.Drawing.Color.Black;
             this.btn3.Location = new System.Drawing.Point(10, 74);
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(70, 23);
@@ -177,6 +191,8 @@ namespace CWExpert
             // 
             // btn6
             // 
+            this.btn6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn6.ForeColor = System.Drawing.Color.Black;
             this.btn6.Location = new System.Drawing.Point(10, 161);
             this.btn6.Name = "btn6";
             this.btn6.Size = new System.Drawing.Size(70, 23);
@@ -187,6 +203,8 @@ namespace CWExpert
             // 
             // btn5
             // 
+            this.btn5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn5.ForeColor = System.Drawing.Color.Black;
             this.btn5.Location = new System.Drawing.Point(10, 132);
             this.btn5.Name = "btn5";
             this.btn5.Size = new System.Drawing.Size(70, 23);
@@ -197,6 +215,8 @@ namespace CWExpert
             // 
             // btn8
             // 
+            this.btn8.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn8.ForeColor = System.Drawing.Color.Black;
             this.btn8.Location = new System.Drawing.Point(10, 219);
             this.btn8.Name = "btn8";
             this.btn8.Size = new System.Drawing.Size(70, 23);
@@ -207,6 +227,8 @@ namespace CWExpert
             // 
             // btn7
             // 
+            this.btn7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn7.ForeColor = System.Drawing.Color.Black;
             this.btn7.Location = new System.Drawing.Point(10, 190);
             this.btn7.Name = "btn7";
             this.btn7.Size = new System.Drawing.Size(70, 23);
@@ -217,7 +239,9 @@ namespace CWExpert
             // 
             // btnSettings
             // 
+            this.btnSettings.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnSettings.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSettings.ForeColor = System.Drawing.Color.Black;
             this.btnSettings.Location = new System.Drawing.Point(363, 219);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(80, 23);
