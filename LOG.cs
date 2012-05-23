@@ -49,7 +49,15 @@ namespace CWExpert
 
         public LOG(CWExpert c)
         {
+            this.AutoScaleMode = AutoScaleMode.Inherit;
             InitializeComponent();
+            float dpi = this.CreateGraphics().DpiX;
+            float ratio = dpi / 96.0f;
+            string font_name = this.Font.Name;
+            float size = 8.25f / ratio;
+            System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
+            this.Font = new_font;
+
             MainForm = c;
             RestoreState();
             this.Text = "LOG Book  " + DB.LOGFilePath;
@@ -67,7 +75,12 @@ namespace CWExpert
                 dataGridQSOLog.DataSource = DB.log_ds.Tables["LOG"]; ;
                 prevWidth = dataGridQSOLog.Width;
                 dataGridQSOLog.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader);
-                dataGridQSOLog.DefaultCellStyle.Font = new Font("Tahoma", 9, FontStyle.Regular);
+                float dpi = this.CreateGraphics().DpiX;
+                float ratio = dpi / 96.0f;
+                string font_name = this.dataGridQSOLog.Font.Name;
+                float size = 9.0f / ratio;
+                System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
+                dataGridQSOLog.DefaultCellStyle.Font = new Font(font_name, size, FontStyle.Regular);
                 LOG_Resize(this, EventArgs.Empty);
                 LOGStatistic();
             }

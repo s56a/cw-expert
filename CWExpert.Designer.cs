@@ -447,7 +447,7 @@ namespace CWExpert
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F);  //, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setupMenuItem,
             this.modeToolStripMenuItem,
@@ -1568,6 +1568,7 @@ namespace CWExpert
             this.picMonitor.TabStop = false;
             this.picMonitor.MouseLeave += new System.EventHandler(this.picMonitor_MouseLeave);
             this.picMonitor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picMonitor_MouseMove);
+            this.picMonitor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picMonitor_MouseDown);
             this.picMonitor.Paint += new System.Windows.Forms.PaintEventHandler(this.picMonitor_Paint);
             this.picMonitor.MouseEnter += new System.EventHandler(this.picMonitor_MouseEnter);
             // 
@@ -3183,8 +3184,8 @@ namespace CWExpert
             // 
             // CWExpert
             // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1008, 562);
             this.Controls.Add(this.btnTune);
@@ -3200,13 +3201,14 @@ namespace CWExpert
             this.Controls.Add(this.grpMorseRunner2);
             this.Controls.Add(this.grpChannels);
             this.Controls.Add(this.grpMRChannels);
+            this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = new System.Drawing.Size(1920, 600);
             this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "CWExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "CWExpert  S56A - YT7PWR v2.0.1";
+            this.Text = "CWExpert  S56A - YT7PWR v2.0.3";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainFormMouseWheel);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.CWExpert_Closing);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CWExpert_KeyUp);

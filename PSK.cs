@@ -201,6 +201,7 @@ namespace CWExpert
         public Thread PSKThread2;
         public AutoResetEvent AudioEvent1;
         public AutoResetEvent AudioEvent2;
+        public AutoResetEvent AudioEventEnd1 = new AutoResetEvent(false);
         public bool run_thread = false;
         public double sql = 1.0;
         private HiPerfTimer display_timer;
@@ -2288,6 +2289,8 @@ namespace CWExpert
                             cnt = 0;
                         }
                     }
+
+                    AudioEventEnd1.Set();
                 }
             }
             catch (Exception ex)

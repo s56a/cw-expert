@@ -5146,7 +5146,7 @@ namespace CWExpert
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 388);
             this.Controls.Add(this.tbSetup);
             this.Controls.Add(this.btnApply);
