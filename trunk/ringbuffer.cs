@@ -1,9 +1,11 @@
 //=================================================================
-// complex ringbuffer.cs
+// complex and float ringbuffer.cs
 //=================================================================
-//
 // Copyright (C) 2011 S56A YT7PWR
-//
+//=================================================================
+// Derived from jack/ringbuffer.h
+// Translated to C# by Eric Wachsmann KE5DTO and Bob McGwier N4HY.
+//=================================================================
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
@@ -369,6 +371,49 @@ namespace CWExpert
                 wptr = (wptr + n2) & mask;
             }
             return to_write;
+        }
+
+        /// <summary>
+        /// Write from pointer buffer and overwrite if neccessary
+        /// </summary>
+        /// <param name="src">source</param>
+        /// <param name="cnt">count</param>
+        /// <param name="forced">overwrite</param>
+        /// <returns>succes</returns>
+        public bool WritePtr(float* src, int cnt, bool forced)
+        {
+            bool ovr = false;
+
+            if (WriteSpace() < cnt)
+                ovr = true;
+
+            int cnt2 = wptr + cnt;
+            int n1 = 0, n2 = 0;
+
+            if (cnt2 > size)
+            {
+                n1 = size - wptr;
+                n2 = cnt2 & mask;
+            }
+            else
+            {
+                n1 = cnt;
+                n2 = 0;
+            }
+
+            Marshal.Copy(new IntPtr(src), buf, wptr, n1);
+            wptr = (wptr + n1) & mask;
+
+            if (n2 != 0)
+            {
+                Marshal.Copy(new IntPtr(&src[n1]), buf, wptr, n2);
+                wptr = (wptr + n2) & mask;
+            }
+
+            if (ovr)
+                rptr = wptr+1;
+
+            return true;
         }
 
         /// <summary>

@@ -136,6 +136,9 @@ namespace CWExpert
         private static float[] tmp_buffer_ch2 = new float[2048];
         private static float[] tmp_buffer_ch3 = new float[2048];
         private static float[] tmp_buffer_ch4 = new float[2048];
+        public static RingBufferFloat rb_mon_l = new RingBufferFloat(1048576);
+        public static RingBufferFloat rb_mon_r = new RingBufferFloat(1048576);
+        public static bool monitor_paused = false;
 
         #endregion
 
@@ -593,6 +596,30 @@ namespace CWExpert
                             in_r = in_l_ptr1;
                         }
 
+                        rb_mon_l.WritePtr(in_l, buflen, true);
+                        rb_mon_r.WritePtr(in_r, buflen, true);
+
+                        /*if (monitor_paused)
+                        {
+                            while (rb_mon_l.ReadSpace() > buflen)
+                            {
+                                fixed (float* output_l = &tmp_buffer_ch1[0])
+                                fixed (float* output_r = &tmp_buffer_ch2[0])
+                                {
+                                    rb_mon_l.ReadPtr(in_l, buflen);
+                                    rb_mon_r.ReadPtr(in_r, buflen);
+                                    ExchangeSamples(0, in_l, in_r, output_l, output_r, buflen);
+                                    Array.Copy(tmp_buffer_ch1, MainForm.psk.ch1_buffer, buflen);
+                                    MainForm.psk.AudioEvent1.Set();
+                                    MainForm.psk.AudioEventEnd1.WaitOne(1);
+                                }
+                            }
+
+                            rb_mon_l.ReadAdvance(2*buflen);
+                            rb_mon_r.ReadAdvance(2*buflen);
+                            monitor_paused = false;
+                        }*/
+
                         fixed (float* output_l = &tmp_buffer_ch1[0])
                         fixed (float* output_r = &tmp_buffer_ch2[0])
                             ExchangeSamples(0, in_l, in_r, output_l, output_r, buflen);
@@ -622,140 +649,19 @@ namespace CWExpert
                             buffer_ptr_B++;
                         }
 
-                        switch (MainForm.OpModeVFOA)
+                        if (!monitor_paused)
                         {
-                            case Mode.CW:
-                                {
-                                    if (mox_switch_time >= 5)
-                                    {
-                                        if (buffer_ptr_A >= 2048)
-                                        {
-                                            Array.Copy(CH1_buffer, MainForm.cwDecoder.fft_buff_ch5, 2048);
-                                            MainForm.cwDecoder.AudioEvent1.Set();
-                                            buffer_ptr_A = 0;
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        mox_switch_time++;
-
-                                        if (buffer_ptr_A >= 2048)
-                                        {
-                                            Array.Copy(zero_bufferF, MainForm.cwDecoder.fft_buff_ch5, 2048);       // mute
-                                            MainForm.cwDecoder.AudioEvent1.Set();
-                                            array_ptr = (int*)output;
-                                            out_l_ptr1 = (float*)array_ptr[1];
-                                            out_r_ptr1 = (float*)array_ptr[0];
-                                            buffer_ptr_A = 0;
-                                        }
-                                    }
-                                }
-                                break;
-
-                            case Mode.RTTY:
-                                {
-                                    if (MainForm.rtty.run_thread)
-                                    {
-                                        if (mox_switch_time >= 5)
-                                        {
-                                            if (buffer_ptr_A >= 2048)
-                                            {
-                                                Array.Copy(CH1_buffer, MainForm.rtty.ch1_buffer, 2048);
-                                                Array.Copy(CH2_buffer, MainForm.rtty.ch2_buffer, 2048);
-                                                MainForm.rtty.AudioEventRX1.Set();
-                                                buffer_ptr_A = 0;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            mox_switch_time++;
-
-                                            if (buffer_ptr_A >= 2048)
-                                            {
-                                                Array.Copy(zero_bufferF, MainForm.rtty.ch1_buffer, 2048);
-                                                Array.Copy(zero_bufferF, MainForm.rtty.ch2_buffer, 2048);
-                                                MainForm.rtty.AudioEventRX1.Set();
-                                                array_ptr = (int*)output;
-                                                out_l_ptr1 = (float*)array_ptr[1];
-                                                out_r_ptr1 = (float*)array_ptr[0];
-                                                buffer_ptr_A = 0;
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-
-                            case Mode.BPSK31:
-                            case Mode.BPSK63:
-                            case Mode.BPSK125:
-                            case Mode.BPSK250:
-                            case Mode.QPSK31:
-                            case Mode.QPSK63:
-                            case Mode.QPSK125:
-                            case Mode.QPSK250:
-                                {
-                                    if (MainForm.psk.run_thread)
-                                    {
-                                        if (mox_switch_time >= 5)
-                                        {
-                                            if (buffer_ptr_A >= 2048)
-                                            {
-                                                Array.Copy(CH1_buffer, MainForm.psk.ch1_buffer, 2048);
-                                                MainForm.psk.AudioEvent1.Set();
-                                                buffer_ptr_A = 0;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            mox_switch_time++;
-
-                                            if (buffer_ptr_A >= 2048)
-                                            {
-                                                Array.Copy(zero_bufferF, MainForm.psk.ch1_buffer, 2048);    // mute
-                                                MainForm.psk.AudioEvent1.Set();
-                                                array_ptr = (int*)output;
-                                                out_l_ptr1 = (float*)array_ptr[1];
-                                                out_r_ptr1 = (float*)array_ptr[0];
-                                                buffer_ptr_A = 0;
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                        }
-
-                        if (RX2)
-                        {
-                            switch (MainForm.OpModeVFOB)
+                            switch (MainForm.OpModeVFOA)
                             {
                                 case Mode.CW:
                                     {
                                         if (mox_switch_time >= 5)
                                         {
-                                            if (buffer_ptr_B >= 2048)
+                                            if (buffer_ptr_A >= 2048)
                                             {
-                                                switch (MainForm.OpModeVFOA)
-                                                {
-                                                    case Mode.CW:
-                                                    case Mode.BPSK31:
-                                                    case Mode.BPSK63:
-                                                    case Mode.BPSK125:
-                                                    case Mode.BPSK250:
-                                                    case Mode.QPSK31:
-                                                    case Mode.QPSK63:
-                                                    case Mode.QPSK125:
-                                                    case Mode.QPSK250:
-                                                        Array.Copy(CH2_buffer, MainForm.cwDecoder.fft_buff_ch6, 2048);
-                                                        break;
-
-                                                    case Mode.RTTY:
-                                                        Array.Copy(CH3_buffer, MainForm.cwDecoder.fft_buff_ch6, 2048);
-                                                        break;
-                                                }
-
-                                                MainForm.cwDecoder.AudioEvent2.Set();
-                                                buffer_ptr_B = 0;
+                                                Array.Copy(CH1_buffer, MainForm.cwDecoder.fft_buff_ch5, 2048);
+                                                MainForm.cwDecoder.AudioEvent1.Set();
+                                                buffer_ptr_A = 0;
                                             }
 
                                         }
@@ -763,14 +669,14 @@ namespace CWExpert
                                         {
                                             mox_switch_time++;
 
-                                            if (buffer_ptr_B >= 2048)
+                                            if (buffer_ptr_A >= 2048)
                                             {
-                                                Array.Copy(zero_bufferF, MainForm.cwDecoder.fft_buff_ch6, 2048);    // mute
-                                                MainForm.cwDecoder.AudioEvent2.Set();
+                                                Array.Copy(zero_bufferF, MainForm.cwDecoder.fft_buff_ch5, 2048);       // mute
+                                                MainForm.cwDecoder.AudioEvent1.Set();
                                                 array_ptr = (int*)output;
                                                 out_l_ptr1 = (float*)array_ptr[1];
                                                 out_r_ptr1 = (float*)array_ptr[0];
-                                                buffer_ptr_B = 0;
+                                                buffer_ptr_A = 0;
                                             }
                                         }
                                     }
@@ -782,28 +688,27 @@ namespace CWExpert
                                         {
                                             if (mox_switch_time >= 5)
                                             {
-                                                if (buffer_ptr_B >= 2048)
+                                                if (buffer_ptr_A >= 2048)
                                                 {
-
-                                                    Array.Copy(CH3_buffer, MainForm.rtty.ch3_buffer, 2048);
-                                                    Array.Copy(CH4_buffer, MainForm.rtty.ch4_buffer, 2048);
-                                                    MainForm.rtty.AudioEventRX2.Set();
-                                                    buffer_ptr_B = 0;
+                                                    Array.Copy(CH1_buffer, MainForm.rtty.ch1_buffer, 2048);
+                                                    Array.Copy(CH2_buffer, MainForm.rtty.ch2_buffer, 2048);
+                                                    MainForm.rtty.AudioEventRX1.Set();
+                                                    buffer_ptr_A = 0;
                                                 }
                                             }
                                             else
                                             {
                                                 mox_switch_time++;
 
-                                                if (buffer_ptr_B >= 2048)
+                                                if (buffer_ptr_A >= 2048)
                                                 {
-                                                    Array.Copy(zero_bufferF, MainForm.rtty.ch3_buffer, 2048);
-                                                    Array.Copy(zero_bufferF, MainForm.rtty.ch4_buffer, 2048);
-                                                    MainForm.rtty.AudioEventRX2.Set();
+                                                    Array.Copy(zero_bufferF, MainForm.rtty.ch1_buffer, 2048);
+                                                    Array.Copy(zero_bufferF, MainForm.rtty.ch2_buffer, 2048);
+                                                    MainForm.rtty.AudioEventRX1.Set();
                                                     array_ptr = (int*)output;
                                                     out_l_ptr1 = (float*)array_ptr[1];
                                                     out_r_ptr1 = (float*)array_ptr[0];
-                                                    buffer_ptr_B = 0;
+                                                    buffer_ptr_A = 0;
                                                 }
                                             }
                                         }
@@ -823,6 +728,40 @@ namespace CWExpert
                                         {
                                             if (mox_switch_time >= 5)
                                             {
+                                                if (buffer_ptr_A >= 2048)
+                                                {
+                                                    Array.Copy(CH1_buffer, MainForm.psk.ch1_buffer, 2048);
+                                                    MainForm.psk.AudioEvent1.Set();
+                                                    buffer_ptr_A = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                mox_switch_time++;
+
+                                                if (buffer_ptr_A >= 2048)
+                                                {
+                                                    Array.Copy(zero_bufferF, MainForm.psk.ch1_buffer, 2048);    // mute
+                                                    MainForm.psk.AudioEvent1.Set();
+                                                    array_ptr = (int*)output;
+                                                    out_l_ptr1 = (float*)array_ptr[1];
+                                                    out_r_ptr1 = (float*)array_ptr[0];
+                                                    buffer_ptr_A = 0;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+                            }
+
+                            if (RX2)
+                            {
+                                switch (MainForm.OpModeVFOB)
+                                {
+                                    case Mode.CW:
+                                        {
+                                            if (mox_switch_time >= 5)
+                                            {
                                                 if (buffer_ptr_B >= 2048)
                                                 {
                                                     switch (MainForm.OpModeVFOA)
@@ -836,17 +775,18 @@ namespace CWExpert
                                                         case Mode.QPSK63:
                                                         case Mode.QPSK125:
                                                         case Mode.QPSK250:
-                                                            Array.Copy(CH2_buffer, MainForm.psk.ch2_buffer, 2048);
+                                                            Array.Copy(CH2_buffer, MainForm.cwDecoder.fft_buff_ch6, 2048);
                                                             break;
 
                                                         case Mode.RTTY:
-                                                            Array.Copy(CH3_buffer, MainForm.psk.ch2_buffer, 2048);
+                                                            Array.Copy(CH3_buffer, MainForm.cwDecoder.fft_buff_ch6, 2048);
                                                             break;
                                                     }
 
-                                                    MainForm.psk.AudioEvent2.Set();
+                                                    MainForm.cwDecoder.AudioEvent2.Set();
                                                     buffer_ptr_B = 0;
                                                 }
+
                                             }
                                             else
                                             {
@@ -854,8 +794,8 @@ namespace CWExpert
 
                                                 if (buffer_ptr_B >= 2048)
                                                 {
-                                                    Array.Copy(zero_bufferF, MainForm.psk.ch2_buffer, 2048);    // mute
-                                                    MainForm.psk.AudioEvent2.Set();
+                                                    Array.Copy(zero_bufferF, MainForm.cwDecoder.fft_buff_ch6, 2048);    // mute
+                                                    MainForm.cwDecoder.AudioEvent2.Set();
                                                     array_ptr = (int*)output;
                                                     out_l_ptr1 = (float*)array_ptr[1];
                                                     out_r_ptr1 = (float*)array_ptr[0];
@@ -863,8 +803,98 @@ namespace CWExpert
                                                 }
                                             }
                                         }
-                                    }
-                                    break;
+                                        break;
+
+                                    case Mode.RTTY:
+                                        {
+                                            if (MainForm.rtty.run_thread)
+                                            {
+                                                if (mox_switch_time >= 5)
+                                                {
+                                                    if (buffer_ptr_B >= 2048)
+                                                    {
+
+                                                        Array.Copy(CH3_buffer, MainForm.rtty.ch3_buffer, 2048);
+                                                        Array.Copy(CH4_buffer, MainForm.rtty.ch4_buffer, 2048);
+                                                        MainForm.rtty.AudioEventRX2.Set();
+                                                        buffer_ptr_B = 0;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    mox_switch_time++;
+
+                                                    if (buffer_ptr_B >= 2048)
+                                                    {
+                                                        Array.Copy(zero_bufferF, MainForm.rtty.ch3_buffer, 2048);
+                                                        Array.Copy(zero_bufferF, MainForm.rtty.ch4_buffer, 2048);
+                                                        MainForm.rtty.AudioEventRX2.Set();
+                                                        array_ptr = (int*)output;
+                                                        out_l_ptr1 = (float*)array_ptr[1];
+                                                        out_r_ptr1 = (float*)array_ptr[0];
+                                                        buffer_ptr_B = 0;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+
+                                    case Mode.BPSK31:
+                                    case Mode.BPSK63:
+                                    case Mode.BPSK125:
+                                    case Mode.BPSK250:
+                                    case Mode.QPSK31:
+                                    case Mode.QPSK63:
+                                    case Mode.QPSK125:
+                                    case Mode.QPSK250:
+                                        {
+                                            if (MainForm.psk.run_thread)
+                                            {
+                                                if (mox_switch_time >= 5)
+                                                {
+                                                    if (buffer_ptr_B >= 2048)
+                                                    {
+                                                        switch (MainForm.OpModeVFOA)
+                                                        {
+                                                            case Mode.CW:
+                                                            case Mode.BPSK31:
+                                                            case Mode.BPSK63:
+                                                            case Mode.BPSK125:
+                                                            case Mode.BPSK250:
+                                                            case Mode.QPSK31:
+                                                            case Mode.QPSK63:
+                                                            case Mode.QPSK125:
+                                                            case Mode.QPSK250:
+                                                                Array.Copy(CH2_buffer, MainForm.psk.ch2_buffer, 2048);
+                                                                break;
+
+                                                            case Mode.RTTY:
+                                                                Array.Copy(CH3_buffer, MainForm.psk.ch2_buffer, 2048);
+                                                                break;
+                                                        }
+
+                                                        MainForm.psk.AudioEvent2.Set();
+                                                        buffer_ptr_B = 0;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    mox_switch_time++;
+
+                                                    if (buffer_ptr_B >= 2048)
+                                                    {
+                                                        Array.Copy(zero_bufferF, MainForm.psk.ch2_buffer, 2048);    // mute
+                                                        MainForm.psk.AudioEvent2.Set();
+                                                        array_ptr = (int*)output;
+                                                        out_l_ptr1 = (float*)array_ptr[1];
+                                                        out_r_ptr1 = (float*)array_ptr[0];
+                                                        buffer_ptr_B = 0;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                }
                             }
                         }
 
@@ -1830,6 +1860,9 @@ namespace CWExpert
             {
                 monitor_enabled = false;
                 buffer_ptr_A = 0;
+
+                if (rb_mon_l != null) rb_mon_l.Restart(8 * 1048576);
+                if (rb_mon_r != null) rb_mon_r.Restart(8 * 1048576);
 
                 for (int i = 0; i < 2048; i++)
                 {

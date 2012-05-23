@@ -293,7 +293,15 @@ namespace CWExpert
         {
             try
             {
+                this.AutoScaleMode = AutoScaleMode.Inherit;
                 InitializeComponent();
+                float dpi = this.CreateGraphics().DpiX;
+                float ratio = dpi / 96.0f;
+                string font_name = this.Font.Name;
+                float size = 8.25f / ratio;
+                System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
+                this.Font = new_font;
+
                 MainForm = form;
                 GetOptions();
                 SetWindowPos(this.Handle.ToInt32(), -1, this.Left, this.Top,

@@ -3031,6 +3031,7 @@ namespace CWExpert
                                         if (detect_name)
                                         {
                                             text = text.Replace(".", "");
+                                            text = text.Replace("-", "");
                                             text = text.Replace(":", "");
                                             text = text.Replace(" ", "");
                                             txtLogName.AppendText(text);
@@ -3038,6 +3039,7 @@ namespace CWExpert
                                         else if (detect_qth)
                                         {
                                             text = text.Replace(".", "");
+                                            text = text.Replace("-", "");
                                             text = text.Replace(" ", "");
                                             text = text.Replace(":", "");
                                             txtLogQTH.AppendText(text);
@@ -3045,9 +3047,14 @@ namespace CWExpert
                                         else if (detect_rst)
                                         {
                                             text = text.Replace(".", "");
+                                            text = text.Replace("-", "");
                                             text = text.Replace(" ", "");
                                             text = text.Replace(":", "");
-                                            txtLogRST.AppendText(text);
+
+                                            if (IsNumber(text))
+                                                txtLogRST.AppendText(text);
+                                            else
+                                                txtLogRST.Clear();
                                         }
                                         else if (detect_call)
                                         {
@@ -3063,9 +3070,14 @@ namespace CWExpert
                                         else if (detect_loc)
                                         {
                                             text = text.Replace(".", "");
+                                            text = text.Replace("-", "");
                                             text = text.Replace(" ", "");
                                             text = text.Replace(":", "");
-                                            txtLOGLOC.AppendText(text.ToUpper());
+
+                                            if (IsLocator(text.ToUpper()))
+                                                txtLOGLOC.AppendText(text.ToUpper());
+                                            else
+                                                txtLOGLOC.Clear();
                                         }
                                         else if (detect_info)
                                         {
@@ -7437,7 +7449,11 @@ namespace CWExpert
                 DX.panadapter_target_focused = false;
 #endif
                 Display_GDI.DisplayCursorY = e.Y;
-                float x = PixelToHz(e.X);
+
+                double low = losc * 1e6 + Display_GDI.RXDisplayLow;
+                double high = losc * 1e6 + Display_GDI.RXDisplayHigh;
+                double width = high - low;
+                float x = (float)(low + ((double)e.X / (double)picMonitor.Width * (double)width));
 
                 if (Audio.SDRmode)
                 {
@@ -7466,13 +7482,37 @@ namespace CWExpert
         private void picMonitor_MouseEnter(object sender, EventArgs e)
         {
             grpMonitor.Focus();
-            //grpMonitor.ForeColor = Color.Yellow;
         }
 
         private void picMonitor_MouseLeave(object sender, EventArgs e)
         {
             btnStartMR.Focus();
-            //grpMonitor.ForeColor = Color.White;
+        }
+
+        private void picMonitor_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    double low = losc * 1e6 + Display_GDI.RXDisplayLow;
+                    double high = losc * 1e6 + Display_GDI.RXDisplayHigh;
+
+                    double width = high - low;
+                    float x = (float)(low + ((double)e.X / (double)picMonitor.Width * (double)width));
+
+                    if (tuning_mode == TuneMode.Off || tuning_mode == TuneMode.VFOA)
+                        VFOA = x / 1e6;
+                    else
+                        VFOB = x / 1e6;
+
+                    //Audio.monitor_paused = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private bool UpdateDisplayPanadapterAverage()
@@ -9633,6 +9673,35 @@ namespace CWExpert
             {
                 if (this.WindowState != FormWindowState.Minimized)
                 {
+                    if (!booting)
+                    {
+                        float dpi = this.CreateGraphics().DpiX;
+
+                        this.AutoScaleMode = AutoScaleMode.Dpi;
+                        SizeF d = this.AutoScaleDimensions;
+                        d.Height = dpi;
+                        d.Width = dpi;
+                        this.AutoScaleDimensions = d;
+                        float ratio = dpi / 96.0f;
+                        string font_name = this.Font.Name;
+                        float size = (float)(8.25 / ratio);
+                        System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
+                        this.Font = new_font;
+                        font_name = txtVFOA.Font.Name;
+                        size = 14.25f / ratio;
+                        new_font = new System.Drawing.Font(font_name, size);
+                        txtVFOA.Font = new_font;
+                        size = 9.75f / ratio;
+                        new_font = new System.Drawing.Font(font_name, size);
+                        txtVFOB.Font = new_font;
+                        txtLosc.Font = new_font;
+                        font_name = this.menuStrip1.Font.Name;
+                        this.menuStrip1.Font = new System.Drawing.Font(font_name, size);
+                        this.menuStrip1.Size = new Size(this.menuStrip1.Width, (int)(25 / ratio));
+                        this.PerformAutoScale();
+                        this.PerformLayout();
+                    }
+
                     int w = this.Width - grpGenesisRadio.Width - 45;
                     double q = w / 1.454;
                     double a = q / 2.2;
@@ -10032,5 +10101,99 @@ namespace CWExpert
 
         #endregion
 
+        #region ROBOT
+
+        bool IsNumber(string test)
+        {
+            try
+            {
+                bool result = false;
+
+                foreach (char q in test)
+                {
+                    switch (q)
+                    {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            result = true;
+                            break;
+
+                        default:
+                            result = false;
+                            goto end;
+                            break;
+                    }
+                }
+
+            end:
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+                return false;
+            }
+        }
+
+        bool IsLetter(char test)
+        {
+            try
+            {
+                bool result = false;
+                int q = (int)test;
+
+                if((q>=65 && q<=90 || (q>=97 && q<= 122)))      // a-z A-Z
+                result = true;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+                return false;
+            }
+        }
+
+        bool IsLocator(string test)
+        {
+            try
+            {
+                bool result = false;
+
+                if (test.Length != 6)
+                    goto end;
+
+                char[] loc = test.ToCharArray();
+
+                if (!IsLetter(loc[0]) && !IsLetter(loc[1]))
+                    goto end;
+
+                if(!IsNumber(loc[2].ToString()) && !IsNumber(loc[3].ToString()))
+                    goto end;
+
+                if (!IsLetter(loc[4]) && !IsLetter(loc[5]))
+                    goto end;
+
+                result = true;
+
+            end:
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+                return false;
+            }
+        }
+
+        #endregion
     }
 }
