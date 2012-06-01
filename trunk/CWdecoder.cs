@@ -37,12 +37,12 @@ namespace CWExpert
 
         delegate void CrossThreadCallback(string command, string data);
         delegate void CrossThreadSetText(string command, int channel_no, string out_txt);
+        delegate void CrossThreadSetMRText(int channel_no, string out_txt);
 
         public const int intg = 3;
         public int eot = 0;
         public int mytimer = 0;
         public double glblthd = 8;
-        public int activech = 17;
         public int bot = 0;
         public float[] sigave = new float[2048];
         public int tmin = 2;
@@ -62,7 +62,7 @@ namespace CWExpert
         public int rate = 8000;
         public int FFTlen = 64;
         public int F2L = 128;
-        public const int aver = 35;
+        public int aver = 35;
         public int bwl = 1;
         public int bwh = 62;
         public bool run_thread = false;
@@ -94,24 +94,24 @@ namespace CWExpert
         public double[] snr;
         public string[] calls;
         public double thld = 0.01;
-        public bool[] enable;
+        public int[] enable;
         public int active = 0;
-        public string[] output; // = new string[FFTlen];
-        public int[] sum; // = new int[FFTlen];
-        public int[] ave; // = new int[FFTlen];
-        public double[] Noise; // = new double[FFTlen];
-        public float[] RealF; // = new float[F2L * 2];
-        public float[] ImagF; // = new float[F2L];
-        public float[,] Mag; // = new float[32, 32];    // 32 * 8mS, 32 * 64Hz
-        public double[,] medo; // = new double[FFTlen, 5];
-        public double[] maxim; // = new double[F2L];
-        public double[] temp; // = new double[FFTlen];
-        public float[] signal; // = new double[F2L];
-        public int[] broj; // = new int[FFTlen];
-        public double[] si; // = new double[F2L];
-        public double[] co; // = new double[F2L];
-        public float[] wd; // = new float[F2L];
-        public int[] tim; // = new int[FFTlen];
+        public string[] output;
+        public int[] sum;
+        public int[] ave;
+        public double[] Noise;
+        public double[] RealF;
+        public double[] ImagF;
+        public float[,] Mag;
+        public double[,] medo;
+        public double[] maxim;
+        public double[] temp;
+        public double[] signal;
+        public int[] broj;
+        public double[] si;
+        public double[] co;
+        public double[] wd;
+        public int[] tim;
         public double thd = 0;
         public double max = 0;
         private double Period = 0.0f;
@@ -119,22 +119,53 @@ namespace CWExpert
         public int tx_timer = 0;
         public int rx_timer = 50;
         public int dotmin = 0;
-        public byte[] bitrev; // = new byte[F2L];
-        public float[] old1; // = new float[FFTlen];
-        public bool[] keyes; // = new bool[FFTlen];
-        public bool[] valid; // = new bool[FFTlen];
+        public int[] bitrev;
+        public float[] old1;
+        public bool[] keyes;
+        public int[] valid;
         public int nofs = 0;
-        private float[] agcvol;  //= new float[64];
-        private double[] fagcvol;  //= new double[64];
+        private float[] agcvol;
+        private double[] fagcvol;
         private HiPerfTimer display_timer;
         private CWExpert MainForm;
         public bool run_rx1 = false;
         public bool run_rx2 = false;
         private Mutex fft_mutex = new Mutex();
+        public bool qso = false;
+        public bool rip = false;
+        public double[] prag;
+        public bool[] lids;
+        public const int agc = 32;
+        public const int wndw = 64;
+        public int ovrlp;
+        public bool hamming = false;
+        public int counter = 0;
+        public Int32 txctr = 0;
+        public int activech, donja, gornja;
+        public int freq = 0;
+        public float[] audio_buffer;
 
         #endregion
 
         #region properties
+
+        private double sql = 0.1;
+        public double SQL
+        {
+            get { return sql; }
+            set 
+            {
+                sql = value;
+
+                if (Noise != null)
+                {
+                    for (int n = 0; n < FFTlen; n++)
+                    {
+                        Noise[n] = value * Math.Sqrt(0.05);
+                    }
+                }
+            }
+        }
 
         private bool sql_on = false;
         public bool SqlOn
@@ -167,6 +198,7 @@ namespace CWExpert
                 AudioEvent1 = new AutoResetEvent(false);
                 AudioEvent2 = new AutoResetEvent(false);
                 once = true;
+                audio_buffer = new float[2048];
             }
             catch (Exception ex)
             {
@@ -197,134 +229,233 @@ namespace CWExpert
 
             try
             {
-                rate = Audio.SampleRate;
-                frame_segment = 32 * (96000 / Audio.SampleRate);
-
                 if (Audio.SDRmode)
                 {
+                    rate = Audio.SampleRate;
+                    frame_segment = 32 * (96000 / Audio.SampleRate);
                     FFTlen = 64;
-                }
-                else
-                    FFTlen = 64;
+                    ctr[5] = 0;
+                    ctr[6] = 0;
+                    F2L = 2 * FFTlen;
+                    output = new string[16384];
+                    sum = new int[FFTlen];
+                    ave = new int[FFTlen];
+                    Noise = new double[FFTlen];
+                    RealF = new double[F2L * 2];
+                    ImagF = new double[F2L];
+                    Mag = new float[16 * frame_segment + 1, 32];    // 32 * 8mS, 32 * 64Hz
+                    medo = new double[FFTlen, 5];
+                    maxim = new double[F2L];
+                    temp = new double[FFTlen];
+                    signal = new double[64];
+                    broj = new int[FFTlen];
+                    si = new double[F2L];
+                    co = new double[F2L];
+                    wd = new double[F2L];
+                    tim = new int[FFTlen];
+                    bitrev = new int[F2L];
+                    old1 = new float[FFTlen];
+                    keyes = new bool[FFTlen];
+                    valid = new int[FFTlen];
+                    agcvol = new float[FFTlen];
+                    fagcvol = new double[FFTlen];
+                    totalsamples = F2L;
+                    logf2l = (int)(Math.Round(Math.Log(totalsamples) / Math.Log(2.0)));
+                    global_counterA = 0;
+                    Period = (1.0 / Audio.SampleRate) * 2048.0 / ((double)frame_segment);
+                    rprts = new string[FFTlen];
+                    snr = new double[FFTlen];
+                    calls = new string[FFTlen];
+                    enable = new int[FFTlen];
 
-                ctr[5] = 0;
-                ctr[6] = 0;
-                F2L = 2 * FFTlen;
-                output = new string[16384];
-                sum = new int[FFTlen];
-                ave = new int[FFTlen];
-                Noise = new double[FFTlen];
-                RealF = new float[F2L * 2];
-                ImagF = new float[F2L];
-                Mag = new float[16 * frame_segment + 1, 32];    // 32 * 8mS, 32 * 64Hz
-                medo = new double[FFTlen, 5];
-                maxim = new double[F2L];
-                temp = new double[FFTlen];
-                signal = new float[64];
-                broj = new int[FFTlen];
-                si = new double[F2L];
-                co = new double[F2L];
-                wd = new float[F2L];
-                tim = new int[FFTlen];
-                bitrev = new byte[F2L];
-                old1 = new float[FFTlen];
-                keyes = new bool[FFTlen];
-                valid = new bool[FFTlen];
-                agcvol = new float[FFTlen];
-                fagcvol = new double[FFTlen];
-                totalsamples = F2L;
-                logf2l = (int)(Math.Round(Math.Log(totalsamples) / Math.Log(2.0)));
-                global_counterA = 0;
-                //                Period = (double)totalsamples / 8000;
-                Period = (1.0 / Audio.SampleRate) * 2048.0 / ((double)frame_segment);
-                rprts = new string[FFTlen];
-                snr = new double[FFTlen];
-                calls = new string[FFTlen];
-                enable = new bool[FFTlen];
-
-                for (n = 0; n < totalsamples; n++)
-                {
-                    x = n;
-                    y = 0;
-                    n1 = totalsamples;
-                    for (w = 1; w <= logf2l; w++)
+                    for (n = 0; n < totalsamples; n++)
                     {
-                        n1 = n1 >> 1;
-                        if (x >= n1)
+                        x = n;
+                        y = 0;
+                        n1 = totalsamples;
+                        for (w = 1; w <= logf2l; w++)
                         {
-                            if (w == 1)
-                                y++;
-                            else
-                                y = y + (2 << (w - 2));
-                            x = x - n1;
+                            n1 = n1 >> 1;
+                            if (x >= n1)
+                            {
+                                if (w == 1)
+                                    y++;
+                                else
+                                    y = y + (2 << (w - 2));
+                                x = x - n1;
+                            }
                         }
+                        bitrev[n] = (byte)y;
                     }
-                    bitrev[n] = (byte)y;
-                }
 
-                nofs = 16 * frame_segment;                                           // number of decoding segments               
-                dotmin = (int)Math.Truncate(0.25 * 1.2 / (40 * Period));            // 40 wpm, 40 msec dot
-
-                if (Audio.SDRmode)
-                {
+                    nofs = 16 * frame_segment;                                           // number of decoding segments               
+                    dotmin = (int)Math.Truncate(0.25 * 1.2 / (40 * Period));            // 40 wpm, 40 msec dot
                     morsealpha = "ETIANMSURWDKGOHVF*L*PJBXCYZQ";
                     morsedigit = "54*3***2 *+****16=/***(*7***8*90";
+
+                    for (n = 0; n < FFTlen; n++)
+                    {
+                        sigave[n] = (float)thld;
+                        signal[n] = (float)thld;
+                        agcvol[n] = 0.0f;
+                        fagcvol[n] = 0.0;
+                        old1[n] = 0;
+                        Noise[n] = 1.0;
+                        temp[n] = 0;
+                        ave[n] = aver;
+                        sum[n] = 0;
+                        tim[n] = 1;
+                        calls[n] = String.Empty;
+                        rprts[n] = String.Empty;
+                        output[n] = String.Empty;
+                        keyes[n] = false;
+                        valid[n] = -1;
+                        broj[n] = 0;
+
+                        for (z = 0; z < 5; z++)
+                            medo[n, z] = 0;
+                    }
+
+                    double v = 2 * Math.PI / totalsamples;
+
+                    for (n = 0; n < totalsamples; n++)
+                    {
+                        RealF[n] = 0;
+                        ImagF[n] = 0;
+                        si[n] = -Math.Sin(n * v);
+                        co[n] = Math.Cos(n * v);
+                        wd[n] = 1;
+                    }
+
+                    mycall = MainForm.SetupForm.txtStnCALL.Text;
+                    call_sent = mycall;
+                    call_found = false;
+                    rprt_found = false;
+                    nr_agn = false;
+                    tx_timer = 0;
+                    rx_timer = ponovi;
+                    transmit = false;
+                    serial = 1;
+                    repeat = false;
+
+                    return true;
                 }
                 else
-                {
+                {                                       // MorseRunner mode
+                    FFTlen = 64;
+                    loopend = F2L;
+                    F2L = 128;
+                    ovrlp = F2L / wndw;
+                    logf2l = 7;
+                    FFTlen = F2L / 2;
+                    lids = new bool[FFTlen];
+                    logf2l = (int)(Math.Round(Math.Log(F2L) / Math.Log(2.0)));
+                    enable = new int[FFTlen];
+                    wd = new double[F2L];
+                    bitrev = new int[F2L];
+                    prag = new double[FFTlen];
+                    Noise = new double[FFTlen];
+                    temp = new double[FFTlen];
+                    ave = new int[FFTlen];
+                    sum = new int[FFTlen];
+                    tim = new int[FFTlen];
+                    keyes = new bool[FFTlen];
+                    valid = new int[FFTlen];
+                    calls = new string[FFTlen];
+                    rprts = new string[FFTlen];
+                    output = new string[FFTlen];
+                    medo = new double[FFTlen, 5];
+                    old1 = new float[F2L];
+                    RealF = new double[F2L];
+                    ImagF = new double[F2L];
+                    si = new double[F2L];
+                    co = new double[F2L];
+                    signal = new double[FFTlen];
+                    Mag = new float[FFTlen, 32];
+                    thld = sql * Math.Sqrt(0.05);
+                    rate = 8000;
+
+                    for (n = 0; n < F2L; n++)
+                    {
+                        x = n;
+                        y = 0;
+                        n1 = F2L;
+                        for (w = 1; w <= logf2l; w++)
+                        {
+                            n1 = n1 >> 1;
+                            if (x >= n1)
+                            {
+                                if (w == 1)
+                                    y++;
+                                else
+                                    y = y + (2 << (w - 2));
+                                x = x - n1;
+                            }
+                        }
+                        bitrev[n] = (byte)y;
+                    }
+
+                    mycall = MainForm.SetupForm.txtStnCALL.Text;
+                    call_sent = mycall;
+
+                    //aver = int.Parse(MainForm.stn[1]);  // wpm
+                    aver = (int)Math.Round(2.4 * rate / (aver * wndw));  // dot timing
+                    dotmin = aver / 4;
+
+                    double period = (double)F2L / rate;
+                    moni = 12; // int.Parse(MainForm.stn[2]); //Hz
+                    bwl = 2; // int.Parse(MainForm.stn[3]);  //Hz
+                    bwh = 20; // (int)Math.Round(period * (moni + bwl / 2)) + 1;
+                    //bwl = (int)Math.Truncate(period * (moni - bwl / 2)) - 1;
+                    //moni = (int)Math.Round(period * moni);
+
+                    ovrlp = F2L / wndw;
+                    nofs = Audio.BlockSize / wndw; // number of overlaped segments
                     morsealpha = "ETIANMSURWDKGOHVF*L*PJBXCYZQ";
-                    morsedigit = "54*3***2 ******16*/*****7***8*90";
+                    morsedigit = "54*3***2*******16*/*****7***8*90";
+
+                    for (n = 0; n < FFTlen; n++)
+                    {
+                        prag[n] = thld;
+                        Noise[n] = thld;
+                        temp[n] = 0;
+                        ave[n] = aver;
+                        sum[n] = 0;
+                        tim[n] = 1;
+                        lids[n] = false;
+                        enable[n] = 0;
+                        keyes[n] = false;
+                        valid[n] = -1;
+                        output[n] = "";
+                        calls[n] = String.Empty;
+                        rprts[n] = String.Empty;
+
+                        for (z = 0; z < 5; z++)
+                            medo[n, z] = Noise[n];
+                    }
+
+                    double v = 2 * Math.PI / F2L;
+
+                    for (n = 0; n < F2L; n++)
+                    {
+                        old1[n] = 0;
+                        RealF[n] = 0;
+                        ImagF[n] = 0;
+                        si[n] = -Math.Sin(n * v);
+                        co[n] = Math.Cos(n * v);
+
+                        if (hamming)
+                            wd[n] = (0.54 - 0.46 * co[n]) / (F2L - 1);
+                        else
+                            wd[n] = 1.0 / F2L;
+                    }
+
+                    nr_agn = false;
+                    tx_timer = 0;
+                    transmit = false;
+                    serial = 1;
+                    return true;
                 }
-
-                for (n = 0; n < FFTlen; n++)
-                {
-                    sigave[n] = (float)thld;
-                    signal[n] = (float)thld;
-                    agcvol[n] = 0.0f;
-                    fagcvol[n] = 0.0;
-                    old1[n] = 0;
-                    Noise[n] = 1.0;
-                    temp[n] = 0;
-                    ave[n] = aver;
-                    sum[n] = 0;
-                    tim[n] = 1;
-                    calls[n] = String.Empty;
-                    rprts[n] = String.Empty;
-                    output[n] = String.Empty;
-                    keyes[n] = false;
-                    valid[n] = false;
-                    broj[n] = 0;
-                    for (z = 0; z < 5; z++)
-                        medo[n, z] = 0;
-                }
-
-                double v = 2 * Math.PI / totalsamples;
-                for (n = 0; n < totalsamples; n++)
-                {
-                    RealF[n] = 0;
-                    ImagF[n] = 0;
-                    si[n] = -Math.Sin(n * v);
-                    co[n] = Math.Cos(n * v);
-                    wd[n] = 1;
-                }
-
-                mycall = MainForm.SetupForm.txtStnCALL.Text;
-                //                MainForm.Callers.Items.Add(mycall);
-                call_sent = mycall;
-                call_found = false;
-                rprt_found = false;
-                nr_agn = false;
-                tx_timer = 0;
-                rx_timer = ponovi;
-                transmit = false;
-                serial = 1;
-                repeat = false;
-                //                new_call = " ";
-                //                stanje = 1;
-
-                //                SCP_Load();
-
-                return true;
             }
             catch (Exception ex)
             {
@@ -341,112 +472,51 @@ namespace CWExpert
                 if (MainForm.OpModeVFOA == Mode.CW)
                     run_rx1 = true;
 
-                if (MainForm.OpModeVFOB == Mode.CW)
-                    run_rx2 = true;
-
-                while (run_thread)
+                if (Audio.SDRmode)
                 {
-                    AudioEvent1.WaitOne();
-                    mytimer++;
-
-                    /*if (reset_after_mox)
+                    while (run_thread)
                     {
-                        reset_after_mox = false;
+                        AudioEvent1.WaitOne();
+                        fft_mutex.WaitOne();
 
-                        for (int n = 0; n < FFTlen; n++)
-                        {
-                            ave[n] = aver;
-                            sum[n] = 0;
-                            broj[n] = 0;
-                            tim[n] = 0;
-                            ctr = 0;
-                        }
-                    }
-
-                    /*if (Audio.SDRmode)
-                    {
-                    }
-                    else
-                    {
-                        //Array.Copy(audio_buffer_l, fft.spec_fin, Audio.BlockSize);
-                    }
-
-                    display_timer.Stop();
-                    time += display_timer.DurationMsec;
-
-                    if (time - previous_time > 66.6)
-                    {
-                        previous_time = time;
-                        display_timer.Start();
-
-                        if (Audio.SDRmode)
-                        {
-                            MainForm.data_ready = true;
-                            MainForm.display_event.Set();
-                        }
-                        else
-                        {
-                            /*if (fft.ComputeSpectrum(0))
-                            {
-                                AGCSpectrum();
-
-#if(DirectX)
-                                if (MainForm.VideoDriver == DisplayDriver.DIRECTX)
-                                {
-                                    Array.Copy(fft.spec_fout, 0, DX.new_display_data, 0, 4096);
-                                    Array.Copy(fft.spec_fout, 0, DX.new_waterfall_data, 0, 4096);
-                                }
-                                else
-#endif
-                                {
-                                    Array.Copy(fft.spec_fout, 0, Display_GDI.new_display_data, 0, 4096);
-                                    Array.Copy(fft.spec_fout, 0, Display_GDI.new_waterfall_data, 0, 4096);
-                                }
-
-                                MainForm.data_ready = true;
-                                MainForm.display_event.Set();
-                            }
-                        }
-                    }
-                    else
-                        display_timer.Start();*/
-
-                    //fft_timer.Start();
-
-                    fft_mutex.WaitOne();
-
-                    if (FFT_Spectrum(5))
-                    {
-                        /*fft_timer.Stop();
-                        fft_time += fft_timer.DurationMsec;
-                        Debug.Write((fft_time - fft_previous_time).ToString() + "\n");
-                        fft_previous_time = fft_time;*/
-
-                        /*if (transmit)
-                            TRtiming();
-                        else*/
+                        if (FFT_Spectrum(5))
                         {
                             if (run_rx1)
                             {
                                 Sig2ASCII(5);
-                                //Analyse(5);
                             }
+                        }
 
-                            //if (rx_only)
-                            {
-                                //Analyse();
-                            }
-                            /*else
+                        fft_mutex.ReleaseMutex();
+                    }
+                }
+                else
+                {
+                    if (!MainForm.hst)
+                        cqcqcq();
+
+                    while (run_thread)
+                    {
+                        AudioEvent1.WaitOne();
+                        Spectrum();
+                        ctr[5]++;
+
+                        if (MainForm.hst && ctr[5] > 2345)
+                            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Stop MR", "");
+
+                        TRtiming();
+
+                        if (!transmit)
+                        {
+                            Sig2ASCII(5);
+
+                            if (!rx_only)
                             {
                                 Analyse();
-
-                                if (mytimer - eot > tmin)
-                                    Responder();
-                            }*/
+                                Respond();
+                            }
                         }
                     }
-
-                    fft_mutex.ReleaseMutex();
                 }
             }
 
@@ -464,19 +534,21 @@ namespace CWExpert
                 if (MainForm.OpModeVFOB == Mode.CW)
                     run_rx2 = true;
 
-                while (run_thread)
+                if (Audio.SDRmode)
                 {
-                    AudioEvent2.WaitOne();
-
-                    fft_mutex.WaitOne();
-
-                    if (FFT_Spectrum(6))
+                    while (run_thread)
                     {
-                        Sig2ASCII(6);
-                        //Analyse(6);
-                    }
+                        AudioEvent2.WaitOne();
 
-                    fft_mutex.ReleaseMutex();
+                        fft_mutex.WaitOne();
+
+                        if (FFT_Spectrum(6))
+                        {
+                            Sig2ASCII(6);
+                        }
+
+                        fft_mutex.ReleaseMutex();
+                    }
                 }
             }
 
@@ -496,6 +568,7 @@ namespace CWExpert
 
             if (Init())
             {
+                rx_only = MainForm.SetupForm.chkRXOnly.Checked;
                 run_thread = true;
                 CWThread1 = new Thread(new ThreadStart(CW_ThreadRX1));
                 CWThread1.Name = "CW Thread RX1";
@@ -542,13 +615,12 @@ namespace CWExpert
 
                 if (Char.IsDigit(ch))
                 {
-                    valid[z] = true;
+                    valid[z] = output[z].Length;
 
-                    if (!lid)
-                        rx_timer = ponovi;
+                    if (!MainForm.hst)
+                        txctr = ctr[5];
                 }
             }
-            //else if (sum[z] == 75) { ch = '?'; }
             else if (sum[z] >= 75)
             {
                 switch (sum[z])
@@ -594,12 +666,16 @@ namespace CWExpert
                         ch = '*';
                         break;
                 }
-            } 
+            }
 
             output[z] += ch;
-            MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", z, ch.ToString());
+
+            if (Audio.SDRmode)
+                MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", z, ch.ToString());
+            else
+                MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Append text", z, ch.ToString());
+
             sum[z] = 0;
-            //            valid[z] = true;
         }
 
         private void CWdecode(int z)
@@ -641,9 +717,11 @@ namespace CWExpert
         {
             int n = 0;
             for (n = bwl; n <= bwh; n++) { temp[n] += signal[n]; }
+
             if (transmit)
             {
                 tx_timer--;
+
                 if (tx_timer == 1)
                 {
                     thd = 0;
@@ -655,6 +733,7 @@ namespace CWExpert
                             moni = n;
                         }
                     }
+
                     Debug.WriteLine("  " + moni.ToString() + "  ");
                     once = false;
                     ctr[index] = 0;
@@ -663,6 +742,7 @@ namespace CWExpert
             else
             {
                 rx_timer--;
+
                 if (rx_timer == 0)
                 {
                     thd = 0;
@@ -698,113 +778,161 @@ namespace CWExpert
         private double[] sig_maxavg = new double[22];
         private double[] signal_minavg = new double[22];
         private double[] sig_minavg = new double[22];
-        public double sql = 1.0;
         private void Sig2ASCII(int index)
         {
-            int t0 = ctr[index];
-            int n = 0;
-            thd = sql * Math.Sqrt(0.03);
-            double[] sig_min = new double[22];
-            double[] sig_max = new double[22];
-            sig_min[index] = 1.0;
-            sig_avg[index] = 0.0;
-
             try
             {
-                double thd_const = sql * Math.Sqrt(0.03);
-                ctr[index] = t0;
-
-                if (!sql_on)
+                if (Audio.SDRmode)
                 {
-                    for (n = 0; n < nofs - 4; n++)
+                    int t0 = ctr[index];
+                    int n = 0;
+                    thd = sql * Math.Sqrt(0.03);
+                    double[] sig_min = new double[22];
+                    double[] sig_max = new double[22];
+                    sig_min[index] = 1.0;
+                    sig_avg[index] = 0.0;
+                    double thd_const = sql * Math.Sqrt(0.03);
+
+                    if (!sql_on)
                     {
-                        if (Mag[n, index] < sig_min[index])
+                        for (n = 0; n < nofs - 4; n++)
                         {
-                            sig_min[index] = Mag[n, index];
+                            if (Mag[n, index] < sig_min[index])
+                            {
+                                sig_min[index] = Mag[n, index];
+                            }
+
+                            if (Mag[n, index] > sig_max[index])
+                            {
+                                sig_max[index] = Mag[n, index];
+                            }
+
+                            sig_avg[index] += Mag[n, index];
                         }
 
-                        if (Mag[n, index] > sig_max[index])
-                        {
-                            sig_max[index] = Mag[n, index];
-                        }
-
-                        sig_avg[index] += Mag[n, index];
+                        sig_avg[index] /= nofs - 4;
+                        signal_avg[index] = 0.8 * signal_avg[index] + 0.2 * sig_avg[index];
+                        signal_maxavg[index] = 0.8 * signal_maxavg[index] + 0.2 * sig_max[index];
+                        signal_minavg[index] = 0.8 * signal_minavg[index] + 0.2 * sig_min[index];
+                        thd = Math.Max((signal_maxavg[index] - signal_minavg[index]) * 0.2, thd_const);
+                        thd = (signal_maxavg[index] - signal_minavg[index]) * 0.2;
+                        thd = 0.8 * signal_avg[index];
+                    }
+                    else
+                    {
+                        thd = sql * Math.Sqrt(0.05);
                     }
 
-                    sig_avg[index] /= nofs - 4;
-                    signal_avg[index] = 0.8 * signal_avg[index] + 0.2 * sig_avg[index];
-                    signal_maxavg[index] = 0.8 * signal_maxavg[index] + 0.2 * sig_max[index];
-                    signal_minavg[index] = 0.8 * signal_minavg[index] + 0.2 * sig_min[index];
-                    thd = Math.Max((signal_maxavg[index] - signal_minavg[index]) * 0.2, thd_const);
-                    thd = (signal_maxavg[index] - signal_minavg[index]) * 0.2;
-                    thd = 0.8 * signal_avg[index];
+                    for (n = 0; n < nofs - 4; n++)
+                    {
+                        int b = broj[index];
+
+                        if (Mag[n, index] > thd && Mag[n + 1, index] > thd && Mag[n + 2, index] > thd
+                            && Mag[n + 3, index] > thd && Mag[n + 4, index] > thd)
+                        {
+                            if (b < 3)
+                                b++;
+                        }
+                        else /*if (Mag[n, z] < thd && Mag[n + 1, z] < thd && Mag[n + 2, z] < thd
+                            && Mag[n + 3, z] < thd && Mag[n+4, z] < thd)*/
+                        {
+                            if (b > 0)
+                                b--;
+                            else
+                                b = 0;
+                        }
+
+                        n += 3;
+                        broj[index] = b;
+                        key = b > 1;
+                        ctr[index]++;
+
+                        if (key != keyes[index])
+                            CWdecode(index);
+                        else if (!key)
+                        {
+                            int t = ctr[index] - tim[index];
+
+                            if (t == ave[index])
+                            {
+                                if (sum[index] > 0)
+                                {
+                                    cw2asc(index);
+                                }
+                            }
+                            else if (t == (2 * ave[index]))
+                            {
+                                output[index] += "|";
+                                MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", index, " ");
+                            }
+                            else if (t == (3 * ave[index]))
+                            {
+                                //MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", index, " ");
+                            }
+                        }
+                    }
+
+                    Mag[0, index] = Mag[n + 2, index];      // save
+
+                    if (Audio.SDRmode && !rx2_enabled)
+                        index = 22;
                 }
                 else
                 {
-                    thd = sql * Math.Sqrt(0.05);
-                }
+                    int to = ctr[5] * nofs;
 
-                for (n = 0; n < nofs - 4; n++)
-                {
-                    int b = broj[index];
-
-                    if (Mag[n, index] > thd && Mag[n + 1, index] > thd && Mag[n + 2, index] > thd
-                        && Mag[n + 3, index] > thd && Mag[n + 4, index] > thd)
+                    for (int z = bwl; z <= bwh; z++)
                     {
-                        if (b < 3)
-                            b++;
-                    }
-                    else /*if (Mag[n, z] < thd && Mag[n + 1, z] < thd && Mag[n + 2, z] < thd
-                            && Mag[n + 3, z] < thd && Mag[n+4, z] < thd)*/
-                    {
-                        if (b > 0)
-                            b--;
-                        else
-                            b = 0;
-                    }
-
-                    n += 3;
-                    broj[index] = b;
-                    key = b > 1;
-                    ctr[index]++;
-
-                    if (key != keyes[index])
-                        CWdecode(index);
-                    else if (!key)
-                    {
-                        int t = ctr[index] - tim[index];
-
-                        if (t == ave[index])
+                        for (int n = 0; n < nofs; n++)
                         {
-                            if (sum[index] > 0)
+                            int t = n + to - tim[z];
+
+                            if (Mag[z, n] > prag[z])
+                                key = true;
+                            else
+                                key = false;
+
+                            if (key != keyes[z])
                             {
-                                cw2asc(index);
+                                keyes[z] = key;
+                                tim[z] = n + to;
+
+                                if (t > dotmin && t < ave[z])
+                                    ave[z] = t + ave[z] / 2;
+
+                                if (!key)
+                                {
+                                    if (t > ave[z]) { sum[z]++; }
+                                    sum[z]++;
+                                }
+                                else if (t < ave[z])
+                                {
+                                    sum[z] = 2 * sum[z];
+                                    if (sum[z] > 75) { sum[z] = 0; }
+                                }
                             }
-                        }
-                        else if (t == (2 * ave[index]))
-                        {
-                            output[index] += "|";
-                            enable[index] = false;
-                            MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", index, " ");
-                            if (rx_only)
+                            else if (!key && t % ave[z] == 0)
                             {
-                                Debug.Write(index.ToString() + " " + output[index] + "\n");
-                                //output[z] = string.Empty;
+                                if (t == ave[z])
+                                {
+                                    if (sum[z] > 0)
+                                        cw2asc(z);
+                                }
+                                else if (t == 2 * ave[z])
+                                {
+                                    output[z] += " ";
+                                }
+                                else if (t == 3 * ave[z])
+                                {
+                                    enable[z] = to + t;
+
+                                    if (rx_only)
+                                        Debug.WriteLine("");
+                                }
                             }
-                        }
-                        else if (t == (3 * ave[index]))
-                        {
-                            enable[index] = true;
-                            if (rx_only) { Debug.WriteLine(" "); }
-                            MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", index, " ");
                         }
                     }
                 }
-
-                Mag[0, index] = Mag[n + 2, index];      // save
-
-                if (Audio.SDRmode && !rx2_enabled)
-                    index = 22;
             }
             catch (Exception ex)
             {
@@ -817,7 +945,7 @@ namespace CWExpert
             int i, k, m, mx, I1, I2, I3, I4, I5, x;
             double A1, A2, B1, B2, Z1, Z2;
 
-            I1 = totalsamples / 2;
+            I1 = F2L / 2;
             I2 = 1;
             for (i = 1; i <= logf2l; i++)
             {
@@ -837,10 +965,10 @@ namespace CWExpert
                         mx = m + I1;
                         B1 = Z1 * RealF[mx] - Z2 * ImagF[mx];
                         B2 = Z2 * RealF[mx] + Z1 * ImagF[mx];
-                        RealF[m] = (float)(A1 + B1);
-                        ImagF[m] = (float)(A2 + B2);
-                        RealF[mx] = (float)(A1 - B1);
-                        ImagF[mx] = (float)(A2 - B2);
+                        RealF[m] = (A1 + B1);
+                        ImagF[m] = (A2 + B2);
+                        RealF[mx] = (A1 - B1);
+                        ImagF[mx] = (A2 - B2);
                     }
                     I3 = I3 + (I1 << 1);
                     I4 = I4 + (I1 << 1);
@@ -873,129 +1001,64 @@ namespace CWExpert
             try
             {
                 bool return_value = false;
+
                 int z = 0;
                 int n = 0;
                 int i = 0;
-                bool oldy = true;
                 int k = index;
 
-                z = 0;
-
-                if (!Audio.SDRmode)
+                switch (index)
                 {
-                    while (z < nofs - 1)  // nofs iterations including first unique one
-                    {
-                        if (oldy)
+                    case 5:
+                        signal[5] = 0.0f;
+
+                        for (z = 1 + global_counterA; z < global_counterA + frame_segment + 1; z++)
                         {
-                            oldy = false;
-                            for (n = 0; n < FFTlen; n++)
+                            for (n = i; n < (i + 2048 / frame_segment); n++)
                             {
-                                ImagF[n] = 0;
-                                ImagF[FFTlen + n] = 0;
-                                RealF[n] = old1[n];
-                                RealF[FFTlen + n] = audio_buffer_l[n];
-                            }
-                        }
-                        else
-                        {
-                            for (n = 0; n < F2L; n++)
-                            {
-                                ImagF[n] = 0;
-                                RealF[n] = audio_buffer_l[i + n];
+                                signal[5] += Math.Abs(fft_buff_ch5[n]);
                             }
 
-                            z++;
-                            i += FFTlen;
+                            signal[5] /= 2048 / frame_segment;
+                            Mag[z, 5] = (float)signal[5];
+                            i += 2048 / frame_segment;
                         }
 
-                        MyFFT();
+                        global_counterA += frame_segment;
 
-                        for (n = bwl - 1; n <= bwh + 1; n++)
+                        if (global_counterA == nofs)
                         {
-                            byte y = bitrev[n];
-                            double pwr = Math.Sqrt(RealF[y] * RealF[y] + ImagF[y] * ImagF[y]);
-                            if (medijan) { pwr = Median(pwr, n); }
-
-                            if (logmagn)
-                                if (pwr > 0.001) { pwr = Math.Log10(pwr); }
-
-                            Mag[z, n] = (float)pwr;
-                            signal[n] += (float)pwr;
+                            global_counterA = 0;
+                            return_value = true;
                         }
-                    }
-                }
-                else
-                {
-                        i = 0;
+                        break;
 
-                        switch (index)
+                    case 6:
+                        signal[6] = 0.0f;
+
+                        for (z = 1 + global_counterB; z < global_counterB + frame_segment + 1; z++)
                         {
-                            case 5:
-                                signal[5] = 0.0f;
+                            for (n = i; n < (i + 2048 / frame_segment); n++)
+                            {
+                                signal[6] += Math.Abs(fft_buff_ch6[n]);
+                            }
 
-                                for (z = 1 + global_counterA; z < global_counterA + frame_segment + 1; z++)
-                                {
-                                    for (n = i; n < (i + 2048 / frame_segment); n++)
-                                    {
-                                        signal[5] += Math.Abs(fft_buff_ch5[n]);
-                                    }
-
-                                    signal[5] /= 2048 / frame_segment;
-                                    Mag[z, 5] = signal[5];
-                                    i += 2048 / frame_segment;
-                                }
-
-                                global_counterA += frame_segment;
-
-                                if (global_counterA == nofs)
-                                {
-                                    global_counterA = 0;
-                                    return_value = true;
-                                }
-                                break;
-
-                            case 6:
-                                signal[6] = 0.0f;
-
-                                for (z = 1 + global_counterB; z < global_counterB + frame_segment + 1; z++)
-                                {
-                                    for (n = i; n < (i + 2048 / frame_segment); n++)
-                                    {
-                                        signal[6] += Math.Abs(fft_buff_ch6[n]);
-                                    }
-
-                                    signal[6] /= 2048 / frame_segment;
-                                    Mag[z, 6] = signal[6];
-                                    i += 2048 / frame_segment;
-                                }
-
-                                global_counterB += frame_segment;
-
-                                if (global_counterB == nofs)
-                                {
-                                    global_counterB = 0;
-                                    return_value = true;
-                                }
-                                break;
+                            signal[6] /= 2048 / frame_segment;
+                            Mag[z, 6] = (float)signal[6];
+                            i += 2048 / frame_segment;
                         }
+
+                        global_counterB += frame_segment;
+
+                        if (global_counterB == nofs)
+                        {
+                            global_counterB = 0;
+                            return_value = true;
+                        }
+                        break;
                 }
 
-                if (!Audio.SDRmode)
-                {
-                    for (n = 0; n < FFTlen; n++)
-                    {
-                        old1[n] = audio_buffer_l[i + n];
-                    }
-
-                    for (n = bwl-1; n < bwh+1; n++)
-                    {
-                        signal[n] /= nofs;
-                    }
-                }
-                else
-                {
-                    signal[index] = 0;
-                }
+                signal[index] = 0;
 
                 return return_value;
             }
@@ -1145,55 +1208,54 @@ namespace CWExpert
 
         }
 
-        private void Analyse(int index)
+        private void Analyse()
         {
-            string clstr, nrstr;
-            int z = index;
-
-            if (output[z].EndsWith("|"))
+            for (int z = bwl; z <= bwh; z++)
             {
-                if (output[z].Contains("NR?") || output[z].Contains("AGN")) { nr_agn = true; }
-                if (output[z].StartsWith("CQ ")) { lid = true; }
-
-                if (output[z].Length > 4)
+                if (enable[z] > 0)
                 {
-                    string mystr = output[z].Substring(0, output[z].Length - 1).Replace("|", " ");
-                    //MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", z, mystr);
-                    int ii = mystr.IndexOf("5NN");
-
-                    if (ii > 3)
+                    string[] words = output[z].Split(' ');
+                    foreach (string mystr in words)
                     {
-                        clstr = mystr.Substring(0, ii);
-                        nrstr = mystr.Substring(ii, mystr.Length - ii);
-                    }
-                    else
-                    {
-                        nrstr = mystr;
-                        clstr = mystr;
-                    }
+                        if (mystr.Length >= 3)
+                        {
+                            if (mystr.Contains("R?") || mystr.Equals("AGN"))
+                                nr_agn = true;
+                            else if (mystr.Contains("CQCQ") || mystr.Contains("TEST") || mystr.Contains("QRL?"))
+                                lids[z] = true;
+                            else if (valid[z] >= 0)
+                            {
+                                MainForm.Invoke(new CrossThreadSetMRText(MainForm.WriteOutputText), z, 
+                                    " " + prag[z].ToString() + " " + mystr);
 
-                    if (Report_Filter(nrstr))
-                    {
-                        rprts[z] = rst + report;
-                        snr[z] = Noise[z];
-                    }
+                                int i = mystr.IndexOf("5NN");
 
-                    if (valid[z] && Call_Filter(clstr))
-                    {
-                        calls[z] = call;
-                        snr[z] = Noise[z];
-                    }
+                                if (i >= 3)
+                                {
+                                    if (Call_Filter(mystr.Substring(0, i)))
+                                        calls[z] = call;
 
-                    output[z] = " ";
+                                    if (Report_Filter(mystr.Substring(i)))
+                                        rprts[z] = rst + report;
+                                }
+                                else
+                                {
+                                    if (i < 0)
+                                    {
+                                        if (Call_Filter(mystr))
+                                            calls[z] = call;
+                                    }
+
+                                    if (Report_Filter(mystr))
+                                        rprts[z] = rst + report;
+                                }
+                                valid[z] = -1;
+                            }
+                        }
+                        output[z] = mystr;
+                        enable[z] = 0;
+                    }
                 }
-
-                /*if (output[z].Length > 35)
-                {
-                    output[z] = "";
-                    MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Clear text", z, output[z]);
-                }*/
-
-                valid[z] = false;
             }
         }
 
@@ -1245,28 +1307,32 @@ namespace CWExpert
 
         private void TRtiming()
         {
-            int n = 0;
             try
             {
-                if (tx_timer > 0)
+                if (tx_timer > 0 && !transmit)
                 {
-                    tx_timer--;
-                    if (tx_timer == 0)
+                    txctr = ctr[5] + tx_timer;
+                    transmit = true;
+                }
+                else if (transmit && ctr[5] > txctr) // && prag[moni] < 2 * Noise[moni])
+                {
+                    for (int n = bwl; n <= bwh; n++)
                     {
-                        for (n = bwl; n <= bwh; n++)
-                        {
-                            output[n] = String.Empty;
-                            rprts[n] = String.Empty;
-                            calls[n] = String.Empty;
-                            Noise[n] = thld;
-                            enable[n] = false;
-                        }
-                        rx_timer = ponovi;
-                        //Debug.WriteLine(" RX " + ave[moni].ToString());
-                        transmit = false;
+                        calls[n] = "";
+                        enable[n] = 0;
+                        output[n] = "";
+                        rprts[n] = "";
+                        valid[n] = -1;
+                        prag[n] = Noise[n];
                     }
+
+                    Debug.WriteLine(" RX " + activech);
+                    tx_timer = 0;
+                    txctr = ctr[5];
+                    transmit = false;
                 }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
@@ -1275,66 +1341,73 @@ namespace CWExpert
 
         private void cqcqcq()
         {
-            lid = false;
-            tx_timer = txdots("CQ ") + txdots(mycall) + txdots(" TEST");
-            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send CALL", "");
+            tx_timer = dots("CQ ") + dots(mycall) + dots(" TEST");
+            //MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send CALL", "");
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F1", "");
             Debug.Write(" CQ " + tx_timer.ToString());
-            repeat = false;
+            rip = false;
+            activech = 0;
+            qso = false;
+        }
+
+        private void Boundaries()
+        {
+            if (qso && activech > bwl)
+            {
+                donja = activech - 1;
+                gornja = activech + 1;
+            }
+            else
+            {
+                donja = bwl;
+                gornja = bwh;
+            }
         }
 
         private bool CallAvail()
         {
-            double max = 0;
-            call_found = false;
-            for (int z = bwl; z <= bwh; z++)
+            bool cf = false;
+
+            Boundaries();
+
+            int z = donja;
+
+            while (!cf && z <= gornja)
             {
-                if (enable[z] && calls[z].Length > 0 && snr[z] > max)
-                {
-                    call_found = true;
-                    call = calls[z];
-                    active = z;
-                    max = snr[z];
-                }
+                cf = calls[z].Length > 2;
+                z++;
             }
-            return call_found;
+
+            if (cf)
+            {
+                call = calls[z - 1];
+                activech = z - 1;
+            }
+            return cf;
         }
 
         private bool RprtAvail()
         {
-            double max = 0;
-            rprt_found = false;
-            if (active > 0)
-            {
-                for (int z = active - 1; z <= active + 1; z++)
-                {
-                    if (enable[z] && rprts[z].Length > 0 && snr[z] > max)
-                    {
-                        rprt_found = true;
-                        rst = rprts[z].Substring(0, 3);
-                        report = rprts[z].Substring(3, rprts[z].Length - 3);
-                        max = snr[z];
-                    }
-                }
-            }
+            bool rf = false;
 
-            return rprt_found;
-        }
+            Boundaries();
 
-        private bool LateRprt()
-        {
-            double max = 0;
-            rprt_found = false;
-            for (int z = bwl; z <= bwh; z++)
+            int z = donja;
+
+            while (!rf && z <= gornja)
             {
-                if (enable[z] && rprts[z].Length > 0 && snr[z] > max)
+                if (rprts[z].Length > 3)
                 {
-                    rprt_found = true;
+                    freq = z;
                     rst = rprts[z].Substring(0, 3);
                     report = rprts[z].Substring(3, rprts[z].Length - 3);
-                    max = snr[z];
+                    rf = true;
                 }
+                else
+                    z++;
             }
-            return rprt_found;
+
+            return rf;
         }
 
         private bool Silence()
@@ -1354,91 +1427,269 @@ namespace CWExpert
                     if (output[n].Length > 0) { quiet = false; }
                 }
             }
+
             return quiet;
         }
 
-        private void Responder()
+        public int dots(String message)
+        {
+            int i = 0;
+            int tx_len = 0;
+            int[] cwnrs = { 22, 20, 18, 16, 14, 12, 14, 16, 18, 20 };
+            int[] cwltr = { 8, 12, 14, 10, 4, 12, 12, 10, 6, 16, 12, 12, 10, 8, 14, 14, 16, 10, 8, 6, 10, 12, 12, 14, 16, 14 };
+
+            while (i < message.Length)
+            {
+                Char c = message[i];
+                if (Char.IsLetter(c))
+                    tx_len += cwltr[c.CompareTo('A')];
+                else if (Char.IsDigit(c))
+                    tx_len += cwnrs[c.CompareTo('0')];
+                else if (c.Equals(' '))
+                    tx_len += 4;
+                else if (c.Equals('/'))
+                    tx_len += 16;
+                else if (c.Equals('?'))
+                    tx_len += 18;
+                else if (!c.Equals('*'))
+                    Debug.Write(".");
+                i++;
+            }
+            return (aver * tx_len) / (2 * nofs);
+        }
+
+        private void Spectrum()
         {
             try
             {
-                if (rx_timer > 0) { rx_timer--; }
+                int n = 0;
+                int z = 0;
+                int i = 0;
 
-                if (rx_timer == ponovi / 2 && Silence()) { rx_timer = 0; }
+                for (n = bwl - 1; n <= bwh + 1; n++)
+                    signal[n] = 0;
 
-                if (rx_timer == 0)
+                while (z < nofs)
                 {
-                    if (repeat)
+                    if (z < ovrlp - 1)
                     {
-                        tx_timer = txdots(call_sent) + f2len();
-                        MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F5", "");
-                        MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F2", "");
-                        Debug.Write(" RPT " + tx_timer.ToString());
-                        repeat = false;
+                        int bp = wndw * (ovrlp - z - 1);
+                        for (n = 0; n < F2L; n++)
+                        {
+                            ImagF[n] = 0;
+                            if (n < bp)
+                                RealF[n] = wd[n] * old1[n + (z * wndw)];
+                            else
+                                RealF[n] = wd[n] * audio_buffer[n - bp];
+                        }
                     }
-                    else cqcqcq();
+                    else
+                    {
+                        for (n = 0; n < F2L; n++)
+                        {
+                            ImagF[n] = 0;
+                            RealF[n] = wd[n] * audio_buffer[i + n];
+                        }
+                        i += wndw;
+                    }
+
+                    MyFFT();
+
+                    for (n = bwl - 1; n <= bwh + 1; n++)
+                    {
+                        int y = bitrev[n];
+                        Mag[n, z] = (float)Math.Sqrt(RealF[y] * RealF[y] + ImagF[y] * ImagF[y]);
+
+                        if (Mag[n, z] > 4 * (float)Noise[n])
+                        {
+                            Mag[n, z] = 4 * (float)Noise[n];
+                            //Debug.Write("SQL!" + ctr[5].ToString() + "\n");
+                        }
+
+                        if (medijan)
+                            Mag[n, z] = (float)Median(Mag[n, z], n);
+
+                        if (logmagn)
+                        {
+                            if (Mag[n, z] > 0.001)
+                                Mag[n, z] = (float)Math.Log10(Mag[n, z]);
+                        }
+
+                        signal[n] += Mag[n, z] / nofs;
+                    }
+                    z++;
                 }
 
+                for (n = 0; n < (ovrlp - 1) * wndw; n++)  // Save last 3 x  64 samples
+                    old1[n] = audio_buffer[i + n];
+
+                for (n = bwl; n <= bwh; n++)
+                {
+                    prag[n] = (prag[n] + signal[n - 1] + signal[n] + signal[n + 1]) / 4;
+
+                    if (prag[n] < Noise[n])
+                        prag[n] = Noise[n];
+
+                    if (MainForm.hst)
+                    {
+                        signal[n] = ((agc - 1) * signal[n] + signal[n]) / agc;
+                        //                        if (signal[n] > prag[n])
+                        //                            prag[n] = signal[n];
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
+
+        public void SendTU()
+        {
+            rprts[activech] = "";
+            enable[activech] = 0;
+
+            if (!rst.Equals("599"))
+                MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send RST", rst);
+
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send NR", report);
+
+            Debug.Write(" Log " + tx_timer.ToString());
+        }
+
+        private void Respond()
+        {
+            try
+            {
+                bool any_call = CallAvail();
+                bool report_rcvd = RprtAvail();
 
                 if (nr_agn)
                 {
                     nr_agn = false;
                     tx_timer = f2len();
-                    MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F2", "");
-                    Debug.Write(" AGN " + tx_timer.ToString());
+                    SendReport();
                 }
 
-                if (CallAvail())
+                if (any_call)
                 {
-                    calls[active] = String.Empty;
-                    enable[active] = false;
-                    call_found = false;
-                    if (call_sent.Equals(mycall) || similar(call) || !repeat)
+                    tx_timer = dots(call);
+                    SendCall(call);
+
+                    if (!report_rcvd)
                     {
-                        tx_timer = txdots(call) + f2len();
-                        MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send CALL", call);
-
-                        if (similar(call))
-                        {
-                            tx_timer += txdots(" ?");
-                            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F2", "");
-                        }
-
-                        repeat = !similar(call);
-                        call_sent = call;
-                        Debug.Write(" CL " + tx_timer.ToString());
+                        SendExch();
+                        qso = true;
+                    }
+                    else if (qso)
+                    {
+                        tx_timer += dots("TU");
+                        SendTU();
+                        qso = false;
                     }
                 }
-
-                if (RprtAvail())
+                else if (report_rcvd)
                 {
-                    rprts[active] = String.Empty;
-                    rprt_found = false;
-                    repeat = false;
-                    enable[active] = false;
-                    tx_timer += txdots(" TU");
-                    //                   if (!rst.Equals("599"))
-                    MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send RST", rst);
-                    MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send NR", report);
-                    call_sent = mycall;
-                    serial++;
-                    active = 0;
-                    Debug.Write(" NR1 " + tx_timer.ToString());
+                    if (qso)
+                    {
+                        tx_timer = dots("TU");
+                        SendTU();
+                        qso = false;
+                        serial++;
+                    }
+                    else if (Math.Abs(freq - activech) < 2)  // no qso, late report!
+                    {
+                        RetryLast();
+                        qso = true;
+                    }
+                    else
+                    {
+                        ClearMR();
+                    }
                 }
-                else if (LateRprt())
+                else if ((ctr[5] - txctr > ponovi) && Silence())
                 {
-                    rprts[active] = String.Empty;
-                    rprt_found = false;
-                    repeat = false;
-                    enable[active] = false;
-                    tx_timer = txdots("TU");
-                    MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F3", "");
-                    Debug.Write(" NR2 " + tx_timer.ToString());
+                    txctr = ctr[5];
+
+                    if (qso && rip)
+                    {
+                        tx_timer = dots("?");
+                        SendQuest();
+                        rip = false;
+                    }
+                    else
+                    {
+                        if (MainForm.hst)
+                        {
+                            ClearMR();
+                        }
+                        else
+                            cqcqcq();
+                    }
                 }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        public void RetryLast()
+        {
+            call = call_sent;
+            tx_timer = dots(call_sent) + f2len();
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send CALL", call);
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send RST", "599");
+            MainForm.Invoke(new CrossThreadSetMRText(MainForm.WriteOutputText), activech, prag[activech].ToString() + " " + call);
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F5", "");
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F2", "");
+            Debug.Write(activech.ToString() + " Retry " + tx_timer.ToString());
+        }
+
+        public void SendQuest()
+        {
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F7", "");
+            Debug.Write(" ? " + tx_timer.ToString());
+        }
+
+        public void ClearMR()
+        {
+            rprts[activech] = "";
+            enable[activech] = 0;
+            tx_timer = dots("TU");
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send CALL", "");
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F3", ""); // YT7AW info
+            activech = 0;
+            rip = false;
+            qso = false;
+            Debug.WriteLine(" Clear ");
+        }
+
+        public void SendExch()
+        {
+            tx_timer = dots(call_sent) + f2len();
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F5", "");
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F2", "");
+            Debug.Write(" Exch " + tx_timer.ToString());
+        }
+
+        public void SendReport()
+        {
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F2", "");
+            Debug.Write(" Rprt " + tx_timer.ToString());
+        }
+
+        public void SendCall(string what)
+        {
+            call_sent = what;
+            calls[activech] = "";
+            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send CALL", what);
+            //MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send RST", "599");
+            MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", activech, " " + 
+                prag[activech].ToString("f4") + " " + what);
+            Debug.Write("Ch: " + activech.ToString() + " " + what + " " + tx_timer.ToString());
         }
     }
 }

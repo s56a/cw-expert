@@ -193,6 +193,9 @@ namespace CWExpert
             this.comboCWAGC = new System.Windows.Forms.ComboBox();
             this.tabG11 = new System.Windows.Forms.TabPage();
             this.grpG11BandFilters = new System.Windows.Forms.GroupBox();
+            this.chkG11B4030_CH1 = new System.Windows.Forms.CheckBox();
+            this.chkG11B4030_CH2 = new System.Windows.Forms.CheckBox();
+            this.label53 = new System.Windows.Forms.Label();
             this.chkG11B6_CH1 = new System.Windows.Forms.CheckBox();
             this.chkG11B6_CH2 = new System.Windows.Forms.CheckBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -348,6 +351,10 @@ namespace CWExpert
             this.lblStnInfoName = new System.Windows.Forms.Label();
             this.txtStnName = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chkMRLog = new System.Windows.Forms.CheckBox();
+            this.chkMRMedian = new System.Windows.Forms.CheckBox();
+            this.chkSDRmode = new System.Windows.Forms.CheckBox();
             this.udTelnetServerPort = new System.Windows.Forms.NumericUpDown();
             this.lblServerPort = new System.Windows.Forms.Label();
             this.chkIPV6 = new System.Windows.Forms.CheckBox();
@@ -355,8 +362,6 @@ namespace CWExpert
             this.lblTelnetHostAddress = new System.Windows.Forms.Label();
             this.txtTelnetHostAddress = new System.Windows.Forms.TextBox();
             this.chkTelnet = new System.Windows.Forms.CheckBox();
-            this.chkSDRmode = new System.Windows.Forms.CheckBox();
-            this.chkStandAlone = new System.Windows.Forms.CheckBox();
             this.chkRXOnly = new System.Windows.Forms.CheckBox();
             this.grpAudioTests = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -404,9 +409,6 @@ namespace CWExpert
             this.label41 = new System.Windows.Forms.Label();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
             this.label42 = new System.Windows.Forms.Label();
-            this.chkG11B4030_CH1 = new System.Windows.Forms.CheckBox();
-            this.chkG11B4030_CH2 = new System.Windows.Forms.CheckBox();
-            this.label53 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udMonitorFrequncy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udAudioOutputVoltage)).BeginInit();
@@ -487,6 +489,7 @@ namespace CWExpert
             this.tabPage9.SuspendLayout();
             this.tabPage10.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udTelnetServerPort)).BeginInit();
             this.grpAudioTests.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -2222,7 +2225,6 @@ namespace CWExpert
             this.label52.Size = new System.Drawing.Size(29, 13);
             this.label52.TabIndex = 26;
             this.label52.Text = "AGC";
-            this.label52.Click += new System.EventHandler(this.label52_Click);
             // 
             // grpDSPRXImageReject
             // 
@@ -2647,6 +2649,35 @@ namespace CWExpert
             this.grpG11BandFilters.TabIndex = 0;
             this.grpG11BandFilters.TabStop = false;
             this.grpG11BandFilters.Text = "Band filters";
+            // 
+            // chkG11B4030_CH1
+            // 
+            this.chkG11B4030_CH1.AutoSize = true;
+            this.chkG11B4030_CH1.Location = new System.Drawing.Point(119, 80);
+            this.chkG11B4030_CH1.Name = "chkG11B4030_CH1";
+            this.chkG11B4030_CH1.Size = new System.Drawing.Size(15, 14);
+            this.chkG11B4030_CH1.TabIndex = 36;
+            this.chkG11B4030_CH1.UseVisualStyleBackColor = true;
+            this.chkG11B4030_CH1.CheckedChanged += new System.EventHandler(this.chkG11B4030_CH1_CheckedChanged);
+            // 
+            // chkG11B4030_CH2
+            // 
+            this.chkG11B4030_CH2.AutoSize = true;
+            this.chkG11B4030_CH2.Location = new System.Drawing.Point(178, 80);
+            this.chkG11B4030_CH2.Name = "chkG11B4030_CH2";
+            this.chkG11B4030_CH2.Size = new System.Drawing.Size(15, 14);
+            this.chkG11B4030_CH2.TabIndex = 35;
+            this.chkG11B4030_CH2.UseVisualStyleBackColor = true;
+            this.chkG11B4030_CH2.CheckedChanged += new System.EventHandler(this.chkG11B4030_CH2_CheckedChanged);
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(24, 80);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(42, 13);
+            this.label53.TabIndex = 34;
+            this.label53.Text = "40-30m";
             // 
             // chkG11B6_CH1
             // 
@@ -4224,7 +4255,6 @@ namespace CWExpert
             this.tabPage10.Size = new System.Drawing.Size(333, 261);
             this.tabPage10.TabIndex = 3;
             this.tabPage10.Text = "Stn Info";
-            this.tabPage10.Click += new System.EventHandler(this.tabPage10_Click);
             // 
             // label50
             // 
@@ -4399,6 +4429,7 @@ namespace CWExpert
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.udTelnetServerPort);
             this.tabPage2.Controls.Add(this.lblServerPort);
             this.tabPage2.Controls.Add(this.chkIPV6);
@@ -4406,8 +4437,6 @@ namespace CWExpert
             this.tabPage2.Controls.Add(this.lblTelnetHostAddress);
             this.tabPage2.Controls.Add(this.txtTelnetHostAddress);
             this.tabPage2.Controls.Add(this.chkTelnet);
-            this.tabPage2.Controls.Add(this.chkSDRmode);
-            this.tabPage2.Controls.Add(this.chkStandAlone);
             this.tabPage2.Controls.Add(this.chkRXOnly);
             this.tabPage2.Controls.Add(this.grpAudioTests);
             this.tabPage2.Controls.Add(this.chkAlwaysOnTop);
@@ -4418,9 +4447,54 @@ namespace CWExpert
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Misc";
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.chkMRLog);
+            this.groupBox8.Controls.Add(this.chkMRMedian);
+            this.groupBox8.Controls.Add(this.chkSDRmode);
+            this.groupBox8.Location = new System.Drawing.Point(175, 20);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(158, 100);
+            this.groupBox8.TabIndex = 22;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Morse Runner mode";
+            // 
+            // chkMRLog
+            // 
+            this.chkMRLog.AutoSize = true;
+            this.chkMRLog.Location = new System.Drawing.Point(48, 72);
+            this.chkMRLog.Name = "chkMRLog";
+            this.chkMRLog.Size = new System.Drawing.Size(63, 17);
+            this.chkMRLog.TabIndex = 15;
+            this.chkMRLog.Text = "Log -dB";
+            this.chkMRLog.UseVisualStyleBackColor = true;
+            this.chkMRLog.CheckedChanged += new System.EventHandler(this.chkMRLog_CheckedChanged);
+            // 
+            // chkMRMedian
+            // 
+            this.chkMRMedian.AutoSize = true;
+            this.chkMRMedian.Location = new System.Drawing.Point(48, 47);
+            this.chkMRMedian.Name = "chkMRMedian";
+            this.chkMRMedian.Size = new System.Drawing.Size(61, 17);
+            this.chkMRMedian.TabIndex = 14;
+            this.chkMRMedian.Text = "Median";
+            this.chkMRMedian.UseVisualStyleBackColor = true;
+            this.chkMRMedian.CheckedChanged += new System.EventHandler(this.chkMRMedian_CheckedChanged);
+            // 
+            // chkSDRmode
+            // 
+            this.chkSDRmode.AutoSize = true;
+            this.chkSDRmode.Location = new System.Drawing.Point(49, 22);
+            this.chkSDRmode.Name = "chkSDRmode";
+            this.chkSDRmode.Size = new System.Drawing.Size(59, 17);
+            this.chkSDRmode.TabIndex = 13;
+            this.chkSDRmode.Text = "Enable";
+            this.chkSDRmode.UseVisualStyleBackColor = true;
+            this.chkSDRmode.CheckedChanged += new System.EventHandler(this.chkSDRmode_CheckedChanged);
+            // 
             // udTelnetServerPort
             // 
-            this.udTelnetServerPort.Location = new System.Drawing.Point(173, 141);
+            this.udTelnetServerPort.Location = new System.Drawing.Point(105, 239);
             this.udTelnetServerPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -4439,7 +4513,7 @@ namespace CWExpert
             // lblServerPort
             // 
             this.lblServerPort.AutoSize = true;
-            this.lblServerPort.Location = new System.Drawing.Point(85, 141);
+            this.lblServerPort.Location = new System.Drawing.Point(17, 239);
             this.lblServerPort.Name = "lblServerPort";
             this.lblServerPort.Size = new System.Drawing.Size(59, 13);
             this.lblServerPort.TabIndex = 20;
@@ -4448,7 +4522,7 @@ namespace CWExpert
             // chkIPV6
             // 
             this.chkIPV6.AutoSize = true;
-            this.chkIPV6.Location = new System.Drawing.Point(86, 91);
+            this.chkIPV6.Location = new System.Drawing.Point(20, 163);
             this.chkIPV6.Name = "chkIPV6";
             this.chkIPV6.Size = new System.Drawing.Size(49, 17);
             this.chkIPV6.TabIndex = 18;
@@ -4459,7 +4533,7 @@ namespace CWExpert
             // chkRobot
             // 
             this.chkRobot.AutoSize = true;
-            this.chkRobot.Location = new System.Drawing.Point(182, 89);
+            this.chkRobot.Location = new System.Drawing.Point(20, 98);
             this.chkRobot.Name = "chkRobot";
             this.chkRobot.Size = new System.Drawing.Size(55, 17);
             this.chkRobot.TabIndex = 17;
@@ -4470,7 +4544,7 @@ namespace CWExpert
             // lblTelnetHostAddress
             // 
             this.lblTelnetHostAddress.AutoSize = true;
-            this.lblTelnetHostAddress.Location = new System.Drawing.Point(85, 118);
+            this.lblTelnetHostAddress.Location = new System.Drawing.Point(17, 204);
             this.lblTelnetHostAddress.Name = "lblTelnetHostAddress";
             this.lblTelnetHostAddress.Size = new System.Drawing.Size(78, 13);
             this.lblTelnetHostAddress.TabIndex = 16;
@@ -4478,7 +4552,7 @@ namespace CWExpert
             // 
             // txtTelnetHostAddress
             // 
-            this.txtTelnetHostAddress.Location = new System.Drawing.Point(165, 115);
+            this.txtTelnetHostAddress.Location = new System.Drawing.Point(97, 201);
             this.txtTelnetHostAddress.MaxLength = 16;
             this.txtTelnetHostAddress.Name = "txtTelnetHostAddress";
             this.txtTelnetHostAddress.Size = new System.Drawing.Size(72, 20);
@@ -4489,7 +4563,7 @@ namespace CWExpert
             // chkTelnet
             // 
             this.chkTelnet.AutoSize = true;
-            this.chkTelnet.Location = new System.Drawing.Point(86, 67);
+            this.chkTelnet.Location = new System.Drawing.Point(20, 129);
             this.chkTelnet.Name = "chkTelnet";
             this.chkTelnet.Size = new System.Drawing.Size(90, 17);
             this.chkTelnet.TabIndex = 14;
@@ -4497,32 +4571,10 @@ namespace CWExpert
             this.chkTelnet.UseVisualStyleBackColor = true;
             this.chkTelnet.CheckedChanged += new System.EventHandler(this.chkTelnet_CheckedChanged);
             // 
-            // chkSDRmode
-            // 
-            this.chkSDRmode.AutoSize = true;
-            this.chkSDRmode.Location = new System.Drawing.Point(182, 19);
-            this.chkSDRmode.Name = "chkSDRmode";
-            this.chkSDRmode.Size = new System.Drawing.Size(71, 17);
-            this.chkSDRmode.TabIndex = 13;
-            this.chkSDRmode.Text = "I/Q mode";
-            this.chkSDRmode.UseVisualStyleBackColor = true;
-            this.chkSDRmode.CheckedChanged += new System.EventHandler(this.chkSDRmode_CheckedChanged);
-            // 
-            // chkStandAlone
-            // 
-            this.chkStandAlone.AutoSize = true;
-            this.chkStandAlone.Location = new System.Drawing.Point(182, 54);
-            this.chkStandAlone.Name = "chkStandAlone";
-            this.chkStandAlone.Size = new System.Drawing.Size(83, 17);
-            this.chkStandAlone.TabIndex = 12;
-            this.chkStandAlone.Text = "Stand alone";
-            this.chkStandAlone.UseVisualStyleBackColor = true;
-            this.chkStandAlone.CheckedChanged += new System.EventHandler(this.chkStandAlone_CheckedChanged);
-            // 
             // chkRXOnly
             // 
             this.chkRXOnly.AutoSize = true;
-            this.chkRXOnly.Location = new System.Drawing.Point(86, 43);
+            this.chkRXOnly.Location = new System.Drawing.Point(20, 67);
             this.chkRXOnly.Name = "chkRXOnly";
             this.chkRXOnly.Size = new System.Drawing.Size(63, 17);
             this.chkRXOnly.TabIndex = 11;
@@ -4539,9 +4591,9 @@ namespace CWExpert
             this.grpAudioTests.Controls.Add(this.button1);
             this.grpAudioTests.Controls.Add(this.lblAudioStreamInputLatencyValue);
             this.grpAudioTests.Controls.Add(this.lblAudioStreamSampleRateValue);
-            this.grpAudioTests.Location = new System.Drawing.Point(77, 163);
+            this.grpAudioTests.Location = new System.Drawing.Point(175, 152);
             this.grpAudioTests.Name = "grpAudioTests";
-            this.grpAudioTests.Size = new System.Drawing.Size(192, 122);
+            this.grpAudioTests.Size = new System.Drawing.Size(158, 112);
             this.grpAudioTests.TabIndex = 9;
             this.grpAudioTests.TabStop = false;
             this.grpAudioTests.Text = "Audio test";
@@ -4549,7 +4601,7 @@ namespace CWExpert
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 41);
+            this.label3.Location = new System.Drawing.Point(15, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 7;
@@ -4558,7 +4610,7 @@ namespace CWExpert
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 17);
+            this.label4.Location = new System.Drawing.Point(15, 16);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 6;
@@ -4567,7 +4619,7 @@ namespace CWExpert
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 65);
+            this.label5.Location = new System.Drawing.Point(15, 64);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 13);
             this.label5.TabIndex = 8;
@@ -4576,7 +4628,7 @@ namespace CWExpert
             // lblAudioStreamOutputLatencyValuelabel
             // 
             this.lblAudioStreamOutputLatencyValuelabel.AutoSize = true;
-            this.lblAudioStreamOutputLatencyValuelabel.Location = new System.Drawing.Point(131, 41);
+            this.lblAudioStreamOutputLatencyValuelabel.Location = new System.Drawing.Point(107, 41);
             this.lblAudioStreamOutputLatencyValuelabel.Name = "lblAudioStreamOutputLatencyValuelabel";
             this.lblAudioStreamOutputLatencyValuelabel.Size = new System.Drawing.Size(28, 13);
             this.lblAudioStreamOutputLatencyValuelabel.TabIndex = 4;
@@ -4584,7 +4636,7 @@ namespace CWExpert
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(59, 89);
+            this.button1.Location = new System.Drawing.Point(42, 89);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -4595,7 +4647,7 @@ namespace CWExpert
             // lblAudioStreamInputLatencyValue
             // 
             this.lblAudioStreamInputLatencyValue.AutoSize = true;
-            this.lblAudioStreamInputLatencyValue.Location = new System.Drawing.Point(131, 17);
+            this.lblAudioStreamInputLatencyValue.Location = new System.Drawing.Point(107, 17);
             this.lblAudioStreamInputLatencyValue.Name = "lblAudioStreamInputLatencyValue";
             this.lblAudioStreamInputLatencyValue.Size = new System.Drawing.Size(28, 13);
             this.lblAudioStreamInputLatencyValue.TabIndex = 3;
@@ -4604,7 +4656,7 @@ namespace CWExpert
             // lblAudioStreamSampleRateValue
             // 
             this.lblAudioStreamSampleRateValue.AutoSize = true;
-            this.lblAudioStreamSampleRateValue.Location = new System.Drawing.Point(131, 65);
+            this.lblAudioStreamSampleRateValue.Location = new System.Drawing.Point(107, 65);
             this.lblAudioStreamSampleRateValue.Name = "lblAudioStreamSampleRateValue";
             this.lblAudioStreamSampleRateValue.Size = new System.Drawing.Size(37, 13);
             this.lblAudioStreamSampleRateValue.TabIndex = 5;
@@ -4613,7 +4665,7 @@ namespace CWExpert
             // chkAlwaysOnTop
             // 
             this.chkAlwaysOnTop.AutoSize = true;
-            this.chkAlwaysOnTop.Location = new System.Drawing.Point(86, 19);
+            this.chkAlwaysOnTop.Location = new System.Drawing.Point(20, 35);
             this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
             this.chkAlwaysOnTop.Size = new System.Drawing.Size(92, 17);
             this.chkAlwaysOnTop.TabIndex = 6;
@@ -5114,39 +5166,8 @@ namespace CWExpert
             this.label42.TabIndex = 8;
             this.label42.Text = "Averaging";
             // 
-            // chkG11B4030_CH1
-            // 
-            this.chkG11B4030_CH1.AutoSize = true;
-            this.chkG11B4030_CH1.Location = new System.Drawing.Point(119, 80);
-            this.chkG11B4030_CH1.Name = "chkG11B4030_CH1";
-            this.chkG11B4030_CH1.Size = new System.Drawing.Size(15, 14);
-            this.chkG11B4030_CH1.TabIndex = 36;
-            this.chkG11B4030_CH1.UseVisualStyleBackColor = true;
-            this.chkG11B4030_CH1.CheckedChanged += new System.EventHandler(this.chkG11B4030_CH1_CheckedChanged);
-            // 
-            // chkG11B4030_CH2
-            // 
-            this.chkG11B4030_CH2.AutoSize = true;
-            this.chkG11B4030_CH2.Location = new System.Drawing.Point(178, 80);
-            this.chkG11B4030_CH2.Name = "chkG11B4030_CH2";
-            this.chkG11B4030_CH2.Size = new System.Drawing.Size(15, 14);
-            this.chkG11B4030_CH2.TabIndex = 35;
-            this.chkG11B4030_CH2.UseVisualStyleBackColor = true;
-            this.chkG11B4030_CH2.CheckedChanged += new System.EventHandler(this.chkG11B4030_CH2_CheckedChanged);
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(24, 80);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(42, 13);
-            this.label53.TabIndex = 34;
-            this.label53.Text = "40-30m";
-            // 
             // Setup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 388);
             this.Controls.Add(this.tbSetup);
             this.Controls.Add(this.btnApply);
@@ -5260,6 +5281,8 @@ namespace CWExpert
             this.tabPage10.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udTelnetServerPort)).EndInit();
             this.grpAudioTests.ResumeLayout(false);
             this.grpAudioTests.PerformLayout();
@@ -5316,7 +5339,6 @@ namespace CWExpert
         private System.Windows.Forms.GroupBox grpDisplayDriver;
         private System.Windows.Forms.RadioButton radDisplayDirectX;
         private System.Windows.Forms.RadioButton radDisplayGDI;
-        public System.Windows.Forms.CheckBox chkStandAlone;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -5641,5 +5663,8 @@ namespace CWExpert
         private System.Windows.Forms.CheckBox chkG11B4030_CH1;
         private System.Windows.Forms.CheckBox chkG11B4030_CH2;
         private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.CheckBox chkMRLog;
+        private System.Windows.Forms.CheckBox chkMRMedian;
     }
 }

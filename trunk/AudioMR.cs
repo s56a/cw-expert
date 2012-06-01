@@ -105,7 +105,7 @@ namespace CWExpert
         private static ComplexF[] buffer_mox = new ComplexF[2048];
         private static ComplexF[] monitor_buffer = new ComplexF[2048];
         private static float[] callback_monitor_buffer = new float[2048];
-        private static Mutex audio_mutex = new Mutex(false);
+        public static Mutex audio_mutex = new Mutex(false);
         public static int channel = 5;
         public static int mox_switch_time = 0;
         private static ComplexF[] zero_buffer = new ComplexF[2048];
@@ -139,6 +139,13 @@ namespace CWExpert
         public static RingBufferFloat rb_mon_l = new RingBufferFloat(1048576);
         public static RingBufferFloat rb_mon_r = new RingBufferFloat(1048576);
         public static bool monitor_paused = false;
+        private static int decimation = 6;
+        private static int wptr = 0;
+        static float[] MRbuffer = new float[2048];
+        static float phaseacc = 0.0f;
+        const float TWOPI = 6.28318530717856f;
+        const float M_PI = 3.14159265358928f;
+
 
         #endregion
 
@@ -175,6 +182,13 @@ namespace CWExpert
         public static float ScopeLevel
         {
             set { scope_level = value / 100; }
+        }
+
+        private static double input_level = 0;
+        public static double InputLevel
+        {
+            get { return input_level; }
+            set { input_level = value / 10; }
         }
 
         private static double volume = 0;
@@ -252,12 +266,6 @@ namespace CWExpert
 
         #region misc function
 
-        unsafe private static void ChangeInputVolume(float* input, float* output, int buflen, double volume)
-        {
-            for (int i = 0; i < buflen; i++)
-                input[i] = output[i] * (float)volume;
-        }
-
         unsafe public static int Callback(void* input, void* output, int buflen,
             PA19.PaStreamCallbackTimeInfo* timeInfo, int statusFlags, void* userData)
         {
@@ -266,7 +274,8 @@ namespace CWExpert
                 if (audio_paused)
                     return callback_return;
 
-                callback_count++;
+                if (SDRmode)
+                {
 #if(WIN64)
                 Int64* array_ptr = (Int64*)input;
                 float* in_l_ptr1 = (float*)array_ptr[0];
@@ -284,19 +293,16 @@ namespace CWExpert
 #endif
 
 #if(WIN32)
-                int* array_ptr = (int*)input;
-                float* in_r_ptr1 = (float*)array_ptr[0];
-                float* in_l_ptr1 = (float*)array_ptr[1];
-                array_ptr = (int*)output;
-                float* out_l_ptr1 = (float*)array_ptr[1];
-                float* out_r_ptr1 = (float*)array_ptr[0];
-                array_ptr = (int*)input;
-                in_l_ptr1 = (float*)array_ptr[0];
-                in_r_ptr1 = (float*)array_ptr[1];
+                    int* array_ptr = (int*)input;
+                    float* in_r_ptr1 = (float*)array_ptr[0];
+                    float* in_l_ptr1 = (float*)array_ptr[1];
+                    array_ptr = (int*)output;
+                    float* out_l_ptr1 = (float*)array_ptr[1];
+                    float* out_r_ptr1 = (float*)array_ptr[0];
+                    array_ptr = (int*)input;
+                    in_l_ptr1 = (float*)array_ptr[0];
+                    in_r_ptr1 = (float*)array_ptr[1];
 #endif
-
-                if (SDRmode)
-                {
                     #region MOX
 
                     if (mox)
@@ -626,7 +632,7 @@ namespace CWExpert
 
                         if (RX2)
                         {
-                            fixed(float *output_l = &tmp_buffer_ch3[0])
+                            fixed (float* output_l = &tmp_buffer_ch3[0])
                             fixed (float* output_r = &tmp_buffer_ch4[0])
                             {
                                 ExchangeSamplesSubRX(0, 0, output_l, output_r, buflen);
@@ -1226,48 +1232,75 @@ namespace CWExpert
 
                 else
                 {                                           // Morse runner
-                    for (int i = 0; i < buflen; i++)
-                    {
-                        out_l_ptr1[0] = in_l_ptr1[0] * (float)volume;
-                        out_r_ptr1[0] = in_r_ptr1[0] * (float)volume;
-                        out_l_ptr1++;
-                        out_r_ptr1++;
-                        in_l_ptr1++;
-                        in_r_ptr1++;
-                    }
 #if(WIN32)
-                    array_ptr = (int*)input;
-                    in_l_ptr1 = (float*)array_ptr[0];
-                    in_r_ptr1 = (float*)array_ptr[1];
-                    float[] buffer_l = new float[buflen];
-                    float[] buffer_r = new float[buflen];
+                    int* array_ptr = (int*)input;
+                    float* in_ptr_l = (float*)array_ptr[0];
+                    float* in_ptr_r = (float*)array_ptr[1];
+
+                    int* out_array_ptr = (int*)output;
+                    float* out_l_ptr1 = (float*)out_array_ptr[0];
+                    float* out_r_ptr1 = (float*)out_array_ptr[1];
 #endif
 
 #if(WIN64)
                     array_ptr = (Int64*)input;
                     in_l_ptr1 = (float*)array_ptr[0];
                     in_r_ptr1 = (float*)array_ptr[1];
-                    float[] buffer_l = new float[buflen];
-                    float[] buffer_r = new float[buflen];
+                    ushort[] buffer_l = new ushort[buflen];
+                    ushort[] buffer_r = new ushort[buflen];
 #endif
+                    fixed (float* output_l = &tmp_buffer_ch1[0])
+                    fixed (float* output_r = &tmp_buffer_ch2[0])
+                        ExchangeSamples(0, in_ptr_l, in_ptr_r, output_l, output_r, buflen);
 
                     for (int i = 0; i < buflen; i++)
                     {
-                        buffer_l[i] = in_l_ptr1[0];
-                        buffer_r[i] = in_r_ptr1[0];
-                        in_l_ptr1++;
-                        in_r_ptr1++;
+                        tmp_buffer[i] = in_ptr_l[i];
+                        out_l_ptr1[i] = (float)(in_ptr_l[i] * volume);
+                        out_r_ptr1[i] = (float)(in_ptr_r[i] * volume);
+                        in_ptr_l[i] *= (float)input_level;
+                        in_ptr_r[i] *= (float)input_level;
                     }
 
-                    if (MainForm.cwDecoder.audio_buffer_l != null &&
-                        MainForm.cwDecoder.audio_buffer_l.Length == buflen)
+                    /*audio_mutex.WaitOne();
+                    Array.Copy(tmp_buffer, MainForm.display_buffer, buflen);
+                    Array.Copy(zero_bufferF, 0, MainForm.display_buffer, 2048, buflen);
+                    audio_mutex.ReleaseMutex();*/
+
+                    for (int i = 0; i < buflen; i++)
                     {
+                        if (wptr >= 2048)
+                        {
+                            /*float delta = TWOPI * 5000.0f / 8000.0f;
 
-                        Array.Copy(buffer_l, MainForm.cwDecoder.audio_buffer_l, buflen);
-                        Array.Copy(buffer_r, MainForm.cwDecoder.audio_buffer_r, buflen);
+                            for (i = 0; i < 2048; i++)
+                            {
+                                phaseacc += delta;
+
+                                if (phaseacc >= M_PI)
+                                    phaseacc -= TWOPI;
+
+                                in_ptr_l[i] = (in_ptr_l[i] * (float)Math.Cos(phaseacc));
+                                in_ptr_r[i] = (in_ptr_l[i] * (float)Math.Sin(phaseacc));
+                            }*/
+
+                            if (MainForm.cwDecoder.audio_buffer != null &&
+                                MainForm.cwDecoder.audio_buffer.Length == 2048)
+                            {
+                                Array.Copy(MRbuffer, MainForm.cwDecoder.audio_buffer, 2048);
+                                MainForm.cwDecoder.AudioEvent1.Set();
+
+                            }
+
+                            wptr = 0;
+                        }
+                        else
+                        {
+                            MRbuffer[wptr] = in_ptr_r[i];
+                            i += decimation - 1;
+                            wptr++;
+                        }
                     }
-
-                    MainForm.cwDecoder.AudioEvent1.Set();
                 }
 
                 #endregion
@@ -1858,6 +1891,7 @@ namespace CWExpert
 
             try
             {
+                decimation = Audio.SampleRate / MainForm.cwDecoder.rate;
                 monitor_enabled = false;
                 buffer_ptr_A = 0;
 
@@ -1944,56 +1978,65 @@ namespace CWExpert
                 inparam.device = in_dev;
                 inparam.channelCount = num_channels;
 
-                inparam.sampleFormat = PA19.paFloat32 | PA19.paNonInterleaved;
+                    inparam.sampleFormat = PA19.paFloat32 | PA19.paNonInterleaved;
+                    inparam.suggestedLatency = ((float)latency_ms / 1000);
+                    outparam.device = out_dev;
+                    outparam.channelCount = num_channels;
+                    outparam.sampleFormat = PA19.paFloat32 | PA19.paNonInterleaved;
+                    outparam.suggestedLatency = ((float)latency_ms / 1000);
 
-                inparam.suggestedLatency = ((float)latency_ms / 1000);
-
-                outparam.device = out_dev;
-                outparam.channelCount = num_channels;
-
-                outparam.sampleFormat = PA19.paFloat32 | PA19.paNonInterleaved;
-                outparam.suggestedLatency = ((float)latency_ms / 1000);
-
-                if (host_api_index == PA19.PA_HostApiTypeIdToHostApiIndex(PA19.PaHostApiTypeId.paWASAPI))
-                {
-                    PA19.PaWasapiStreamInfo stream_info = new PA19.PaWasapiStreamInfo();
-                    stream_info.hostApiType = PA19.PaHostApiTypeId.paWASAPI;
-                    stream_info.version = 1;
-                    stream_info.size = (UInt32)sizeof(PA19.PaWasapiStreamInfo);
-                    inparam.hostApiSpecificStreamInfo = &stream_info;
-                    outparam.hostApiSpecificStreamInfo = &stream_info;
-
-                    if (QSK && callback_num != 2)
+                    if (host_api_index == PA19.PA_HostApiTypeIdToHostApiIndex(PA19.PaHostApiTypeId.paWASAPI))
                     {
-                        stream_info.flags = (UInt32)PA19.PaWasapiFlags.paWinWasapiExclusive |
-                            PA19.AUDCLNT_STREAMFLAGS_EVENTCALLBACK;
+                        PA19.PaWasapiStreamInfo stream_info = new PA19.PaWasapiStreamInfo();
+                        stream_info.hostApiType = PA19.PaHostApiTypeId.paWASAPI;
+                        stream_info.version = 1;
+                        stream_info.size = (UInt32)sizeof(PA19.PaWasapiStreamInfo);
+                        inparam.hostApiSpecificStreamInfo = &stream_info;
+                        outparam.hostApiSpecificStreamInfo = &stream_info;
+
+                        if (QSK && callback_num != 2)
+                        {
+                            stream_info.flags = (UInt32)PA19.PaWasapiFlags.paWinWasapiExclusive |
+                                PA19.AUDCLNT_STREAMFLAGS_EVENTCALLBACK;
+                        }
                     }
-                }
 
                 int error = 0;
 
-                if (QSK)
+                if (SDRmode)
                 {
-                    if (callback_num == 0)
-                        error = PA19.PA_OpenStream(out stream1, &inparam, null, sample_rate, block_size, 0, callback, 0, 0);
-                    else if (callback_num == 1)
-                        error = PA19.PA_OpenStream(out stream2, null, &outparam, sample_rate, block_size, 0, callback, 0, 1);
-                    else if (callback_num == 2)
-                        error = PA19.PA_OpenStream(out stream3, null, &outparam, sample_rate, block_size, 0, callback, 0, 2);
+                    if (QSK)
+                    {
+                        if (callback_num == 0)
+                            error = PA19.PA_OpenStream(out stream1, &inparam, null, sample_rate, block_size, 0, callback, 0, 0);
+                        else if (callback_num == 1)
+                            error = PA19.PA_OpenStream(out stream2, null, &outparam, sample_rate, block_size, 0, callback, 0, 1);
+                        else if (callback_num == 2)
+                            error = PA19.PA_OpenStream(out stream3, null, &outparam, sample_rate, block_size, 0, callback, 0, 2);
+                    }
+                    else
+                    {
+                        if (callback_num == 0)
+                            error = PA19.PA_OpenStream(out stream1, &inparam, &outparam, sample_rate, block_size, 0, callback, 0, 0);
+                        else if (callback_num == 2)
+                            error = PA19.PA_OpenStream(out stream3, null, &outparam, sample_rate, block_size, 0, callback, 0, 2);
+                    }
+
+                    if (error != 0)
+                    {
+                        MessageBox.Show(PA19.PA_GetErrorText(error), "PortAudio Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
                 }
                 else
-                {
+                {                                           // MorseRunner mode
+                    error = 0;
+
                     if (callback_num == 0)
                         error = PA19.PA_OpenStream(out stream1, &inparam, &outparam, sample_rate, block_size, 0, callback, 0, 0);
                     else if (callback_num == 2)
                         error = PA19.PA_OpenStream(out stream3, null, &outparam, sample_rate, block_size, 0, callback, 0, 2);
-                }
-
-                if (error != 0)
-                {
-                    MessageBox.Show(PA19.PA_GetErrorText(error), "PortAudio Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
                 }
 
                 if (callback_num == 0)
@@ -2009,7 +2052,7 @@ namespace CWExpert
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                //               Debug.WriteLine(block_size);
+
                 return true;
             }
             catch (Exception ex)

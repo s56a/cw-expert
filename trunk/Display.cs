@@ -1662,8 +1662,8 @@ namespace CWExpert
             for (int i = 1; i < h_steps; i++)
             {
                 int xOffset = 0;
-                int num = spectrum_grid_max - i * spectrum_grid_step;
-                int y = (int)((double)(spectrum_grid_max - num) * H / y_range); // +(int)pan_font.Size;
+                double num = spectrum_grid_max - i * (H / 10);
+                int y = (int)((double)(spectrum_grid_max - num) ); // +(int)pan_font.Size;
 
                 if (show_horizontal_grid)
                 {
@@ -1677,8 +1677,8 @@ namespace CWExpert
                 }
 
                 // Draw horizontal line labels
-                num = spectrum_grid_max - i * spectrum_grid_step;
-                horizontal_label[i].label = num.ToString();
+                num = spectrum_grid_max - i * (double)((double)y_range / 10.0);
+                horizontal_label[i].label = num.ToString("f0");
                 if (horizontal_label[i].label.Length == 2) xOffset = 10;
                 else if (horizontal_label[i].label.Length == 1) xOffset = 20;
                 else xOffset = 5;
@@ -2291,10 +2291,10 @@ namespace CWExpert
                 int yRange = spectrum_grid_max - spectrum_grid_min;
                 max_y = Int32.MinValue;
 
-                if (Audio.SDRmode)
+                //if (Audio.SDRmode)
                     num_samples = BUFFER_SIZE;
-                else
-                    num_samples = Audio.BlockSize;
+                //else
+                    //num_samples = Audio.BlockSize;
 
                 if (data_ready)
                 {
@@ -2329,7 +2329,9 @@ namespace CWExpert
                 }
                 else
                 {
-                    num_samples = 1024;
+                    start_sample_index = (BUFFER_SIZE >> 1) + (int)((0 * BUFFER_SIZE) / sample_rate);
+                    num_samples = (int)((High) * BUFFER_SIZE / sample_rate);
+                    //num_samples = 2048;
                     slope = (float)num_samples / (float)panadapter_W;
                 }
 
@@ -2351,7 +2353,7 @@ namespace CWExpert
                             if (current_display_data[j % 4096] > max) max = current_display_data[j % 4096];
                     }
 
-                    if (Audio.SDRmode)
+                    //if (Audio.SDRmode)
                         max += display_cal_offset;
 
                     if (max > max_y)

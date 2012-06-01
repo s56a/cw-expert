@@ -2578,27 +2578,6 @@ namespace CWExpert
 
         #region COMPLEX calculations
 
-        private ComplexF CsubF(ComplexF x, ComplexF y)
-        {
-            ComplexF z;
-            z.Re = x.Re - y.Re;
-            z.Im = x.Im - y.Im;
-            return z;
-        }
-
-        private ComplexF ConjgF(ComplexF z)
-        {
-            return CmplxF(z.Re, -z.Im);
-        }
-
-        private ComplexF CaddF(ComplexF x, ComplexF y)
-        {
-            ComplexF z;
-            z.Re = x.Re + y.Re;
-            z.Im = x.Im + y.Im;
-            return z;
-        }
-
         private float Cabs(ComplexF z)
         {
             return (float)Math.Sqrt(z.Re * z.Re + z.Im * z.Im);
@@ -2609,40 +2588,6 @@ namespace CWExpert
             ComplexF z;
             z.Re = x.Re * a;
             z.Im = x.Im * a;
-            return z;
-        }
-
-        private float CmagF(ComplexF z)
-        {
-            return (float)Math.Sqrt(z.Re * z.Re + z.Im * z.Im);
-        }
-
-        private float CsqrmagF(ComplexF z)
-        {
-            return (float)(z.Re * z.Re + z.Im * z.Im);
-        }
-
-        private ComplexF CmplxF(float x, float y)
-        {
-            ComplexF z;
-            z.Re = x;
-            z.Im = y;
-            return z;
-        }
-
-        private ComplexF Cclamp(ComplexF x)
-        {
-            ComplexF z;
-
-            z = x;
-
-            z.Re = (float)Math.Min(z.Re, 10.0);
-            z.Re = (float)Math.Max(z.Re, -10.0);
-
-            z.Im = (float)Math.Min(z.Im, 10.0);
-            z.Im = (float)Math.Max(z.Im, -10.0);
-
-
             return z;
         }
 

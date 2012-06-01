@@ -324,7 +324,7 @@ namespace CWExpert
         public RTTY rtty;
         public PSK psk;
         public bool pause_DisplayThread = false;
-        public double[,] display_buffer;
+        public float[] display_buffer;
         private Thread display_thread;
         private Thread Smeter_thread;
         private Thread wbir_thread;
@@ -403,6 +403,7 @@ namespace CWExpert
         public Keyboard keyboard;
         public bool ROBOT = false;
         private MeterType TX_meter_type = MeterType.DIR_PWR;
+        public bool hst = false;
 
         #endregion
 
@@ -1495,6 +1496,32 @@ namespace CWExpert
         {
             booting = true;
             InitializeComponent();
+
+            float dpi = this.CreateGraphics().DpiX;
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+            SizeF d = this.AutoScaleDimensions;
+            d.Height = dpi;
+            d.Width = dpi;
+            this.AutoScaleDimensions = d;
+            float ratio = dpi / 96.0f;
+            string font_name = this.Font.Name;
+            float size = (float)(8.25 / ratio);
+            System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
+            this.Font = new_font;
+            font_name = txtVFOA.Font.Name;
+            size = 14.25f / ratio;
+            new_font = new System.Drawing.Font(font_name, size);
+            txtVFOA.Font = new_font;
+            size = 9.75f / ratio;
+            new_font = new System.Drawing.Font(font_name, size);
+            txtVFOB.Font = new_font;
+            txtLosc.Font = new_font;
+            font_name = this.menuStrip1.Font.Name;
+            this.menuStrip1.Font = new System.Drawing.Font(font_name, size);
+            this.menuStrip1.Size = new Size(this.menuStrip1.Width, (int)(25 / ratio));
+            this.PerformAutoScale();
+            this.PerformLayout();
+
             SetStyle(ControlStyles.UserPaint |
                 ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.OptimizedDoubleBuffer, true);
@@ -1545,7 +1572,7 @@ namespace CWExpert
                 }
             }
 
-            display_buffer = new double[32, 64];
+            display_buffer = new float[4096];
             Application.EnableVisualStyles();
             AlwaysOnTop = always_on_top;
             txtFilterWidth.Visible = false;
@@ -2015,7 +2042,7 @@ namespace CWExpert
                     btnStartMR.BackColor = Color.LimeGreen;
                     txtChannelClear(0); // all
 
-                    if (standalone)
+                    if (Audio.SDRmode)
                     {
                         if (ROBOT)
                         {
@@ -2143,10 +2170,10 @@ namespace CWExpert
                             mrIsRunning = true;
 
                             if (!btnMute.Checked)
-                                Audio.Volume = tbVolume.Value;
+                                Audio.Volume = tbVolume.Value * 10;
 
                             Audio.ScopeLevel = tbVolume.Value;
-                            //Audio.InputLevel = tbInputLevel.Value;
+                            Audio.InputLevel = (double)tbInputLevel.Value;;
                             Audio.callback_return = 0;
 
                             if (cwDecoder == null)
@@ -2154,6 +2181,8 @@ namespace CWExpert
 
                             if (cwDecoder.AudioEvent1 == null)
                                 cwDecoder.AudioEvent1 = new AutoResetEvent(false);
+
+                            cwDecoder.SQL = (double)(tbMRSquelch.Value / 20000.0);
 
                             EnsureMRWindow();
 
@@ -2211,16 +2240,13 @@ namespace CWExpert
                 else
                 {
                     btnStartMR.BackColor = Color.WhiteSmoke;
+
                     if (Audio.SDRmode)
                     {
                         MOX = false;
                         TUNE = false;
                         wbir_run = false;
                         Thread.Sleep(100);
-                    }
-
-                    if (standalone)
-                    {
                         runDisplay = false;
 
                         switch (op_mode_vfoA)
@@ -2643,6 +2669,7 @@ namespace CWExpert
             }
         }
 
+        private FourierFFT fft;
         public bool data_ready = false;
         unsafe private void RunDisplay()
         {
@@ -2650,6 +2677,7 @@ namespace CWExpert
             {
                 float[] display_data = new float[4096];
                 Thread.Sleep(100);
+                fft = new FourierFFT();
 
                 while (runDisplay)
                 {
@@ -2660,13 +2688,10 @@ namespace CWExpert
 #if(DirectX)
                         if (VideoDriver == DisplayDriver.DIRECTX)
                         {
-                            if (Audio.SDRmode)
-                            {
-                                fixed (float* ptr = &DX.new_display_data[0])
-                                    GetPanadapter(0, ptr);
-                                Array.Copy(DX.new_display_data, picMonitor_buffer, 4096);
-                                Array.Copy(DX.new_display_data, DX.new_waterfall_data, 4096);
-                            }
+                            fixed (float* ptr = &DX.new_display_data[0])
+                                GetPanadapter(0, ptr);
+                            Array.Copy(DX.new_display_data, picMonitor_buffer, 4096);
+                            Array.Copy(DX.new_display_data, DX.new_waterfall_data, 4096);
 
                             DX.DataReady = true;
 
@@ -2691,16 +2716,13 @@ namespace CWExpert
                         {
                             if (Display_GDI.IsInitialized)
                             {
-                                if (Audio.SDRmode)
-                                {
-                                    fixed (float* ptr = &Display_GDI.new_display_data[0])
-                                        GetPanadapter(0, ptr);
-                                    Array.Copy(Display_GDI.new_display_data, picMonitor_buffer, 4096);
-                                    Array.Copy(Display_GDI.new_display_data, Display_GDI.new_waterfall_data, 4096);
+                                fixed (float* ptr = &Display_GDI.new_display_data[0])
+                                    GetPanadapter(0, ptr);
+                                Array.Copy(Display_GDI.new_display_data, picMonitor_buffer, 4096);
+                                Array.Copy(Display_GDI.new_display_data, Display_GDI.new_waterfall_data, 4096);
 
-                                    if (grpLogBook.Visible && !mox)
-                                        picMonitor.Invalidate();
-                                }
+                                if (grpLogBook.Visible && !mox)
+                                    picMonitor.Invalidate();
 
                                 Display_GDI.DataReady = true;
                                 picPanadapter.Invalidate();
@@ -3121,8 +3143,7 @@ namespace CWExpert
                                         {
                                             txtLOGLOC.Clear();
                                         }
-                                        else if (detect_loc && (txtLOGLOC.Text == "" || txtLOGLOC.Text == " ") ||
-                                            txtLOGLOC.Text == ":")
+                                        else if (detect_loc && !IsLocator(txtLOGLOC.Text))
                                         {
                                             txtLOGLOC.Clear();
                                         }
@@ -3284,12 +3305,12 @@ namespace CWExpert
                                         //rtbCH1.SelectionColor = Color.Red;
                                     }
                                     else if ((text.StartsWith("LOC") || text.StartsWith("LOCATOR") ||
-                                        text.StartsWith("GRID")) && !detect_loc)
+                                        text.StartsWith("GRID") || text.StartsWith("LOK")) && !detect_loc)
                                     {
                                         detection = true;
                                         detect_loc = true;
 
-                                        if (text.StartsWith("LOC.") && text.Length > 4)
+                                        if ((text.StartsWith("LOC.") || text.StartsWith("LOK.")) && text.Length > 4)
                                         {
                                             text = text.Remove(0, 4);
                                             detection = false;
@@ -3297,7 +3318,7 @@ namespace CWExpert
                                             txtLOGLOC.Text = text;
                                             Debug.Write("Detected LOC!\n");
                                         }
-                                        else if (text.StartsWith("LOC:") && text.Length > 4)
+                                        else if ((text.StartsWith("LOC:") || text.StartsWith("LOK:")) && text.Length > 4)
                                         {
                                             text = text.Remove(0, 4);
                                             detection = false;
@@ -3561,10 +3582,10 @@ namespace CWExpert
                                 txtChannel10.Text = "10 " + out_string;
                                 break;
                             case 11:
-                                txtChannel11.Text = "11 " + out_string;
+                                txtChannel11.Text = "11" + out_string;
                                 break;
                             case 12:
-                                txtChannel12.Text = "12 " + out_string;
+                                txtChannel12.Text = "12" + out_string;
                                 break;
                             case 13:
                                 txtChannel13.Text = "13 " + out_string;
@@ -3678,7 +3699,12 @@ namespace CWExpert
             if (btnAudioMute.Checked)
                 Audio.Volume = 0.0;
             else
-                Audio.Volume = tbAFGain.Value;
+            {
+                if (Audio.SDRmode)
+                    Audio.Volume = tbAFGain.Value;
+                else
+                    Audio.Volume = tbVolume.Value * 10;
+            }
         }
 
         private void tbVolume_Scroll(object sender, EventArgs e)
@@ -3686,7 +3712,7 @@ namespace CWExpert
             if (!Audio.SDRmode)
             {
                 if (!btnMute.Checked)
-                    Audio.Volume = tbVolume.Value;
+                    Audio.Volume = tbVolume.Value * 10;
 
                 Audio.ScopeLevel = tbVolume.Value;
             }
@@ -3704,7 +3730,7 @@ namespace CWExpert
 
         private void tbInputLevel_Scroll(object sender, EventArgs e)
         {
-            //Audio.InputLevel = (double)tbInputLevel.Value;
+            Audio.InputLevel = (double)tbInputLevel.Value;
         }
 
         private void tbInputLevel_MouseHover(object sender, EventArgs e)
@@ -4010,7 +4036,7 @@ namespace CWExpert
                 }
                 else
                 {
-                    Audio.Volume = tbAFGain.Value;
+                    Audio.Volume = tbAFGain.Value * 10;
                     btnMute.BackColor = Color.WhiteSmoke;
                 }
             }
@@ -4044,7 +4070,7 @@ namespace CWExpert
                 if (!btnMute.Checked)
                     Audio.Volume = tbAFGain.Value;
 
-                Audio.ScopeLevel = tbAFGain.Value;
+                Audio.ScopeLevel = tbAFGain.Value * 5;
             }
         }
 
@@ -4108,7 +4134,7 @@ namespace CWExpert
             }
         }
 
-        private bool G59Init()
+        public bool G59Init()
         {
             try
             {
@@ -5447,74 +5473,88 @@ namespace CWExpert
             int abs_high = -abs_low;
             double correction = 2 * (pan_factor * abs_high) / tbPan.Maximum;
 
-            if (tuning_mode == TuneMode.Off || tuning_mode == TuneMode.VFOA)
-                vfo = -Math.Round(((losc - vfoa)) * 1e6, 6);
-            else
-                vfo = -Math.Round(((losc - vfob)) * 1e6, 6);
-
-            low = (int)(-Audio.SampleRate / (zoom_factor * 2));
-            high = (int)(Audio.SampleRate / (zoom_factor * 2));
-
-            if (tbZoom.Value == 4)
+            if (Audio.SDRmode)
             {
-                tbPan.Value = 0;
-                low = (int)(-Audio.SampleRate / 2.0);
-                high = -low;
-            }
-            else
-            {
-                if (losc < vfoa)
+                if (tuning_mode == TuneMode.Off || tuning_mode == TuneMode.VFOA)
+                    vfo = -Math.Round(((losc - vfoa)) * 1e6, 6);
+                else
+                    vfo = -Math.Round(((losc - vfob)) * 1e6, 6);
+
+                low = (int)(-Audio.SampleRate / (zoom_factor * 2));
+                high = (int)(Audio.SampleRate / (zoom_factor * 2));
+
+                if (tbZoom.Value == 4)
                 {
-                    high_tmp = ((int)vfo + high + (int)correction);
-
-                    if (high_tmp > abs_high)
-                    {
-                        high = abs_high;
-                        low = (abs_high + low * 2.0);
-                    }
-                    else
-                    {
-                        low = (high_tmp + low * 2.0);
-                        if (low < abs_low)
-                        {
-                            low = abs_low;
-                            high = low + high * 2.0;
-                        }
-                        else
-                            high = high_tmp;
-                    }
+                    tbPan.Value = 0;
+                    low = (int)(-Audio.SampleRate / 2.0);
+                    high = -low;
                 }
                 else
                 {
-                    if (losc > vfoa)
+                    if (losc < vfoa)
                     {
-                        low_tmp = ((int)vfo + low + (int)correction);
-                        if (low_tmp < abs_low)
+                        high_tmp = ((int)vfo + high + (int)correction);
+
+                        if (high_tmp > abs_high)
                         {
-                            low = abs_low;
-                            high = abs_low + high * 2.0;
+                            high = abs_high;
+                            low = (abs_high + low * 2.0);
                         }
                         else
                         {
-                            high = (low_tmp + high * 2.0);
-                            if (high > abs_high)
+                            low = (high_tmp + low * 2.0);
+                            if (low < abs_low)
                             {
-                                high = abs_high;
-                                low = abs_high + low * 2.0;
+                                low = abs_low;
+                                high = low + high * 2.0;
                             }
                             else
-                                low = low_tmp;
+                                high = high_tmp;
+                        }
+                    }
+                    else
+                    {
+                        if (losc > vfoa)
+                        {
+                            low_tmp = ((int)vfo + low + (int)correction);
+                            if (low_tmp < abs_low)
+                            {
+                                low = abs_low;
+                                high = abs_low + high * 2.0;
+                            }
+                            else
+                            {
+                                high = (low_tmp + high * 2.0);
+                                if (high > abs_high)
+                                {
+                                    high = abs_high;
+                                    low = abs_high + low * 2.0;
+                                }
+                                else
+                                    low = low_tmp;
+                            }
                         }
                     }
                 }
-            }
 
 #if(DirectX)
-            DX.RXDisplayLow = (int)low;
-            DX.RXDisplayHigh = (int)high;
+                DX.RXDisplayLow = (int)low;
+                DX.RXDisplayHigh = (int)high;
 #endif
-            Display_GDI.RXDisplayLow = (int)low;
-            Display_GDI.RXDisplayHigh = (int)high;
+                Display_GDI.RXDisplayLow = (int)low;
+                Display_GDI.RXDisplayHigh = (int)high;
+            }
+            else
+            {
+                low = 0;
+                high = (int)(Audio.SampleRate / (zoom_factor * 2));
+#if(DirectX)
+                DX.RXDisplayLow = (int)low;
+                DX.RXDisplayHigh = (int)high;
+#endif
+                Display_GDI.RXDisplayLow = (int)low;
+                Display_GDI.RXDisplayHigh = (int)high;
+            }
         }
 
         private void lblZoom_Click(object sender, EventArgs e)
@@ -5651,107 +5691,6 @@ namespace CWExpert
 
         #endregion
 
-        #region on/of channels
-
-        private void chk2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk4_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk6_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk6.Checked)
-                Audio.channel = 6;
-        }
-
-        private void chk5_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk5.Checked)
-                Audio.channel = 5;
-        }
-
-        private void chk8_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk7_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk16_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk15_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk14_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk13_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk12_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk11_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk10_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk9_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk17_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk18_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk19_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk20_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
-
         #region SQL
 
         private void picSQL_Paint(object sender, PaintEventArgs e)
@@ -5794,7 +5733,7 @@ namespace CWExpert
                 case Mode.CW:
                     {
                         if (cwDecoder != null)
-                            cwDecoder.sql = (double)(tbSQL.Value / 20.0);
+                            cwDecoder.SQL = (double)(tbSQL.Value / 20.0);
                     }
                     break;
 
@@ -5965,6 +5904,73 @@ namespace CWExpert
                     case "Set text":
                         WriteOutputText(param_1, param_2);
                         break;
+                    case "Append text":
+                        {
+                            if (param_1 <= 20 && param_1 >= 2)
+                            {
+                                switch (param_1)
+                                {
+                                    case 2:
+                                        txtChannel2.AppendText(param_2);
+                                        break;
+                                    case 3:
+                                        txtChannel3.AppendText(param_2);
+                                        break;
+                                    case 4:
+                                        txtChannel4.AppendText(param_2);
+                                        break;
+                                    case 5:
+                                        txtChannel5.AppendText(param_2);
+                                        break;
+                                    case 6:
+                                        txtChannel6.AppendText(param_2);
+                                        break;
+                                    case 7:
+                                        txtChannel7.AppendText(param_2);
+                                        break;
+                                    case 8:
+                                        txtChannel8.AppendText(param_2);
+                                        break;
+                                    case 9:
+                                        txtChannel9.AppendText(param_2);
+                                        break;
+                                    case 10:
+                                        txtChannel10.AppendText(param_2);
+                                        break;
+                                    case 11:
+                                        txtChannel11.AppendText(param_2);
+                                        break;
+                                    case 12:
+                                        txtChannel12.AppendText(param_2);
+                                        break;
+                                    case 13:
+                                        txtChannel13.AppendText(param_2);
+                                        break;
+                                    case 14:
+                                        txtChannel14.AppendText(param_2);
+                                        break;
+                                    case 15:
+                                        txtChannel15.AppendText(param_2);
+                                        break;
+                                    case 16:
+                                        txtChannel16.AppendText(param_2);
+                                        break;
+                                    case 17:
+                                        txtChannel17.AppendText(param_2);
+                                        break;
+                                    case 18:
+                                        txtChannel18.AppendText(param_2);
+                                        break;
+                                    case 19:
+                                        txtChannel19.AppendText(param_2);
+                                        break;
+                                    case 20:
+                                        txtChannel20.AppendText(param_2);
+                                        break;
+                                }
+                            }
+                        }
+                        break;
                     case "Set TX text":
                         if (param_1 == 0)
                         {
@@ -6085,7 +6091,16 @@ namespace CWExpert
                         case "Send CALL":
                             {
                                 txtCALL = data;
-                                btnSendCall_Click(null, null);
+
+                                EnsureMREditWindows();
+
+                                if (topWindow != 0)
+                                {
+                                    msg.sendWindowsStringMessage(edits[0].hWnd, 0, data);
+                                    msg.sendWindowsMessage(edits[0].hWnd, WM_KEYDOWN, VK_RETURN, 1 + (13 << 16));
+                                }
+
+                                //btnSendCall_Click(null, null);
                             }
                             break;
 
@@ -6099,7 +6114,31 @@ namespace CWExpert
                         case "Send NR":
                             {
                                 txtNR = data;
-                                btnSendNr_Click(null, null);
+                                EnsureMREditWindows();
+
+                                if (topWindow != 0)
+                                {
+                                    msg.sendWindowsStringMessage(edits[2].hWnd, 0, data);
+                                    msg.sendWindowsMessage(edits[2].hWnd, WM_KEYDOWN, VK_RETURN, 1 + (13 << 16));
+                                }
+
+                                //btnSendNr_Click(null, null);
+                            }
+                            break;
+
+                        case "Send TU":
+                            {
+                                EnsureMREditWindows();
+
+                                if (topWindow != 0)
+                                {
+                                    msg.sendWindowsMessage(edits[0].hWnd, WM_KEYDOWN, VK_F3, (1 + (61 << 16)));
+                                    msg.sendWindowsMessage(edits[0].hWnd, WM_APP + 15616, VK_F3, (1 + (61 << 16)));
+                                    msg.sendWindowsMessage(edits[0].hWnd, WM_KEYUP, VK_F3, (1 + (61 << 16) + (3 << 30)));
+                                    msg.sendWindowsMessage(edits[0].hWnd, WM_APP + 15617, VK_F3, (1 + (61 << 16) + (3 << 30)));
+                                }
+
+                                //btnF3_Click(null, null);                                
                             }
                             break;
 
@@ -9673,45 +9712,30 @@ namespace CWExpert
             {
                 if (this.WindowState != FormWindowState.Minimized)
                 {
-                    if (!booting)
-                    {
-                        float dpi = this.CreateGraphics().DpiX;
-
-                        this.AutoScaleMode = AutoScaleMode.Dpi;
-                        SizeF d = this.AutoScaleDimensions;
-                        d.Height = dpi;
-                        d.Width = dpi;
-                        this.AutoScaleDimensions = d;
-                        float ratio = dpi / 96.0f;
-                        string font_name = this.Font.Name;
-                        float size = (float)(8.25 / ratio);
-                        System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
-                        this.Font = new_font;
-                        font_name = txtVFOA.Font.Name;
-                        size = 14.25f / ratio;
-                        new_font = new System.Drawing.Font(font_name, size);
-                        txtVFOA.Font = new_font;
-                        size = 9.75f / ratio;
-                        new_font = new System.Drawing.Font(font_name, size);
-                        txtVFOB.Font = new_font;
-                        txtLosc.Font = new_font;
-                        font_name = this.menuStrip1.Font.Name;
-                        this.menuStrip1.Font = new System.Drawing.Font(font_name, size);
-                        this.menuStrip1.Size = new Size(this.menuStrip1.Width, (int)(25 / ratio));
-                        this.PerformAutoScale();
-                        this.PerformLayout();
-                    }
-
                     int w = this.Width - grpGenesisRadio.Width - 45;
                     double q = w / 1.454;
                     double a = q / 2.2;
-                    //grpDisplay.Width = this.Width - (grpGenesisRadio.Width + grpChannels.Width + 45);
                     grpDisplay.Width = (int)q;
                     picPanadapter.Width = grpDisplay.Width - 35;
                     picWaterfall.Width = picPanadapter.Width;
                     grpLogBook.Width = picPanadapter.Width;
                     grpMonitor.Width = grpLogBook.Width - (grpMonitor.Location.X + 10);
                     grpChannels.Width = (int)a;
+                    grpMRChannels.Width = (int)a;
+
+                    ArrayList list = new ArrayList();
+                    Control.ControlCollection c2 = grpMRChannels.Controls;
+                    int width = grpMRChannels.Width - 28;
+
+                    foreach (Control c in c2)
+                    {
+                        if (c.GetType() == typeof(TextBox))
+                        {
+                            c.Width = width;
+                            c.Font = this.Font;
+                        }
+                    }
+
                     picMonitor.Width = grpMonitor.Width - 20;
                     Point loc = new Point(0, 0);
                     loc.X = 8;
@@ -9720,6 +9744,7 @@ namespace CWExpert
                     loc.X += grpChannels.Width + 7;
                     loc.Y = grpGenesisRadio.Location.Y;
                     grpGenesisRadio.Location = loc;
+                    grpMorseRunner.Location = loc;
                     loc.X += grpGenesisRadio.Width + 7;
                     grpDisplay.Location = loc;
                     rtbCH1.Width = grpChannels.Width - 22;
@@ -9727,6 +9752,9 @@ namespace CWExpert
                     loc.X = (grpChannels.Width + 15) / 2 - grpSMeter.Width / 2;
                     loc.Y = grpSMeter.Location.Y;
                     grpSMeter.Location = loc;
+                    loc.X = (grpMRChannels.Width + 15) / 2 - grpMorseRunner2.Width / 2;
+                    loc.Y = grpMorseRunner2.Location.Y;
+                    grpMorseRunner2.Location = loc;
                     loc.X = btnCH1.Location.X;
                     loc.Y = btnCH1.Location.Y;
                     w = (grpChannels.Width - btnCH1.Width - btnCH2.Width - btnRX2On.Width - btnClearCH1.Width -
@@ -9741,7 +9769,6 @@ namespace CWExpert
                     btnClearCH2.Location = loc;
                     loc.X += btnClearCH2.Width + w;
                     btnCH2.Location = loc;
-
                     loc = lblFilterwidth.Location;
                     loc.X = picPanadapter.Location.X;
                     w = (picPanadapter.Width - (lblFilterwidth.Width + txtFilterWidth.Width + tbFilterWidth.Width +
@@ -10195,5 +10222,11 @@ namespace CWExpert
         }
 
         #endregion
+
+        private void tbMRSquelch_Scroll(object sender, EventArgs e)
+        {
+            if (cwDecoder != null)
+                cwDecoder.SQL = (double)(tbMRSquelch.Value / 20000.0);
+        }
     }
 }
