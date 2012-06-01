@@ -672,7 +672,7 @@ namespace CWExpert
 		/// <param name="direction"></param>
 		public void	FFT( float[] data, int length, FourierDirection direction ) {
 			Debug.Assert( data != null );
-			Debug.Assert( data.Length >= length*2 );
+			//Debug.Assert( data.Length >= length*2 );
 			Debug.Assert( IsPowerOf2( length ) == true );
 
 			SyncLookupTableLength( length );
@@ -685,18 +685,21 @@ namespace CWExpert
 			// successive doubling
 			int N = 1;
 			int signIndex = ( direction == FourierDirection.Forward ) ? 0 : 1;
-			for( int level = 1; level <= ln; level ++ ) {
+			for( int level = 1; level <= ln; level ++ ) 
+            {
 				int M = N;
 				N <<= 1;
 
 				float[] uRLookup = _uRLookupF[ level, signIndex ];
 				float[] uILookup = _uILookupF[ level, signIndex ];
 
-				for( int j = 0; j < M; j ++ ) {
+				for( int j = 0; j < M; j ++ ) 
+                {
 					float uR = uRLookup[j];
 					float uI = uILookup[j];
 				
-					for( int evenT = j; evenT < length; evenT += N ) {
+					for( int evenT = j; evenT < length; evenT += N ) 
+                    {
 						int even = evenT << 1;
 						int odd = ( evenT + M ) << 1;
 						

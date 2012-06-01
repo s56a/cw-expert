@@ -945,55 +945,8 @@ namespace CWExpert
 
         private void chkRXOnly_CheckedChanged(object sender, EventArgs e)
         {
-            //if (!MainForm.booting && MainForm.cwDecoder != null)
-                //MainForm.cwDecoder.rx_only = chkRXOnly.Checked;
-        }
-
-        private void chkStandAlone_CheckedChanged(object sender, EventArgs e)
-        {
-            //MainForm.standalone = chkStandAlone.Checked;
-        }
-
-        private void chkSDRmode_CheckedChanged(object sender, EventArgs e)
-        {
-//            if (chkSDRmode.Checked)
-            {
-#if(DirectX)
-                DX.SDRmode = true;
-#endif
-                Display_GDI.SDRmode = false;
-                Audio.SDRmode = true;
-                MainForm.grpGenesisRadio.Visible = true;
-                MainForm.grpSMeter.Visible = true;
-                MainForm.grpChannels.Visible = true;
-                MainForm.grpChannels.BringToFront();
-                MainForm.grpGenesisRadio.BringToFront();
-                MainForm.grpSMeter.BringToFront();
-                MainForm.grpMorseRunner.Visible = false;
-                MainForm.grpMorseRunner2.Visible = false;
-                MainForm.grpMorseRunner.SendToBack();
-                MainForm.grpMorseRunner2.SendToBack();
-                MainForm.lblCall.Visible = false;
-                MainForm.txtCall.Visible = false;
-            }
-/*            else
-            {
-#if(DirectX)
-                DX.SDRmode = false;
-#endif
-                Display_GDI.SDRmode = false;
-                Audio.SDRmode = false;
-                MainForm.grpChannels.Visible = false;
-                MainForm.grpChannels.SendToBack();
-                MainForm.grpG59.Visible = false;
-                MainForm.grpG59_2.Visible = false;
-                MainForm.grpG59.SendToBack();
-                MainForm.grpG59_2.SendToBack();
-                MainForm.grpMorseRunner.Visible = true;
-                MainForm.grpMorseRunner2.Visible = true;
-                MainForm.grpMorseRunner.BringToFront();
-                MainForm.grpMorseRunner2.BringToFront();
-            }*/
+            if (!MainForm.booting && MainForm.cwDecoder != null)
+                MainForm.cwDecoder.rx_only = chkRXOnly.Checked;
         }
 
         private void chkAlwaysOnTop_CheckedChanged(object sender, EventArgs e)
@@ -2308,11 +2261,6 @@ namespace CWExpert
             }
         }
 
-        private void tabPage10_Click(object sender, EventArgs e)
-        {
-
-        }
-
         #region AGC
 
         private void comboCWAGC_SelectedIndexChanged(object sender, EventArgs e)
@@ -2354,10 +2302,100 @@ namespace CWExpert
 
         #endregion
 
-        private void label52_Click(object sender, EventArgs e)
-        {
+        #region Morse Runner
 
+        private void chkSDRmode_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MainForm.PWR)
+                    MainForm.PWR = false;
+
+                if (!chkSDRmode.Checked)    // SDR mode
+                {
+#if(DirectX)
+                    DX.SDRmode = true;
+#endif
+                    Display_GDI.SDRmode = true;
+                    Audio.SDRmode = true;
+                    MainForm.grpGenesisRadio.Visible = true;
+                    MainForm.grpSMeter.Visible = true;
+                    MainForm.grpChannels.Visible = true;
+                    MainForm.grpChannels.BringToFront();
+                    MainForm.grpGenesisRadio.BringToFront();
+                    MainForm.grpSMeter.BringToFront();
+                    MainForm.grpMorseRunner.Visible = false;
+                    MainForm.grpMorseRunner2.Visible = false;
+                    MainForm.grpMorseRunner.SendToBack();
+                    MainForm.grpMorseRunner2.SendToBack();
+                    MainForm.lblCall.Visible = false;
+                    MainForm.txtCall.Visible = false;
+                    MainForm.grpMRChannels.Visible = false;
+                    MainForm.grpMRChannels.SendToBack();
+                    MainForm.lblUSB.Visible = true;
+
+                    if (MainForm.genesis != null)
+                    {
+                        MainForm.genesis.booting = false;
+                        MainForm.G59Init();
+                        MainForm.genesis.si570_i2c_address = 170;
+                        MainForm.genesis.si570_fxtal = 114272200.0;
+                        MainForm.genesis.HSDiv = 11;
+                        bool conn = MainForm.genesis.Connected;
+
+                        if (conn)
+                        {
+                            MainForm.lblUSB.BackColor = Color.Green;
+                        }
+                        else
+                        {
+                            MainForm.lblUSB.BackColor = Color.Red;
+                        }
+                    }
+                }
+                else                              // MorseRunner mode
+                {
+#if(DirectX)
+                    DX.SDRmode = false;
+#endif
+                    Display_GDI.SDRmode = false;
+                    Audio.SDRmode = false;
+                    MainForm.grpGenesisRadio.Visible = false;
+                    MainForm.grpSMeter.Visible = false;
+                    MainForm.grpChannels.Visible = false;
+                    MainForm.grpChannels.SendToBack();
+                    MainForm.grpGenesisRadio.SendToBack();
+                    MainForm.grpSMeter.SendToBack();
+                    MainForm.grpMRChannels.Visible = true;
+                    MainForm.grpMRChannels.BringToFront();
+                    MainForm.grpMorseRunner.Visible = true;
+                    MainForm.grpMorseRunner2.Visible = true;
+                    MainForm.grpMorseRunner.BringToFront();
+                    MainForm.grpMorseRunner2.BringToFront();
+                    MainForm.lblCall.Visible = true;
+                    MainForm.txtCall.Visible = true;
+                    MainForm.lblUSB.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
+
+        private void chkMRMedian_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MainForm.cwDecoder != null)
+                MainForm.cwDecoder.medijan = chkMRMedian.Checked;
+        }
+
+        private void chkMRLog_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MainForm.cwDecoder != null)
+                MainForm.cwDecoder.logmagn = chkMRLog.Checked;
+        }
+
+        #endregion
     }
 
     #region PADeviceInfo Helper Class
