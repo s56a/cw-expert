@@ -542,6 +542,7 @@ namespace CWExpert
                 update_trx2 = false;
             }
         }
+
         private void rtty_reload(int index)
         {
             TXIfShift = (double)MainForm.SetupForm.udTXIfShift.Value;

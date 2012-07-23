@@ -60,9 +60,15 @@ namespace CWExpert
             this.qPSK63ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.qPSK125ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.qPSK250ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dXClusterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lOGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.KeyboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.kyboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.lOGBOOKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.recorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSendRST = new System.Windows.Forms.Button();
             this.txtRST = new System.Windows.Forms.TextBox();
             this.btnSendNr = new System.Windows.Forms.Button();
@@ -194,6 +200,7 @@ namespace CWExpert
             this.label2 = new System.Windows.Forms.Label();
             this.tbInputLevel = new System.Windows.Forms.TrackBar();
             this.grpMorseRunner = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tbMRSquelch = new System.Windows.Forms.TrackBar();
             this.grpGenesisRadio = new System.Windows.Forms.GroupBox();
             this.chkSplit = new System.Windows.Forms.CheckBox();
@@ -270,7 +277,6 @@ namespace CWExpert
             this.ch1_infoTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnTune = new System.Windows.Forms.Button();
             this.grpMRChannels = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWaterfall)).BeginInit();
             this.picWaterfallcontextMenu.SuspendLayout();
@@ -451,9 +457,8 @@ namespace CWExpert
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setupMenuItem,
             this.modeToolStripMenuItem,
-            this.dXClusterToolStripMenuItem,
             this.lOGToolStripMenuItem,
-            this.KeyboardToolStripMenuItem});
+            this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1008, 25);
@@ -564,29 +569,71 @@ namespace CWExpert
             this.qPSK250ToolStripMenuItem.Text = "QPSK250";
             this.qPSK250ToolStripMenuItem.Click += new System.EventHandler(this.qPSK250ToolStripMenuItem_Click);
             // 
-            // dXClusterToolStripMenuItem
-            // 
-            this.dXClusterToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dXClusterToolStripMenuItem.Name = "dXClusterToolStripMenuItem";
-            this.dXClusterToolStripMenuItem.Size = new System.Drawing.Size(86, 21);
-            this.dXClusterToolStripMenuItem.Text = "DX Cluster";
-            this.dXClusterToolStripMenuItem.Click += new System.EventHandler(this.dXClusterToolStripMenuItem_Click);
-            // 
             // lOGToolStripMenuItem
             // 
+            this.lOGToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripSeparator11,
+            this.kyboardToolStripMenuItem,
+            this.toolStripSeparator9,
+            this.lOGBOOKToolStripMenuItem,
+            this.toolStripSeparator10,
+            this.recorderToolStripMenuItem});
             this.lOGToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lOGToolStripMenuItem.Name = "lOGToolStripMenuItem";
-            this.lOGToolStripMenuItem.Size = new System.Drawing.Size(46, 21);
-            this.lOGToolStripMenuItem.Text = "LOG";
-            this.lOGToolStripMenuItem.Click += new System.EventHandler(this.lOGToolStripMenuItem_Click);
+            this.lOGToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
+            this.lOGToolStripMenuItem.Text = "Options";
             // 
-            // KeyboardToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            this.KeyboardToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.KeyboardToolStripMenuItem.Name = "KeyboardToolStripMenuItem";
-            this.KeyboardToolStripMenuItem.Size = new System.Drawing.Size(78, 21);
-            this.KeyboardToolStripMenuItem.Text = "Keyboard";
-            this.KeyboardToolStripMenuItem.Click += new System.EventHandler(this.KeyboardToolStripMenuItem_Click);
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuItem1.Text = "DX Cluster";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.dXClusterToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(139, 6);
+            // 
+            // kyboardToolStripMenuItem
+            // 
+            this.kyboardToolStripMenuItem.Name = "kyboardToolStripMenuItem";
+            this.kyboardToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.kyboardToolStripMenuItem.Text = "Keyboard";
+            this.kyboardToolStripMenuItem.Click += new System.EventHandler(this.KeyboardToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(139, 6);
+            // 
+            // lOGBOOKToolStripMenuItem
+            // 
+            this.lOGBOOKToolStripMenuItem.Name = "lOGBOOKToolStripMenuItem";
+            this.lOGBOOKToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.lOGBOOKToolStripMenuItem.Text = "LOG BOOK";
+            this.lOGBOOKToolStripMenuItem.Click += new System.EventHandler(this.lOGToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(139, 6);
+            // 
+            // recorderToolStripMenuItem
+            // 
+            this.recorderToolStripMenuItem.Name = "recorderToolStripMenuItem";
+            this.recorderToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.recorderToolStripMenuItem.Text = "Recorder";
+            this.recorderToolStripMenuItem.Click += new System.EventHandler(this.recorderToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btnSendRST
             // 
@@ -1228,7 +1275,7 @@ namespace CWExpert
             this.tbFilterWidth.AutoSize = false;
             this.tbFilterWidth.Location = new System.Drawing.Point(135, 516);
             this.tbFilterWidth.Maximum = 5000;
-            this.tbFilterWidth.Minimum = 50;
+            this.tbFilterWidth.Minimum = 31;
             this.tbFilterWidth.Name = "tbFilterWidth";
             this.tbFilterWidth.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbFilterWidth.Size = new System.Drawing.Size(98, 19);
@@ -1298,9 +1345,8 @@ namespace CWExpert
             // btnLogDelete
             // 
             this.btnLogDelete.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnLogDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLogDelete.ForeColor = System.Drawing.Color.Black;
-            this.btnLogDelete.Location = new System.Drawing.Point(199, 220);
+            this.btnLogDelete.Location = new System.Drawing.Point(195, 220);
             this.btnLogDelete.Name = "btnLogDelete";
             this.btnLogDelete.Size = new System.Drawing.Size(20, 23);
             this.btnLogDelete.TabIndex = 97;
@@ -1311,9 +1357,8 @@ namespace CWExpert
             // btnLogPrev
             // 
             this.btnLogPrev.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnLogPrev.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLogPrev.ForeColor = System.Drawing.Color.Black;
-            this.btnLogPrev.Location = new System.Drawing.Point(174, 220);
+            this.btnLogPrev.Location = new System.Drawing.Point(172, 220);
             this.btnLogPrev.Name = "btnLogPrev";
             this.btnLogPrev.Size = new System.Drawing.Size(20, 23);
             this.btnLogPrev.TabIndex = 96;
@@ -1323,12 +1368,12 @@ namespace CWExpert
             // 
             // btnLogFirst
             // 
+            this.btnLogFirst.AutoSize = true;
             this.btnLogFirst.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnLogFirst.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLogFirst.ForeColor = System.Drawing.Color.Black;
-            this.btnLogFirst.Location = new System.Drawing.Point(149, 220);
+            this.btnLogFirst.Location = new System.Drawing.Point(140, 220);
             this.btnLogFirst.Name = "btnLogFirst";
-            this.btnLogFirst.Size = new System.Drawing.Size(20, 23);
+            this.btnLogFirst.Size = new System.Drawing.Size(29, 23);
             this.btnLogFirst.TabIndex = 95;
             this.btnLogFirst.Text = "<<";
             this.btnLogFirst.UseVisualStyleBackColor = true;
@@ -1336,12 +1381,12 @@ namespace CWExpert
             // 
             // btnLogLast
             // 
+            this.btnLogLast.AutoSize = true;
             this.btnLogLast.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnLogLast.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLogLast.ForeColor = System.Drawing.Color.Black;
-            this.btnLogLast.Location = new System.Drawing.Point(249, 220);
+            this.btnLogLast.Location = new System.Drawing.Point(241, 220);
             this.btnLogLast.Name = "btnLogLast";
-            this.btnLogLast.Size = new System.Drawing.Size(20, 23);
+            this.btnLogLast.Size = new System.Drawing.Size(29, 23);
             this.btnLogLast.TabIndex = 94;
             this.btnLogLast.Text = ">>";
             this.btnLogLast.UseVisualStyleBackColor = true;
@@ -1350,9 +1395,8 @@ namespace CWExpert
             // btnLogNext
             // 
             this.btnLogNext.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnLogNext.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLogNext.ForeColor = System.Drawing.Color.Black;
-            this.btnLogNext.Location = new System.Drawing.Point(224, 220);
+            this.btnLogNext.Location = new System.Drawing.Point(218, 220);
             this.btnLogNext.Name = "btnLogNext";
             this.btnLogNext.Size = new System.Drawing.Size(20, 23);
             this.btnLogNext.TabIndex = 93;
@@ -1773,7 +1817,7 @@ namespace CWExpert
             this.btnLogClear.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLogClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLogClear.ForeColor = System.Drawing.Color.Black;
-            this.btnLogClear.Location = new System.Drawing.Point(59, 220);
+            this.btnLogClear.Location = new System.Drawing.Point(54, 220);
             this.btnLogClear.Name = "btnLogClear";
             this.btnLogClear.Size = new System.Drawing.Size(40, 23);
             this.btnLogClear.TabIndex = 18;
@@ -1786,7 +1830,7 @@ namespace CWExpert
             this.btnLogSearch.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLogSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLogSearch.ForeColor = System.Drawing.Color.Black;
-            this.btnLogSearch.Location = new System.Drawing.Point(104, 220);
+            this.btnLogSearch.Location = new System.Drawing.Point(97, 220);
             this.btnLogSearch.Name = "btnLogSearch";
             this.btnLogSearch.Size = new System.Drawing.Size(40, 23);
             this.btnLogSearch.TabIndex = 19;
@@ -1799,7 +1843,7 @@ namespace CWExpert
             this.btnLOGSave.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLOGSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLOGSave.ForeColor = System.Drawing.Color.Black;
-            this.btnLOGSave.Location = new System.Drawing.Point(14, 220);
+            this.btnLOGSave.Location = new System.Drawing.Point(11, 220);
             this.btnLOGSave.Name = "btnLOGSave";
             this.btnLOGSave.Size = new System.Drawing.Size(40, 23);
             this.btnLOGSave.TabIndex = 17;
@@ -1971,6 +2015,15 @@ namespace CWExpert
             this.grpMorseRunner.TabIndex = 52;
             this.grpMorseRunner.TabStop = false;
             this.grpMorseRunner.Text = "Morse runner";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 378);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(22, 13);
+            this.label3.TabIndex = 53;
+            this.label3.Text = "Sql";
             // 
             // tbMRSquelch
             // 
@@ -3006,15 +3059,6 @@ namespace CWExpert
             this.grpMRChannels.Text = "MR";
             this.grpMRChannels.Visible = false;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 378);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(22, 13);
-            this.label3.TabIndex = 53;
-            this.label3.Text = "Sql";
-            // 
             // CWExpert
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3040,7 +3084,7 @@ namespace CWExpert
             this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "CWExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "CWExpert  S56A - YT7PWR v2.0.4";
+            this.Text = "CWExpert  S56A - YT7PWR v2.0.5";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainFormMouseWheel);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.CWExpert_Closing);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CWExpert_KeyUp);
@@ -3104,7 +3148,6 @@ namespace CWExpert
         private System.Windows.Forms.CheckBox btnStartMR;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem setupMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem KeyboardToolStripMenuItem;
         private System.Windows.Forms.Button btnSendRST;
         private System.Windows.Forms.TextBox txtRST;
         private System.Windows.Forms.Button btnSendNr;
@@ -3276,11 +3319,10 @@ namespace CWExpert
         private System.Windows.Forms.ToolStripMenuItem qPSK63ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem qPSK125ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem qPSK250ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dXClusterToolStripMenuItem;
         private System.Windows.Forms.CheckBox chkSQL;
         private System.Windows.Forms.ToolStripMenuItem lOGToolStripMenuItem;
         private System.Windows.Forms.TextBox txtLogSearch;
-        private System.Windows.Forms.Button btnLogDelete;
+        public System.Windows.Forms.Button btnLogDelete;
         private System.Windows.Forms.Button btnLogPrev;
         private System.Windows.Forms.Button btnLogFirst;
         private System.Windows.Forms.Button btnLogLast;
@@ -3327,6 +3369,14 @@ namespace CWExpert
         public System.Windows.Forms.GroupBox grpMRChannels;
         private System.Windows.Forms.TrackBar tbMRSquelch;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem kyboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem lOGBOOKToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem recorderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

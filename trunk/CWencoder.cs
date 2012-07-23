@@ -441,8 +441,8 @@ namespace CWExpert
             Transmiter.cwt.osc.phase = 0.0;
             Transmiter.cwt.mon_osc.phase = 0.0;
             Transmiter.cwt.sr = Audio.SampleRate;
-            Transmiter.cwt.osc.gen.Frequency = (2.0 * M_PI * tx_if_shift) / Transmiter.cwt.sr;
-            Transmiter.cwt.mon_osc.gen.Frequency = (2.0 * M_PI * mon_frequency) / Transmiter.cwt.sr;
+            Transmiter.cwt.osc.gen.Frequency = (TWOPI * tx_if_shift) / Transmiter.cwt.sr;
+            Transmiter.cwt.mon_osc.gen.Frequency = (TWOPI * mon_frequency) / Transmiter.cwt.sr;
             MainForm.output_ring_buf.Restart();
             MainForm.mon_ring_buf.Restart();
             Transmiter = new tx();
@@ -1021,21 +1021,22 @@ namespace CWExpert
         {
             int i;
 
-            if (Transmiter.cwt.osc.gen.Phase > Math.PI)
-                Transmiter.cwt.osc.gen.Phase -= TWOPI;
-
-            if (Transmiter.cwt.mon_osc.gen.Phase > Math.PI)
-                Transmiter.cwt.mon_osc.gen.Phase -= TWOPI;
-
             for (i = 0; i < TONE_SIZE; i++)
             {
-                Transmiter.cwt.osc.gen.signalpoints[i] = CmplxF((float)Math.Cos(Transmiter.cwt.osc.gen.Phase),
-                    (float)(Math.Sin(Transmiter.cwt.osc.gen.Phase)));
-                Transmiter.cwt.osc.gen.Phase += Transmiter.cwt.osc.gen.Frequency;
+                Transmiter.cwt.osc.gen.signalpoints[i].Re = (float)Math.Cos(Transmiter.cwt.osc.gen.Phase);
+                Transmiter.cwt.osc.gen.signalpoints[i].Im = (float)(Math.Sin(Transmiter.cwt.osc.gen.Phase));
 
-                Transmiter.cwt.mon_osc.gen.signalpoints[i] = CmplxF((float)Math.Cos(Transmiter.cwt.mon_osc.gen.Phase),
-                    (float)(Math.Sin(Transmiter.cwt.mon_osc.gen.Phase)));
+                Transmiter.cwt.mon_osc.gen.signalpoints[i].Re = (float)Math.Cos(Transmiter.cwt.mon_osc.gen.Phase);
+                Transmiter.cwt.mon_osc.gen.signalpoints[i].Im = (float)(Math.Sin(Transmiter.cwt.mon_osc.gen.Phase));
+
+                Transmiter.cwt.osc.gen.Phase += Transmiter.cwt.osc.gen.Frequency;
                 Transmiter.cwt.mon_osc.gen.Phase += Transmiter.cwt.mon_osc.gen.Frequency;
+
+                if (Transmiter.cwt.osc.gen.Phase > Math.PI)
+                    Transmiter.cwt.osc.gen.Phase -= TWOPI;
+
+                if (Transmiter.cwt.mon_osc.gen.Phase > Math.PI)
+                    Transmiter.cwt.mon_osc.gen.Phase -= TWOPI;
             }
         }
 

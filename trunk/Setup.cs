@@ -38,7 +38,6 @@ namespace CWExpert
         #region variable
 
         delegate void CrossThreadCallback(string command, string data);
-        public uint iq_fixed = 0;
 
         #endregion
 
@@ -92,6 +91,8 @@ namespace CWExpert
             chkWaterfallReverse_CheckedChanged(this, EventArgs.Empty);
             comboMonitorMode.SelectedIndex = 0;
             comboDisplayMode.SelectedIndex = 0;
+            radIQFixed_CheckedChanged(this, EventArgs.Empty);
+            radIQBalanced_CheckedChanged(this, EventArgs.Empty);
 
 #if(DirectX)
             DX.WaterfallHighThreshold = (int)udDisplayHigh.Value;
@@ -1050,12 +1051,26 @@ namespace CWExpert
 
         private void chkG59IambicRev_CheckedChanged(object sender, EventArgs e)
         {
-            KeyerModeChange();
+            try
+            {
+                KeyerModeChange();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void udG59DASHDOTRatio_ValueChanged(object sender, EventArgs e)
         {
-            MainForm.G59_set_keyer();
+            try
+            {
+                MainForm.G59_set_keyer();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         #region DSP
@@ -1081,7 +1096,14 @@ namespace CWExpert
 
         private void tbTXPhase_ValueChanged(object sender, EventArgs e)
         {
-            udTXPhase.Value = tbTXPhase.Value;
+            try
+            {
+                udTXPhase.Value = tbTXPhase.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void udGain_ValueChanged(object sender, EventArgs e)
@@ -1105,88 +1127,204 @@ namespace CWExpert
 
         private void tbGain_ValueChanged(object sender, EventArgs e)
         {
-            udTXGain.Value = tbTXGain.Value;
+            try
+            {
+                udTXGain.Value = tbTXGain.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void udRXPhase_ValueChanged(object sender, EventArgs e)
         {
-            MainForm.SetRXIQGainPhase(iq_fixed, (float)udRXGain.Value, (float)udRXPhase.Value);
-            tbRXPhase.Value = (int)udRXPhase.Value;
+            try
+            {
+                if (Audio.iq_balancer != null)
+                    Audio.iq_balancer.Phase = (float)udRXPhase.Value;
+
+                if (MainForm.IQcorrection == IQ_correction.FIXED)
+                    MainForm.SetRXIQGainPhase(1, (float)udRXGain.Value, (float)udRXPhase.Value);
+
+                tbRXPhase.Value = (int)udRXPhase.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void tbRXPhase_ValueChanged(object sender, EventArgs e)
         {
-            udRXPhase.Value = tbRXPhase.Value;
+            try
+            {
+                udRXPhase.Value = tbRXPhase.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void udRXGain_ValueChanged(object sender, EventArgs e)
         {
-            MainForm.SetRXIQGainPhase(iq_fixed, (float)udRXGain.Value, (float)udRXPhase.Value);
-            tbRXGain.Value = (int)udRXGain.Value;
+            try
+            {
+                if (Audio.iq_balancer != null)
+                    Audio.iq_balancer.Gain = (float)udRXGain.Value;
+
+                if (MainForm.IQcorrection == IQ_correction.FIXED)
+                    MainForm.SetRXIQGainPhase(1, (float)udRXGain.Value, (float)udRXPhase.Value);
+
+                tbRXGain.Value = (int)udRXGain.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void tbRXGain_ValueChanged(object sender, EventArgs e)
         {
-            udRXGain.Value = tbRXGain.Value;
+            try
+            {
+                udRXGain.Value = tbRXGain.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void bttnRXCalBand_Click(object sender, EventArgs e)
         {
-            MainForm.rx_image_gain_table[(int)MainForm.CurrentBand] = (float)udRXGain.Value;
-            MainForm.rx_image_phase_table[(int)MainForm.CurrentBand] = (float)udRXPhase.Value;
+            try
+            {
+                MainForm.rx_image_gain_table[(int)MainForm.CurrentBand] = (float)udRXGain.Value;
+                MainForm.rx_image_phase_table[(int)MainForm.CurrentBand] = (float)udRXPhase.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void bttnRXCallAll_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i <= (int)Band.B6M; i++)
+            try
             {
-                MainForm.rx_image_gain_table[i] = (float)tbRXGain.Value;
-                MainForm.rx_image_phase_table[i] = (float)tbRXPhase.Value;
+                for (int i = 0; i <= (int)Band.B6M; i++)
+                {
+                    MainForm.rx_image_gain_table[i] = (float)tbRXGain.Value;
+                    MainForm.rx_image_phase_table[i] = (float)tbRXPhase.Value;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
             }
         }
 
         private void bttnRXClearBand_Click(object sender, EventArgs e)
         {
-            MainForm.rx_image_gain_table[(int)MainForm.CurrentBand] = 0.0f;
-            MainForm.rx_image_phase_table[(int)MainForm.CurrentBand] = 0.0f;
-            udRXPhase.Value = 0;
-            udRXGain.Value = 0;
+            try
+            {
+                MainForm.rx_image_gain_table[(int)MainForm.CurrentBand] = 0.0f;
+                MainForm.rx_image_phase_table[(int)MainForm.CurrentBand] = 0.0f;
+                udRXPhase.Value = 0;
+                udRXGain.Value = 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void bttnRXClearAll_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i <= (int)Band.B6M; i++)
+            try
             {
-                MainForm.rx_image_gain_table[i] = 0.0f;
-                MainForm.rx_image_phase_table[i] = 0.0f;
-            }
+                for (int i = 0; i <= (int)Band.B6M; i++)
+                {
+                    MainForm.rx_image_gain_table[i] = 0.0f;
+                    MainForm.rx_image_phase_table[i] = 0.0f;
+                }
 
-            udRXGain.Value = 0;
-            udRXPhase.Value = 0;
+                udRXGain.Value = 0;
+                udRXPhase.Value = 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
-        private void chkWBIRFixed_CheckedChanged(object sender, EventArgs e)
+        private void radIQFixed_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkWBIRFixed.Checked)
-                iq_fixed = 1;
-            else
-                iq_fixed = 0;
+            try
+            {
+                if (radIQFixed.Checked)
+                    MainForm.IQcorrection = IQ_correction.FIXED;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
 
-            MainForm.SetRXIQGainPhase(iq_fixed, (float)udRXGain.Value, (float)udRXPhase.Value);
+        private void radIQBalanced_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (radIQBalanced.Checked)
+                    MainForm.IQcorrection = IQ_correction.BALANCED;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
+
+        private void radIQWBIR_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (radIQWBIR.Checked)
+                    MainForm.IQcorrection = IQ_correction.WBIR;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void udCWRise_ValueChanged(object sender, EventArgs e)
         {
-            if (MainForm.cwEncoder != null)
+            try
             {
-                MainForm.cwEncoder.Transmiter.cwt.rise.dur = (float)udCWRise.Value;
+                if (MainForm.cwEncoder != null)
+                {
+                    MainForm.cwEncoder.Transmiter.cwt.rise.dur = (float)udCWRise.Value;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
             }
         }
 
         private void udCWFall_ValueChanged(object sender, EventArgs e)
         {
-            if (MainForm.cwEncoder != null)
-                MainForm.cwEncoder.Transmiter.cwt.fall.dur = (float)udCWFall.Value;
+            try
+            {
+                if (MainForm.cwEncoder != null)
+                    MainForm.cwEncoder.Transmiter.cwt.fall.dur = (float)udCWFall.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void udTXIfShift_ValueChanged(object sender, EventArgs e)
@@ -1235,7 +1373,14 @@ namespace CWExpert
 
         private void udMsgRptTime_ValueChanged(object sender, EventArgs e)
         {
-            MainForm.MsgRptTime = (int)udMsgRptTime.Value;
+            try
+            {
+                MainForm.MsgRptTime = (int)udMsgRptTime.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void btnSi570Test_Click(object sender, EventArgs e)
@@ -1268,21 +1413,35 @@ namespace CWExpert
         }
         private void comboRadioModel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboRadioModel.Text)
+            try
             {
-                case "Genesis G59":
-                    MainForm.CurrentModel = Model.GENESIS_G59USB;
-                    break;
+                switch (comboRadioModel.Text)
+                {
+                    case "Genesis G59":
+                        MainForm.CurrentModel = Model.GENESIS_G59USB;
+                        break;
 
-                case "Genesis G11":
-                    MainForm.CurrentModel = Model.GENESIS_G11;
-                    break;
+                    case "Genesis G11":
+                        MainForm.CurrentModel = Model.GENESIS_G11;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
             }
         }
 
         private void udTXSwicthTime_ValueChanged(object sender, EventArgs e)
         {
-            MainForm.TXSwitchTime = (int)udTXSwicthTime.Value;
+            try
+            {
+                MainForm.TXSwitchTime = (int)udTXSwicthTime.Value;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void KeyerModeChange()

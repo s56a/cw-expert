@@ -232,7 +232,7 @@ namespace CWExpert
                 if (Audio.SDRmode)
                 {
                     rate = Audio.SampleRate;
-                    frame_segment = 32 * (96000 / Audio.SampleRate);
+                    frame_segment = 16 * (96000 / Audio.SampleRate);
                     FFTlen = 64;
                     ctr[5] = 0;
                     ctr[6] = 0;
@@ -713,65 +713,6 @@ namespace CWExpert
             }
         }
 
-        private void Channel(int index)
-        {
-            int n = 0;
-            for (n = bwl; n <= bwh; n++) { temp[n] += signal[n]; }
-
-            if (transmit)
-            {
-                tx_timer--;
-
-                if (tx_timer == 1)
-                {
-                    thd = 0;
-                    for (n = bwl; n <= bwh; n++)
-                    {
-                        if (temp[n] > thd)
-                        {
-                            thd = temp[n];
-                            moni = n;
-                        }
-                    }
-
-                    Debug.WriteLine("  " + moni.ToString() + "  ");
-                    once = false;
-                    ctr[index] = 0;
-                }
-            }
-            else
-            {
-                rx_timer--;
-
-                if (rx_timer == 0)
-                {
-                    thd = 0;
-                    for (n = bwl; n <= bwh; n++)
-                    {
-                        temp[n] = temp[n] / ponovi;
-                        thd += temp[n];
-                    }
-
-                    thd = thd / (bwh - bwl + 1);
-
-                    thld = 8 * thd;
-
-                    while ((temp[bwl] < thd) && (bwl < bwh)) { bwl++; }
-                    while ((temp[bwh] < thd) && (bwh > bwl)) { bwh--; }
-
-                    for (n = bwl; n <= bwh; n++)
-                    {
-                        Noise[n] = 8 * temp[n];
-                        if (Noise[n] < thld) { Noise[n] = thld; }
-                        temp[n] = 0;
-                        Debug.WriteLine(n + "  " + Math.Round(Noise[n]).ToString());
-                    }
-                    //Debug.WriteLine(Math.Round(bwl / Period).ToString() + " - " + Math.Round(bwh / Period).ToString() + " Hz " + Math.Round(thld).ToString());
-                    cqcqcq();
-                }
-            }
-        }
-
         private double[] signal_avg = new double[22];
         private double[] sig_avg = new double[22];
         private double[] signal_maxavg = new double[22];
@@ -811,16 +752,17 @@ namespace CWExpert
                         }
 
                         sig_avg[index] /= nofs - 4;
-                        signal_avg[index] = 0.8 * signal_avg[index] + 0.2 * sig_avg[index];
+                        signal_avg[index] = 0.7 * signal_avg[index] + 0.3 * sig_avg[index];
                         signal_maxavg[index] = 0.8 * signal_maxavg[index] + 0.2 * sig_max[index];
                         signal_minavg[index] = 0.8 * signal_minavg[index] + 0.2 * sig_min[index];
-                        thd = Math.Max((signal_maxavg[index] - signal_minavg[index]) * 0.2, thd_const);
-                        thd = (signal_maxavg[index] - signal_minavg[index]) * 0.2;
-                        thd = 0.8 * signal_avg[index];
+                        //thd = Math.Max((signal_maxavg[index] - signal_minavg[index]) * 0.2, thd_const);
+                        //thd = (signal_maxavg[index] - signal_minavg[index]) * 0.2;
+                        thd = signal_avg[index] * 0.8;
+                       // thd = 0.8 * signal_maxavg[index];
                     }
                     else
                     {
-                        thd = sql * Math.Sqrt(0.05);
+                        thd = sql * Math.Sqrt(0.03);
                     }
 
                     for (n = 0; n < nofs - 4; n++)
@@ -833,13 +775,15 @@ namespace CWExpert
                             if (b < 3)
                                 b++;
                         }
-                        else /*if (Mag[n, z] < thd && Mag[n + 1, z] < thd && Mag[n + 2, z] < thd
-                            && Mag[n + 3, z] < thd && Mag[n+4, z] < thd)*/
+                        else if (Mag[n, index] < thd && Mag[n + 1, index] < thd && Mag[n + 2, index] < thd
+                            && Mag[n + 3, index] < thd && Mag[n + 4, index] < thd)
                         {
-                            if (b > 0)
+                            //if (b > 0)
                                 b--;
-                            else
-                                b = 0;
+                            //else
+                                //b = 0;
+
+                                b = Math.Max(b, 0);
                         }
 
                         n += 3;

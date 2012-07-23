@@ -145,6 +145,16 @@
     </Compile>
     <Compile Include="Complex.cs" />
     <Compile Include="ComplexF.cs" />
+    <Compile Include="IQBalancer.cs" />
+    <Compile Include="RecorderSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecorderSetup.Designer.cs">
+      <DependentUpon>RecorderSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Recorder.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="KeyboardSetup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,6 +201,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ClusterSetup.resx">
       <DependentUpon>ClusterSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecorderSetup.resx">
+      <DependentUpon>RecorderSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Recorder.resx">
+      <DependentUpon>Recorder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KeyboardSetup.resx">
       <DependentUpon>KeyboardSetup.cs</DependentUpon>

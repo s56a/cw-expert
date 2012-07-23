@@ -164,7 +164,9 @@ namespace CWExpert
             this.tabDSP = new System.Windows.Forms.TabPage();
             this.label52 = new System.Windows.Forms.Label();
             this.grpDSPRXImageReject = new System.Windows.Forms.GroupBox();
-            this.chkWBIRFixed = new System.Windows.Forms.CheckBox();
+            this.radIQWBIR = new System.Windows.Forms.RadioButton();
+            this.radIQBalanced = new System.Windows.Forms.RadioButton();
+            this.radIQFixed = new System.Windows.Forms.RadioButton();
             this.bttnRXClearAll = new System.Windows.Forms.Button();
             this.bttnRXClearBand = new System.Windows.Forms.Button();
             this.bttnRXCallAll = new System.Windows.Forms.Button();
@@ -1218,7 +1220,7 @@ namespace CWExpert
             0});
             this.udDisplayHigh.Location = new System.Drawing.Point(103, 17);
             this.udDisplayHigh.Maximum = new decimal(new int[] {
-            400,
+            200,
             0,
             0,
             0});
@@ -2228,7 +2230,9 @@ namespace CWExpert
             // 
             // grpDSPRXImageReject
             // 
-            this.grpDSPRXImageReject.Controls.Add(this.chkWBIRFixed);
+            this.grpDSPRXImageReject.Controls.Add(this.radIQWBIR);
+            this.grpDSPRXImageReject.Controls.Add(this.radIQBalanced);
+            this.grpDSPRXImageReject.Controls.Add(this.radIQFixed);
             this.grpDSPRXImageReject.Controls.Add(this.bttnRXClearAll);
             this.grpDSPRXImageReject.Controls.Add(this.bttnRXClearBand);
             this.grpDSPRXImageReject.Controls.Add(this.bttnRXCallAll);
@@ -2248,20 +2252,44 @@ namespace CWExpert
             this.grpDSPRXImageReject.TabStop = false;
             this.grpDSPRXImageReject.Text = "RX Image reject";
             // 
-            // chkWBIRFixed
+            // radIQWBIR
             // 
-            this.chkWBIRFixed.AutoSize = true;
-            this.chkWBIRFixed.Location = new System.Drawing.Point(16, 119);
-            this.chkWBIRFixed.Name = "chkWBIRFixed";
-            this.chkWBIRFixed.Size = new System.Drawing.Size(83, 17);
-            this.chkWBIRFixed.TabIndex = 36;
-            this.chkWBIRFixed.Text = "WBIR Fixed";
-            this.chkWBIRFixed.UseVisualStyleBackColor = true;
-            this.chkWBIRFixed.CheckedChanged += new System.EventHandler(this.chkWBIRFixed_CheckedChanged);
+            this.radIQWBIR.AutoSize = true;
+            this.radIQWBIR.Location = new System.Drawing.Point(48, 104);
+            this.radIQWBIR.Name = "radIQWBIR";
+            this.radIQWBIR.Size = new System.Drawing.Size(54, 17);
+            this.radIQWBIR.TabIndex = 38;
+            this.radIQWBIR.Text = "WBIR";
+            this.radIQWBIR.UseVisualStyleBackColor = true;
+            this.radIQWBIR.CheckedChanged += new System.EventHandler(this.radIQWBIR_CheckedChanged);
+            // 
+            // radIQBalanced
+            // 
+            this.radIQBalanced.AutoSize = true;
+            this.radIQBalanced.Location = new System.Drawing.Point(48, 144);
+            this.radIQBalanced.Name = "radIQBalanced";
+            this.radIQBalanced.Size = new System.Drawing.Size(70, 17);
+            this.radIQBalanced.TabIndex = 37;
+            this.radIQBalanced.Text = "Balanced";
+            this.radIQBalanced.UseVisualStyleBackColor = true;
+            this.radIQBalanced.CheckedChanged += new System.EventHandler(this.radIQBalanced_CheckedChanged);
+            // 
+            // radIQFixed
+            // 
+            this.radIQFixed.AutoSize = true;
+            this.radIQFixed.Checked = true;
+            this.radIQFixed.Location = new System.Drawing.Point(48, 124);
+            this.radIQFixed.Name = "radIQFixed";
+            this.radIQFixed.Size = new System.Drawing.Size(50, 17);
+            this.radIQFixed.TabIndex = 36;
+            this.radIQFixed.TabStop = true;
+            this.radIQFixed.Text = "Fixed";
+            this.radIQFixed.UseVisualStyleBackColor = true;
+            this.radIQFixed.CheckedChanged += new System.EventHandler(this.radIQFixed_CheckedChanged);
             // 
             // bttnRXClearAll
             // 
-            this.bttnRXClearAll.Location = new System.Drawing.Point(85, 191);
+            this.bttnRXClearAll.Location = new System.Drawing.Point(85, 194);
             this.bttnRXClearAll.Name = "bttnRXClearAll";
             this.bttnRXClearAll.Size = new System.Drawing.Size(75, 23);
             this.bttnRXClearAll.TabIndex = 35;
@@ -2271,7 +2299,7 @@ namespace CWExpert
             // 
             // bttnRXClearBand
             // 
-            this.bttnRXClearBand.Location = new System.Drawing.Point(6, 191);
+            this.bttnRXClearBand.Location = new System.Drawing.Point(6, 194);
             this.bttnRXClearBand.Name = "bttnRXClearBand";
             this.bttnRXClearBand.Size = new System.Drawing.Size(75, 23);
             this.bttnRXClearBand.TabIndex = 34;
@@ -2281,7 +2309,7 @@ namespace CWExpert
             // 
             // bttnRXCallAll
             // 
-            this.bttnRXCallAll.Location = new System.Drawing.Point(85, 147);
+            this.bttnRXCallAll.Location = new System.Drawing.Point(85, 166);
             this.bttnRXCallAll.Name = "bttnRXCallAll";
             this.bttnRXCallAll.Size = new System.Drawing.Size(75, 23);
             this.bttnRXCallAll.TabIndex = 33;
@@ -2291,7 +2319,7 @@ namespace CWExpert
             // 
             // bttnRXCalBand
             // 
-            this.bttnRXCalBand.Location = new System.Drawing.Point(6, 147);
+            this.bttnRXCalBand.Location = new System.Drawing.Point(6, 166);
             this.bttnRXCalBand.Name = "bttnRXCalBand";
             this.bttnRXCalBand.Size = new System.Drawing.Size(75, 23);
             this.bttnRXCalBand.TabIndex = 32;
@@ -2301,11 +2329,11 @@ namespace CWExpert
             // 
             // label44
             // 
-            this.label44.Location = new System.Drawing.Point(63, 98);
+            this.label44.Location = new System.Drawing.Point(63, 84);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(100, 13);
             this.label44.TabIndex = 31;
-            this.label44.Text = "-400  -200  0  200  400";
+            this.label44.Text = "-400-200 0 200 400";
             // 
             // udRXGain
             // 
@@ -2315,7 +2343,7 @@ namespace CWExpert
             0,
             0,
             131072});
-            this.udRXGain.Location = new System.Drawing.Point(6, 86);
+            this.udRXGain.Location = new System.Drawing.Point(6, 75);
             this.udRXGain.Maximum = new decimal(new int[] {
             400,
             0,
@@ -2336,7 +2364,7 @@ namespace CWExpert
             // 
             this.tbRXGain.AutoSize = false;
             this.tbRXGain.LargeChange = 1;
-            this.tbRXGain.Location = new System.Drawing.Point(62, 70);
+            this.tbRXGain.Location = new System.Drawing.Point(62, 59);
             this.tbRXGain.Maximum = 400;
             this.tbRXGain.Minimum = -400;
             this.tbRXGain.Name = "tbRXGain";
@@ -2348,7 +2376,7 @@ namespace CWExpert
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(14, 70);
+            this.label45.Location = new System.Drawing.Point(14, 59);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(29, 13);
             this.label45.TabIndex = 29;
@@ -2356,11 +2384,11 @@ namespace CWExpert
             // 
             // label46
             // 
-            this.label46.Location = new System.Drawing.Point(63, 47);
+            this.label46.Location = new System.Drawing.Point(63, 43);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(100, 13);
             this.label46.TabIndex = 27;
-            this.label46.Text = "-400  -200  0  200  400";
+            this.label46.Text = "-400-200 0 200 400";
             // 
             // udRXPhase
             // 
@@ -2370,7 +2398,7 @@ namespace CWExpert
             0,
             0,
             131072});
-            this.udRXPhase.Location = new System.Drawing.Point(6, 35);
+            this.udRXPhase.Location = new System.Drawing.Point(6, 30);
             this.udRXPhase.Maximum = new decimal(new int[] {
             400,
             0,
@@ -2391,7 +2419,7 @@ namespace CWExpert
             // 
             this.tbRXPhase.AutoSize = false;
             this.tbRXPhase.LargeChange = 1;
-            this.tbRXPhase.Location = new System.Drawing.Point(62, 19);
+            this.tbRXPhase.Location = new System.Drawing.Point(62, 14);
             this.tbRXPhase.Maximum = 400;
             this.tbRXPhase.Minimum = -400;
             this.tbRXPhase.Name = "tbRXPhase";
@@ -2403,7 +2431,7 @@ namespace CWExpert
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(13, 19);
+            this.label47.Location = new System.Drawing.Point(13, 14);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(37, 13);
             this.label47.TabIndex = 25;
@@ -2476,7 +2504,7 @@ namespace CWExpert
             this.lblGainValue.Name = "lblGainValue";
             this.lblGainValue.Size = new System.Drawing.Size(100, 13);
             this.lblGainValue.TabIndex = 31;
-            this.lblGainValue.Text = "-400  -200  0  200  400";
+            this.lblGainValue.Text = "-400-200 0 200 400";
             // 
             // udTXGain
             // 
@@ -2531,7 +2559,7 @@ namespace CWExpert
             this.lblPhaseValue.Name = "lblPhaseValue";
             this.lblPhaseValue.Size = new System.Drawing.Size(100, 13);
             this.lblPhaseValue.TabIndex = 27;
-            this.lblPhaseValue.Text = "-400  -200  0  200  400";
+            this.lblPhaseValue.Text = "-400-200 0 200 400";
             // 
             // udTXPhase
             // 
@@ -5640,7 +5668,7 @@ namespace CWExpert
         public System.Windows.Forms.NumericUpDown udRXPhase;
         public System.Windows.Forms.TrackBar tbRXPhase;
         private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.CheckBox chkWBIRFixed;
+        private System.Windows.Forms.RadioButton radIQFixed;
         public System.Windows.Forms.CheckBox chkMarkOnly;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label lblMonitorMode;
@@ -5666,5 +5694,7 @@ namespace CWExpert
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.CheckBox chkMRLog;
         private System.Windows.Forms.CheckBox chkMRMedian;
+        private System.Windows.Forms.RadioButton radIQBalanced;
+        private System.Windows.Forms.RadioButton radIQWBIR;
     }
 }
