@@ -42,6 +42,13 @@ namespace CWExpert
 {
     #region enum
 
+    public enum IQ_correction
+    {
+        FIXED = 0,
+        WBIR,
+        BALANCED,
+    }
+
     public enum RenderType
     {
         HARDWARE = 0,
@@ -252,7 +259,7 @@ namespace CWExpert
         public static extern float GetCorrectIQMu(uint thread, uint subrx);
 
         [DllImport("Receiver.dll", EntryPoint = "SetCorrectIQEnable")]
-        public static extern void SetCorrectIQEnable(uint setit);
+        public static extern void SetCorrectIQEnable(uint thread, uint setit);
 
         [DllImport("Receiver.dll", EntryPoint = "SetNB")]
         public static extern void SetNB(uint thread, uint subrx, bool setit);
@@ -271,6 +278,9 @@ namespace CWExpert
 
         [DllImport("Receiver.dll", EntryPoint = "SetIQFixed")]
         public static extern void SetIQFixed(uint thread, uint subrx, uint setit, float gain, float phase);
+
+        [DllImport("Receiver.dll", EntryPoint = "SetIQBalanced")]
+        public static extern void SetIQBalanced(uint thread, bool setit);
 
         [DllImport("user32.dll")]
         public static extern bool GetCursorPos(out Point lpPoint);
@@ -404,10 +414,18 @@ namespace CWExpert
         public bool ROBOT = false;
         private MeterType TX_meter_type = MeterType.DIR_PWR;
         public bool hst = false;
+        public Recorder recorder;
 
         #endregion
 
         #region properites
+
+        private IQ_correction iq_correction = IQ_correction.FIXED;
+        public IQ_correction IQcorrection
+        {
+            get { return iq_correction; }
+            set { iq_correction = value; }
+        }
 
         private bool tx_split = false;
         public bool TXSplit
@@ -656,6 +674,7 @@ namespace CWExpert
             set
             {
                 current_band = value;
+                Audio.iq_balancer_reset = true;
                 SetupForm.udTXGain.Value = (decimal)tx_image_gain_table[(int)current_band];
                 SetupForm.udTXPhase.Value = (decimal)tx_image_phase_table[(int)current_band];
                 SetupForm.udRXGain.Value = (decimal)rx_image_gain_table[(int)current_band];
@@ -663,6 +682,8 @@ namespace CWExpert
 
                 if (CurrentModel == Model.GENESIS_G11)
                     G11SetBandFilter(current_band);
+
+                Audio.iq_balancer_reset = true;
             }
         }
 
@@ -843,6 +864,7 @@ namespace CWExpert
 
                     output_ring_buf.Reset();
                     mon_ring_buf.Reset();
+                    Audio.iq_balancer_reset = true;
                 }
             }
         }
@@ -863,9 +885,13 @@ namespace CWExpert
                         vfoa = (losc * 1e6 - Audio.SampleRate / 2) / 1e6;
 
                     txtVFOA.Text = vfoa.ToString("f6");
-                    SetRXIQGainPhase(SetupForm.iq_fixed, rx_image_gain_table[(int)current_band],
-                        rx_image_phase_table[(int)current_band]);
-                    RX_phase_gain();
+
+                    if (iq_correction == IQ_correction.FIXED)
+                    {
+                        SetRXIQGainPhase(1, rx_image_gain_table[(int)current_band],
+                            rx_image_phase_table[(int)current_band]);
+                        RX_phase_gain();
+                    }
 
                     switch (op_mode_vfoA)
                     {
@@ -1178,6 +1204,8 @@ namespace CWExpert
 
                 if (!MOX)
                     WBIR_state = WBIR_State.DelayAdapt;
+
+                Audio.iq_balancer_reset = true;
             }
         }
 
@@ -1258,20 +1286,30 @@ namespace CWExpert
                 switch (value)
                 {
                     case Mode.CW:
-                    case Mode.BPSK31:
-                    case Mode.BPSK63:
                     case Mode.RTTY:
-                    case Mode.QPSK31:
-                    case Mode.QPSK63:
                         FilterWidthVFOA = 50;
                         break;
 
+                    case Mode.BPSK31:
+                    case Mode.QPSK31:
+                        FilterWidthVFOA = 31;
+                        break;
+
+                    case Mode.BPSK63:
+                    case Mode.QPSK63:
+                        FilterWidthVFOA = 63;
+                        break;
+
                     case Mode.QPSK125:
+                        FilterWidthVFOA = 150;
+                        break;
                     case Mode.BPSK125:
-                        FilterWidthVFOA = 100;
+                        FilterWidthVFOA = 125;
                         break;
 
                     case Mode.BPSK250:
+                        FilterWidthVFOA = 300;
+                        break;
                     case Mode.QPSK250:
                         FilterWidthVFOA = 250;
                         break;
@@ -1290,20 +1328,30 @@ namespace CWExpert
                 switch (value)
                 {
                     case Mode.CW:
-                    case Mode.BPSK31:
-                    case Mode.BPSK63:
                     case Mode.RTTY:
-                    case Mode.QPSK31:
-                    case Mode.QPSK63:
                         FilterWidthVFOB = 50;
                         break;
 
+                    case Mode.BPSK31:
+                    case Mode.QPSK31:
+                        FilterWidthVFOB = 31;
+                        break;
+
+                    case Mode.BPSK63:
+                    case Mode.QPSK63:
+                        FilterWidthVFOB = 63;
+                        break;
+
                     case Mode.QPSK125:
+                        FilterWidthVFOB = 150;
+                        break;
                     case Mode.BPSK125:
-                        FilterWidthVFOB = 100;
+                        FilterWidthVFOB = 125;
                         break;
 
                     case Mode.BPSK250:
+                        FilterWidthVFOB = 300;
+                        break;
                     case Mode.QPSK250:
                         FilterWidthVFOB = 250;
                         break;
@@ -1526,6 +1574,10 @@ namespace CWExpert
                 ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.OptimizedDoubleBuffer, true);
             UpdateStyles();
+            tx_image_phase_table = new float[(int)Band.LAST];
+            tx_image_gain_table = new float[(int)Band.LAST];
+            rx_image_phase_table = new float[(int)Band.LAST];
+            rx_image_gain_table = new float[(int)Band.LAST];
             msg = new MessageHelper();
             edits = new TextEdit[3];
             DB.AppDataPath = Application.StartupPath;
@@ -1542,10 +1594,6 @@ namespace CWExpert
                 SetupForm.txtStnCALL.Text.ToString(), SetupForm.txtStnName.Text.ToString(),
                 SetupForm.txtStnQTH.Text.ToString());
             SetupForm.chkIPV6_CheckedChanged(this, EventArgs.Empty);
-            tx_image_phase_table = new float[(int)Band.LAST];
-            tx_image_gain_table = new float[(int)Band.LAST];
-            rx_image_phase_table = new float[(int)Band.LAST];
-            rx_image_gain_table = new float[(int)Band.LAST];
             display_event = new AutoResetEvent(false);
             output_ring_buf = new RingBuffer(32768);
             mon_ring_buf = new RingBuffer(32768);
@@ -1635,6 +1683,7 @@ namespace CWExpert
             DB.LOG_Init();
             InitLOG();
             keyboard = new Keyboard(this);
+            recorder = new Recorder(this);
 
             double vfoa_freq, vfob_freq, losc_freq;
             int filter_vfoA, filter_vfoB, zoom, pan;
@@ -1689,6 +1738,22 @@ namespace CWExpert
                     break;
             }
 
+            if (iq_correction == IQ_correction.BALANCED)
+            {               
+                SetRXIQGainPhase(0, 0.0f, 0.0f);
+            }
+            else if (iq_correction == IQ_correction.FIXED)
+            {
+                SetRXIQGainPhase(1, rx_image_gain_table[(int)current_band],
+                    rx_image_phase_table[(int)current_band]);
+                RX_phase_gain();
+            }
+            else if (iq_correction == IQ_correction.WBIR)
+            {
+                SetRXIQGainPhase(2, 0.0f, 0.0f);
+                RX_phase_gain();
+            }
+
             try
             {
                 if (use_telnet)
@@ -1732,6 +1797,9 @@ namespace CWExpert
 
                 if (keyboard != null)
                     keyboard.SaveOptions();
+
+                if (recorder != null)
+                    recorder.SaveOptions();
 
                 SaveState();
                 DB.Exit();
@@ -2102,7 +2170,7 @@ namespace CWExpert
                         if (!btnMute.Checked)
                             Audio.Volume = tbAFGain.Value;
 
-                        Audio.ScopeLevel = tbAFGain.Value;
+                        Audio.ScopeLevel = tbAFGain.Value * 5;
                         SetTRX(0, false);   // RX
 
                         if (!Audio.Start())
@@ -2148,7 +2216,7 @@ namespace CWExpert
                             Smeter_thread.IsBackground = true;
                             Smeter_thread.Start();
 
-                            wbir_run = true;
+                            /*wbir_run = true;
 
                             if (wbir_thread == null || !wbir_thread.IsAlive)
                             {
@@ -2160,7 +2228,7 @@ namespace CWExpert
 
                             WBIR_state = WBIR_State.DelayAdapt;
                             wbir_tuned = true;
-                            wbir_thread.Start();
+                            wbir_thread.Start();*/
                         }
                     }
                     else
@@ -2343,33 +2411,6 @@ namespace CWExpert
             }
         }
 
-        private void KeyboardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (keyboard == null || keyboard.IsDisposed)
-                keyboard = new Keyboard(this);
-
-            keyboard.Show();
-            keyboard.BringToFront();
-        }
-
-        private void setupMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (SetupForm != null || SetupForm.IsDisposed)
-                    SetupForm.Show();
-                else
-                {
-                    SetupForm = new Setup(this);
-                    SetupForm.Show();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error opening Setup!\n" + ex.ToString());
-            }
-        }
-
         public void btnSendCall_Click(object sender, EventArgs e)      // button call
         {
             try
@@ -2444,7 +2485,7 @@ namespace CWExpert
                 btnSendCall_Click(null, null);
         }
 
-        public void CWExpert_KeyUp(object sender, KeyEventArgs e)      // function keys F1...F12
+        public void CWExpert_KeyUp(object sender, KeyEventArgs e)   // function keys F1...F12
         {
 
             switch (e.KeyCode)
@@ -2480,8 +2521,7 @@ namespace CWExpert
 
         private void btngrab_Click(object sender, EventArgs e)
         {
-            //            txtCALL = Callers.SelectedItem.ToString();
-
+            //txtCALL = Callers.SelectedItem.ToString();
         }
 
         public void txtChannelClear(int channel)
@@ -2590,6 +2630,12 @@ namespace CWExpert
             }
         }
 
+        private void tbMRSquelch_Scroll(object sender, EventArgs e)
+        {
+            if (cwDecoder != null)
+                cwDecoder.SQL = (double)(tbMRSquelch.Value / 20000.0);
+        }
+
         #endregion
 
         #region Display functions
@@ -2669,7 +2715,7 @@ namespace CWExpert
             }
         }
 
-        private FourierFFT fft;
+        private Fourier fft;
         public bool data_ready = false;
         unsafe private void RunDisplay()
         {
@@ -2677,7 +2723,7 @@ namespace CWExpert
             {
                 float[] display_data = new float[4096];
                 Thread.Sleep(100);
-                fft = new FourierFFT();
+                fft = new Fourier();
 
                 while (runDisplay)
                 {
@@ -3967,11 +4013,13 @@ namespace CWExpert
             {
                 genesis.WriteToDevice(5, 0);
                 btnAF.BackColor = Color.LimeGreen;
+                Audio.iq_balancer_reset = true;
             }
             else
             {
                 genesis.WriteToDevice(6, 0);
                 btnAF.BackColor = Color.WhiteSmoke;
+                Audio.iq_balancer_reset = true;
             }
         }
 
@@ -3981,11 +4029,13 @@ namespace CWExpert
             {
                 genesis.WriteToDevice(11, 0);
                 btnRF.BackColor = Color.LimeGreen;
+                Audio.iq_balancer_reset = true;
             }
             else
             {
                 genesis.WriteToDevice(12, 0);
                 btnRF.BackColor = Color.WhiteSmoke;
+                Audio.iq_balancer_reset = true;
             }
         }
 
@@ -3995,11 +4045,13 @@ namespace CWExpert
             {
                 genesis.WriteToDevice(16, 0);
                 btnATT.BackColor = Color.LimeGreen;
+                Audio.iq_balancer_reset = true;
             }
             else
             {
                 genesis.WriteToDevice(17, 0);
                 btnATT.BackColor = Color.WhiteSmoke;
+                Audio.iq_balancer_reset = true;
             }
         }
 
@@ -4036,7 +4088,7 @@ namespace CWExpert
                 }
                 else
                 {
-                    Audio.Volume = tbAFGain.Value * 10;
+                    Audio.Volume = tbAFGain.Value;
                     btnMute.BackColor = Color.WhiteSmoke;
                 }
             }
@@ -5584,6 +5636,7 @@ namespace CWExpert
             {
                 int fast_count = 0;
                 int countdown = 1000;
+                double rnd = 0.0;
 
                 while (wbir_run)
                 {
@@ -5649,12 +5702,12 @@ namespace CWExpert
                             //Debug.WriteLine("WBIR Off");
                             if (!MOX)
                             {
-                                SetCorrectIQEnable(0);
+                                SetCorrectIQEnable(0, 0);
                                 SetCorrectRXIQw(0, 0, 0, 0, 0);
                                 SetCorrectRXIQw(0, 1, 0, 0, 0);
                                 SetCorrectRXIQw(0, 0, 0, 0, 1);
                                 SetCorrectRXIQw(0, 1, 0, 0, 1);
-                                SetCorrectIQEnable(1);
+                                SetCorrectIQEnable(0, 1);
                                 wbir_tuned = true;
                                 countdown = 1000;
                                 WBIR_state = WBIR_State.FastAdapt;
@@ -5662,7 +5715,7 @@ namespace CWExpert
                             break;
                         case WBIR_State.StopAdapt:
                             {
-                                SetCorrectIQEnable(0);
+                                SetCorrectIQEnable(0, 0);
                                 SetCorrectRXIQw(0, 0, 0, 0, 0);
                                 SetCorrectRXIQw(0, 1, 0, 0, 0);
                                 SetCorrectRXIQw(0, 0, 0, 0, 1);
@@ -9225,7 +9278,14 @@ namespace CWExpert
 
         private void btnLogPrev_Click(object sender, EventArgs e)
         {
+            try
+            {
 
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
         }
 
         private void btnLogDelete_Click(object sender, EventArgs e)
@@ -9240,7 +9300,8 @@ namespace CWExpert
 
         private void btnLogLast_Click(object sender, EventArgs e)
         {
-
+            Audio.rb_mon_l.ResetReadPtr();
+            Audio.rb_mon_r.ResetReadPtr();
         }
 
         private void CALLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9613,8 +9674,11 @@ namespace CWExpert
             {
                 if (!booting)
                 {
-                    SetupForm.udRXGain.Value = (decimal)rx_image_gain_table[(int)current_band];
-                    SetupForm.udRXPhase.Value = (decimal)rx_image_phase_table[(int)current_band];
+                    if (!Audio.iq_balanced)
+                    {
+                        SetupForm.udRXGain.Value = (decimal)rx_image_gain_table[(int)current_band];
+                        SetupForm.udRXPhase.Value = (decimal)rx_image_phase_table[(int)current_band];
+                    }
                 }
             }
             catch (Exception ex)
@@ -9623,16 +9687,38 @@ namespace CWExpert
             }
         }
 
-        public void SetRXIQGainPhase(uint setit, float gain, float phase)
+        public void SetRXIQGainPhase(uint type, float gain, float phase)
         {
             try
             {
                 if (!booting)
                 {
-                    SetIQFixed(0, 0, setit, gain, phase);
-                    SetIQFixed(0, 1, setit, gain, phase);
-                    SetIQFixed(0, 2, setit, gain, phase);
-                    SetIQFixed(0, 3, setit, gain, phase);
+                    switch (type)
+                    {
+                        case 0:                                                     // balanced
+                            SetIQBalanced(0, true);
+                            SetIQFixed(0, 0, 0, gain, phase);
+                            SetIQFixed(0, 1, 0, gain, phase);
+                            SetIQFixed(0, 2, 0, gain, phase);
+                            SetIQFixed(0, 3, 0, gain, phase);
+                            break;
+
+                        case 1:                                                      // fixed
+                            SetIQBalanced(0, false);
+                            SetIQFixed(0, 0, 1, gain, phase);
+                            SetIQFixed(0, 1, 1, gain, phase);
+                            SetIQFixed(0, 2, 1, gain, phase);
+                            SetIQFixed(0, 3, 1, gain, phase);
+                            break;
+
+                        case 2:                                                      // wbir
+                            SetIQBalanced(0, false);
+                            SetIQFixed(0, 0, 0, gain, phase);
+                            SetIQFixed(0, 1, 0, gain, phase);
+                            SetIQFixed(0, 2, 0, gain, phase);
+                            SetIQFixed(0, 3, 0, gain, phase);
+                            break;
+                    }
                 }
             }
             catch (Exception ex)
@@ -10156,7 +10242,7 @@ namespace CWExpert
                         default:
                             result = false;
                             goto end;
-                            break;
+                            //break;
                     }
                 }
 
@@ -10223,10 +10309,49 @@ namespace CWExpert
 
         #endregion
 
-        private void tbMRSquelch_Scroll(object sender, EventArgs e)
+        #region Options menu
+
+        private void recorderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (cwDecoder != null)
-                cwDecoder.SQL = (double)(tbMRSquelch.Value / 20000.0);
+            if (recorder == null || recorder.IsDisposed)
+                recorder = new Recorder(this);
+
+            recorder.Show();
+            recorder.BringToFront();
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void KeyboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (keyboard == null || keyboard.IsDisposed)
+                keyboard = new Keyboard(this);
+
+            keyboard.Show();
+            keyboard.BringToFront();
+        }
+
+        private void setupMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SetupForm != null || SetupForm.IsDisposed)
+                    SetupForm.Show();
+                else
+                {
+                    SetupForm = new Setup(this);
+                    SetupForm.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening Setup!\n" + ex.ToString());
+            }
+        }
+
+        #endregion
     }
 }

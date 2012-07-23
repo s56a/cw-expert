@@ -19,3 +19,5 @@ E:\CW expert\obj\x86\Debug\CWExpert.exe.manifest
 E:\CW expert\obj\x86\Debug\CWExpert.application
 E:\CW expert\obj\x86\Debug\CWExpert.exe
 E:\CW expert\obj\x86\Debug\CWExpert.pdb
+E:\CW expert\obj\x86\Debug\CWExpert.Recorder.resources
+E:\CW expert\obj\x86\Debug\CWExpert.RecorderSetup.resources

@@ -190,9 +190,9 @@ namespace CWExpert
         private static ComplexF[] zero_buffer = new ComplexF[2048];
         private CWExpert MainForm;
         private const int FILTERS_NUMBER = 2;
-        private double M_PI_2 = 1.57079632679464;
-        private double M_PI = 3.14159265358928;
-        private double TWOPI = 6.28318530717856;
+        private const double M_PI_2 = 1.57079632679464;
+        private const double M_PI = 3.14159265358928;
+        private const double TWOPI = 6.28318530717856;
         public Mutex update_receiver = new Mutex();
         public Mutex update_filter = new Mutex();
         public Mutex receive_mutex;
@@ -220,6 +220,9 @@ namespace CWExpert
         public bool run_rx1 = false;
         public bool run_rx2 = false;
         unsafe private static void* cs_audio;
+        tx[] Tx = new tx[2];
+        private Fourier fft;
+        IQBalancer iq_balancer;
 
         double[] gmfir2c =
             {
@@ -382,6 +385,7 @@ namespace CWExpert
             trx.outbuf = new ComplexF[819];
             trx.outbuf1 = new ComplexF[8192];
             trx.mon_outbuf = new ComplexF[8192];
+            iq_balancer = new IQBalancer(form);
 
             cs_audio = (void*)0x0;
             cs_audio = NewCriticalSection();
@@ -391,7 +395,7 @@ namespace CWExpert
                 Debug.WriteLine("CriticalSection Failed");
             }
 
-            fft = new FourierFFT();
+            fft = new Fourier();
         }
 
         ~PSK()
@@ -417,6 +421,8 @@ namespace CWExpert
         public bool PSKStart()
         {
             bool result = false;
+            fft = new Fourier();
+            iq_balancer = new IQBalancer(MainForm);
 
             try
             {
@@ -457,6 +463,7 @@ namespace CWExpert
                 AudioEvent1.Set();
                 AudioEvent2.Set();
                 Thread.Sleep(100);
+                iq_balancer = null;
                 System.GC.Collect();
             }
             catch (Exception ex)
@@ -1792,6 +1799,7 @@ namespace CWExpert
 
             MainForm.output_ring_buf.Read(ref iq_buffer, buflen);
             correctIQ(index, ref iq_buffer);
+            //iq_balancer.Process(ref iq_buffer, buflen);
             Array.Copy(iq_buffer, output, buflen);
             MainForm.mon_ring_buf.Read(ref iq_buffer, buflen);
             Array.Copy(iq_buffer, monitor, buflen);
@@ -2398,8 +2406,6 @@ namespace CWExpert
 
         #region variables
 
-        tx[] Tx = new tx[2];
-        private FourierFFT fft;
         AutoResetEvent tx_event = new AutoResetEvent(false);
 
         #endregion

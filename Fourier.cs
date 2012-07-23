@@ -59,7 +59,7 @@ namespace CWExpert
 	/// <summary>
 	/// <p>Static functions for doing various Fourier Operations.</p>
 	/// </summary>
-	public class FourierFFT {
+	public class Fourier {
 		
 		//======================================================================================
 
@@ -777,72 +777,85 @@ namespace CWExpert
 			}
 		}
 
+        int level = 0;
+        float r, i, odduR, odduI;
+        float[] uRLookup, uILookup;
+        float uR, uI;
+        int odd, even;
+        int M, N;
 		/// <summary>
 		/// Compute a 1D fast Fourier transform of a dataset of complex numbers.
 		/// </summary>
 		/// <param name="data"></param>
 		/// <param name="length"></param>
 		/// <param name="direction"></param>
-		public void	FFT(ComplexF[] data, int length, FourierDirection direction ) {
-			if( data == null ) {
-				throw new ArgumentNullException( "data" );
-			}
-			if( data.Length < length ) {
-				throw new ArgumentOutOfRangeException( "length", length, "must be at least as large as 'data.Length' parameter" );
-			}
-			if( IsPowerOf2( length ) == false ) {
-				throw new ArgumentOutOfRangeException( "length", length, "must be a power of 2" );
-			}
+		public void	FFT(ComplexF[] data, int length, FourierDirection direction ) 
+        {
+            try
+            {
+                if (data == null)
+                {
+                    throw new ArgumentNullException("data");
+                }
+                if (data.Length < length)
+                {
+                    throw new ArgumentOutOfRangeException("length", length, "must be at least as large as 'data.Length' parameter");
+                }
+                if (IsPowerOf2(length) == false)
+                {
+                    throw new ArgumentOutOfRangeException("length", length, "must be a power of 2");
+                }
 
-			SyncLookupTableLength( length );
+                SyncLookupTableLength(length);
 
-			int ln = Log2( length );
-			
-			// reorder array
-			ReorderArray( data );
-			
-			// successive doubling
-			int N = 1;
-			int signIndex = ( direction == FourierDirection.Forward ) ? 0 : 1;
+                int ln = Log2(length);
 
-            float r, i, odduR, odduI;
-            float[] uRLookup, uILookup;
-            float uR, uI;
-            int odd, even;
+                // reorder array
+                ReorderArray(data);
 
-			for( int level = 1; level <= ln; level ++ ) {
-				int M = N;
-				N <<= 1;
+                // successive doubling
+                N = 1;
+                int signIndex = (direction == FourierDirection.Forward) ? 0 : 1;
 
-				uRLookup = _uRLookupF[ level, signIndex ];
-				uILookup = _uILookupF[ level, signIndex ];
+                for (level = 1; level <= ln; level++)
+                {
+                    M = N;
+                    N <<= 1;
 
-				for( int j = 0; j < M; j ++ ) {
-					uR = uRLookup[j];
-					uI = uILookup[j];
+                    uRLookup = _uRLookupF[level, signIndex];
+                    uILookup = _uILookupF[level, signIndex];
 
-					for( even = j; even < length; even += N ) 
+                    for (int j = 0; j < M; j++)
                     {
-						odd	 = even + M;
-						
-						r = data[ odd ].Re;
-						i = data[ odd ].Im;
+                        uR = uRLookup[j];
+                        uI = uILookup[j];
 
-						odduR = r * uR - i * uI;
-						odduI = r * uI + i * uR;
+                        for (even = j; even < length; even += N)
+                        {
+                            odd = even + M;
 
-						r = data[ even ].Re;
-						i = data[ even ].Im;
-						
-						data[ even ].Re	= r + odduR;
-						data[ even ].Im	= i + odduI;
-						
-						data[ odd ].Re	= r - odduR;
-						data[ odd ].Im	= i - odduI;
-					}
-				}
-			}
+                            r = data[odd].Re;
+                            i = data[odd].Im;
 
+                            odduR = r * uR - i * uI;
+                            odduI = r * uI + i * uR;
+
+                            r = data[even].Re;
+                            i = data[even].Im;
+
+                            data[even].Re = r + odduR;
+                            data[even].Im = i + odduI;
+
+                            data[odd].Re = r - odduR;
+                            data[odd].Im = i - odduI;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
 		}
 
 		/// <summary>
@@ -860,9 +873,9 @@ namespace CWExpert
 			}
 			if( IsPowerOf2( length ) == false ) {
 				throw new ArgumentOutOfRangeException( "length", length, "must be a power of 2" );
-			}
+			}*/
 
-			SyncLookupTableLength( length );*/
+			SyncLookupTableLength( length );
 
 			int ln = Log2( length );
 			

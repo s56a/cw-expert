@@ -163,10 +163,10 @@ namespace CWExpert
         #region Variable Declaration
 
         private float[] buf; /// actual internal buffer used to store the data
-        private int wptr;	/// Write Pointer
-        private int rptr;	/// Read Pointer
-        private int size;	/// Size of the RingBuffer
-        private int mask;	/// mask used to speed reads/writes
+        public int wptr;	 /// Write Pointer
+        public int rptr;	 /// Read Pointer
+        private int size;	 /// Size of the RingBuffer
+        private int mask;	 /// mask used to speed reads/writes
 
         #endregion
 
@@ -417,12 +417,20 @@ namespace CWExpert
         }
 
         /// <summary>
-        /// Resets the ringbuffer pointers (will be empty afterwards).
+        /// Resets the ringbuffer pointers (data will not be changed).
         /// </summary>
         public void Reset()
         {
             rptr = 0;
             wptr = 0;
+        }
+
+        /// <summary>
+        /// Resets the ringbuffer Read pointers (data will not be changed).
+        /// </summary>
+        public void ResetReadPtr()
+        {
+            rptr = 0;
         }
 
         /// <summary>
@@ -444,6 +452,7 @@ namespace CWExpert
         {
             Reset();
             Clear(nfloats);
+            Reset();
         }
 
         public int Peek(float[] dest, int cnt)

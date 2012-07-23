@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Threading;
+using System.Drawing;
 
 namespace CWExpert
 {
@@ -128,16 +129,14 @@ namespace CWExpert
         private static bool monitor_enabled = false;
         private static int buffer_ptr_A = 0;
         private static int buffer_ptr_B = 0;
-        private static uint callback_count = 0;
-        private static uint monitor_count = 0;
         public static bool audio_paused = false;
         public static bool RX2 = false;
         private static float[] tmp_buffer_ch1 = new float[2048];
         private static float[] tmp_buffer_ch2 = new float[2048];
         private static float[] tmp_buffer_ch3 = new float[2048];
         private static float[] tmp_buffer_ch4 = new float[2048];
-        public static RingBufferFloat rb_mon_l = new RingBufferFloat(1048576);
-        public static RingBufferFloat rb_mon_r = new RingBufferFloat(1048576);
+        public static RingBufferFloat rb_mon_l = new RingBufferFloat(16 * 1048576);
+        public static RingBufferFloat rb_mon_r = new RingBufferFloat(16 * 1048576);
         public static bool monitor_paused = false;
         private static int decimation = 6;
         private static int wptr = 0;
@@ -145,7 +144,17 @@ namespace CWExpert
         static float phaseacc = 0.0f;
         const float TWOPI = 6.28318530717856f;
         const float M_PI = 3.14159265358928f;
-
+        public static bool loopback = false;
+        public static bool record = false;
+        delegate void CrossThreadCommand(string command, int param);
+        static int play_progress = 0;
+        static int rec_progress = 0;
+        public static IQBalancer iq_balancer;
+        public static bool iq_balancer_reset = false;
+        static ComplexF[] iq_buffer = new ComplexF[2048];
+        static bool audio_run = false;
+        public static bool iq_balanced = false;
+        static int iq_progress = 0;
 
         #endregion
 
@@ -273,6 +282,8 @@ namespace CWExpert
             {
                 if (audio_paused)
                     return callback_return;
+
+                audio_run = true;
 
                 if (SDRmode)
                 {
@@ -602,29 +613,91 @@ namespace CWExpert
                             in_r = in_l_ptr1;
                         }
 
-                        rb_mon_l.WritePtr(in_l, buflen, true);
-                        rb_mon_r.WritePtr(in_r, buflen, true);
-
-                        /*if (monitor_paused)
+                        if (record)
                         {
-                            while (rb_mon_l.ReadSpace() > buflen)
+                            if (rb_mon_l.WriteSpace() < 2 * buflen)
                             {
-                                fixed (float* output_l = &tmp_buffer_ch1[0])
-                                fixed (float* output_r = &tmp_buffer_ch2[0])
-                                {
-                                    rb_mon_l.ReadPtr(in_l, buflen);
-                                    rb_mon_r.ReadPtr(in_r, buflen);
-                                    ExchangeSamples(0, in_l, in_r, output_l, output_r, buflen);
-                                    Array.Copy(tmp_buffer_ch1, MainForm.psk.ch1_buffer, buflen);
-                                    MainForm.psk.AudioEvent1.Set();
-                                    MainForm.psk.AudioEventEnd1.WaitOne(1);
-                                }
+                                MainForm.recorder.Recording = false;
+                                record = false;
                             }
 
-                            rb_mon_l.ReadAdvance(2*buflen);
-                            rb_mon_r.ReadAdvance(2*buflen);
-                            monitor_paused = false;
-                        }*/
+                            rb_mon_l.WritePtr(in_l, buflen, true);
+                            rb_mon_r.WritePtr(in_r, buflen, true);
+                            rec_progress++;
+
+                            if (rec_progress >= 50)
+                            {
+                                MainForm.recorder.Invoke(new CrossThreadCommand(MainForm.recorder.CommandCallback),
+                                    "Set Recording progress", rb_mon_l.wptr);
+                                rec_progress = 0;
+                            }
+                        }
+
+                        if (loopback)
+                        {
+                            if (rb_mon_l.ReadSpace() < buflen)
+                            {
+                                rb_mon_l.ResetReadPtr();
+                                rb_mon_r.ResetReadPtr();
+                            }
+
+                            if (!RXswap)
+                            {
+                                rb_mon_l.ReadPtr(in_l, buflen);
+                                rb_mon_r.ReadPtr(in_r, buflen);
+                            }
+                            else
+                            {
+                                rb_mon_r.ReadPtr(in_l, buflen);
+                                rb_mon_l.ReadPtr(in_r, buflen);
+                            }
+
+                            play_progress++;
+
+                            if (play_progress >= 40)
+                            {
+                                MainForm.recorder.Invoke(new CrossThreadCommand(MainForm.recorder.CommandCallback),
+                                    "Set Play progress", rb_mon_l.rptr);
+                                play_progress = 0;
+                            }
+                        }
+
+                        switch (MainForm.IQcorrection)
+                        {
+                            case IQ_correction.WBIR:
+                            case IQ_correction.BALANCED:
+                            case IQ_correction.FIXED:
+                                {
+                                    if (iq_balancer_reset)
+                                    {
+                                        iq_balancer.Reset(buflen);
+                                        iq_balancer_reset = false;
+                                        iq_progress = 0;
+                                    }
+                                    else
+                                    {
+                                        if (iq_progress >= 10)
+                                        {
+                                            for (int i = 0; i < 2048; i++)
+                                            {
+                                                iq_buffer[i].Re = in_l[i];
+                                                iq_buffer[i].Im = in_r[i];
+                                            }
+
+                                            iq_balancer.Process(ref iq_buffer, buflen);
+
+                                            for (int i = 0; i < 2048; i++)
+                                            {
+                                                in_l[i] = iq_buffer[i].Re;
+                                                in_r[i] = iq_buffer[i].Im;
+                                            }
+                                        }
+                                        else
+                                            iq_progress++;
+                                    }
+                                }
+                                break;
+                        }
 
                         fixed (float* output_l = &tmp_buffer_ch1[0])
                         fixed (float* output_r = &tmp_buffer_ch2[0])
@@ -948,21 +1021,24 @@ namespace CWExpert
 
                                 default:
                                     {
-                                        if (monitor_enabled && (rb_monOUT_l.WriteSpace() >= buflen) &&
-                                            (rb_monOUT_r.WriteSpace() >= buflen))
+                                        if (monitor_enabled)
                                         {
-                                            fixed (float* output_l = &tmp_buffer_ch1[0])
+                                            if (rb_monOUT_l.WriteSpace() >= buflen &&
+                                            rb_monOUT_r.WriteSpace() >= buflen)
                                             {
-                                                EnterCriticalSection(cs_mon);
-                                                rb_monOUT_l.WritePtr(output_l, buflen);
-                                                rb_monOUT_r.WritePtr(output_l, buflen);
-                                                LeaveCriticalSection(cs_mon);
+                                                fixed (float* output_l = &tmp_buffer_ch1[0])
+                                                {
+                                                    EnterCriticalSection(cs_mon);
+                                                    rb_monOUT_l.WritePtr(output_l, buflen);
+                                                    rb_monOUT_r.WritePtr(output_l, buflen);
+                                                    LeaveCriticalSection(cs_mon);
+                                                }
                                             }
-                                        }
-                                        else
-                                        {
-                                            rb_monOUT_l.Reset();
-                                            rb_monOUT_r.Reset();
+                                            else
+                                            {
+                                                rb_monOUT_l.Reset();
+                                                rb_monOUT_r.Reset();
+                                            }
                                         }
 
                                         if (mox_switch_time >= 5)
@@ -1262,28 +1338,10 @@ namespace CWExpert
                         in_ptr_r[i] *= (float)input_level;
                     }
 
-                    /*audio_mutex.WaitOne();
-                    Array.Copy(tmp_buffer, MainForm.display_buffer, buflen);
-                    Array.Copy(zero_bufferF, 0, MainForm.display_buffer, 2048, buflen);
-                    audio_mutex.ReleaseMutex();*/
-
                     for (int i = 0; i < buflen; i++)
                     {
                         if (wptr >= 2048)
                         {
-                            /*float delta = TWOPI * 5000.0f / 8000.0f;
-
-                            for (i = 0; i < 2048; i++)
-                            {
-                                phaseacc += delta;
-
-                                if (phaseacc >= M_PI)
-                                    phaseacc -= TWOPI;
-
-                                in_ptr_l[i] = (in_ptr_l[i] * (float)Math.Cos(phaseacc));
-                                in_ptr_r[i] = (in_ptr_l[i] * (float)Math.Sin(phaseacc));
-                            }*/
-
                             if (MainForm.cwDecoder.audio_buffer != null &&
                                 MainForm.cwDecoder.audio_buffer.Length == 2048)
                             {
@@ -1346,6 +1404,8 @@ namespace CWExpert
                 }
 
                 #endregion
+
+                audio_run = false;
 
                 return callback_return;
             }
@@ -1838,7 +1898,6 @@ namespace CWExpert
         {
             try
             {
-                monitor_count++;
 #if(WIN64)
                 Int64* array_ptr = (Int64*)input;
                 float* in_l_ptr1 = (float*)array_ptr[0];
@@ -1891,12 +1950,16 @@ namespace CWExpert
 
             try
             {
+                iq_balancer = new IQBalancer(MainForm);
+                iq_balancer.Phase = (float)MainForm.SetupForm.udRXPhase.Value;
+                iq_balancer.Gain = (float)MainForm.SetupForm.udRXGain.Value;
                 decimation = Audio.SampleRate / MainForm.cwDecoder.rate;
                 monitor_enabled = false;
                 buffer_ptr_A = 0;
+                phaseacc = TWOPI / block_size;
 
-                if (rb_mon_l != null) rb_mon_l.Restart(8 * 1048576);
-                if (rb_mon_r != null) rb_mon_r.Restart(8 * 1048576);
+                if (rb_mon_l != null) rb_mon_l.ResetReadPtr();
+                if (rb_mon_r != null) rb_mon_r.ResetReadPtr();
 
                 for (int i = 0; i < 2048; i++)
                 {
@@ -2064,6 +2127,17 @@ namespace CWExpert
 
         public unsafe static void StopAudio()
         {
+            int count = 0;
+
+            while (audio_run)
+            {
+                Thread.Sleep(1);
+                count++;
+
+                if (count > 1000)
+                    audio_run = false;
+            }
+
             if (monitor_enabled)
             {
                 DeleteCriticalSection(cs_mon);
