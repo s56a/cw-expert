@@ -521,6 +521,11 @@ namespace CWExpert
             wptr = (wptr + cnt) % mask;
         }
 
+        public int Lenght()
+        {
+            return buf.Length;
+        }
+
         #endregion
     }
 }

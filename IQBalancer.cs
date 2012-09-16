@@ -124,12 +124,12 @@ namespace CWExpert
         {
             try
             {
-                iqfix.w[0].Re = 0.0f;
-                iqfix.w[0].Im = 0.0f;
                 iqfix.mu = 0.0f;
 
                 for (int i = 0; i < 16; i++)
                 {
+                    iqfix.w[i].Re = 0.0f;
+                    iqfix.w[i].Im = 0.0f;
                     iqfix.y[i].Re = 0.0f;
                     iqfix.y[i].Im = 0.0f;
                     iqfix.del[i].Re = 0.0f;
@@ -392,7 +392,7 @@ namespace CWExpert
         Random rnd = new Random(564561);
         private void correctIQ(ref ComplexF[] input_buf, int length)
         {
-            int i;
+            int i,j = 0;
             ComplexF tmp = new ComplexF();
             iqfix.mu = (float)rnd.NextDouble();
 
@@ -400,22 +400,29 @@ namespace CWExpert
             {
                 iqfix.del[iqfix.index] = Cclamp(input_buf[i]);
                 iqfix.y[iqfix.index] = Cclamp(CaddF(iqfix.del[iqfix.index],
-                    CmulF(CsclF(iqfix.w[0], 100.0f), ConjgF(iqfix.del[iqfix.index]))));
+                    CmulF(CsclF(iqfix.w[iqfix.index], 100.0f), ConjgF(iqfix.del[iqfix.index]))));
                 iqfix.y[iqfix.index] = Cclamp(CaddF(iqfix.y[iqfix.index],
-                    CmulF(CsclF(iqfix.w[0], 100.0f), ConjgF(iqfix.y[iqfix.index]))));
-                tmp = Cclamp(CsubF(iqfix.w[0], CsclF(CmulF(iqfix.y[iqfix.index],
+                    CmulF(CsclF(iqfix.w[iqfix.index], 100.0f), ConjgF(iqfix.y[iqfix.index]))));
+                tmp = Cclamp(CsubF(iqfix.w[iqfix.index], CsclF(CmulF(iqfix.y[iqfix.index],
                     iqfix.y[iqfix.index]), iqfix.mu)));  // this is where the adaption happens
 
                 if (tmp.Re < 1.0f || tmp.Im < 1.0f)
-                    iqfix.w[0] = tmp;
+                    iqfix.w[iqfix.index] = tmp;
                 else
                 {
-                    iqfix.w[0].Im = 0.0f;  // iqfix.b[0].Im;		// reset
-                    iqfix.w[0].Re = 0.0f;  // iqfix.b[0].Re;
+                    iqfix.w[iqfix.index].Im = 0.0f;  // iqfix.b[0].Im;		// reset
+                    iqfix.w[iqfix.index].Re = 0.0f;  // iqfix.b[0].Re;
                 }
 
                 input_buf[i] = iqfix.y[iqfix.index];
-                iqfix.index = (iqfix.index + iqfix.MASK) & iqfix.MASK;
+
+                j++;
+
+                if (j == 128)
+                {
+                    iqfix.index = (iqfix.index + iqfix.MASK) & iqfix.MASK;
+                    j = 0;
+                }
             }
 
             //iqfix.index = (iqfix.index + iqfix.MASK) & iqfix.MASK;

@@ -310,23 +310,23 @@
             0,
             0,
             0});
-            this.udRecBufferSize.Location = new System.Drawing.Point(244, 39);
+            this.udRecBufferSize.Location = new System.Drawing.Point(230, 39);
             this.udRecBufferSize.Maximum = new decimal(new int[] {
-            16384,
+            1048576,
             0,
             0,
             0});
             this.udRecBufferSize.Minimum = new decimal(new int[] {
-            1,
+            1024,
             0,
             0,
             0});
             this.udRecBufferSize.Name = "udRecBufferSize";
-            this.udRecBufferSize.Size = new System.Drawing.Size(55, 20);
+            this.udRecBufferSize.Size = new System.Drawing.Size(69, 20);
             this.udRecBufferSize.TabIndex = 3;
             this.udRecBufferSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.udRecBufferSize.Value = new decimal(new int[] {
-            16384,
+            131072,
             0,
             0,
             0});
@@ -336,9 +336,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(83, 41);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(78, 13);
+            this.label9.Size = new System.Drawing.Size(76, 13);
             this.label9.TabIndex = 4;
-            this.label9.Text = "Buffer size(MB)";
+            this.label9.Text = "Buffer size(KB)";
             // 
             // RecorderSetup
             // 

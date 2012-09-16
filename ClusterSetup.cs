@@ -91,6 +91,13 @@ namespace CWExpert
                 {
                     string[] vals = s.Split('/');
                     string name = vals[0];
+
+                    if (vals.Length > 2)
+                    {
+                        for (int i = 2; i < vals.Length; i++)
+                            vals[1] += "/" + vals[i];
+                    }
+
                     string val = vals[1];
 
                     if (s.StartsWith("Cluster"))

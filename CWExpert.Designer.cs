@@ -3084,7 +3084,7 @@ namespace CWExpert
             this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "CWExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "CWExpert  S56A - YT7PWR v2.0.5";
+            this.Text = "CWExpert  S56A - YT7PWR v2.0.6";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainFormMouseWheel);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.CWExpert_Closing);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CWExpert_KeyUp);

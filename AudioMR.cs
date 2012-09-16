@@ -135,8 +135,8 @@ namespace CWExpert
         private static float[] tmp_buffer_ch2 = new float[2048];
         private static float[] tmp_buffer_ch3 = new float[2048];
         private static float[] tmp_buffer_ch4 = new float[2048];
-        public static RingBufferFloat rb_mon_l = new RingBufferFloat(16 * 1048576);
-        public static RingBufferFloat rb_mon_r = new RingBufferFloat(16 * 1048576);
+        public static RingBufferFloat rb_mon_l; // = new RingBufferFloat(16 * 1048576);
+        public static RingBufferFloat rb_mon_r; // = new RingBufferFloat(16 * 1048576);
         public static bool monitor_paused = false;
         private static int decimation = 6;
         private static int wptr = 0;
@@ -152,7 +152,8 @@ namespace CWExpert
         public static IQBalancer iq_balancer;
         public static bool iq_balancer_reset = false;
         static ComplexF[] iq_buffer = new ComplexF[2048];
-        static bool audio_run = false;
+        static Mutex audio_run = new Mutex();
+        static bool audio_running = false;
         public static bool iq_balanced = false;
         static int iq_progress = 0;
 
@@ -280,10 +281,10 @@ namespace CWExpert
         {
             try
             {
-                if (audio_paused)
+                if (audio_paused || !audio_running)
                     return callback_return;
 
-                audio_run = true;
+                audio_run.WaitOne(100);
 
                 if (SDRmode)
                 {
@@ -654,7 +655,7 @@ namespace CWExpert
 
                             play_progress++;
 
-                            if (play_progress >= 40)
+                            if (play_progress >= 30)
                             {
                                 MainForm.recorder.Invoke(new CrossThreadCommand(MainForm.recorder.CommandCallback),
                                     "Set Play progress", rb_mon_l.rptr);
@@ -676,7 +677,7 @@ namespace CWExpert
                                     }
                                     else
                                     {
-                                        if (iq_progress >= 10)
+                                        if (iq_progress >= 50)
                                         {
                                             for (int i = 0; i < 2048; i++)
                                             {
@@ -1405,7 +1406,7 @@ namespace CWExpert
 
                 #endregion
 
-                audio_run = false;
+                audio_run.ReleaseMutex();
 
                 return callback_return;
             }
@@ -1958,8 +1959,17 @@ namespace CWExpert
                 buffer_ptr_A = 0;
                 phaseacc = TWOPI / block_size;
 
-                if (rb_mon_l != null) rb_mon_l.ResetReadPtr();
-                if (rb_mon_r != null) rb_mon_r.ResetReadPtr();
+                if (rb_mon_l == null || rb_mon_l.Lenght() != Math.Max(MainForm.recorder.buffer_size, 1024) * 1024)
+                {
+                    rb_mon_l = null;
+                    rb_mon_l = new RingBufferFloat(Math.Max(MainForm.recorder.buffer_size, 1024) * 1024);
+                }
+
+                if (rb_mon_r == null || rb_mon_r.Lenght() != Math.Max(MainForm.recorder.buffer_size, 1024) * 1024)
+                {
+                    rb_mon_r = null;
+                    rb_mon_r = new RingBufferFloat(Math.Max(MainForm.recorder.buffer_size, 1024) * 1024);
+                }
 
                 for (int i = 0; i < 2048; i++)
                 {
@@ -2014,6 +2024,9 @@ namespace CWExpert
                     }
                 }
 
+                audio_paused = false;
+                audio_running = true;
+
                 if (!retval)
                     return false;
                 else
@@ -2022,6 +2035,7 @@ namespace CWExpert
             catch (Exception ex)
             {
                 MessageBox.Show("Error starting audio stream!\n" + ex.ToString());
+                audio_running = false;
                 return false;
             }
         }
@@ -2127,30 +2141,51 @@ namespace CWExpert
 
         public unsafe static void StopAudio()
         {
-            int count = 0;
-
-            while (audio_run)
+            try
             {
-                Thread.Sleep(1);
-                count++;
+                int count = 0;
 
-                if (count > 1000)
-                    audio_run = false;
+                audio_run.WaitOne(1000);
+
+                if (loopback)
+                {
+                    loopback = false;
+                    MainForm.recorder.Stop();
+                    Thread.Sleep(1000);
+                }
+
+                audio_paused = true;
+
+                while (audio_running)
+                {
+                    Thread.Sleep(1);
+                    count++;
+
+                    if (count > 1000)
+                        audio_running = false;
+                }
+
+                if (monitor_enabled)
+                {
+                    DeleteCriticalSection(cs_mon);
+                    DestroyCriticalSection(cs_mon);
+                }
+
+                PA19.PA_AbortStream(stream1);
+                PA19.PA_CloseStream(stream1);
+                PA19.PA_AbortStream(stream2);
+                PA19.PA_CloseStream(stream2);
+                PA19.PA_AbortStream(stream3);
+                PA19.PA_CloseStream(stream3);
+                Debug.Write("Audio is stoped!\n");
+
+                audio_run.ReleaseMutex();
             }
-
-            if (monitor_enabled)
+            catch (Exception ex)
             {
-                DeleteCriticalSection(cs_mon);
-                DestroyCriticalSection(cs_mon);
+                Debug.Write(ex.ToString());
+                audio_run.ReleaseMutex();
             }
-
-            PA19.PA_AbortStream(stream1);
-            PA19.PA_CloseStream(stream1);
-            PA19.PA_AbortStream(stream2);
-            PA19.PA_CloseStream(stream2);
-            PA19.PA_AbortStream(stream3);
-            PA19.PA_CloseStream(stream3);
-            Debug.Write("Audio is stoped!\n");
         }
 
         public static ArrayList GetPAInputDevices(int hostIndex)

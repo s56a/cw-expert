@@ -221,6 +221,7 @@ namespace CWExpert
             foreach (string s in list)
             {
                 string[] vals = s.Split('/');
+
                 if (vals.Length > 2)
                 {
                     for (int i = 2; i < vals.Length; i++)

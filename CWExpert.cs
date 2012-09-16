@@ -3127,13 +3127,15 @@ namespace CWExpert
                                         else if (detect_call)
                                         {
                                             if (text.StartsWith("CQ") || text.Contains("DX") ||
-                                                text == "TEST")
+                                                text.Contains("TEST"))
                                                 txtLogCall.Clear();
                                             else if (text.Length < 3 || !text.Contains("pse"))
+                                            {
                                                 txtLogCall.Clear();
                                                 txtLogCall.AppendText(text.ToUpper());
                                                 rtbCH1.Select(rtbCH1.Text.Length, 0);
                                                 rtbCH1.SelectionColor = Color.Red;
+                                            }
                                         }
                                         else if (detect_loc)
                                         {
@@ -3189,9 +3191,23 @@ namespace CWExpert
                                         {
                                             txtLOGLOC.Clear();
                                         }
-                                        else if (detect_loc && !IsLocator(txtLOGLOC.Text))
+                                        else if (detect_loc)
                                         {
-                                            txtLOGLOC.Clear();
+                                            if (!IsLocator(txtLOGLOC.Text.Trim()))
+                                            {
+                                                txtLOGLOC.Clear();
+                                                detect_loc = false;
+                                                rtbCH1.Select(rtbCH1.Text.Length, 0);
+                                                rtbCH1.SelectionColor = Color.LawnGreen;
+                                                Debug.Write("Detection ended!" + out_string + "\n");
+                                            }
+                                            else
+                                            {
+                                                detect_loc = false;
+                                                rtbCH1.Select(rtbCH1.Text.Length, 0);
+                                                rtbCH1.SelectionColor = Color.LawnGreen;
+                                                Debug.Write("Detection ended!" + out_string + "\n");
+                                            }
                                         }
                                         else if (detect_rst && (txtLogRST.Text.Trim() == "is" || txtLogRST.Text.Trim() == "IS" ||
                                             txtLogRST.Text.Trim() == "="))
@@ -3320,7 +3336,8 @@ namespace CWExpert
                                             rtbCH1.SelectionColor = Color.Red;
                                         }
                                     }
-                                    else if ((text.StartsWith("CQ DE") || text.StartsWith("CQ DX")) && !detect_call)
+                                    else if ((text.StartsWith("CQ DE") || text.StartsWith("CQ DX") || 
+                                        text.StartsWith("CQ TEST")) && !detect_call)
                                     {
                                         detection = true;
                                         detect_call = true;
@@ -3330,7 +3347,7 @@ namespace CWExpert
                                         //rtbCH1.Select(rtbCH1.Text.Length, 0);
                                         //rtbCH1.SelectionColor = Color.Red;
                                     }
-                                    else if (text.StartsWith("CQ  DE") && !start_call)
+                                    else if (text.StartsWith("CQ  DE") || text.StartsWith("CQ  TEST") && !start_call)
                                     {
                                         detection = true;
                                         detect_call = true;
@@ -10290,6 +10307,38 @@ namespace CWExpert
                     goto end;
 
                 if(!IsNumber(loc[2].ToString()) && !IsNumber(loc[3].ToString()))
+                    goto end;
+
+                if (!IsLetter(loc[4]) && !IsLetter(loc[5]))
+                    goto end;
+
+                result = true;
+
+            end:
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+                return false;
+            }
+        }
+
+        bool IsCALL(string test)
+        {
+            try
+            {
+                bool result = false;
+
+                if (test.Length != 6)
+                    goto end;
+
+                char[] loc = test.ToCharArray();
+
+                if (!IsLetter(loc[0]) && !IsLetter(loc[1]))
+                    goto end;
+
+                if (!IsNumber(loc[2].ToString()) && !IsNumber(loc[3].ToString()))
                     goto end;
 
                 if (!IsLetter(loc[4]) && !IsLetter(loc[5]))

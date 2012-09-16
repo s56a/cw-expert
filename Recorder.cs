@@ -52,7 +52,7 @@ namespace CWExpert
         private Button btnSettings;
         private Button btnRecStop;
         RecorderSetup RecorderSetupForm;
-        public int buffer_size = 1;
+        public int buffer_size = 1024;
         private GroupBox grpPlayer;
         private Label label1;
         private ProgressBar progressRecord;
@@ -417,11 +417,27 @@ namespace CWExpert
 
         #region Start/Stop
 
-        public void Start(string msg)
+        public void Start()
         {
             try
             {
 
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
+
+        public void Stop()
+        {
+            try
+            {
+                Audio.rb_mon_l.ResetReadPtr();
+                Audio.rb_mon_r.ResetReadPtr();
+                btnPlay.BackColor = Color.WhiteSmoke;
+                btnPlay.Text = "Play";
+                tbPlayback.Value = 0;
             }
             catch (Exception ex)
             {
@@ -510,7 +526,7 @@ namespace CWExpert
             {
                 float[] left = new float[2048];
                 float[] right = new float[2048];
-                byte[] data = new byte[16 * 1048576 * 2 * 4];
+                byte[] data = new byte[buffer_size * 1024 * 2 * 4];
                 byte[] temp = new byte[4];
                 int wptr = 0;
 
@@ -730,7 +746,7 @@ namespace CWExpert
             {
                 if (Audio.rb_mon_l.wptr > 0)
                 {
-                    Audio.rb_mon_l.rptr = Math.Min(Audio.rb_mon_l.rptr, Audio.rb_mon_l.wptr +
+                    Audio.rb_mon_l.rptr = Math.Min(Audio.rb_mon_l.wptr, Audio.rb_mon_l.rptr +
                         (int)(Audio.rb_mon_l.wptr / 10));
                     Audio.rb_mon_r.rptr = Audio.rb_mon_l.rptr;
                 }
@@ -783,8 +799,18 @@ namespace CWExpert
                 dataChunk data_chunk = null;
 
                 Audio.loopback = false;
-                Audio.rb_mon_l.Reset();
-                Audio.rb_mon_r.Reset();
+
+                if (Audio.rb_mon_l == null || Audio.rb_mon_r == null)
+                {
+                    Audio.rb_mon_l = new RingBufferFloat(Math.Max(buffer_size, 1024) * 1024);
+                    Audio.rb_mon_r = new RingBufferFloat(Math.Max(buffer_size, 1024) * 1024);
+                }
+                else
+                {
+                    Audio.rb_mon_l.Reset();
+                    Audio.rb_mon_r.Reset();
+                }
+
                 btnPlay.BackColor = Color.WhiteSmoke;
                 btnPlay.Text = "Play";
 
@@ -866,7 +892,9 @@ namespace CWExpert
                 }
                 catch (Exception ex)
                 {
-                    reader.Close();
+                    if (reader != null)
+                        reader.Close();
+
                     MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace.ToString(), "Fatal Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -902,7 +930,9 @@ namespace CWExpert
             catch (Exception ex)
             {
                 Debug.Write(ex.ToString());
-                reader.Close();
+
+                if (reader != null)
+                    reader.Close();
             }
         }
 
@@ -937,7 +967,7 @@ namespace CWExpert
                         break;
 
                     case "Set Recording progress":
-                        progressRecord.Value = Math.Min(100, (param_1 * 100) / (buffer_size * 1024));
+                        progressRecord.Value = Math.Min(100, (param_1 * 100) / ((int)buffer_size * 1024));
                         break;
                 }
             }

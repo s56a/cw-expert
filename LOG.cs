@@ -780,13 +780,14 @@ namespace CWExpert
             try
             {
                 if (export_form == null || export_form.IsDisposed)
-                    export_form = new LOG_export();
+                    export_form = new LOG_export(MainForm);
 
                 export_form.MyCALL = MainForm.SetupForm.txtStnCALL.Text;
                 export_form.MyName = MainForm.SetupForm.txtStnName.Text;
                 export_form.MyQTH = MainForm.SetupForm.txtStnQTH.Text;
                 export_form.MyLOC = MainForm.SetupForm.txtStnLOC.Text;
                 export_form.MyInfo = MainForm.SetupForm.txtStnInfoTxt.Text;
+                export_form.MyZone = MainForm.SetupForm.txtStnZone.Text;
                 export_form.Show();
             }
             catch (Exception ex)
