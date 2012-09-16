@@ -301,7 +301,6 @@ namespace CWExpert
                 float size = 8.25f / ratio;
                 System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
                 this.Font = new_font;
-
                 MainForm = form;
                 GetOptions();
                 SetWindowPos(this.Handle.ToInt32(), -1, this.Left, this.Top,
@@ -448,6 +447,13 @@ namespace CWExpert
                 {
                     string[] vals = s.Split('/');
                     string name = vals[0];
+
+                    if (vals.Length > 2)
+                    {
+                        for (int i = 2; i < vals.Length; i++)
+                            vals[1] += "/" + vals[i];
+                    }
+
                     string val = vals[1];
 
                     if (s.StartsWith("Keyboard_top"))
@@ -639,7 +645,7 @@ namespace CWExpert
         {
             try
             {
-                if (rtbKeyboardText.Text == "")
+                if (rtbKeyboardText.Text == "" || !MainForm.PWR)
                     return;
 
                 Mode new_mode;

@@ -104,7 +104,7 @@ namespace CWExpert
             this.rtbDXClusterText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rtbDXClusterText.ForeColor = System.Drawing.Color.LawnGreen;
             this.rtbDXClusterText.Location = new System.Drawing.Point(12, 56);
-            this.rtbDXClusterText.MaxLength = 65536;
+            this.rtbDXClusterText.MaxLength = 32768;
             this.rtbDXClusterText.Name = "rtbDXClusterText";
             this.rtbDXClusterText.ReadOnly = true;
             this.rtbDXClusterText.Size = new System.Drawing.Size(510, 328);
@@ -197,8 +197,6 @@ namespace CWExpert
             // 
             // DXClusterClient
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(534, 444);
             this.Controls.Add(this.btnVHFandUP);

@@ -94,6 +94,7 @@
             // 
             this.comboLOGformat.FormattingEnabled = true;
             this.comboLOGformat.Items.AddRange(new object[] {
+            "ADIF",
             "BARTG RTTY Contest",
             "NA Sprint",
             "EDI",
@@ -124,7 +125,7 @@
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.Filter = "\"TXT file|*.txt| EDI file |*.edi| \" All files|*.*\"";
+            this.saveFileDialog1.Filter = "TXT file|*.txt| EDI file |*.edi| ADIF file |*.adi| \" All files|*.*";
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
             // btnPreviewClear
@@ -221,8 +222,6 @@
             // 
             // LOG_export
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 475);
             this.Controls.Add(this.lblLast);
             this.Controls.Add(this.udLast);
@@ -251,6 +250,7 @@
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.LOGExport_Closing);
 
         }
 

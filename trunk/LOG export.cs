@@ -1,4 +1,24 @@
-﻿using System;
+﻿//=================================================================
+// LOG Export
+//=================================================================
+// Copyright (C) 2012 S56A YT7PWR
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//=================================================================
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +29,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace CWExpert
 {
@@ -28,14 +50,23 @@ namespace CWExpert
 
         #endregion
 
+        #region DLL imports
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+        public static extern int SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, int wFlags);
+
+        #endregion
+
         #region variable
 
+        public CWExpert MainForm;
         LOGStnSettings SettingsForm;
         public string MyCALL = "";
         public string MyName = "";
         public string MyQTH = "";
         public string MyLOC = "";
         public string MyInfo = "";
+        public string MyZone = "";
         public string ContestName = "";
         public string MyClub = "";
         public string Operators1 = "";
@@ -71,7 +102,9 @@ namespace CWExpert
 
         #endregion
 
-        public LOG_export()
+        #region constructor/destructor
+
+        public LOG_export(CWExpert form)
         {
             this.AutoScaleMode = AutoScaleMode.Inherit;
             InitializeComponent();
@@ -81,9 +114,29 @@ namespace CWExpert
             float size = 8.25f / ratio;
             System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
             this.Font = new_font;
-
             comboLOGformat.SelectedIndex = 0;
+            MainForm = form;
+            GetOptions();
+            SetWindowPos(this.Handle.ToInt32(), -1, this.Left, this.Top,
+                this.Width, this.Height, 0);  // on top others
+            SettingsForm = new LOGStnSettings(this);
         }
+
+        private void LOGExport_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                SaveOptions();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error in LOGExport closing!\n" + ex.ToString());
+            }
+        }
+
+        #endregion
+
+        #region export function
 
         private void btnLOGExport_Click(object sender, EventArgs e)
         {
@@ -117,7 +170,7 @@ namespace CWExpert
                 DateTime date_time;
                 CultureInfo provider = CultureInfo.CurrentCulture;
 
-                if (last <= first)
+                if (last < first)
                 {
                     MessageBox.Show("Wrong settings! \n Last must be greater than first.", "Error!");
                     return;
@@ -125,6 +178,66 @@ namespace CWExpert
 
                 switch (comboLOGformat.Text)
                 {
+                    case "ADIF":
+                        double tmp_freq = 0.0;
+                        text = "data exported from CWExpert LOG Book, conforming to ADIF standard specification version 2.2.7<eoh>\n";
+                        text += "<CONTEST_ID:" + ContestName.Length.ToString() + ">" + ContestName + "\n";
+                        text += "<OPERATOR:" + MyCALL.Length.ToString() + ">" + MyCALL + "\n";
+                        text += "<MY_NAME:" + MyName.Length.ToString() + ">" + MyName + "\n";
+                        text += "<MY_GRIDSQUARE:" + MyLOC.Length.ToString() + ">" + MyLOC + "\n";
+                        text += "<MY_CQ_ZONE:" + MyZone.Length.ToString() + ">" + MyZone + "\n";
+                        text += "<MY_COUNTRY:" + MyCountry.Length.ToString() + ">" + MyCountry + "\n";
+                        text += "<MY_CITY:" + MyCity.Length.ToString() + ">" + MyCity + "\n";
+                        text += "<MY_STREET:" + (MyAddr1.Length + MyAddr2.Length).ToString() + ">" + MyAddr1 + 
+                            " " + MyAddr2 + "\n";
+                        text += "<MY_RIG:" + TXequ.Length.ToString() + ">" + TXequ + "\n";
+                        text += "<MY_SIG_INFO:" + Remarks.Length.ToString() + ">" + Remarks + "\n";
+                        rtbLOGPreview.AppendText(text);
+
+                        for (int i = first - 1; i < last; i++)
+                        {
+                            date = rows[i]["Date"].ToString();
+                            DateTime.TryParse(date, provider, DateTimeStyles.AssumeLocal, out date_time);
+                            day = date_time.Day.ToString();
+                            day = day.PadLeft(2, '0');
+                            month = date_time.Month.ToString();
+                            month = month.PadLeft(2, '0');
+                            date = date_time.Year + month + day;
+                            time = rows[i]["Time"].ToString();
+                            string[] t = time.Split(':');
+                            time = t[0] + t[1];
+                            time = time.PadLeft(4, '0');
+                            call = rows[i]["CALL"].ToString();
+                            call = call.ToUpper();
+                            nr = rows[i]["NR"].ToString();
+                            my_nr = rows[i]["MyNR"].ToString();
+                            mode = rows[i]["Mode"].ToString();
+                            rst = rows[i]["RST"].ToString();
+                            snt = rows[i]["SNT"].ToString();
+                            band = rows[i]["Band"].ToString();
+                            info = rows[i]["Info"].ToString();
+                            name = rows[i]["Name"].ToString();
+                            freq = rows[i]["Freq"].ToString();
+                            tmp_freq = double.Parse(freq, CultureInfo.InvariantCulture) / 1e3;
+                            freq = tmp_freq.ToString();
+                            freq = freq.Replace(',', '.');
+
+                            text = "<call:" + call.Length.ToString() + ">" + call +
+                                "<band:" + band.Length.ToString() + ">" + band +
+                                "<freq:" + freq.Length.ToString() + ">" + freq +
+                                "<mode:" + mode.Length.ToString() + ">" + mode +
+                                "<qso_date:" + date.Length.ToString() + ">" + date +
+                                "<time_on:" + time.Length.ToString() + ">" + time +
+                                "<rst_rcvd:" + rst.Length.ToString() + ">" + rst +
+                                "<rst_sent:" + snt.Length.ToString() + ">" + snt +
+                                "<stx:" + my_nr.Length.ToString() + ">" + my_nr +
+                                "<srx:" + nr.Length.ToString() + ">" + nr +
+                                "<name:" + name.Length.ToString() + ">" + name +
+                                "<sig_info:" + info.Length.ToString() + ">" + info + "<eor>" + "\n";
+                            rtbLOGPreview.AppendText(text);
+                        }
+                        break;
+
                     case "BARTG RTTY Contest":
                         text = "BARTG RTTY Contest\n";
                         rtbLOGPreview.AppendText(text);
@@ -414,6 +527,10 @@ namespace CWExpert
             }
         }
 
+        #endregion
+
+        #region Save File
+
         private void btnLOGSaveAs_Click(object sender, EventArgs e)
         {
             try
@@ -448,6 +565,10 @@ namespace CWExpert
                 Debug.Write(ex.ToString());
             }
         }
+
+        #endregion
+
+        #region misc function
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -598,5 +719,143 @@ namespace CWExpert
                 Debug.Write(ex.ToString());
             }
         }
+
+        #endregion
+
+        #region Save/Get options
+
+        public void SaveOptions()
+        {
+            try
+            {
+                ArrayList a = new ArrayList();
+
+                a.Add("LOGExport_top/" + this.Top.ToString());		// save form positions
+                a.Add("LOGExport_left/" + this.Left.ToString());
+                a.Add("ContestName/" + ContestName);
+                a.Add("MyClub/" + MyClub);
+                a.Add("Operators1/" + Operators1);
+                a.Add("Operators2/" + Operators2);
+                a.Add("MyAddr1/" + MyAddr1);
+                a.Add("MyAddr2/" + MyAddr2);
+                a.Add("MyCity/" + MyCity);
+                a.Add("MyCountry/" + MyCountry);
+                a.Add("MyPhone/" + MyPhone);
+                a.Add("Remarks/" + Remarks);
+                a.Add("Antenna/" + Antenna);
+                a.Add("TXEqu/" + TXequ);
+                a.Add("RXEqu/" + RXequ);
+                a.Add("Category/" + Category);
+                a.Add("TXPower/" + TXPower);
+
+                DB.SaveVars("LOGExportOptions", ref a);		        // save the values to the DB
+                DB.Update();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error in LOG Export SaveOptions function!\n" + ex.ToString());
+            }
+        }
+
+        public void GetOptions()
+        {
+            try
+            {
+                ArrayList a = DB.GetVars("LOGExportOptions");
+                a.Sort();
+
+                foreach (string s in a)
+                {
+                    string[] vals = s.Split('/');
+                    string name = vals[0];
+
+                    if (vals.Length > 2)
+                    {
+                        for (int i = 2; i < vals.Length; i++)
+                            vals[1] += "/" + vals[i];
+                    }
+
+                    string val = vals[1];
+
+                    if (s.StartsWith("LOGexport_top"))
+                    {
+                        int top = Int32.Parse(vals[1]);
+                        this.Top = top;
+                    }
+                    else if (s.StartsWith("LOGExport_left"))
+                    {
+                        int left = Int32.Parse(vals[1]);
+                        this.Left = left;
+                    }
+                    else if (s.StartsWith("ContestName"))
+                    {
+                        ContestName = vals[1];
+                    }
+                    else if (s.StartsWith("MyClub"))
+                    {
+                        MyClub = vals[1];
+                    }
+                    else if (s.StartsWith("Operators1"))
+                    {
+                        Operators1 = vals[1];
+                    }
+                    else if (s.StartsWith("Operators2"))
+                    {
+                        Operators2 = vals[1];
+                    }
+                    else if (s.StartsWith("MyAddr1"))
+                    {
+                        MyAddr1 = vals[1];
+                    }
+                    else if (s.StartsWith("MyAddr2"))
+                    {
+                        MyAddr2 = vals[1];
+                    }
+                    else if (s.StartsWith("MyCity"))
+                    {
+                        MyCity = vals[1];
+                    }
+                    else if (s.StartsWith("MyCountry"))
+                    {
+                        MyCountry = vals[1];
+                    }
+                    else if (s.StartsWith("MyPhone"))
+                    {
+                        MyPhone = vals[1];
+                    }
+                    else if (s.StartsWith("Remarks"))
+                    {
+                        Remarks = vals[1];
+                    }
+                    else if (s.StartsWith("Antenna"))
+                    {
+                        Antenna = vals[1];
+                    }
+                    else if (s.StartsWith("TXEqu"))
+                    {
+                        TXequ = vals[1];
+                    }
+                    else if (s.StartsWith("RXEqu"))
+                    {
+                        RXequ = vals[1];
+                    }
+                    else if (s.StartsWith("Category"))
+                    {
+                        Category = vals[1];
+                    }
+                    else if (s.StartsWith("TXPower"))
+                    {
+                        TXPower = vals[1];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+        }
+
+        #endregion
     }
 }
