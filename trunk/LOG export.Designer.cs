@@ -95,6 +95,7 @@
             this.comboLOGformat.FormattingEnabled = true;
             this.comboLOGformat.Items.AddRange(new object[] {
             "ADIF",
+            "Cabrillo CQ-WW-RTTY",
             "BARTG RTTY Contest",
             "NA Sprint",
             "EDI",

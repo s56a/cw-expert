@@ -1851,6 +1851,12 @@ namespace CWExpert
 
         #region G11 Filters
 
+        private void chkG11MultiBand_CheckedChanged(object sender, EventArgs e)
+        {
+            MainForm.g11_multiband = chkG11MultiBand.Checked;
+            grpG11BandFilters.Enabled = !chkG11MultiBand.Checked;
+        }
+
         private void chkG11B80_CH1_CheckedChanged(object sender, EventArgs e)
         {
             if (chkG11B80_CH1.Checked)

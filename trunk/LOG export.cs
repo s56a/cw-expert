@@ -178,6 +178,80 @@ namespace CWExpert
 
                 switch (comboLOGformat.Text)
                 {
+                    case "Cabrillo CQ-WW-RTTY":
+                        string hour = "";
+                        string minute = "";
+                        text += "START-OF-LOG: 3.0 \n";
+                        text += "CONTEST: " + ContestName + "\n";
+                        text += "CALLSIGN: " + MyCALL + "\n";
+                        text += "CATEGORY-OPERATOR: " + Category + "\n";
+                        text += "CATEGORY-BAND: " + "\n";
+                        text += "CATEGORY-POWER: " + TXPower + "\n";
+                        text += "CATEGORY-MODE: " + "\n";
+                        text += "CATEGORY-ASSISTED: " + "\n";
+                        text += "CATEGORY-TRANSMITTER: " + "\n";
+                        text += "CLUB=" + MyClub + "\n";
+                        text += "CLAIMED-SCORE: " + "\n";
+                        text += "OPERATORS: " + MyCALL + " " + Operators1 + " " + Operators2 + "\n";
+                        text += "NAME: "+ MyName + "\n";
+                        text += "ADDRESS: " + MyAddr1 + "\n";
+                        text += "ADDRESS: " + MyAddr2 + "\n";
+                        text += "ADDRESS-CITY: " + MyCity + "\n";
+                        text += "ADDRESS: " + MyCountry + "\n";
+                        text += "CREATED-BY: CWExpert v2.0.8" + "\n";
+                        rtbLOGPreview.AppendText(text);  
+
+                        for (int i = first - 1; i < last; i++)
+                        {
+                            date = rows[i]["Date"].ToString();
+                            DateTime.TryParse(date, provider, DateTimeStyles.AssumeLocal, out date_time);
+                            day = date_time.Day.ToString();
+                            day = day.PadLeft(2, '0');
+                            month = date_time.Month.ToString();
+                            month = month.PadLeft(2, '0');
+                            date = date_time.Year + "-" + month + "-" + day;
+                            time = rows[i]["Time"].ToString();
+                            DateTime.TryParse(time, provider, DateTimeStyles.AssumeLocal, out date_time);
+                            hour = date_time.Hour.ToString();
+                            hour = hour.PadLeft(2, '0');
+                            minute = date_time.Minute.ToString();
+                            minute = minute.PadLeft(2, '0');
+                            time = hour + minute;
+                            call = rows[i]["CALL"].ToString();
+                            call = call.ToUpper();
+                            call = call.PadRight(13, ' ');
+                            nr = rows[i]["NR"].ToString();
+                            nr = nr.PadLeft(2, '0');
+                            my_nr = rows[i]["MyNR"].ToString();
+                            my_nr = my_nr.PadLeft(2, '0');
+                            freq = rows[i]["Freq"].ToString();
+                            freq = freq.PadLeft(6, ' ');
+                            freq = freq.Remove(5);
+                            freq = freq.Replace(".", "");
+                            freq = freq.PadLeft(5, ' ');
+                            rst = rows[i]["RST"].ToString();
+                            rst = rst.PadRight(3, ' ');
+                            snt = rows[i]["SNT"].ToString();
+                            snt = snt.PadRight(3, ' ');
+                            qth = rows[i]["QTH"].ToString();
+
+                            if (qth == "")
+                                qth = "DX";
+
+                            mode = "RY";
+
+                            text = "QSO: " + freq + " " + mode + " " + 
+                                date + " " + time + " " +
+                                my_call.PadRight(13, ' ') + " " + snt + " " +
+                                MyZone + " " + call + " " +
+                                rst + " " + nr + " " + qth + " " + "\n";
+                            rtbLOGPreview.AppendText(text);
+                        }
+
+                        text = "END-OF-LOG:\n";
+                        rtbLOGPreview.AppendText(text);
+                        break;
+
                     case "ADIF":
                         double tmp_freq = 0.0;
                         text = "data exported from CWExpert LOG Book, conforming to ADIF standard specification version 2.2.7<eoh>\n";
@@ -204,9 +278,12 @@ namespace CWExpert
                             month = month.PadLeft(2, '0');
                             date = date_time.Year + month + day;
                             time = rows[i]["Time"].ToString();
-                            string[] t = time.Split(':');
-                            time = t[0] + t[1];
-                            time = time.PadLeft(4, '0');
+                            DateTime.TryParse(time, provider, DateTimeStyles.AssumeLocal, out date_time);
+                            hour = date_time.Hour.ToString();
+                            hour = hour.PadLeft(2, '0');
+                            minute = date_time.Minute.ToString();
+                            minute = minute.PadLeft(2, '0');
+                            time = hour + minute;
                             call = rows[i]["CALL"].ToString();
                             call = call.ToUpper();
                             nr = rows[i]["NR"].ToString();
@@ -252,9 +329,12 @@ namespace CWExpert
                             month = month.PadLeft(2, '0');
                             date = date_time.Year + "-" + month + "-" + day;
                             time = rows[i]["Time"].ToString();
-                            string[] t = time.Split(':');
-                            time = t[0] + t[1];
-                            time = time.PadLeft(4, '0');
+                            DateTime.TryParse(time, provider, DateTimeStyles.AssumeLocal, out date_time);
+                            hour = date_time.Hour.ToString();
+                            hour = hour.PadLeft(2, '0');
+                            minute = date_time.Minute.ToString();
+                            minute = minute.PadLeft(2, '0');
+                            time = hour + minute;
                             call = rows[i]["CALL"].ToString();
                             call = call.ToUpper();
                             call = call.PadRight(10);
@@ -295,9 +375,12 @@ namespace CWExpert
                             month = month.PadLeft(2, '0');
                             date = date_time.Year + "-" + month + "-" + day;
                             time = rows[i]["Time"].ToString();
-                            string[] t = time.Split(':');
-                            time = t[0] + t[1];
-                            time = time.PadLeft(4, '0');
+                            DateTime.TryParse(time, provider, DateTimeStyles.AssumeLocal, out date_time);
+                            hour = date_time.Hour.ToString();
+                            hour = hour.PadLeft(2, '0');
+                            minute = date_time.Minute.ToString();
+                            minute = minute.PadLeft(2, '0');
+                            time = hour + minute;
                             call = rows[i]["CALL"].ToString();
                             call = call.ToUpper();
                             call = call.PadRight(10);
@@ -381,9 +464,12 @@ namespace CWExpert
                             month = month.PadLeft(2, '0');
                             date = date_time.Year + month + day;
                             time = rows[i]["Time"].ToString();
-                            string[] t = time.Split(':');
-                            time = t[0] + t[1];
-                            time = time.PadLeft(4, '0');
+                            DateTime.TryParse(time, provider, DateTimeStyles.AssumeLocal, out date_time);
+                            hour = date_time.Hour.ToString();
+                            hour = hour.PadLeft(2, '0');
+                            minute = date_time.Minute.ToString();
+                            minute = minute.PadLeft(2, '0');
+                            time = hour + minute;
                             call = rows[i]["CALL"].ToString();
                             call = call.ToUpper();
                             nr = rows[i]["NR"].ToString();
@@ -524,6 +610,7 @@ namespace CWExpert
             catch (Exception ex)
             {
                 Debug.Write(ex.ToString());
+                rtbLOGPreview.AppendText(ex.ToString());
             }
         }
 

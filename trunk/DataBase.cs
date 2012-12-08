@@ -174,6 +174,19 @@ namespace CWExpert
 
                 if (!log_ds.Tables.Contains("LOG"))
                     AddLOGTable();
+                else
+                {
+                    DataRowCollection rows = log_ds.Tables["LOG"].Rows;
+                    int no = 1;
+
+                    foreach (DataRow dr in rows)
+                    {
+                        dr["No"] = no;
+                        no++;
+                    }
+
+                    log_ds.WriteXml(log_file_path, XmlWriteMode.WriteSchema);
+                }
             }
             catch (Exception ex)
             {

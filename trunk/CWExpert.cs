@@ -415,6 +415,8 @@ namespace CWExpert
         private MeterType TX_meter_type = MeterType.DIR_PWR;
         public bool hst = false;
         public Recorder recorder;
+        public bool g11_multiband = false;
+        public DXCC dxcc;
 
         #endregion
 
@@ -679,10 +681,6 @@ namespace CWExpert
                 SetupForm.udTXPhase.Value = (decimal)tx_image_phase_table[(int)current_band];
                 SetupForm.udRXGain.Value = (decimal)rx_image_gain_table[(int)current_band];
                 SetupForm.udRXPhase.Value = (decimal)rx_image_phase_table[(int)current_band];
-
-                if (CurrentModel == Model.GENESIS_G11)
-                    G11SetBandFilter(current_band);
-
                 Audio.iq_balancer_reset = true;
             }
         }
@@ -1621,7 +1619,6 @@ namespace CWExpert
             }
 
             display_buffer = new float[4096];
-            Application.EnableVisualStyles();
             AlwaysOnTop = always_on_top;
             txtFilterWidth.Visible = false;
             tbFilterWidth.Visible = false;
@@ -1754,6 +1751,9 @@ namespace CWExpert
                 RX_phase_gain();
             }
 
+            dxcc = new DXCC();
+            dxcc.Init();
+
             try
             {
                 if (use_telnet)
@@ -1797,6 +1797,9 @@ namespace CWExpert
 
                 if (keyboard != null)
                     keyboard.SaveOptions();
+
+                if (dxcc != null)
+                    dxcc.SaveOptions();
 
                 if (recorder != null)
                     recorder.SaveOptions();
@@ -2293,6 +2296,7 @@ namespace CWExpert
                             {
                                 msg.sendWindowsMessage(runButton, WM_LBUTTONDOWN, 0, (10 << 16) + 10);
                                 msg.sendWindowsMessage(runButton, WM_LBUTTONUP, 0, (10 << 16) + 10);
+                                udLOGMyNR.Value = 1;
                                 mrIsRunning = true;
                                 btnStartMR.Text = "Stop";
                                 runDisplay = true;
@@ -3197,6 +3201,7 @@ namespace CWExpert
                                             {
                                                 txtLOGLOC.Clear();
                                                 detect_loc = false;
+                                                detection = false;
                                                 rtbCH1.Select(rtbCH1.Text.Length, 0);
                                                 rtbCH1.SelectionColor = Color.LawnGreen;
                                                 Debug.Write("Detection ended!" + out_string + "\n");
@@ -3204,6 +3209,7 @@ namespace CWExpert
                                             else
                                             {
                                                 detect_loc = false;
+                                                detection = false;
                                                 rtbCH1.Select(rtbCH1.Text.Length, 0);
                                                 rtbCH1.SelectionColor = Color.LawnGreen;
                                                 Debug.Write("Detection ended!" + out_string + "\n");
@@ -3221,6 +3227,44 @@ namespace CWExpert
                                         else if (detect_info && (txtLogInfo.Text == "" || txtLogInfo.Text == " "))
                                         {
                                             txtLogInfo.Clear();
+                                        }
+                                        else if(detect_call)
+                                        {
+                                            string result = "";
+
+                                            if (detect_call && text.ToUpper() != SetupForm.txtStnCALL.Text.Trim().ToUpper().ToString())
+                                            {
+                                                try
+                                                {
+                                                    if (dxcc.Analyze(txtLogCall.Text.Trim(), out result))
+                                                    {
+                                                        if (dxcc != null && dxcc.Visible)
+                                                        {
+                                                            dxcc.rtbDXCC.AppendText(result);
+                                                        }
+
+                                                        string[] vals = result.Split(' ');
+                                                        txtCall.Text = vals[0];
+                                                        rtbCH1.Select(rtbCH1.Text.Length, 0);
+                                                        rtbCH1.SelectionColor = Color.LawnGreen;
+                                                        detect_call = false;
+                                                        detect_loc = false;
+                                                        detect_name = false;
+                                                        detect_qth = false;
+                                                        detect_rst = false;
+                                                        detect_info = false;
+                                                        detection = false;
+                                                        Debug.Write("Detection ended!" + out_string + "\n");
+                                                        rtbCH1.SelectionColor = Color.LawnGreen;
+                                                    }
+                                                    else
+                                                        txtLogCall.Clear();
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    Debug.Write(ex.ToString());
+                                                }
+                                            }
                                         }
                                         else
                                         {
@@ -3336,8 +3380,9 @@ namespace CWExpert
                                             rtbCH1.SelectionColor = Color.Red;
                                         }
                                     }
-                                    else if ((text.StartsWith("CQ DE") || text.StartsWith("CQ DX") || 
-                                        text.StartsWith("CQ TEST")) && !detect_call)
+                                    else if ((text.ToUpper().Trim().StartsWith("CQ DE") || text.ToUpper().Trim().StartsWith("CQ DX") ||
+                                        text.Trim().StartsWith("CQ TEST") || text.ToUpper().StartsWith("TEST ") ||
+                                        text.ToUpper().StartsWith("QRZ DE")) && !detect_call)
                                     {
                                         detection = true;
                                         detect_call = true;
@@ -3347,7 +3392,8 @@ namespace CWExpert
                                         //rtbCH1.Select(rtbCH1.Text.Length, 0);
                                         //rtbCH1.SelectionColor = Color.Red;
                                     }
-                                    else if (text.StartsWith("CQ  DE") || text.StartsWith("CQ  TEST") && !start_call)
+                                    else if (text.ToUpper().Trim().StartsWith("CQ  DE") || text.ToUpper().Trim().StartsWith("CQ  TEST") ||
+                                        text.ToUpper().StartsWith("CQ ") || text.ToUpper().Trim().StartsWith("DE") && !start_call)
                                     {
                                         detection = true;
                                         detect_call = true;
@@ -3357,7 +3403,7 @@ namespace CWExpert
                                         //rtbCH1.Select(rtbCH1.Text.Length, 0);
                                         //rtbCH1.SelectionColor = Color.Red;
                                     }
-                                    else if (text.StartsWith("CQ CQ") && !start_call)
+                                    else if (text.Trim().StartsWith("CQ CQ") && !start_call)
                                     {
                                         detection = true;
                                         detect_call = true;
@@ -3433,13 +3479,14 @@ namespace CWExpert
                                             rtbCH1.SelectionColor = Color.Red;
                                         }
                                     }
-                                    else if ((text.StartsWith("RST") || text.StartsWith("RSQ") ||
-                                        text.StartsWith("RAPORT")) && !detect_rst)
+                                    else if ((text.ToUpper().StartsWith("RST") || text.ToUpper().StartsWith("RSQ") ||
+                                        text.ToUpper().StartsWith("RAPORT")) && !detect_rst)
                                     {
                                         detection = true;
                                         detect_rst = true;
 
-                                        if ((text.StartsWith("RST.") || text.StartsWith("RSQ.")) && text.Length > 4)
+                                        if ((text.ToUpper().StartsWith("RST.") || text.ToUpper().StartsWith("RSQ.")) && 
+                                            text.Length > 4)
                                         {
                                             text = text.Remove(0, 4);
                                             detection = false;
@@ -3447,7 +3494,8 @@ namespace CWExpert
                                             txtLogRST.Text = text;
                                             Debug.Write("Detected RST!\n");
                                         }
-                                        else if ((text.StartsWith("RST:") || text.StartsWith("RSQ:")) && text.Length > 4)
+                                        else if ((text.ToUpper().StartsWith("RST:") || text.ToUpper().StartsWith("RSQ:")) &&
+                                            text.Length > 4)
                                         {
                                             text = text.Remove(0, 4);
                                             detection = false;
@@ -3455,7 +3503,7 @@ namespace CWExpert
                                             txtLogRST.Text = text;
                                             Debug.Write("Detected RST!\n");
                                         }
-                                        else if (text.StartsWith("RAPORT") && text.Length > 6)
+                                        else if (text.ToUpper().StartsWith("RAPORT") && text.Length > 6)
                                         {
                                             text = text.Remove(0, 6);
                                             detection = false;
@@ -3463,7 +3511,7 @@ namespace CWExpert
                                             txtLogRST.Text = text;
                                             Debug.Write("Detected RST!\n");
                                         }
-                                        else if (text.StartsWith("RAPORT:") && text.Length > 7)
+                                        else if (text.ToUpper().StartsWith("RAPORT:") && text.Length > 7)
                                         {
                                             text = text.Remove(0, 7);
                                             detection = false;
@@ -3483,11 +3531,11 @@ namespace CWExpert
                                             rtbCH1.SelectionColor = Color.Red;
                                         }
                                     }
-                                    else if ((text.StartsWith("INFO ") || text.StartsWith("INFO:") ||
-                                        text.StartsWith("INFO.")) && !detect_rst)
+                                    else if ((text.ToUpper().StartsWith("INFO ") || text.ToUpper().StartsWith("INFO:") ||
+                                        text.ToUpper().StartsWith("INFO.")) && !detect_rst)
                                     {
 
-                                        if (text.StartsWith("INFO:") && text.Length > 5)
+                                        if (text.ToUpper().StartsWith("INFO:") && text.Length > 5)
                                         {
                                             text = text.Remove(0, 5);
                                             detection = false;
@@ -3495,7 +3543,7 @@ namespace CWExpert
                                             txtLogInfo.Text = text;
                                             Debug.Write("Detected Info!\n");
                                         }
-                                        else if (text.StartsWith("INFO.") && text.Length > 5)
+                                        else if (text.ToUpper().StartsWith("INFO.") && text.Length > 5)
                                         {
                                             text = text.Remove(0, 5);
                                             detection = false;
@@ -3517,28 +3565,25 @@ namespace CWExpert
                                     }
                                     else
                                     {
-                                        //Debug.Write("Old text: " + text + "\n");
-
                                         if (detection)
                                             text += out_string;
                                         else
                                             text += out_string.ToUpper();
 
-                                        if (!text.StartsWith("CQ ") && !text.StartsWith("CQ  ") && !text.Contains("CQ "))
+                                        if (!text.ToUpper().StartsWith("CQ ") && !text.ToUpper().StartsWith("CQ  ") &&
+                                            !text.ToUpper().Contains("CQ "))
                                             text = "";
-                                        else if (text.StartsWith("CQ CQ"))
+                                        else if (text.ToUpper().StartsWith("CQ CQ"))
                                             text = text.Remove(0, 3);
-                                        else if (text.StartsWith("CQ  CQ"))
+                                        else if (text.ToUpper().StartsWith("CQ  CQ"))
                                             text = text.Remove(0, 4);
                                         else if (text.Length > 6)
                                         {
-                                            if (text.EndsWith("CQ DE "))
+                                            if (text.ToUpper().EndsWith("CQ DE "))
                                                 text = text.Remove(0, text.Length - 6);
                                             else
                                                 text = text.Remove(0, text.Length - 3);
                                         }
-
-                                        //Debug.Write("New text: " + text + "\n");
                                     }
                                 }
                                 else
@@ -4241,7 +4286,7 @@ namespace CWExpert
                     Thread.Sleep(1);
 
                     if (current_model == Model.GENESIS_G11)
-                        G11SetBandFilter(current_band);
+                        G11SetBandFilter(vfoa);
 
                     if (PA10_present)
                         genesis.WriteToDevice(21, 1);
@@ -4441,129 +4486,216 @@ namespace CWExpert
             return retval;
         }
 
-        public void G11SetBandFilter(Band new_band)
+        public Band G11BandByFreq(double freq)     // yt7pwr
+        {
+            Band f = Band.B160M;
+
+            if (freq >= 1.0 && freq <= 2.5)
+            {
+                f = Band.B160M;
+            }
+            else if (freq >= 2.5 && freq <= 4.5)
+            {
+                f = Band.B80M;
+            }
+            else if (freq >= 4.5 && freq <= 8.0)
+            {
+                f = Band.B40M;
+            }
+            else if (freq >= 8.0 && freq <= 12.5)
+            {
+                f = Band.B30M;
+            }
+            else if (freq >= 12.5 && freq <= 19.5)
+            {
+                f = Band.B20M;
+            }
+            else if (freq >= 19.5 && freq <= 34.0)
+            {
+                f = Band.B10M;
+            }
+            else if (freq >= 34.0 && freq <= 57.0)
+            {
+                f = Band.B6M;
+            }
+            else
+                f = Band.B160M;
+
+            return f;
+        }
+
+        public void G11SetBandFilter(double freq)
         {
             try
             {
                 Thread.Sleep(1);
+                Band b;
 
-                switch (new_band)
+                if (g11_multiband)
+                    b = G11BandByFreq(freq);
+                else
+                    b = current_band;
+
+                if (g11_multiband)
                 {
-                    case Band.B160M:
-                        if (G11BandFiltersCH2[(int)Band.B160M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        break;
-                    case Band.B80M:
-                        if (G11BandFiltersCH2[(int)Band.B80M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B80M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
-                    case Band.B40M:
-                        if (G11BandFiltersCH2[(int)Band.B40M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B40M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
-                    case Band.B30M:
-                        if (G11BandFiltersCH2[(int)Band.B30M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B30M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
-                    case Band.B20M:
-                        if (G11BandFiltersCH2[(int)Band.B20M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B20M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
-                    case Band.B17M:
-                        if (G11BandFiltersCH2[(int)Band.B17M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B17M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
-                    case Band.B15M:
-                        if (G11BandFiltersCH2[(int)Band.B15M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B15M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
-                    case Band.B12M:
-                        if (G11BandFiltersCH2[(int)Band.B12M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B12M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
-                    case Band.B10M:
-                        if (G11BandFiltersCH2[(int)Band.B10M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B10M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
-                    case Band.B6M:
-                        if (G11BandFiltersCH2[(int)Band.B6M])
-                        {
-                            genesis.WriteToDevice(3, (long)1);
-                            genesis.WriteToDevice(3, (long)3);
-                        }
-                        else if (G11BandFiltersCH1[(int)Band.B6M])
-                        {
-                            genesis.WriteToDevice(3, (long)2);
-                            genesis.WriteToDevice(3, (long)0);
-                        }
-                        break;
+                    switch (b)
+                    {
+                        case Band.B160M:
+                            genesis.WriteToDevice(2, (long)0);
+                            break;
+
+                        case Band.B80M:
+                            genesis.WriteToDevice(2, (long)1);
+                            break;
+
+                        case Band.B40M:
+                            genesis.WriteToDevice(2, (long)2);
+                            break;
+
+                        case Band.B30M:
+                            genesis.WriteToDevice(2, (long)3);
+                            break;
+
+                        case Band.B17M:
+                        case Band.B20M:
+                            genesis.WriteToDevice(2, (long)4);
+                            break;
+
+                        case Band.B15M:
+                        case Band.B12M:
+                        case Band.B10M:
+                            genesis.WriteToDevice(2, (long)5);
+                            break;
+
+                        case Band.B6M:
+                            genesis.WriteToDevice(2, (long)6);
+                            break;
+
+                        default:
+                            genesis.WriteToDevice(2, (long)7);      // A=B=C=1 general RX
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (b)
+                    {
+                        case Band.B160M:
+                            if (G11BandFiltersCH2[(int)Band.B160M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            break;
+                        case Band.B80M:
+                            if (G11BandFiltersCH2[(int)Band.B80M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B80M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                        case Band.B40M:
+                            if (G11BandFiltersCH2[(int)Band.B40M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B40M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                        case Band.B30M:
+                            if (G11BandFiltersCH2[(int)Band.B30M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B30M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                        case Band.B20M:
+                            if (G11BandFiltersCH2[(int)Band.B20M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B20M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                        case Band.B17M:
+                            if (G11BandFiltersCH2[(int)Band.B17M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B17M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                        case Band.B15M:
+                            if (G11BandFiltersCH2[(int)Band.B15M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B15M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                        case Band.B12M:
+                            if (G11BandFiltersCH2[(int)Band.B12M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B12M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                        case Band.B10M:
+                            if (G11BandFiltersCH2[(int)Band.B10M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B10M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                        case Band.B6M:
+                            if (G11BandFiltersCH2[(int)Band.B6M])
+                            {
+                                genesis.WriteToDevice(3, (long)1);
+                                genesis.WriteToDevice(3, (long)3);
+                            }
+                            else if (G11BandFiltersCH1[(int)Band.B6M])
+                            {
+                                genesis.WriteToDevice(3, (long)2);
+                                genesis.WriteToDevice(3, (long)0);
+                            }
+                            break;
+                    }
                 }
 
                 Thread.Sleep(1);
@@ -4591,6 +4723,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4628,6 +4763,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4665,6 +4803,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4702,6 +4843,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4739,6 +4883,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4777,6 +4924,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4814,6 +4964,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4851,6 +5004,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4888,6 +5044,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -4925,6 +5084,9 @@ namespace CWExpert
                 try
                 {
                     GetBandStack();
+
+                    if (current_model == Model.GENESIS_G11)
+                        G11SetBandFilter(vfoa);
                 }
                 catch (Exception ex)
                 {
@@ -6058,7 +6220,7 @@ namespace CWExpert
                         }
                         break;
                     case "Clear text":
-                        txtChannelClear(param_1);
+                        txtChannelClear(0);
                         break;
                     case "Message repeat":
                         Mode mode = OpModeVFOA;
@@ -6147,6 +6309,13 @@ namespace CWExpert
                 {
                     switch (action)
                     {
+                        case "DXCC text":
+                            if (dxcc != null && dxcc.Visible)
+                            {
+                                dxcc.rtbDXCC.AppendText(data);
+                            }
+                            break;
+
                         case "Reinit DirectX":
 #if(DirectX)
                             if (this.WindowState != FormWindowState.Minimized)
@@ -6161,7 +6330,9 @@ namespace CWExpert
                         case "Send CALL":
                             {
                                 txtCALL = data;
-
+                                txtLogCall.Text = data;
+                                txtLogRST.Text = "599";
+                                txtLogMyRST.Text = "599";
                                 EnsureMREditWindows();
 
                                 if (topWindow != 0)
@@ -6169,14 +6340,13 @@ namespace CWExpert
                                     msg.sendWindowsStringMessage(edits[0].hWnd, 0, data);
                                     msg.sendWindowsMessage(edits[0].hWnd, WM_KEYDOWN, VK_RETURN, 1 + (13 << 16));
                                 }
-
-                                //btnSendCall_Click(null, null);
                             }
                             break;
 
                         case "Send RST":
                             {
                                 txtRst = data;
+                                txtLogMyRST.Text = data;
                                 btnSendRST_Click(null, null);
                             }
                             break;
@@ -6184,6 +6354,7 @@ namespace CWExpert
                         case "Send NR":
                             {
                                 txtNR = data;
+                                txtLOGNR.Text = data;
                                 EnsureMREditWindows();
 
                                 if (topWindow != 0)
@@ -6191,25 +6362,35 @@ namespace CWExpert
                                     msg.sendWindowsStringMessage(edits[2].hWnd, 0, data);
                                     msg.sendWindowsMessage(edits[2].hWnd, WM_KEYDOWN, VK_RETURN, 1 + (13 << 16));
                                 }
-
-                                //btnSendNr_Click(null, null);
                             }
                             break;
 
-                        case "Send TU":
+                        case "Send Exch":
+                            btnF5_Click(this, EventArgs.Empty);     // hiss call
+                            btnF2_Click(this, EventArgs.Empty);     // raport
+                            Debug.Write("Send Exchange 1 \n");
+                            break;
+
+                        case "Add LOG entry":
                             {
+                                AddLOGEntry();
+                                btnLogClear_Click(this, EventArgs.Empty);
                                 EnsureMREditWindows();
 
-                                if (topWindow != 0)
+                                /*if (topWindow != 0)
                                 {
                                     msg.sendWindowsMessage(edits[0].hWnd, WM_KEYDOWN, VK_F3, (1 + (61 << 16)));
                                     msg.sendWindowsMessage(edits[0].hWnd, WM_APP + 15616, VK_F3, (1 + (61 << 16)));
                                     msg.sendWindowsMessage(edits[0].hWnd, WM_KEYUP, VK_F3, (1 + (61 << 16) + (3 << 30)));
                                     msg.sendWindowsMessage(edits[0].hWnd, WM_APP + 15617, VK_F3, (1 + (61 << 16) + (3 << 30)));
-                                }
 
-                                //btnF3_Click(null, null);                                
+                                    Debug.Write("Send TU 1 \n");
+                                }*/                             
                             }
+                            break;
+
+                        case "Clear LOG":
+                            btnLogClear_Click(this, EventArgs.Empty);
                             break;
 
                         case "Send F1":
@@ -6347,8 +6528,7 @@ namespace CWExpert
             }
 
             rtbCH1.Clear();
-            rtbCH1.Refresh();
-            rtbCH1.Clear();
+            SendMessage(rtbCH1.Handle, WM_VSCROLL, SB_BOTTOM, 1);
             rtbCH1.Refresh();
         }
 
@@ -6386,6 +6566,7 @@ namespace CWExpert
             }
 
             rtbCH2.Clear();
+            SendMessage(rtbCH2.Handle, WM_VSCROLL, SB_BOTTOM, 1);
             rtbCH2.Refresh();
         }
 
@@ -9267,17 +9448,24 @@ namespace CWExpert
             try
             {
                 ArrayList list = new ArrayList();
-                list = DB.SearchLOG(txtLogCall.Text.ToUpper());
+                list = DB.SearchLOG(txtLogCall.Text.ToUpper().Trim());
 
                 if (list.Count > 0)
                 {
                     txtLogSearch.Clear();
-                    int cnt = list.Count;
-                    string last_contact = list[cnt - 1].ToString();
-                    last_contact.Replace(".", "");
-                    string[] vals = last_contact.Split('\\');
-                    txtLogSearch.Text = "Last: " + vals[1] + " " + vals[2] +
-                        " on " + vals[10] + " " + vals[11] + "\n";
+
+                    foreach (string l in list)
+                    {
+                        l.Replace(".", "");
+                        string[] vals = l.Split('\\');
+                        string band = current_band.ToString().Replace("B", "");
+
+                        if (band == vals[10])
+                        {
+                            txtLogSearch.Text = "Last: " + vals[1] + " " + vals[2] +
+                                " on " + vals[10] + " " + vals[11] + "\n";
+                        }
+                    }
                 }
                 else
                     txtLogSearch.Clear();
@@ -9504,17 +9692,24 @@ namespace CWExpert
             try
             {
                 ArrayList list = new ArrayList();
-                list = DB.SearchLOG(txtLogCall.Text.ToUpper());
+                list = DB.SearchLOG(txtLogCall.Text.ToUpper().Trim());
 
                 if (list.Count > 0)
                 {
                     txtLogSearch.Clear();
-                    int cnt = list.Count;
-                    string last_contact = list[cnt - 1].ToString();
-                    last_contact.Replace(".", "");
-                    string[] vals = last_contact.Split('\\');
-                    txtLogSearch.Text = "Last: " + vals[1] + " " + vals[2] +
-                        " on " + vals[10] + " " + vals[11] + "\n";
+
+                    foreach (string l in list)
+                    {
+                        l.Replace(".", "");
+                        string[] vals = l.Split('\\');
+                        string band = current_band.ToString().Replace("B", "");
+
+                        if (band == vals[10])
+                        {
+                            txtLogSearch.Text = "Last: " + vals[1] + " " + vals[2] +
+                                " on " + vals[10] + " " + vals[11] + "\n";
+                        }
+                    }
                 }
                 else
                     txtLogSearch.Clear();
@@ -9771,6 +9966,7 @@ namespace CWExpert
             if (log_book == null || log_book.IsDisposed)
                 log_book = new LOG(this);
 
+            log_book.BringToFront();
             log_book.Show();
         }
 
@@ -10398,6 +10594,26 @@ namespace CWExpert
             catch (Exception ex)
             {
                 MessageBox.Show("Error opening Setup!\n" + ex.ToString());
+            }
+        }
+
+        #endregion
+
+        #region DXCC
+
+        private void dXCCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dxcc == null || dxcc.IsDisposed)
+                    dxcc = new DXCC();
+
+                dxcc.Show();
+                dxcc.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.ToString());
             }
         }
 
