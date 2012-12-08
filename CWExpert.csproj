@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D3FA53E8-CD6F-40FD-9A32-8768DD61E22C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -37,6 +37,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
+    <ApplicationIcon>CWExpert.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -145,6 +146,12 @@
     </Compile>
     <Compile Include="Complex.cs" />
     <Compile Include="ComplexF.cs" />
+    <Compile Include="DXCC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DXCC.Designer.cs">
+      <DependentUpon>DXCC.cs</DependentUpon>
+    </Compile>
     <Compile Include="IQBalancer.cs" />
     <Compile Include="RecorderSetup.cs">
       <SubType>Form</SubType>
@@ -201,15 +208,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ClusterSetup.resx">
       <DependentUpon>ClusterSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DXCC.resx">
+      <DependentUpon>DXCC.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="RecorderSetup.resx">
       <DependentUpon>RecorderSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Recorder.resx">
       <DependentUpon>Recorder.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="KeyboardSetup.resx">
       <DependentUpon>KeyboardSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CWExpert.resx">
       <DependentUpon>CWExpert.cs</DependentUpon>
@@ -217,15 +232,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DXClusterClient.resx">
       <DependentUpon>DXClusterClient.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Keyboard.resx">
       <DependentUpon>Keyboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LOG export.resx">
       <DependentUpon>LOG export.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LOG.resx">
       <DependentUpon>LOG.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -238,6 +257,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LOGStnSettings.resx">
       <DependentUpon>LOGStnSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -300,6 +320,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CWExpert.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

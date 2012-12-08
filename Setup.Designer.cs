@@ -411,6 +411,7 @@ namespace CWExpert
             this.label41 = new System.Windows.Forms.Label();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
             this.label42 = new System.Windows.Forms.Label();
+            this.chkG11MultiBand = new System.Windows.Forms.CheckBox();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udMonitorFrequncy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udAudioOutputVoltage)).BeginInit();
@@ -2627,6 +2628,7 @@ namespace CWExpert
             // tabG11
             // 
             this.tabG11.BackColor = System.Drawing.SystemColors.Control;
+            this.tabG11.Controls.Add(this.chkG11MultiBand);
             this.tabG11.Controls.Add(this.grpG11BandFilters);
             this.tabG11.Location = new System.Drawing.Point(4, 22);
             this.tabG11.Name = "tabG11";
@@ -2671,7 +2673,7 @@ namespace CWExpert
             this.grpG11BandFilters.Controls.Add(this.label23);
             this.grpG11BandFilters.Controls.Add(this.label22);
             this.grpG11BandFilters.Controls.Add(this.label1);
-            this.grpG11BandFilters.Location = new System.Drawing.Point(52, 19);
+            this.grpG11BandFilters.Location = new System.Drawing.Point(99, 19);
             this.grpG11BandFilters.Name = "grpG11BandFilters";
             this.grpG11BandFilters.Size = new System.Drawing.Size(234, 227);
             this.grpG11BandFilters.TabIndex = 0;
@@ -5194,6 +5196,17 @@ namespace CWExpert
             this.label42.TabIndex = 8;
             this.label42.Text = "Averaging";
             // 
+            // chkG11MultiBand
+            // 
+            this.chkG11MultiBand.AutoSize = true;
+            this.chkG11MultiBand.Location = new System.Drawing.Point(16, 25);
+            this.chkG11MultiBand.Name = "chkG11MultiBand";
+            this.chkG11MultiBand.Size = new System.Drawing.Size(73, 17);
+            this.chkG11MultiBand.TabIndex = 1;
+            this.chkG11MultiBand.Text = "MultiBand";
+            this.chkG11MultiBand.UseVisualStyleBackColor = true;
+            this.chkG11MultiBand.CheckedChanged += new System.EventHandler(this.chkG11MultiBand_CheckedChanged);
+            // 
             // Setup
             // 
             this.ClientSize = new System.Drawing.Size(397, 388);
@@ -5273,6 +5286,7 @@ namespace CWExpert
             ((System.ComponentModel.ISupportInitialize)(this.udTXPhase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbTXPhase)).EndInit();
             this.tabG11.ResumeLayout(false);
+            this.tabG11.PerformLayout();
             this.grpG11BandFilters.ResumeLayout(false);
             this.grpG11BandFilters.PerformLayout();
             this.tabPage5.ResumeLayout(false);
@@ -5696,5 +5710,6 @@ namespace CWExpert
         private System.Windows.Forms.CheckBox chkMRMedian;
         private System.Windows.Forms.RadioButton radIQBalanced;
         private System.Windows.Forms.RadioButton radIQWBIR;
+        private System.Windows.Forms.CheckBox chkG11MultiBand;
     }
 }

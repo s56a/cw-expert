@@ -98,12 +98,12 @@ namespace CWExpert
             iqfix.gain = 1.0f;
             iqfix.mu = 0.0f;
             iqfix.leakage = 0.000000f;
-            iqfix.MASK = 15;
+            iqfix.MASK = 2047;
             iqfix.index = 0;
-            iqfix.w = new ComplexF[16];
-            iqfix.b = new ComplexF[16];
-            iqfix.y = new ComplexF[16];
-            iqfix.del = new ComplexF[16];
+            iqfix.w = new ComplexF[2048];
+            iqfix.b = new ComplexF[2048];
+            iqfix.y = new ComplexF[2048];
+            iqfix.del = new ComplexF[2048];
         }
 
         ~IQBalancer()
@@ -398,6 +398,7 @@ namespace CWExpert
 
             for (i = 0; i < length; i++)
             {
+                iqfix.index = i;
                 iqfix.del[iqfix.index] = Cclamp(input_buf[i]);
                 iqfix.y[iqfix.index] = Cclamp(CaddF(iqfix.del[iqfix.index],
                     CmulF(CsclF(iqfix.w[iqfix.index], 100.0f), ConjgF(iqfix.del[iqfix.index]))));
@@ -416,13 +417,13 @@ namespace CWExpert
 
                 input_buf[i] = iqfix.y[iqfix.index];
 
-                j++;
+                /*j++;
 
                 if (j == 128)
                 {
                     iqfix.index = (iqfix.index + iqfix.MASK) & iqfix.MASK;
                     j = 0;
-                }
+                }*/
             }
 
             //iqfix.index = (iqfix.index + iqfix.MASK) & iqfix.MASK;

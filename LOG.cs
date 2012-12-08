@@ -72,7 +72,7 @@ namespace CWExpert
             try
             {
                 dataGridQSOLog.RowHeadersWidth = 35;
-                dataGridQSOLog.DataSource = DB.log_ds.Tables["LOG"]; ;
+                dataGridQSOLog.DataSource = DB.log_ds.Tables["LOG"];
                 prevWidth = dataGridQSOLog.Width;
                 dataGridQSOLog.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader);
                 float dpi = this.CreateGraphics().DpiX;

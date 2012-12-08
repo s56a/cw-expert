@@ -35,6 +35,7 @@ namespace CWExpert
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CWExpert));
             this.txtCall = new System.Windows.Forms.TextBox();
             this.btnSendCall = new System.Windows.Forms.Button();
             this.btnF1 = new System.Windows.Forms.Button();
@@ -68,6 +69,7 @@ namespace CWExpert
             this.lOGBOOKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.recorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dXCCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSendRST = new System.Windows.Forms.Button();
             this.txtRST = new System.Windows.Forms.TextBox();
@@ -578,7 +580,8 @@ namespace CWExpert
             this.toolStripSeparator9,
             this.lOGBOOKToolStripMenuItem,
             this.toolStripSeparator10,
-            this.recorderToolStripMenuItem});
+            this.recorderToolStripMenuItem,
+            this.dXCCToolStripMenuItem});
             this.lOGToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lOGToolStripMenuItem.Name = "lOGToolStripMenuItem";
             this.lOGToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
@@ -626,6 +629,13 @@ namespace CWExpert
             this.recorderToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.recorderToolStripMenuItem.Text = "Recorder";
             this.recorderToolStripMenuItem.Click += new System.EventHandler(this.recorderToolStripMenuItem_Click);
+            // 
+            // dXCCToolStripMenuItem
+            // 
+            this.dXCCToolStripMenuItem.Name = "dXCCToolStripMenuItem";
+            this.dXCCToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.dXCCToolStripMenuItem.Text = "DXCC";
+            this.dXCCToolStripMenuItem.Click += new System.EventHandler(this.dXCCToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -3064,7 +3074,6 @@ namespace CWExpert
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1008, 562);
-            this.Controls.Add(this.grpMRChannels);
             this.Controls.Add(this.grpMorseRunner2);
             this.Controls.Add(this.grpMorseRunner);
             this.Controls.Add(this.grpGenesisRadio);
@@ -3077,14 +3086,16 @@ namespace CWExpert
             this.Controls.Add(this.txtCall);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.grpChannels);
+            this.Controls.Add(this.grpMRChannels);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = new System.Drawing.Size(1920, 600);
             this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "CWExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "CWExpert  S56A - YT7PWR v2.0.6";
+            this.Text = "CWExpert  S56A - YT7PWR v2.1.0";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainFormMouseWheel);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.CWExpert_Closing);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CWExpert_KeyUp);
@@ -3377,6 +3388,7 @@ namespace CWExpert
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem recorderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dXCCToolStripMenuItem;
     }
 }
 
