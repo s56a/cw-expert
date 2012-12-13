@@ -337,7 +337,7 @@ namespace CWExpert
         public float[] display_buffer;
         private Thread display_thread;
         private Thread Smeter_thread;
-        private Thread wbir_thread;
+        //        private Thread wbir_thread;
         public AutoResetEvent display_event;
         public bool standalone = true;
         private bool runDisplay = false;
@@ -1736,7 +1736,7 @@ namespace CWExpert
             }
 
             if (iq_correction == IQ_correction.BALANCED)
-            {               
+            {
                 SetRXIQGainPhase(0, 0.0f, 0.0f);
             }
             else if (iq_correction == IQ_correction.FIXED)
@@ -2244,7 +2244,7 @@ namespace CWExpert
                                 Audio.Volume = tbVolume.Value * 10;
 
                             Audio.ScopeLevel = tbVolume.Value;
-                            Audio.InputLevel = (double)tbInputLevel.Value;;
+                            Audio.InputLevel = (double)tbInputLevel.Value; ;
                             Audio.callback_return = 0;
 
                             if (cwDecoder == null)
@@ -3096,7 +3096,7 @@ namespace CWExpert
                                 if (rtbCH1_scroll_down)
                                     SendMessage(rtbCH1.Handle, WM_VSCROLL, SB_BOTTOM, 1);
 
-                                 if (text != " " && (out_string == " " || out_string == "\r" || out_string == "\n"))
+                                if (text != " " && (out_string == " " || out_string == "\r" || out_string == "\n"))
                                 {
                                     if (detection)
                                     {
@@ -3159,7 +3159,7 @@ namespace CWExpert
                                         }
                                     }
 
-                                    if ((out_string == " " || out_string =="\r" || out_string == "\n") && detection)
+                                    if ((out_string == " " || out_string == "\r" || out_string == "\n") && detection)
                                     {
                                         if (detect_name && (txtLogName.Text.Trim() == "is" || txtLogName.Text.Trim() == "IS" ||
                                             txtLogName.Text.Trim() == "="))
@@ -3228,7 +3228,7 @@ namespace CWExpert
                                         {
                                             txtLogInfo.Clear();
                                         }
-                                        else if(detect_call)
+                                        else if (detect_call)
                                         {
                                             string result = "";
 
@@ -3485,7 +3485,7 @@ namespace CWExpert
                                         detection = true;
                                         detect_rst = true;
 
-                                        if ((text.ToUpper().StartsWith("RST.") || text.ToUpper().StartsWith("RSQ.")) && 
+                                        if ((text.ToUpper().StartsWith("RST.") || text.ToUpper().StartsWith("RSQ.")) &&
                                             text.Length > 4)
                                         {
                                             text = text.Remove(0, 4);
@@ -3561,7 +3561,7 @@ namespace CWExpert
                                             txtLogInfo.AppendText(q.ToUpper());
                                             rtbCH1.Select(rtbCH1.Text.Length, 0);
                                             rtbCH1.SelectionColor = Color.Red;
-                                        }                                    
+                                        }
                                     }
                                     else
                                     {
@@ -5650,7 +5650,7 @@ namespace CWExpert
         {
             double v_det = adc * 0.062963;			// scale factor in V/bit including pot ratio
             double v_out = v_det * 10.39853;		// scale factor in V/V for bridge output to detector voltage
-            return v_out * 10/55;
+            return v_out * 10 / 55;
         }
 
         #endregion
@@ -5815,7 +5815,7 @@ namespace CWExpert
             {
                 int fast_count = 0;
                 int countdown = 1000;
-                double rnd = 0.0;
+                //                double rnd = 0.0;
 
                 while (wbir_run)
                 {
@@ -6385,7 +6385,7 @@ namespace CWExpert
                                     msg.sendWindowsMessage(edits[0].hWnd, WM_APP + 15617, VK_F3, (1 + (61 << 16) + (3 << 30)));
 
                                     Debug.Write("Send TU 1 \n");
-                                }*/                             
+                                }*/
                             }
                             break;
 
@@ -6891,7 +6891,7 @@ namespace CWExpert
             this.grpChannels.Text = "VFOA " + op_mode_vfoA.ToString() + "     VFOB " +
                 op_mode_vfoB.ToString() + "     ";
             Audio.audio_paused = false;
-            grpMonitor.Text = "Mode RTTY" + "  " + SetupForm.baudrate.ToString() + "baud";
+            //mmm warning            grpMonitor.Text = "Mode RTTY" + "  " + SetupForm.baudrate.ToString() + "baud";
             VFOA = vfoa;
             VFOB = vfob;
         }
@@ -8766,7 +8766,7 @@ namespace CWExpert
                     Mode opmode = op_mode_vfoA;
                     int cnt = 1;
 
-                    if(tx_split)
+                    if (tx_split)
                         opmode = op_mode_vfoB;
 
                     switch (opmode)
@@ -9410,7 +9410,8 @@ namespace CWExpert
                 if (udLOGMyNR.Value > 0)
                     udLOGMyNR.Value += 1;
 
-                log_book.LOGStatistic();
+                if (log_book != null)
+                    log_book.LOGStatistic();
             }
             catch (Exception ex)
             {
@@ -9642,7 +9643,7 @@ namespace CWExpert
                 ch1_contextQSO.Show(p);
             }
         }
-        
+
         private void rtbCH2_DoubleClick(object sender, EventArgs e)
         {
             Point p;
@@ -10455,7 +10456,7 @@ namespace CWExpert
                         default:
                             result = false;
                             goto end;
-                            //break;
+                        //break;
                     }
                 }
 
@@ -10476,8 +10477,8 @@ namespace CWExpert
                 bool result = false;
                 int q = (int)test;
 
-                if((q>=65 && q<=90 || (q>=97 && q<= 122)))      // a-z A-Z
-                result = true;
+                if ((q >= 65 && q <= 90 || (q >= 97 && q <= 122)))      // a-z A-Z
+                    result = true;
 
                 return result;
             }
@@ -10502,7 +10503,7 @@ namespace CWExpert
                 if (!IsLetter(loc[0]) && !IsLetter(loc[1]))
                     goto end;
 
-                if(!IsNumber(loc[2].ToString()) && !IsNumber(loc[3].ToString()))
+                if (!IsNumber(loc[2].ToString()) && !IsNumber(loc[3].ToString()))
                     goto end;
 
                 if (!IsLetter(loc[4]) && !IsLetter(loc[5]))

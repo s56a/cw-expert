@@ -22,3 +22,29 @@ E:\CW expert\obj\x86\Release\CWExpert.exe
 E:\CW expert\obj\x86\Release\CWExpert.pdb
 E:\CW expert\obj\x86\Release\CWExpert.RecorderSetup.resources
 E:\CW expert\obj\x86\Release\CWExpert.Recorder.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\bin\Release\CWExpert.exe.config
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.exe
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.pdb
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\GenerateResource-ResGen.read.1.tlog
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\GenerateResource-ResGen.write.1.tlog
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\bin\Release\CWExpert.exe.manifest
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\bin\Release\CWExpert.application
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\bin\Release\CWExpert.exe
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\bin\Release\CWExpert.pdb
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\bin\Release\G59.dll
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.ClusterSetup.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.DXCC.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.RecorderSetup.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.Recorder.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.KeyboardSetup.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.CWExpert.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.DXClusterClient.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.Keyboard.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.LOG_export.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.LOG.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.Properties.Resources.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.Setup.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.LOGStnSettings.resources
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.exe.manifest
+C:\Documents and Settings\BRANKO\Desktop\CWEwork\CW expert\cw-expert\obj\x86\Release\CWExpert.application

@@ -392,7 +392,7 @@ namespace CWExpert
         Random rnd = new Random(564561);
         private void correctIQ(ref ComplexF[] input_buf, int length)
         {
-            int i,j = 0;
+            int i = 0;
             ComplexF tmp = new ComplexF();
             iqfix.mu = (float)rnd.NextDouble();
 
