@@ -39,20 +39,20 @@ namespace CWExpert
         delegate void CrossThreadSetText(string command, int channel_no, string out_txt);
         delegate void CrossThreadSetMRText(int channel_no, string out_txt);
 
-        //        public const int intg = 3;
-        //        public int eot = 0;
-        //        public int mytimer = 0;
+        public const int intg = 3;
+        public int eot = 0;
+        public int mytimer = 0;
         public double glblthd = 8;
-        //        public int bot = 0;
+        public int bot = 0;
         public float[] sigave = new float[2048];
-        //        public int tmin = 2;
+        public int tmin = 2;
         public bool lid = false;
         private int frame_segment = 4;
-        public bool rx_only = false;
+        public bool rx_only = true;
         public bool once = true;
-        //       public int rcvd = 0;
+        public int rcvd = 0;
         public int moni = 12;
-        public int ponovi = 24;
+        public int ponovi = 32;
         public bool repeat = false;
         public int loopend = 0;
         public int totalsamples = 0;
@@ -93,7 +93,7 @@ namespace CWExpert
         public string[] rprts;
         public double[] snr;
         public string[] calls;
-        public double thld = 0.5;
+        public double thld = 0.01;
         public int[] enable;
         public int active = 0;
         public string[] output;
@@ -118,7 +118,7 @@ namespace CWExpert
         public int[] ctr = new int[22];
         public int tx_timer = 0;
         public int rx_timer = 50;
-        public int dotmin = 2;
+        public int dotmin = 0;
         public int[] bitrev;
         public float[] old1;
         public bool[] keyes;
@@ -154,7 +154,7 @@ namespace CWExpert
         public double SQL
         {
             get { return sql; }
-            set
+            set 
             {
                 sql = value;
 
@@ -230,13 +230,13 @@ namespace CWExpert
 
             try
             {
-                ctr[5] = 0;
-                ctr[6] = 0;
                 if (Audio.SDRmode)
                 {
                     rate = Audio.SampleRate;
                     frame_segment = 16 * (96000 / Audio.SampleRate);
                     FFTlen = 64;
+                    ctr[5] = 0;
+                    ctr[6] = 0;
                     F2L = 2 * FFTlen;
                     output = new string[16384];
                     sum = new int[FFTlen];
@@ -301,7 +301,7 @@ namespace CWExpert
                         agcvol[n] = 0.0f;
                         fagcvol[n] = 0.0;
                         old1[n] = 0;
-                        Noise[n] = 0.1;
+                        Noise[n] = 1.0;
                         temp[n] = 0;
                         ave[n] = aver;
                         sum[n] = 0;
@@ -328,7 +328,7 @@ namespace CWExpert
                         wd[n] = 1;
                     }
 
-                    mycall = MainForm.SetupForm.txtStnCALL.Text;  // not valid!!!
+                    mycall = MainForm.SetupForm.txtStnCALL.Text;
                     call_sent = mycall;
                     call_found = false;
                     rprt_found = false;
@@ -342,15 +342,15 @@ namespace CWExpert
                     return true;
                 }
                 else
-                {
-                    // MorseRunner mode
-                    F2L = 128;
+                {                                       // MorseRunner mode
                     FFTlen = 64;
                     loopend = F2L;
+                    F2L = 128;
                     ovrlp = F2L / wndw;
                     logf2l = 7;
+                    FFTlen = F2L / 2;
                     lids = new bool[FFTlen];
-                    //                    logf2l = (int)(Math.Round(Math.Log(F2L) / Math.Log(2.0)));
+                    logf2l = (int)(Math.Round(Math.Log(F2L) / Math.Log(2.0)));
                     enable = new int[FFTlen];
                     wd = new double[F2L];
                     bitrev = new int[F2L];
@@ -373,7 +373,7 @@ namespace CWExpert
                     co = new double[F2L];
                     signal = new double[FFTlen];
                     Mag = new float[FFTlen, 32];
-                    thld = 1.0; // sql * Math.Sqrt(0.5);
+                    thld = sql * Math.Sqrt(0.05);
                     rate = 8000;
 
                     for (n = 0; n < F2L; n++)
@@ -396,7 +396,7 @@ namespace CWExpert
                         bitrev[n] = (byte)y;
                     }
 
-                    mycall = "S5M"; // MainForm.SetupForm.txtStnCALL.Text;
+                    mycall = MainForm.SetupForm.txtStnCALL.Text;
                     call_sent = mycall;
 
                     //aver = int.Parse(MainForm.stn[1]);  // wpm
@@ -428,8 +428,8 @@ namespace CWExpert
                         keyes[n] = false;
                         valid[n] = -1;
                         output[n] = "";
-                        calls[n] = ""; ;
-                        rprts[n] = "";
+                        calls[n] = String.Empty;
+                        rprts[n] = String.Empty;
 
                         for (z = 0; z < 5; z++)
                             medo[n, z] = Noise[n];
@@ -505,21 +505,16 @@ namespace CWExpert
                         if (MainForm.hst && ctr[5] > 2345)
                             MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Stop MR", "");
 
-                        if (transmit)
-                            TRtiming();
-                        else
+                        TRtiming();
+
+                        if (!transmit)
                         {
                             Sig2ASCII(5);
+
                             if (!rx_only)
                             {
                                 Analyse();
                                 Respond();
-                                if (tx_timer > 0)
-                                {
-                                    txctr = ctr[5] + tx_timer;
-                                    transmit = true;
-                                    rx_timer = ponovi;
-                                }
                             }
                         }
                     }
@@ -569,8 +564,8 @@ namespace CWExpert
         {
             bool result = false;
             once = true;
-            //           bwl = 5;
-            //           bwh = 6;
+            bwl = 5;
+            bwh = 6;
 
             if (Init())
             {
@@ -725,7 +720,6 @@ namespace CWExpert
         private double[] sig_maxavg = new double[22];
         private double[] signal_minavg = new double[22];
         private double[] sig_minavg = new double[22];
-
         private void Sig2ASCII(int index)
         {
             try
@@ -765,7 +759,7 @@ namespace CWExpert
                         //thd = Math.Max((signal_maxavg[index] - signal_minavg[index]) * 0.2, thd_const);
                         //thd = (signal_maxavg[index] - signal_minavg[index]) * 0.2;
                         thd = signal_avg[index] * 0.8;
-                        // thd = 0.8 * signal_maxavg[index];
+                       // thd = 0.8 * signal_maxavg[index];
                     }
                     else
                     {
@@ -785,12 +779,12 @@ namespace CWExpert
                         else if (Mag[n, index] < thd && Mag[n + 1, index] < thd && Mag[n + 2, index] < thd
                             && Mag[n + 3, index] < thd && Mag[n + 4, index] < thd)
                         {
-                            // if (b > 0)
-                            b--;
+                            //if (b > 0)
+                                b--;
                             //else
-                            //b = 0;
+                                //b = 0;
 
-                            b = Math.Max(b, 0);
+                                b = Math.Max(b, 0);
                         }
 
                         n += 3;
@@ -1074,7 +1068,7 @@ namespace CWExpert
         private bool regex_check(String testValue)
         {
 
-            Regex _rgx = new Regex("[ETISH5]");
+            Regex _rgx = new Regex("[ETIANMSH456]");
 
             return (_rgx.Matches(testValue).Count == testValue.Length);
 
@@ -1133,20 +1127,16 @@ namespace CWExpert
                 string[] ports = cl.Split('/');
                 foreach (string part in ports)
                 {
-                    if (IsCall(part))
-                        call_found = true;
+                    if (IsCall(part)) { call_found = true; }
                 }
             }
-            else if (i == -1)
-                call_found = IsCall(cl);
+            else if (i == -1) { call_found = IsCall(cl); }
 
             if (call_found)
             {
-                if (regex_check(cl) || cl.Contains("*") || cl.Contains("?") || cl.Contains(" ") || cl.Contains(mycall))
-                    call_found = false;
+                if (regex_check(cl) || cl.Contains("*") || cl.Contains("?") || cl.Contains(" ") || cl.Contains(mycall)) { call_found = false; }
             }
-            if (call_found)
-                call = cl;
+            if (call_found) { call = cl; }
 
             return call_found;
         }
@@ -1180,8 +1170,8 @@ namespace CWExpert
                                 lids[z] = true;
                             else if (valid[z] >= 0)
                             {
-                                MainForm.Invoke(new CrossThreadSetMRText(MainForm.WriteOutputText), z,
-                                    " " + Math.Round(prag[z]).ToString() + " " + mystr + "  ");
+                                MainForm.Invoke(new CrossThreadSetMRText(MainForm.WriteOutputText), z, 
+                                    " " + prag[z].ToString() + " " + mystr);
 
                                 int i = mystr.IndexOf("5NN");
 
@@ -1235,6 +1225,9 @@ namespace CWExpert
             int i = 0;
             int tx_len = 0;
 
+            transmit = true;
+            rx_timer = ponovi;
+
             do
             {
                 Char c = message[i];
@@ -1261,7 +1254,12 @@ namespace CWExpert
         {
             try
             {
-                if (ctr[5] > txctr) // && prag[moni] < 2 * Noise[moni])
+                if (tx_timer > 0 && !transmit)
+                {
+                    txctr = ctr[5] + tx_timer;
+                    transmit = true;
+                }
+                else if (transmit && ctr[5] > txctr) // && prag[moni] < 2 * Noise[moni])
                 {
                     for (int n = bwl; n <= bwh; n++)
                     {
@@ -1271,7 +1269,6 @@ namespace CWExpert
                         rprts[n] = "";
                         valid[n] = -1;
                         prag[n] = Noise[n];
-                        ave[n] = aver;
                     }
 
                     Debug.WriteLine(" RX " + activech);
@@ -1295,7 +1292,6 @@ namespace CWExpert
             rip = false;
             activech = 0;
             qso = false;
-            Clear_channels();
         }
 
         private void Boundaries()
@@ -1449,6 +1445,12 @@ namespace CWExpert
                         int y = bitrev[n];
                         Mag[n, z] = (float)Math.Sqrt(RealF[y] * RealF[y] + ImagF[y] * ImagF[y]);
 
+                        if (Mag[n, z] > 4 * (float)Noise[n])
+                        {
+                            Mag[n, z] = 4 * (float)Noise[n];
+                            //Debug.Write("SQL!" + ctr[5].ToString() + "\n");
+                        }
+
                         if (medijan)
                             Mag[n, z] = (float)Median(Mag[n, z], n);
 
@@ -1521,12 +1523,6 @@ namespace CWExpert
         {
             try
             {
-
-                int go = ponovi;
-
-                if (!qso)
-                    go = ponovi / 4;
-
                 bool any_call = CallAvail();
                 bool report_rcvd = RprtAvail();
 
@@ -1539,58 +1535,99 @@ namespace CWExpert
 
                 if (any_call)
                 {
+                    tx_timer = dots(call);
+
                     string result = "";
                     string[] vals;
 
-                    if (MainForm.dxcc.Analyze(call, out result))
+                    if (!qso && MainForm.dxcc.Analyze(call, out result))
                     {
-                        //                        Clear_channels();
+                        Clear_channels();
                         vals = result.Split(' ');
-                        tx_timer = dots(vals[0]);
                         SendCall(vals[0]);
+                        qso = true;
+                        tx_timer += dots(vals[0] + "5NN");
                         active_call = vals[0];
 
                         if (MainForm.dxcc != null && MainForm.dxcc.Visible)
-                            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "DXCC text", result);
-
-                        if (!report_rcvd)
                         {
-                            tx_timer += f2len();
-                            if (qso)
-                                SendReport();
+                            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "DXCC text", result);
                         }
+                    }
+                    else if (!qso && !report_rcvd)
+                    {
+                        SendExch();
                         qso = true;
                     }
-                }
+                    else if (qso && report_rcvd)
+                    {
+                        tx_timer += dots("TU");
+                        qso = false;
+                    }
+                    else if (qso && MainForm.dxcc.Analyze(call, out result) && active_call != call)
+                    {
+                        Clear_channels();
+                        vals = result.Split(' ');
 
-                if (report_rcvd)
+                        if (active_call.StartsWith(vals[0]) || vals[0].Contains(active_call) || active_call.Contains(vals[0]) ||
+                            active_call.Contains(call.Remove(0, 1)) || active_call.Contains(call.Remove(call.Length - 1, 1)))
+                        {
+                            SendCall(vals[0]);
+                            tx_timer += dots(vals[0] + "5NN");
+                            active_call = vals[0];
+
+                            if (MainForm.dxcc != null && MainForm.dxcc.Visible)
+                            {
+                                MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "DXCC text", result);
+                            }
+                        }
+                    }
+                }
+                else if (report_rcvd)
                 {
                     if (qso)
                     {
-                        tx_timer += dots("TU");
+                        tx_timer = dots("TU");
                         SendTU();
                         qso = false;
                         serial++;
                         MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Add LOG entry", "");
                     }
-                    /*
-                                        else if (Math.Abs(freq - activech) < 2)  // no qso, late report!
-                                        {
-                                            RetryLast();
-                                            qso = true;
-                                        }
-                     */
+                    else if (Math.Abs(freq - activech) < 2)  // no qso, late report!
+                    {
+                        RetryLast();
+                        qso = true;
+                    }
                     else
                     {
                         ClearMR();
                     }
                 }
-
-                if (Silence() && (ctr[5] - txctr > go))
+                else if ((ctr[5] - txctr > ponovi) && Silence())
                 {
-                    cqcqcq();
-                    active_call = "";
-                    MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Clear text", 0, "");
+                    txctr = ctr[5];
+
+                    if (qso && rip)
+                    {
+                        tx_timer = dots("?");
+                        SendQuest();
+                        rip = false;
+                    }
+                    else
+                    {
+                        if (MainForm.hst)
+                        {
+                            ClearMR();
+                        }
+                        else
+                        {
+                            cqcqcq();
+                            call_sent = "";
+                            active_call = "";
+                            MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Clear text", 0, "");
+                            Clear_channels();
+                        }
+                    }
                 }
             }
 
@@ -1650,8 +1687,8 @@ namespace CWExpert
             call_sent = what;
             calls[activech] = "";
             MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send CALL", what);
-            MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", activech, " " +
-                Math.Round(prag[activech]).ToString() + " " + what + "  ");
+            MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Set text", activech, " " + 
+                prag[activech].ToString("f4") + " " + what);
             Debug.Write("Ch: " + activech.ToString() + " " + what + " " + tx_timer.ToString());
             Debug.Write("Send CALL! \n");
         }

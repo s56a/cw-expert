@@ -718,7 +718,7 @@ namespace CWExpert
             }
         }
 
-        int convert(char[] loc, ref location place)
+        private int convert(char[] loc, ref location place)
         {
             try
             {
@@ -758,7 +758,7 @@ namespace CWExpert
             }
         }
 
-        int transform(ref location from, ref location to, ref polar dd)
+        private int transform(ref location from, ref location to, ref polar dd)
         {
             try
             {

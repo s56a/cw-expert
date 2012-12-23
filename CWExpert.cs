@@ -1752,7 +1752,7 @@ namespace CWExpert
             }
 
             dxcc = new DXCC();
-            dxcc.Init();
+            dxcc.Init(SetupForm.txtStnLOC.Text.ToString());
 
             try
             {
@@ -3245,20 +3245,21 @@ namespace CWExpert
 
                                                         string[] vals = result.Split(' ');
                                                         txtCall.Text = vals[0];
-                                                        rtbCH1.Select(rtbCH1.Text.Length, 0);
-                                                        rtbCH1.SelectionColor = Color.LawnGreen;
-                                                        detect_call = false;
-                                                        detect_loc = false;
-                                                        detect_name = false;
-                                                        detect_qth = false;
-                                                        detect_rst = false;
-                                                        detect_info = false;
-                                                        detection = false;
-                                                        Debug.Write("Detection ended!" + out_string + "\n");
-                                                        rtbCH1.SelectionColor = Color.LawnGreen;
                                                     }
                                                     else
                                                         txtLogCall.Clear();
+
+                                                    rtbCH1.Select(rtbCH1.Text.Length, 0);
+                                                    rtbCH1.SelectionColor = Color.LawnGreen;
+                                                    detect_call = false;
+                                                    detect_loc = false;
+                                                    detect_name = false;
+                                                    detect_qth = false;
+                                                    detect_rst = false;
+                                                    detect_info = false;
+                                                    detection = false;
+                                                    Debug.Write("Detection ended!" + out_string + "\n");
+                                                    rtbCH1.SelectionColor = Color.LawnGreen;
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -10607,7 +10608,10 @@ namespace CWExpert
             try
             {
                 if (dxcc == null || dxcc.IsDisposed)
+                {
                     dxcc = new DXCC();
+                    dxcc.Init(SetupForm.txtStnLOC.Text.ToString());
+                }
 
                 dxcc.Show();
                 dxcc.BringToFront();
