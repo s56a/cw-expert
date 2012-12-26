@@ -2558,12 +2558,12 @@ namespace CWExpert
                             {
                                 ///////////////// mark /////////////////////////////
 
-                                if (scope_min_mark.Length != waterfall_target.Width)
+                                if (scope_min_mark == null || scope_min_mark.Length != waterfall_target.Width)
                                 {
                                     scope_min_mark = new float[waterfall_target.Width];
                                     Audio.ScopeMinMark = scope_min_mark;
                                 }
-                                if (scope_max_mark.Length != waterfall_target.Width)
+                                if (scope_max_mark == null || scope_max_mark.Length != waterfall_target.Width)
                                 {
                                     scope_max_mark = new float[waterfall_target.Width];
                                     Audio.ScopeMaxMark = scope_max_mark;
@@ -2586,12 +2586,12 @@ namespace CWExpert
 
                                 ///////////////// space ////////////////////////////
 
-                                if (scope_min_space.Length != waterfall_target.Width)
+                                if (scope_min_space == null || scope_min_space.Length != waterfall_target.Width)
                                 {
                                     scope_min_space = new float[waterfall_target.Width];
                                     Audio.ScopeMinSpace = scope_min_space;
                                 }
-                                if (scope_max_space.Length != waterfall_target.Width)
+                                if (scope_max_space == null || scope_max_space.Length != waterfall_target.Width)
                                 {
                                     scope_max_space = new float[waterfall_target.Width];
                                     Audio.ScopeMaxSpace = scope_max_space;
@@ -2614,12 +2614,12 @@ namespace CWExpert
 
                         default:
                             {
-                                if (scope_min.Length != waterfall_target.Width)
+                                if (scope_min == null || scope_min.Length != waterfall_target.Width)
                                 {
                                     scope_min = new float[waterfall_target.Width];
                                     Audio.ScopeMin = scope_min;
                                 }
-                                if (scope_max.Length != waterfall_target.Width)
+                                if (scope_max == null || scope_max.Length != waterfall_target.Width)
                                 {
                                     scope_max = new float[waterfall_target.Width];
                                     Audio.ScopeMax = scope_max;
@@ -3989,23 +3989,23 @@ namespace CWExpert
                     {
                         case Mode.RTTY:
                             {
-                                if (scope_min_mark.Length != W)
+                                if (scope_min_mark == null || scope_min_mark.Length != W)
                                 {
                                     scope_min_mark = new float[W];
                                     Audio.ScopeMinMark = scope_min_mark;
                                 }
-                                if (scope_max_mark.Length != W)
+                                if (scope_max_mark == null || scope_max_mark.Length != W)
                                 {
                                     scope_max_mark = new float[W];
                                     Audio.ScopeMaxMark = scope_max_mark;
                                 }
 
-                                if (scope_min_space.Length != W)
+                                if (scope_min_space == null || scope_min_space.Length != W)
                                 {
                                     scope_min_space = new float[W];
                                     Audio.ScopeMinSpace = scope_min_space;
                                 }
-                                if (scope_max_space.Length != W)
+                                if (scope_max_space == null || scope_max_space.Length != W)
                                 {
                                     scope_max_space = new float[W];
                                     Audio.ScopeMaxSpace = scope_max_space;
@@ -4055,12 +4055,12 @@ namespace CWExpert
 
                         default:
                             {
-                                if (scope_min.Length != W)
+                                if (scope_min == null || scope_min.Length != W)
                                 {
                                     scope_min = new float[W];
                                     Audio.ScopeMin = scope_min;
                                 }
-                                if (scope_max.Length != W)
+                                if (scope_max == null || scope_max.Length != W)
                                 {
                                     scope_max = new float[W];
                                     Audio.ScopeMax = scope_max;
