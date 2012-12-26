@@ -89,8 +89,6 @@ namespace CWExpert
             udRTTYCarrierShift_SelectedIndexChanged(this, e);
             chkRX2_CheckedChanged(this, e);
             chkWaterfallReverse_CheckedChanged(this, EventArgs.Empty);
-            comboMonitorMode.SelectedIndex = 0;
-            comboDisplayMode.SelectedIndex = 0;
             radIQFixed_CheckedChanged(this, EventArgs.Empty);
             radIQBalanced_CheckedChanged(this, EventArgs.Empty);
 
