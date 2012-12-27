@@ -93,7 +93,6 @@ namespace CWExpert
             spectrumPtr = new float[4096];
             zero = new ComplexF[2048];
             MainForm = form;
-            Reset(FFTBins);
             iqfix.phase = 0.0f;
             iqfix.gain = 1.0f;
             iqfix.mu = 0.0f;
@@ -104,6 +103,7 @@ namespace CWExpert
             iqfix.b = new ComplexF[2048];
             iqfix.y = new ComplexF[2048];
             iqfix.del = new ComplexF[2048];
+            Reset(FFTBins);
         }
 
         ~IQBalancer()

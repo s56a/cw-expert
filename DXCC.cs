@@ -1230,7 +1230,8 @@ namespace CWExpert
                         text = text.PadRight(15, ' ');
                         polar qrb = CalculateQRB(my_loc, vals[4]);
                         text += "      " + vals[1] +
-                            "      " + vals[2] + "   " + vals[3] + "    " +  Math.Round(qrb.direction, 0).ToString() + "  " + 
+                            "      " + vals[2] + "   " + vals[3] + "    " +  
+                            Math.Round(qrb.direction, 0).ToString().PadLeft(3, ' ') + "  " + 
                             Math.Round(qrb.distance, 0).ToString() + "km";
                         result = text + "\n";
                     }

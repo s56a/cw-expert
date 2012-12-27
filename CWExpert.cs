@@ -789,80 +789,88 @@ namespace CWExpert
 
                 if (mox)
                 {
-                    Audio.mox_switch_time = 0;
-                    Audio.MOX = true;
                     btnTX.BackColor = Color.Red;
-                    genesis.WriteToDevice(13, tx_switch_time / 3);
-                    Thread.Sleep(1);
 
-                    switch (op_mode_vfoB)
+                    if (Audio.SDRmode)
                     {
-                        case Mode.CW:
-                            {
-                                if (tx_split)
-                                    genesis.Set_frequency((long)(vfob * 1e6 - cwEncoder.TXIfShift), true);
-                                else
-                                    genesis.Set_frequency((long)(Math.Round(vfoa * 1e6, 6) - cwEncoder.TXIfShift), true);
-                            }
-                            break;
+                        Audio.mox_switch_time = 0;
+                        Audio.MOX = true;
+                        genesis.WriteToDevice(13, tx_switch_time / 3);
+                        Thread.Sleep(1);
 
-                        case Mode.RTTY:
-                            {
-                                if (tx_split)
-                                    genesis.Set_frequency((long)(vfob * 1e6 - rtty.TXIfShift), true);
-                                else
-                                    genesis.Set_frequency((long)(Math.Round(vfoa * 1e6, 6) - rtty.TXIfShift), true);
-                            }
-                            break;
+                        switch (op_mode_vfoB)
+                        {
+                            case Mode.CW:
+                                {
+                                    if (tx_split)
+                                        genesis.Set_frequency((long)(vfob * 1e6 - cwEncoder.TXIfShift), true);
+                                    else
+                                        genesis.Set_frequency((long)(Math.Round(vfoa * 1e6, 6) - cwEncoder.TXIfShift), true);
+                                }
+                                break;
 
-                        case Mode.BPSK31:
-                        case Mode.BPSK63:
-                        case Mode.BPSK125:
-                        case Mode.BPSK250:
-                        case Mode.QPSK31:
-                        case Mode.QPSK63:
-                        case Mode.QPSK125:
-                        case Mode.QPSK250:
-                            {
-                                if (tx_split)
-                                    genesis.Set_frequency((long)(vfob * 1e6 - psk.TXIfShift), true);
-                                else
-                                    genesis.Set_frequency((long)(vfoa * 1e6 - psk.TXIfShift), true);
-                            }
-                            break;
+                            case Mode.RTTY:
+                                {
+                                    if (tx_split)
+                                        genesis.Set_frequency((long)(vfob * 1e6 - rtty.TXIfShift), true);
+                                    else
+                                        genesis.Set_frequency((long)(Math.Round(vfoa * 1e6, 6) - rtty.TXIfShift), true);
+                                }
+                                break;
+
+                            case Mode.BPSK31:
+                            case Mode.BPSK63:
+                            case Mode.BPSK125:
+                            case Mode.BPSK250:
+                            case Mode.QPSK31:
+                            case Mode.QPSK63:
+                            case Mode.QPSK125:
+                            case Mode.QPSK250:
+                                {
+                                    if (tx_split)
+                                        genesis.Set_frequency((long)(vfob * 1e6 - psk.TXIfShift), true);
+                                    else
+                                        genesis.Set_frequency((long)(vfoa * 1e6 - psk.TXIfShift), true);
+                                }
+                                break;
+                        }
+
+                        Thread.Sleep(1);
                     }
-
-                    Thread.Sleep(1);
                 }
                 else
                 {
-                    Audio.mox_switch_time = 0;
-                    Audio.MOX = false;
-                    genesis.WriteToDevice(14, 0);
-                    Thread.Sleep(1);
-                    genesis.Set_frequency((long)(losc * 1e6), true);
-                    Thread.Sleep(1);
-                    G59_set_keyer();
                     btnTX.BackColor = Color.WhiteSmoke;
-                    //TUNE = false;
 
-                    if (new_mode == Mode.CW)
+                    if (Audio.SDRmode)
                     {
-                        cwDecoder.reset_after_mox = true;
-                        cwEncoder.local_mox = false;
-                    }
-                    else if (new_mode == Mode.RTTY)
-                    {
-                        rtty.reset_after_mox = true;
-                    }
-                    else
-                    {
-                        psk.reset_after_mox = true;
-                    }
+                        Audio.mox_switch_time = 0;
+                        Audio.MOX = false;
+                        genesis.WriteToDevice(14, 0);
+                        Thread.Sleep(1);
+                        genesis.Set_frequency((long)(losc * 1e6), true);
+                        Thread.Sleep(1);
+                        G59_set_keyer();
+                        //TUNE = false;
 
-                    output_ring_buf.Reset();
-                    mon_ring_buf.Reset();
-                    Audio.iq_balancer_reset = true;
+                        if (new_mode == Mode.CW)
+                        {
+                            cwDecoder.reset_after_mox = true;
+                            cwEncoder.local_mox = false;
+                        }
+                        else if (new_mode == Mode.RTTY)
+                        {
+                            rtty.reset_after_mox = true;
+                        }
+                        else
+                        {
+                            psk.reset_after_mox = true;
+                        }
+
+                        output_ring_buf.Reset();
+                        mon_ring_buf.Reset();
+                        Audio.iq_balancer_reset = true;
+                    }
                 }
             }
         }
@@ -2130,7 +2138,6 @@ namespace CWExpert
 
                         G59Init();
                         CurrentBand = current_band;
-
                         Audio.callback_return = 0;
                         tx_pwr = tbG59PWR.Value;
                         OutputPowerUpdate();
@@ -6129,10 +6136,13 @@ namespace CWExpert
                         }
                         break;
                     case "MOX":
-                        if (param_1 == 0)
-                            MOX = false;
-                        else
-                            MOX = true;
+                        if (Audio.SDRmode)
+                        {
+                            if (param_1 == 0)
+                                MOX = false;
+                            else
+                                MOX = true;
+                        }
                         break;
                     case "Set text":
                         WriteOutputText(param_1, param_2);
@@ -6310,6 +6320,14 @@ namespace CWExpert
                 {
                     switch (action)
                     {
+                        case "TX ON":
+                            MOX = true;
+                            break;
+
+                        case "TX OFF":
+                            MOX = false;
+                            break;
+
                         case "DXCC text":
                             if (dxcc != null && dxcc.Visible)
                             {
