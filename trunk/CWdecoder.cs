@@ -504,10 +504,10 @@ namespace CWExpert
 
                         if (MainForm.hst && ctr[5] > 2345)
                             MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Stop MR", "");
-
+                        
                         TRtiming();
 
-                        if (!transmit)
+                        if(!transmit)
                         {
                             Sig2ASCII(5);
 
@@ -1221,11 +1221,8 @@ namespace CWExpert
         {
             int[] cwnrs = { 22, 20, 18, 16, 14, 12, 14, 16, 18, 20 };
             int[] cwltr = { 8, 12, 14, 10, 4, 12, 12, 10, 6, 16, 12, 12, 10, 8, 14, 14, 16, 10, 8, 6, 10, 12, 12, 14, 16, 14 };
-
             int i = 0;
             int tx_len = 0;
-
-            transmit = true;
             rx_timer = ponovi;
 
             do
@@ -1258,6 +1255,8 @@ namespace CWExpert
                 {
                     txctr = ctr[5] + tx_timer;
                     transmit = true;
+                    MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "TX ON", "");
+                    Debug.Write("tranmit = true \n");
                 }
                 else if (transmit && ctr[5] > txctr) // && prag[moni] < 2 * Noise[moni])
                 {
@@ -1275,6 +1274,8 @@ namespace CWExpert
                     tx_timer = 0;
                     txctr = ctr[5];
                     transmit = false;
+                    MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "TX OFF", "");
+                    Debug.Write("tranmit = false \n");
                 }
             }
 
@@ -1542,39 +1543,39 @@ namespace CWExpert
 
                     if (!qso && MainForm.dxcc.Analyze(call, out result))
                     {
-                        Clear_channels();
+                        //Clear_channels();
                         vals = result.Split(' ');
-                        SendCall(vals[0]);
                         qso = true;
-                        tx_timer += dots(vals[0] + "5NN");
-                        active_call = vals[0];
+                        tx_timer = dots(vals[1]) + f2len();
+                        active_call = vals[1];
+                        SendCall(vals[1]);
 
                         if (MainForm.dxcc != null && MainForm.dxcc.Visible)
                         {
                             MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "DXCC text", result);
                         }
                     }
-                    else if (!qso && !report_rcvd)
+                    /*else if (!qso && !report_rcvd)
                     {
                         SendExch();
                         qso = true;
                     }
-                    else if (qso && report_rcvd)
+                    else*/ if (qso && report_rcvd)
                     {
                         tx_timer += dots("TU");
                         qso = false;
                     }
                     else if (qso && MainForm.dxcc.Analyze(call, out result) && active_call != call)
                     {
-                        Clear_channels();
+                        //Clear_channels();
                         vals = result.Split(' ');
 
-                        if (active_call.StartsWith(vals[0]) || vals[0].Contains(active_call) || active_call.Contains(vals[0]) ||
+                        if (active_call.StartsWith(vals[1]) || vals[1].Contains(active_call) || active_call.Contains(vals[1]) ||
                             active_call.Contains(call.Remove(0, 1)) || active_call.Contains(call.Remove(call.Length - 1, 1)))
                         {
-                            SendCall(vals[0]);
-                            tx_timer += dots(vals[0] + "5NN");
-                            active_call = vals[0];
+                            tx_timer = dots(vals[1]) + f2len();
+                            active_call = vals[1];
+                            SendCall(vals[1]);
 
                             if (MainForm.dxcc != null && MainForm.dxcc.Visible)
                             {
@@ -1624,6 +1625,7 @@ namespace CWExpert
                             cqcqcq();
                             call_sent = "";
                             active_call = "";
+                            call = "";
                             MainForm.Invoke(new CrossThreadSetText(MainForm.CommandCallback), "Clear text", 0, "");
                             Clear_channels();
                         }

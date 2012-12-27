@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Vojka SOFT")]
 [assembly: AssemblyProduct("CWExpert")]
-[assembly: AssemblyCopyright("Copyright © Vojka SOFT 2010")]
+[assembly: AssemblyCopyright("Copyright © Vojka SOFT 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

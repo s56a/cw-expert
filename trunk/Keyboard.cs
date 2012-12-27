@@ -305,6 +305,7 @@ namespace CWExpert
                 GetOptions();
                 SetWindowPos(this.Handle.ToInt32(), -1, this.Left, this.Top,
                         this.Width, this.Height, 0);  // on top others
+                SetupForm = new KeyboardSetup(this);
                 UpdateButtons();
             }
             catch (Exception ex)

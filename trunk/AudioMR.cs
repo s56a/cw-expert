@@ -296,9 +296,6 @@ namespace CWExpert
                 array_ptr = (Int64*)output;
                 float* out_l_ptr1 = (float*)array_ptr[1];
                 float* out_r_ptr1 = (float*)array_ptr[0];
-
-                ChangeInputVolume(in_l_ptr1, in_l_ptr1, buflen, input_level);
-                ChangeInputVolume(in_r_ptr1, in_r_ptr1, buflen, input_level);
                 array_ptr = (Int64*)input;
                 in_l_ptr1 = (float*)array_ptr[0];
                 in_r_ptr1 = (float*)array_ptr[1];
@@ -753,7 +750,13 @@ namespace CWExpert
                                             {
                                                 Array.Copy(zero_bufferF, MainForm.cwDecoder.fft_buff_ch5, 2048);       // mute
                                                 MainForm.cwDecoder.AudioEvent1.Set();
+#if(WIN32)
                                                 array_ptr = (int*)output;
+#endif
+
+#if(WIN64)
+                                                array_ptr = (Int64*)output;
+#endif
                                                 out_l_ptr1 = (float*)array_ptr[1];
                                                 out_r_ptr1 = (float*)array_ptr[0];
                                                 buffer_ptr_A = 0;
@@ -785,7 +788,15 @@ namespace CWExpert
                                                     Array.Copy(zero_bufferF, MainForm.rtty.ch1_buffer, 2048);
                                                     Array.Copy(zero_bufferF, MainForm.rtty.ch2_buffer, 2048);
                                                     MainForm.rtty.AudioEventRX1.Set();
+
+#if(WIN32)
                                                     array_ptr = (int*)output;
+#endif
+
+#if(WIN64)
+                                                    array_ptr = (Int64*)output;
+#endif
+
                                                     out_l_ptr1 = (float*)array_ptr[1];
                                                     out_r_ptr1 = (float*)array_ptr[0];
                                                     buffer_ptr_A = 0;
@@ -823,7 +834,15 @@ namespace CWExpert
                                                 {
                                                     Array.Copy(zero_bufferF, MainForm.psk.ch1_buffer, 2048);    // mute
                                                     MainForm.psk.AudioEvent1.Set();
+
+#if(WIN32)
                                                     array_ptr = (int*)output;
+#endif
+
+#if(WIN64)
+                                                    array_ptr = (Int64*)output;
+#endif
+
                                                     out_l_ptr1 = (float*)array_ptr[1];
                                                     out_r_ptr1 = (float*)array_ptr[0];
                                                     buffer_ptr_A = 0;
@@ -876,7 +895,15 @@ namespace CWExpert
                                                 {
                                                     Array.Copy(zero_bufferF, MainForm.cwDecoder.fft_buff_ch6, 2048);    // mute
                                                     MainForm.cwDecoder.AudioEvent2.Set();
+
+#if(WIN32)
                                                     array_ptr = (int*)output;
+#endif
+
+#if(WIN64)
+                                                    array_ptr = (Int64*)output;
+#endif
+
                                                     out_l_ptr1 = (float*)array_ptr[1];
                                                     out_r_ptr1 = (float*)array_ptr[0];
                                                     buffer_ptr_B = 0;
@@ -909,7 +936,15 @@ namespace CWExpert
                                                         Array.Copy(zero_bufferF, MainForm.rtty.ch3_buffer, 2048);
                                                         Array.Copy(zero_bufferF, MainForm.rtty.ch4_buffer, 2048);
                                                         MainForm.rtty.AudioEventRX2.Set();
+
+#if(WIN32)
                                                         array_ptr = (int*)output;
+#endif
+
+#if(WIN64)
+                                                        array_ptr = (Int64*)output;
+#endif
+
                                                         out_l_ptr1 = (float*)array_ptr[1];
                                                         out_r_ptr1 = (float*)array_ptr[0];
                                                         buffer_ptr_B = 0;
@@ -965,7 +1000,15 @@ namespace CWExpert
                                                     {
                                                         Array.Copy(zero_bufferF, MainForm.psk.ch2_buffer, 2048);    // mute
                                                         MainForm.psk.AudioEvent2.Set();
+
+#if(WIN32)
                                                         array_ptr = (int*)output;
+#endif
+
+#if(WIN64)
+                                                        array_ptr = (Int64*)output;
+#endif
+
                                                         out_l_ptr1 = (float*)array_ptr[1];
                                                         out_r_ptr1 = (float*)array_ptr[0];
                                                         buffer_ptr_B = 0;
@@ -1320,11 +1363,15 @@ namespace CWExpert
 #endif
 
 #if(WIN64)
-                    array_ptr = (Int64*)input;
-                    in_l_ptr1 = (float*)array_ptr[0];
-                    in_r_ptr1 = (float*)array_ptr[1];
+                    Int64* array_ptr = (Int64*)input;
+                    float* in_ptr_l = (float*)array_ptr[0];
+                    float* in_ptr_r = (float*)array_ptr[1];
                     ushort[] buffer_l = new ushort[buflen];
                     ushort[] buffer_r = new ushort[buflen];
+
+                    Int64* out_array_ptr = (Int64*)output;
+                    float* out_l_ptr1 = (float*)out_array_ptr[0];
+                    float* out_r_ptr1 = (float*)out_array_ptr[1];
 #endif
                     fixed (float* output_l = &tmp_buffer_ch1[0])
                     fixed (float* output_r = &tmp_buffer_ch2[0])
@@ -1428,9 +1475,6 @@ namespace CWExpert
                 Int64* array_ptr = (Int64*)input;
                 float* in_l_ptr1 = (float*)array_ptr[0];
                 float* in_r_ptr1 = (float*)array_ptr[1];
-
-                ChangeInputVolume(in_l_ptr1, in_l_ptr1, buflen, input_level);
-                ChangeInputVolume(in_r_ptr1, in_r_ptr1, buflen, input_level);
                 array_ptr = (Int64*)input;
                 in_l_ptr1 = (float*)array_ptr[0];
                 in_r_ptr1 = (float*)array_ptr[1];
@@ -1907,9 +1951,6 @@ namespace CWExpert
                 array_ptr = (Int64*)output;
                 float* out_l_ptr1 = (float*)array_ptr[1];
                 float* out_r_ptr1 = (float*)array_ptr[0];
-
-                ChangeInputVolume(in_l_ptr1, in_l_ptr1, buflen, input_level);
-                ChangeInputVolume(in_r_ptr1, in_r_ptr1, buflen, input_level);
                 array_ptr = (Int64*)input;
                 in_l_ptr1 = (float*)array_ptr[0];
                 in_r_ptr1 = (float*)array_ptr[1];
