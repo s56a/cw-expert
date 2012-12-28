@@ -1171,6 +1171,8 @@ namespace CWExpert
                         }
                     }
                 }
+
+                return parts[0];
             }
             else
             {

@@ -1,7 +1,7 @@
 //=================================================================
 // CWDecoder.cs
 //=================================================================
-// Copyright (C) 2011 S56A YT7PWR
+// Copyright (C) 2011--2012 S56A YT7PWR
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -145,6 +145,8 @@ namespace CWExpert
         public int freq = 0;
         public float[] audio_buffer;
         string active_call = "";
+        int tick;
+        int exch_repeate;
 
         #endregion
 
@@ -236,6 +238,7 @@ namespace CWExpert
                     frame_segment = 16 * (96000 / Audio.SampleRate);
                     FFTlen = 64;
                     ctr[5] = 0;
+                    tick = 0;
                     ctr[6] = 0;
                     F2L = 2 * FFTlen;
                     output = new string[16384];
@@ -1254,11 +1257,12 @@ namespace CWExpert
                 if (tx_timer > 0 && !transmit)
                 {
                     txctr = ctr[5] + tx_timer;
+                    tick = tx_timer;
                     transmit = true;
                     MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "TX ON", "");
-                    Debug.Write("tranmit = true \n");
+                    Debug.Write("tranmit = true " + tick.ToString() + "\n");
                 }
-                else if (transmit && ctr[5] > txctr) // && prag[moni] < 2 * Noise[moni])
+                else if (transmit && tick == 0) // ctr[5] > txctr) // && prag[moni] < 2 * Noise[moni])
                 {
                     for (int n = bwl; n <= bwh; n++)
                     {
@@ -1270,12 +1274,17 @@ namespace CWExpert
                         prag[n] = Noise[n];
                     }
 
-                    Debug.WriteLine(" RX " + activech);
+                    //Debug.WriteLine(" RX " + activech);
                     tx_timer = 0;
                     txctr = ctr[5];
                     transmit = false;
                     MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "TX OFF", "");
                     Debug.Write("tranmit = false \n");
+                }
+                else if (transmit)
+                {
+                    tick--;
+                    Debug.Write("tick: " + tick.ToString() + "\n");
                 }
             }
 
@@ -1289,7 +1298,7 @@ namespace CWExpert
         {
             tx_timer = dots("CQ ") + dots(mycall) + dots(" TEST");
             MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F1", "");
-            Debug.Write(" CQ " + tx_timer.ToString());
+            //Debug.Write(" CQ " + tx_timer.ToString());
             rip = false;
             activech = 0;
             qso = false;
@@ -1527,50 +1536,24 @@ namespace CWExpert
                 bool any_call = CallAvail();
                 bool report_rcvd = RprtAvail();
 
-                if (nr_agn)
+                if (qso && nr_agn)
                 {
                     nr_agn = false;
-                    tx_timer = f2len();
                     SendReport();
                 }
 
                 if (any_call)
                 {
-                    tx_timer = dots(call);
-
                     string result = "";
                     string[] vals;
 
-                    if (!qso && MainForm.dxcc.Analyze(call, out result))
+                    if (qso && MainForm.dxcc.Analyze(call, out result) && active_call != call)
                     {
-                        //Clear_channels();
-                        vals = result.Split(' ');
-                        qso = true;
-                        tx_timer = dots(vals[1]) + f2len();
-                        active_call = vals[1];
-                        SendCall(vals[1]);
-
-                        if (MainForm.dxcc != null && MainForm.dxcc.Visible)
-                        {
-                            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "DXCC text", result);
-                        }
-                    }
-                    /*else if (!qso && !report_rcvd)
-                    {
-                        SendExch();
-                        qso = true;
-                    }
-                    else*/ if (qso && report_rcvd)
-                    {
-                        tx_timer += dots("TU");
-                        qso = false;
-                    }
-                    else if (qso && MainForm.dxcc.Analyze(call, out result) && active_call != call)
-                    {
-                        //Clear_channels();
                         vals = result.Split(' ');
 
-                        if (active_call.StartsWith(vals[1]) || vals[1].Contains(active_call) || active_call.Contains(vals[1]) ||
+                        if (active_call.Substring(0, 3) == vals[1].Substring(0,3) || active_call.Substring(active_call.Length -3, 3) ==
+                            vals[1].Substring(vals[1].Length -3, 3) || active_call.Substring(0, 2) == vals[1].Substring(0,2) ||
+                            active_call.StartsWith(vals[1]) || vals[1].Contains(active_call) || active_call.Contains(vals[1]) ||
                             active_call.Contains(call.Remove(0, 1)) || active_call.Contains(call.Remove(call.Length - 1, 1)))
                         {
                             tx_timer = dots(vals[1]) + f2len();
@@ -1582,6 +1565,28 @@ namespace CWExpert
                                 MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "DXCC text", result);
                             }
                         }
+                    }
+                    else if (!qso && MainForm.dxcc.Analyze(call, out result))
+                    {
+                        vals = result.Split(' ');
+                        qso = true;
+                        tx_timer = dots(vals[1]) + f2len();
+                        active_call = vals[1];
+                        SendCall(vals[1]);
+
+                        if (MainForm.dxcc != null && MainForm.dxcc.Visible)
+                        {
+                            MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "DXCC text", result);
+                        }
+                    }
+                    else if (qso && !report_rcvd)
+                    {
+                        SendExch();
+                    }
+                    else if (qso && report_rcvd)
+                    {
+                        tx_timer = dots("TU");
+                        qso = false;
                     }
                 }
                 else if (report_rcvd)
@@ -1604,7 +1609,8 @@ namespace CWExpert
                         ClearMR();
                     }
                 }
-                else if ((ctr[5] - txctr > ponovi) && Silence())
+
+                if ((ctr[5] - txctr > ponovi) && Silence())
                 {
                     txctr = ctr[5];
 
@@ -1613,6 +1619,17 @@ namespace CWExpert
                         tx_timer = dots("?");
                         SendQuest();
                         rip = false;
+                    }
+                    else if (qso && !report_rcvd && exch_repeate < 2)
+                    {
+                        SendExch();
+                        exch_repeate++;
+
+                        if (exch_repeate == 2)
+                        {
+                            exch_repeate = 0;
+                            qso = false;
+                        }
                     }
                     else
                     {
@@ -1679,6 +1696,7 @@ namespace CWExpert
 
         public void SendReport()
         {
+            tx_timer = f2len();
             MainForm.Invoke(new CrossThreadCallback(MainForm.CrossThreadCommand), "Send F2", "");
             Debug.Write(" Rprt " + tx_timer.ToString());
             Debug.Write("Send RPT! \n");
